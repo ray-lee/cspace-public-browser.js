@@ -1,0 +1,35 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": [
+          "last 2 Chrome versions",
+          "last 2 Firefox versions",
+          "last 2 Safari versions",
+          "last 2 Edge versions",
+          "last 2 iOS versions",
+          "last 2 ChromeAndroid versions"
+        ]
+      }
+    }],
+    "react"
+  ],
+  "plugins": [
+    "dev-expression",
+    ["transform-object-rest-spread", { "useBuiltIns": true }],
+    ["react-intl", { "messagesDir": "./build/messages/" }]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        [
+          "istanbul", {
+            "include": [
+              "src/**/*.(js|jsx)"
+            ]
+          }
+        ]
+      ]
+    }
+  }
+}

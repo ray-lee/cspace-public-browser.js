@@ -1,0 +1,25 @@
+<!--
+  index.html
+
+  This page is used to run the CollectionSpace public browser using a local development server.
+
+  Use the command: npm run devserver
+  Then open a browser to: http://localhost:8081
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!--
+    webpack dev server generates a JS bundle into memory, and updates it as files are edited.
+    This bundle is served from the URL /cspacePublicBrowser.js, but it does not exist in the
+    filesystem.
+  -->
+  <script src="/cspacePublicBrowser.js"></script>
+</head>
+<body>
+  <div id="cspace-browser"></div>
+  <script>
+    cspacePublicBrowser();
+  </script>
+</body>
+</html>

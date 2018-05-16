@@ -7,28 +7,72 @@ import {
   DataSearch,
   MultiList,
   ResultCard,
+  ResultList,
   SelectedFilters,
 } from '@appbaseio/reactivesearch';
+
+import {
+  ReactiveMap,
+} from '@appbaseio/reactivemaps';
+
+const gatewayUrl = 'http://localhost:8181';
 
 export default class App extends Component {
   constructor() {
     super();
 
+    this.handleCardViewButtonClick = this.handleCardViewButtonClick.bind(this);
+    this.handleListViewButtonClick = this.handleListViewButtonClick.bind(this);
+    this.handleMapViewButtonClick = this.handleMapViewButtonClick.bind(this);
     this.handleData = this.handleData.bind(this);
+
+    this.state = {
+      view: 'card',
+    };
+  }
+
+  handleCardViewButtonClick(event) {
+    this.setState({
+      view: 'card',
+    });
+  }
+
+  handleListViewButtonClick(event) {
+    this.setState({
+      view: 'list',
+    });
+  }
+
+  handleMapViewButtonClick(event) {
+    this.setState({
+      view: 'map',
+    });
   }
 
   handleData(result) {
     const objectNumber = result['collectionobjects_common:objectNumber'];
     const title = get(result, ['collectionobjects_common:titleGroupList', 0, 'title']);
-    const artist = getDisplayName(get(result, ['collectionobjects_publicart:publicartProductionPersonGroupList', 0, 'publicartProductionPerson']));
+
+    const personGroups = get(result, 'collectionobjects_publicart:publicartProductionPersonGroupList');
+
+    const artistNames =
+      personGroups &&
+      personGroups
+        .map(personGroup => personGroup.publicartProductionPerson)
+        .filter(refName => !!refName)
+        .map(refName => getDisplayName(refName))
+        .join(', ');
+
     const date = get(result, ['collectionobjects_publicart:publicartProductionDateGroupList', 0, 'publicartProductionDate', 'dateDisplayDate']);
+    const blobCsid = get(result, 'collectionspace_denorm:blobCsid');
+    const imageUrl = blobCsid ? `${gatewayUrl}/cspace-services/blobs/${blobCsid}/derivatives/Medium/content` : undefined;
 
     return {
-      // image: 'http://www.asfera.info/files/images/1_aprela/4/deloreyn.jpg',
+      image: imageUrl,
       title,
       description: (
         <div>
-          <div>{artist}</div>
+          <div>{artistNames}</div>
           <div>{date}</div>
           <div>{objectNumber}</div>
         </div>
@@ -36,13 +80,60 @@ export default class App extends Component {
     }
   }
 
-  render(props) {
+  render() {
+    const {
+      view,
+    } = this.state;
+
+    let resultView;
+
+    if (view === 'card') {
+      resultView = (
+        <ResultCard
+          componentId="results"
+          dataField="collectionobjects_common:titleGroupList.title"
+          pagination={true}
+          react={{
+            and: ['searchBox', 'collectionFacet', 'artistFacet', 'yearFacet', 'placementFacet', 'typeFacet', 'materialFacet']
+          }}
+          onData={this.handleData}
+        />
+      );
+    } else if (view === 'list') {
+      resultView = (
+        <ResultList
+          componentId="results"
+          dataField="collectionobjects_common:titleGroupList.title"
+          pagination={true}
+          react={{
+            and: ['searchBox', 'collectionFacet', 'artistFacet', 'yearFacet', 'placementFacet', 'typeFacet', 'materialFacet']
+          }}
+          onData={this.handleData}
+        />
+      );
+    } else if (view === 'map') {
+      resultView = (
+        <ReactiveMap
+          autoCenter={true}
+          componentId="map"
+          dataField="collectionspace_denorm:geoPoint"
+          defaultCenter={{ lat: 39.83, lng: -98.58 }}
+          defaultZoom={4}
+          title="Map"
+          react={{
+            and: ['searchBox', 'collectionFacet', 'artistFacet', 'yearFacet', 'placementFacet', 'typeFacet', 'materialFacet']
+          }}
+        />
+      );
+    }
+
     return (
       <ReactiveBase
         app="publicart"
         type="doc"
         credentials=""
-        url="http://localhost:8181/es"
+        url={`${gatewayUrl}/es`}
+        mapKey=""
       >
         <DataSearch
           componentId="searchBox"
@@ -60,7 +151,7 @@ export default class App extends Component {
               title="Collection"
               placeholder="Filter"
               react={{
-                and: ['searchBox', 'artistFacet', 'yearFacet', 'typeFacet', 'materialFacet']
+                and: ['searchBox', 'artistFacet', 'yearFacet', 'placementFacet', 'typeFacet', 'materialFacet']
               }}
             />
             <MultiList
@@ -70,7 +161,7 @@ export default class App extends Component {
               title="Artist"
               placeholder="Filter"
               react={{
-                and: ['searchBox', 'collectionFacet', 'yearFacet', 'typeFacet', 'materialFacet'],
+                and: ['searchBox', 'collectionFacet', 'yearFacet', 'placementFacet', 'typeFacet', 'materialFacet'],
               }}
             />
             {/* TODO: Could use RangeSlider/DynamicRangeSlider to show a histogram if we use a newer version of ES. */}
@@ -81,7 +172,17 @@ export default class App extends Component {
               title="Year"
               placeholder="Filter"
               react={{
-                and: ['searchBox', 'collectionFacet', 'artistFacet', 'typeFacet', 'materialFacet']
+                and: ['searchBox', 'collectionFacet', 'artistFacet', 'placementFacet', 'typeFacet', 'materialFacet']
+              }}
+            />
+            <MultiList
+              componentId="placementFacet"
+              dataField="collectionspace_denorm:placementType"
+              filterLabel="Placement"
+              title="Placement"
+              placeholder="Filter"
+              react={{
+                and: ['searchBox', 'collectionFacet', 'artistFacet', 'yearFacet', 'typeFacet', 'materialFacet']
               }}
             />
             <MultiList
@@ -91,7 +192,7 @@ export default class App extends Component {
               title="Artwork Type"
               placeholder="Filter"
               react={{
-                and: ['searchBox', 'collectionFacet', 'artistFacet', 'yearFacet', 'materialFacet'],
+                and: ['searchBox', 'collectionFacet', 'artistFacet', 'yearFacet', 'placementFacet', 'materialFacet'],
               }}
             />
             <MultiList
@@ -101,21 +202,19 @@ export default class App extends Component {
               title="Material"
               placeholder="Filter"
               react={{
-                and: ['searchBox', 'collectionFacet', 'artistFacet', 'yearFacet', 'typeFacet']
+                and: ['searchBox', 'collectionFacet', 'artistFacet', 'yearFacet', 'placementFacet', 'typeFacet']
               }}
             />
           </div>
           <div style={{ flex: '1 1 75%' }}>
+            <p style={{ textAlign: 'right' }}>
+              View:
+              <button onClick={this.handleListViewButtonClick}>list</button>
+              <button onClick={this.handleCardViewButtonClick}>tile</button>
+              <button onClick={this.handleMapViewButtonClick}>map</button>
+            </p>
             <SelectedFilters />
-            <ResultCard
-              componentId="results"
-              dataField="_all"
-              pagination={true}
-              react={{
-                and: ['searchBox', 'collectionFacet', 'artistFacet', 'yearFacet', 'typeFacet', 'materialFacet']
-              }}
-              onData={this.handleData}
-            />
+            {resultView}
           </div>
         </div>
       </ReactiveBase>

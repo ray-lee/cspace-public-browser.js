@@ -39,6 +39,10 @@
   },
   "dependencies": {
     "@appbaseio/reactivesearch": "^2.5.1",
+    "@appbaseio/reactivemaps": "^2.0.0-alpha-07",
+    "@types/googlemaps": "^3.0.0",
+    "@types/markerclustererplus": "^2.1.29",
+    "@types/react": "^16.0.0",
     "cspace-refname": "^1.0.0-rc.1",
     "history": "4.7.2",
     "immutable": "^3.8.2",

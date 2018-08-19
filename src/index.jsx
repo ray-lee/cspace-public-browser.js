@@ -19,5 +19,5 @@ module.exports = (browserConfig) => {
   warning(mountNode,
     `No container element was found using the selector '${container}'. The CollectionSpace browser will not be rendered.`);
 
-  render(<App />, mountNode);
+  render(<App config={config} />, mountNode);
 };

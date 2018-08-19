@@ -15,8 +15,6 @@ import {
   ReactiveMap,
 } from '@appbaseio/reactivemaps';
 
-const gatewayUrl = 'http://localhost:8181';
-
 export default class App extends Component {
   constructor() {
     super();
@@ -50,6 +48,10 @@ export default class App extends Component {
   }
 
   handleData(result) {
+    const {
+      gatewayUrl,
+    } = this.props.config;
+
     const objectNumber = result['collectionobjects_common:objectNumber'];
     const title = get(result, ['collectionobjects_common:titleGroupList', 0, 'title']);
 
@@ -65,7 +67,17 @@ export default class App extends Component {
 
     const date = get(result, ['collectionobjects_publicart:publicartProductionDateGroupList', 0, 'publicartProductionDate', 'dateDisplayDate']);
     const blobCsid = get(result, 'collectionspace_denorm:blobCsid');
-    const imageUrl = blobCsid ? `${gatewayUrl}/cspace-services/blobs/${blobCsid}/derivatives/Medium/content` : undefined;
+
+    // HACK: Should be able to use ecm:repository or tenantId to determine the cspace instance for real.
+
+    let imageUrl;
+
+    if (blobCsid) {
+      const createdAt = get(result, 'collectionspace_core:createdAt');
+      const instance = createdAt && createdAt > '2018-05-21' ? 'ny' : 'ca';
+
+      imageUrl = `${gatewayUrl}/cspace-services-${instance}/blobs/${blobCsid}/derivatives/Medium/content`;
+    }
 
     return {
       image: imageUrl,
@@ -81,6 +93,11 @@ export default class App extends Component {
   }
 
   render() {
+    const {
+      esIndexName,
+      gatewayUrl,
+    } = this.props.config;
+
     const {
       view,
     } = this.state;
@@ -129,7 +146,7 @@ export default class App extends Component {
 
     return (
       <ReactiveBase
-        app="publicart"
+        app={esIndexName}
         type="doc"
         credentials=""
         url={`${gatewayUrl}/es`}

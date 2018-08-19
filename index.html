@@ -20,7 +20,10 @@
 <body>
   <div id="cspace-browser"></div>
   <script>
-    cspacePublicBrowser();
+    cspacePublicBrowser({
+      esIndexName: 'publicart',
+      gatewayUrl: 'http://localhost:8181',
+    });
   </script>
 </body>
 </html>

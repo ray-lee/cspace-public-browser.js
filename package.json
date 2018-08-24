@@ -38,7 +38,7 @@
     "test-selenium": "wdio wdio.conf.js"
   },
   "dependencies": {
-    "@appbaseio/reactivesearch": "^2.5.1",
+    "@appbaseio/reactivesearch": "^2.7.0",
     "@appbaseio/reactivemaps": "^2.0.0-alpha-07",
     "@types/googlemaps": "^3.0.0",
     "@types/markerclustererplus": "^2.1.29",
@@ -84,7 +84,7 @@
     "file-loader": "^1.1.11",
     "glob": "^7.1.2",
     "jsonfile": "^4.0.0",
-    "karma": "^2.0.0",
+    "karma": "^2.0.5",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
@@ -95,7 +95,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
     "loglevel": "^1.6.1",
-    "mocha": "^5.1.0",
+    "mocha": "^5.2.0",
     "moxios": "^0.4.0",
     "nyc": "^11.5.0",
     "react-shallow-testutils": "^3.0.1",

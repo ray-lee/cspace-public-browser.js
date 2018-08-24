@@ -1,0 +1,15 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.common {
+  position: fixed;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.common p {
+  margin: 10px 0;
+}

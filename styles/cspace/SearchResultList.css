@@ -1,0 +1,32 @@
+.common {
+  display: flex;
+  flex-direction: column;
+}
+
+.common :global(.cspace-SearchResultListBody) {
+  margin: 0;
+  /* border-top: 1px solid rgba(200, 200, 200, .3); */
+  padding: 8px 0;
+  overflow: scroll;
+}
+
+.common :global(.cspace-SearchResultListResultsInfo) {
+  justify-content: space-between;
+  flex: 0 0 auto;
+  margin-bottom: 10px;
+}
+
+.common :global(.cspace-SearchResultListSortOptions) {
+  font-size: .85rem;
+}
+
+.common :global(.cspace-SearchResultListItem) {
+  min-width: 210px;
+  max-width: 210px;
+  height: 310px;
+}
+
+.common :global(.cspace-SearchResultListImage) {
+  background-size: cover;
+  height: 210px;
+}

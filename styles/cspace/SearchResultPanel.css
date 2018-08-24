@@ -1,0 +1,6 @@
+.common {
+  flex: 1 1 75%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}

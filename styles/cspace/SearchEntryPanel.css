@@ -1,3 +1,17 @@
+@value inputBg, inputBorder from '../colors.css';
+
 .common {
-  margin: 10px;
+  grid-area: entry;
+  position: sticky;
+  top: 0px;
+  border-bottom: 1px solid inputBorder;
+  padding: 0 10px;
+  z-index: 1;
+  box-shadow: 0 0 9px 3px rgba(160, 160, 160, .3);
+}
+
+.common :global(.cspace-SearchEntryPanelInput) {
+  border: none;
+  background-color: inputBg;
+  font-size: 1rem;
 }

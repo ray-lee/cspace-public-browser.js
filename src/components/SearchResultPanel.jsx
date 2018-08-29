@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { SelectedFilters } from '@appbaseio/reactivesearch';
 import SearchResultList from './SearchResultList';
@@ -19,30 +19,55 @@ const defaultProps = {
   types: {},
 };
 
-export default function SearchResultPanel(props) {
-  const {
-    defaultQuery,
-    filters,
-    gatewayUrl,
-    sortField,
-    types,
-  } = props;
+export default class SearchResultPanel extends Component {
+  constructor() {
+    super();
 
-  return (
-    <div className={styles.common}>
-      {/* <ViewPicker view={view} /> */}
-      <SelectedFilters />
+    this.handleRef = this.handleRef.bind(this);
 
-      <SearchResultList
-        componentId="results"
-        defaultQuery={() => defaultQuery}
-        filters={filters}
-        gatewayUrl={gatewayUrl}
-        sortField={sortField}
-        types={types}
-      />
-    </div>
-  )
+    this.state = {
+      scrollTarget: undefined,
+    };
+  }
+
+  handleRef(ref) {
+    this.setState({
+      scrollTarget: ref,
+    });
+  }
+
+  render() {
+    const {
+      defaultQuery,
+      filters,
+      gatewayUrl,
+      sortField,
+      types,
+    } = this.props;
+
+    return (
+      <div className={styles.common} ref={this.handleRef}>
+        {/* <ViewPicker view={view} /> */}
+
+        <SelectedFilters
+          className='cspace-SearchResultListSelectedFilters'
+          innerClass={{
+            button: 'cspace-SearchResultListSelectedFiltersButton',
+          }}
+        />
+
+        <SearchResultList
+          componentId="results"
+          defaultQuery={() => defaultQuery}
+          filters={filters}
+          gatewayUrl={gatewayUrl}
+          scrollTarget={this.state.scrollTarget}
+          sortField={sortField}
+          types={types}
+        />
+      </div>
+    )
+  }
 }
 
 SearchResultPanel.propTypes = propTypes;

@@ -1,6 +1,21 @@
 .common {
-  flex: 1 1 75%;
+  grid-area: result;
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
+  overflow: auto;
+  background-color: inherit;
+  padding: 0 10px;
 }
+
+.common :global(.cspace-SearchResultListSelectedFilters) {
+  margin: 0;
+}
+
+.common :global(.cspace-SearchResultListSelectedFilters) :global(.cspace-SearchResultListSelectedFiltersButton) {
+  margin: 2px;
+}
+
+.common :global(.cspace-SearchResultListSelectedFilters) :global(.cspace-SearchResultListSelectedFiltersButton):first-of-type {
+  margin-top: 10px;
+}
+

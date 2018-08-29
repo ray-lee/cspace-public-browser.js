@@ -1,23 +1,29 @@
 .common {
   display: flex;
   flex-direction: column;
+  background-color: inherit;
 }
 
-.common :global(.cspace-SearchResultListBody) {
-  margin: 0;
-  /* border-top: 1px solid rgba(200, 200, 200, .3); */
-  padding: 8px 0;
-  overflow: scroll;
+.common > p {
+  /* No results */
+  padding-top: 26px;
+  text-align: center;
 }
 
 .common :global(.cspace-SearchResultListResultsInfo) {
   justify-content: space-between;
   flex: 0 0 auto;
-  margin-bottom: 10px;
+  background-color: inherit;
 }
 
 .common :global(.cspace-SearchResultListSortOptions) {
   font-size: .85rem;
+  margin: 8px 2px;
+}
+
+.common :global(.cspace-SearchResultListBody) {
+  margin: 0;
+  padding-top: 6px;
 }
 
 .common :global(.cspace-SearchResultListItem) {
@@ -29,4 +35,8 @@
 .common :global(.cspace-SearchResultListImage) {
   background-size: cover;
   height: 210px;
+}
+
+.common :global(.cspace-SearchResultListTitle) {
+  white-space: normal;
 }

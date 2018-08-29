@@ -47,7 +47,7 @@ const renderResultStats = (total) => {
   );
 };
 
-const noResults = renderResultStats(0);
+const noResults = <FormattedMessage {...messages.noResults} />;
 
 export default class SearchResultPanel extends Component {
   constructor() {
@@ -160,6 +160,7 @@ export default class SearchResultPanel extends Component {
           image: 'cspace-SearchResultListImage',
           resultsInfo: 'cspace-SearchResultListResultsInfo',
           sortOptions: 'cspace-SearchResultListSortOptions',
+          title: 'cspace-SearchResultListTitle',
         }}
         react={{ and: this.getSensorIds() }}
         sortOptions={this.getSortOptions()}

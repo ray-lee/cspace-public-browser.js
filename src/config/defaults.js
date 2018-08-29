@@ -62,17 +62,23 @@ export default {
 
       //   return (commercialName || commonName);
       // },
-      description: data =>
-        joinFields({
-          data,
-          separator: ' › ', //→›·
-          paths: [
-            ['materials_common:materialCompositionGroupList', 0, 'materialCompositionFamilyName'],
-            ['materials_common:materialCompositionGroupList', 0, 'materialCompositionClassName'],
-            ['materials_common:materialCompositionGroupList', 0, 'materialCompositionGenericName'],
-          ],
-          formatters: Array(3).fill(getDisplayName),
-        }),
+      // description: data =>
+      //   joinFields({
+      //     data,
+      //     separator: ' › ', //→›·
+      //     paths: [
+      //       ['materials_common:materialCompositionGroupList', 0, 'materialCompositionFamilyName'],
+      //       ['materials_common:materialCompositionGroupList', 0, 'materialCompositionClassName'],
+      //       ['materials_common:materialCompositionGroupList', 0, 'materialCompositionGenericName'],
+      //     ],
+      //     formatters: Array(3).fill(getDisplayName),
+      //   }),
+      description: data => findFirstValue({
+        data,
+        inPath: ['materials_common:materialTermGroupList'],
+        test: value => value.termFlag && value.termFlag.includes('(common)'),
+        appendPath: ['termDisplayName'],
+      }),
     },
   },
 
@@ -80,17 +86,20 @@ export default {
     {
       id: 'materialCompositionFamilyName',
       field: 'materials_common:materialCompositionGroupList.materialCompositionFamilyName.displayName',
-      title: 'Composition - Family',
+      filterLabel: 'Family',
+      title: 'Composition: Family name',
     },
     {
       id: 'materialCompositionClassName',
       field: 'materials_common:materialCompositionGroupList.materialCompositionClassName.displayName',
-      title: 'Composition - Class',
+      filterLabel: 'Class',
+      title: 'Composition: Class name',
     },
     {
       id: 'genmaterialCompositionGenericName',
       field: 'materials_common:materialCompositionGroupList.materialCompositionGenericName.displayName',
-      title: 'Composition - Generic',
+      filterLabel: 'Generic',
+      title: 'Composition: Generic name',
     },
     {
       id: 'typicalUses',
@@ -125,41 +134,49 @@ export default {
     {
       id: 'acousticalPropertyType',
       field: 'materials_common:acousticalPropertyGroupList.acousticalPropertyType.displayName',
+      filterLabel: 'Acoustical',
       title: 'Acoustical property',
     },
     {
       id: 'durabilityPropertyType',
       field: 'materials_common:durabilityPropertyGroupList.durabilityPropertyType.displayName',
+      filterLabel: 'Durability',
       title: 'Durability property',
     },
     {
       id: 'electricalPropertyType',
       field: 'materials_common:electricalPropertyGroupList.electricalPropertyType.displayName',
+      filterLabel: 'Electrical',
       title: 'Electrical property',
     },
     {
       id: 'hygrothermalPropertyType',
       field: 'materials_common:hygrothermalPropertyGroupList.hygrothermalPropertyType.displayName',
+      filterLabel: 'Hygrothermal',
       title: 'Hygrothermal property',
     },
     {
       id: 'mechanicalPropertyType',
       field: 'materials_common:mechanicalPropertyGroupList.mechanicalPropertyType.displayName',
+      filterLabel: 'Mechanical',
       title: 'Mechanical property',
     },
     {
       id: 'opticalPropertyType',
       field: 'materials_common:opticalPropertyGroupList.opticalPropertyType.displayName',
+      filterLabel: 'Optical',
       title: 'Optical property',
     },
     {
       id: 'sensorialPropertyType',
       field: 'materials_common:sensorialPropertyGroupList.sensorialPropertyType.displayName',
+      filterLabel: 'Sensorial',
       title: 'Sensorial property',
     },
     {
       id: 'smartMaterialPropertyType',
       field: 'materials_common:smartMaterialPropertyGroupList.smartMaterialPropertyType.displayName',
+      filterLabel: 'Smart material',
       title: 'Smart material property',
     },
     {
@@ -170,51 +187,61 @@ export default {
     {
       id: 'recycledContentQualifier',
       field: 'materials_common:recycledContentGroupList.recycledContentQualifier.displayName',
+      filterLabel: 'Recycled',
       title: 'Recycled content',
     },
     {
       id: 'lifecycleComponent',
       field: 'materials_common:lifecycleComponentGroupList.lifecycleComponent.displayName',
+      filterLabel: 'Lifecycle',
       title: 'Lifecycle component',
     },
     {
       id: 'certificationProgram',
       field: 'materials_common:certificationCreditGroupList.certificationProgram.displayName',
+      filterLabel: 'Certification',
       title: 'Certification program',
     },
     {
       id: 'castingProcesses',
       field: 'materials_common:castingProcesses.displayName',
+      filterLabel: 'Casting',
       title: 'Casting process',
     },
     {
       id: 'joiningProcesses',
       field: 'materials_common:joiningProcesses.displayName',
+      filterLabel: 'Joining',
       title: 'Joining process',
     },
     {
       id: 'moldingProcesses',
       field: 'materials_common:moldingProcesses.displayName',
+      filterLabel: 'Molding',
       title: 'Molding process',
     },
     {
       id: 'surfacingProcesses',
       field: 'materials_common:surfacingProcesses.displayName',
+      filterLabel: 'Surfacing',
       title: 'Surfacing process',
     },
     {
       id: 'deformingProcesses',
       field: 'materials_common:deformingProcesses.displayName',
+      filterLabel: 'Deforming',
       title: 'Deforming process',
     },
     {
       id: 'machiningProcesses',
       field: 'materials_common:machiningProcesses.displayName',
+      filterLabel: 'Machining',
       title: 'Machining process',
     },
     {
       id: 'rapidPrototypingProcesses',
       field: 'materials_common:rapidPrototypingProcesses.displayName',
+      filterLabel: 'Rapid prototyping',
       title: 'Rapid prototyping process',
     },
     {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { ReactiveBase} from '@appbaseio/reactivesearch';
+import { ReactiveBase, SelectedFilters } from '@appbaseio/reactivesearch';
 import config from '../config';
-import FilteredSearchResultPanel from './FilteredSearchResultPanel';
+import FilterPanel from './FilterPanel';
 import SearchEntryPanel from './SearchEntryPanel';
+import SearchResultPanel from './SearchResultPanel';
 import styles from '../../styles/cspace/App.css';
 
 export default class App extends Component {
@@ -33,15 +34,16 @@ export default class App extends Component {
           colors: {
             textColor: '#424242',
             primaryTextColor: '#fff',
-            primaryColor: '#0B6AFF',
+            primaryColor: '#424242',
             titleColor: '#424242',
             alertColor: '#d9534f',
           },
         }}
       >
         <SearchEntryPanel />
+        <FilterPanel filters={filters} />
 
-        <FilteredSearchResultPanel
+        <SearchResultPanel
           defaultQuery={defaultQuery}
           filters={filters}
           gatewayUrl={gatewayUrl}

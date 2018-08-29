@@ -32,6 +32,7 @@ export default class FilterPanel extends Component {
       const {
         id,
         field,
+        filterLabel,
         title,
       } = filter;
 
@@ -40,7 +41,7 @@ export default class FilterPanel extends Component {
           className='cspace-FilterPanelBody'
           componentId={id}
           dataField={field}
-          filterLabel={title}
+          filterLabel={filterLabel || title}
           innerClass={{
             title: 'cspace-FilterPanelTitle',
             input: 'cspace-FilterPanelInput',

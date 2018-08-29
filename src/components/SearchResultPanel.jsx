@@ -23,17 +23,9 @@ export default class SearchResultPanel extends Component {
   constructor() {
     super();
 
-    this.handleRef = this.handleRef.bind(this);
-
     this.state = {
       scrollTarget: undefined,
     };
-  }
-
-  handleRef(ref) {
-    this.setState({
-      scrollTarget: ref,
-    });
   }
 
   render() {
@@ -46,9 +38,7 @@ export default class SearchResultPanel extends Component {
     } = this.props;
 
     return (
-      <div className={styles.common} ref={this.handleRef}>
-        {/* <ViewPicker view={view} /> */}
-
+      <div className={styles.common}>
         <SelectedFilters
           className='cspace-SearchResultListSelectedFilters'
           innerClass={{
@@ -61,7 +51,6 @@ export default class SearchResultPanel extends Component {
           defaultQuery={() => defaultQuery}
           filters={filters}
           gatewayUrl={gatewayUrl}
-          scrollTarget={this.state.scrollTarget}
           sortField={sortField}
           types={types}
         />

@@ -1,12 +1,15 @@
 @value inputBg, inputBorder from '../colors.css';
+@value searchInputHeight from '../dimensions.css';
 
 .common {
   grid-area: entry;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0px;
+  z-index: 1;
   border-bottom: 1px solid inputBorder;
   padding: 0 10px;
-  z-index: 1;
+  background-color: inherit;
   box-shadow: 0 0 9px 3px rgba(160, 160, 160, .3);
 }
 
@@ -14,4 +17,5 @@
   border: none;
   background-color: inputBg;
   font-size: 1rem;
+  height: searchInputHeight;
 }

@@ -1,7 +1,12 @@
 @value inputBg, inputBorder from '../colors.css';
+@value filterPanelWidth, searchInputHeight from '../dimensions.css';
 
 .common {
   grid-area: filter;
+  position: fixed;
+  padding-top: searchInputHeight;
+  height: 100%;
+  width: filterPanelWidth;
   overflow-y: auto;
   background-color: rgba(212, 212, 212, .2);
 }
@@ -23,13 +28,8 @@
   height: 28px;
   padding: 0 8px;
   border-color: inputBorder;
-  /* border: 3px solid inputBg; */
   background-color: inputBg;
 }
-
-/* .common :global(.cspace-FilterPanelInput):focus {
-  border-color: inputBorder;
-} */
 
 .common :global(.cspace-FilterPanelList) {
   padding: 0;

@@ -15,7 +15,7 @@ export default function FilterTitle(props) {
   const {
     isExpanded,
     title,
-    ...remainingProps,
+    ...remainingProps
   } = props;
 
   return (
@@ -25,7 +25,7 @@ export default function FilterTitle(props) {
     >
       <div>{title}</div>
     </button>
-  )
+  );
 }
 
 FilterTitle.propTypes = propTypes;

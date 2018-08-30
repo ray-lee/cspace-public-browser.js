@@ -39,13 +39,11 @@ const messages = defineMessages({
   },
 });
 
-const renderResultStats = (total) => {
-  return (
-    <div className={statsStyles.common}>
-      <FormattedMessage {...messages.resultStats} values={{ total }} />
-    </div>
-  );
-};
+const renderResultStats = total => (
+  <div className={statsStyles.common}>
+    <FormattedMessage {...messages.resultStats} values={{ total }} />
+  </div>
+);
 
 const noResults = <FormattedMessage {...messages.noResults} />;
 
@@ -102,8 +100,10 @@ export default class SearchResultPanel extends Component {
     const primaryType = get(result, 'ecm:primaryType');
     const type = get(types, primaryType);
 
-    warning(type,
-      `No data mapping is configured for the document type '${primaryType}'. The search result will not be rendered.`);
+    warning(
+      type,
+      `No data mapping is configured for the document type '${primaryType}'. The search result will not be rendered.`,
+    );
 
     if (!type) {
       return null;
@@ -114,11 +114,15 @@ export default class SearchResultPanel extends Component {
       description: descriptionMapping,
     } = type;
 
-    warning(titleMapping,
-      `No title mapping is configured for the document type '${primaryType}'. The title will not be rendered.`);
+    warning(
+      titleMapping,
+      `No title mapping is configured for the document type '${primaryType}'. The title will not be rendered.`,
+    );
 
-    warning(descriptionMapping,
-      `No description mapping is configured for the record type '${primaryType}'. The description will not be rendered.`);
+    warning(
+      descriptionMapping,
+      `No description mapping is configured for the record type '${primaryType}'. The description will not be rendered.`,
+    );
 
     const title = titleMapping && titleMapping(result);
 
@@ -127,7 +131,7 @@ export default class SearchResultPanel extends Component {
     if (Array.isArray(description)) {
       description = (
         <React.Fragment>
-          {description.map((line, index) => <div key={index}>{line}</div>)}
+          {description.map(line => <div key={line}>{line}</div>)}
         </React.Fragment>
       );
     }
@@ -142,7 +146,7 @@ export default class SearchResultPanel extends Component {
       title,
       description,
       image: imageUrl,
-    }
+    };
   }
 
   renderTileView(props) {
@@ -194,7 +198,7 @@ export default class SearchResultPanel extends Component {
   renderMapView(props) {
     return (
       <ReactiveMap
-        autoCenter={true}
+        autoCenter
         className={styles.common}
         dataField="collectionspace_denorm:geoPoint"
         defaultCenter={{ lat: 39.83, lng: -98.58 }}
@@ -211,7 +215,7 @@ export default class SearchResultPanel extends Component {
   render() {
     const {
       view,
-      ...remainingProps,
+      ...remainingProps
     } = this.props;
 
     switch (view) {
@@ -221,7 +225,7 @@ export default class SearchResultPanel extends Component {
       default: return null;
     }
   }
-};
+}
 
 SearchResultPanel.propTypes = propTypes;
 SearchResultPanel.defaultProps = defaultProps;

@@ -23,7 +23,7 @@ export default class FilterPanel extends Component {
 
     const filterIds = filters.map(filter => filter.id);
 
-    return filters.map(filter =>
+    return filters.map(filter => (
       <Filter
         {...filter}
         key={filter.id}
@@ -31,7 +31,7 @@ export default class FilterPanel extends Component {
           and: [searchEntryId, ...without(filterIds, filter.id)],
         }}
       />
-    );
+    ));
   }
 
   render() {

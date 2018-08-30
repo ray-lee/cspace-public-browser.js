@@ -19,7 +19,7 @@ export default (state = Immutable.Map(), action) => {
       return setFilterExpanded(state, action.meta.id, action.payload);
     case TOGGLE_FILTER:
       return setFilterExpanded(state, action.meta.id, !isFilterExpanded(state, action.meta.id));
-  default:
+    default:
       return state;
   }
 };

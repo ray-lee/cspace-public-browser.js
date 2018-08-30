@@ -27,7 +27,7 @@ export default function Filter(props) {
     isExpanded,
     title,
     toggleFilter,
-    ...remainingProps,
+    ...remainingProps
   } = props;
 
   return (

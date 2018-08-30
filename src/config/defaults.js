@@ -12,11 +12,11 @@ export default {
     // }
     term: {
       'ecm:primaryType': 'Materialitem',
-    }
+    },
   },
 
   sortField: 'collectionspace_denorm:title',
-  storageKey: 'mo', //'cspace-public-browser',
+  storageKey: 'mo', // 'cspace-public-browser',
 
   types: {
     CollectionObject: {
@@ -34,7 +34,7 @@ export default {
 
         return title
           .split('\n')
-          .map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>)
+          .map(line => <React.Fragment key={line}>{line}<br /></React.Fragment>);
       },
       // title: data => {
       //   const commercialName = findFirstValue({

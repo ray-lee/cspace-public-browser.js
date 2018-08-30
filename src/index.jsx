@@ -1,3 +1,5 @@
+/* global document, window */
+
 import React from 'react';
 import { render } from 'react-dom';
 import { IntlProvider } from 'react-intl';
@@ -16,8 +18,10 @@ module.exports = (customConfig) => {
   const container = config.get('container');
   const mountNode = document.querySelector(container);
 
-  warning(mountNode,
-    `No container element was found using the selector '${container}'. The CollectionSpace browser will not be rendered.`);
+  warning(
+    mountNode,
+    `No container element was found using the selector '${container}'. The CollectionSpace browser will not be rendered.`,
+  );
 
   if (!mountNode) {
     return;
@@ -34,5 +38,7 @@ module.exports = (customConfig) => {
       <StoreProvider store={store}>
         <App />
       </StoreProvider>
-    </IntlProvider>, mountNode);
+    </IntlProvider>,
+    mountNode,
+  );
 };

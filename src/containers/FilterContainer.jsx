@@ -1,10 +1,7 @@
 import { connect } from 'react-redux';
 import Filter from '../components/Filter';
 import { toggleFilter } from '../actions/prefs';
-
-import {
-  isFilterExpanded,
-} from '../reducers';
+import { isFilterExpanded } from '../reducers';
 
 const mapStateToProps = (state, ownProps) => ({
   isExpanded: isFilterExpanded(state, ownProps.id),
@@ -16,5 +13,5 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Filter);

@@ -1,6 +1,11 @@
 import get from 'lodash/get';
 
-export const findFirstPath = ({ data, inPath, test, appendPath}) => {
+export const findFirstPath = ({
+  data,
+  inPath,
+  test,
+  appendPath,
+}) => {
   const array = inPath ? get(data, inPath) : data;
 
   if (Array.isArray(array)) {
@@ -20,7 +25,13 @@ export const findFirstValue = (params) => {
   return (path ? get(params.data, path) : undefined);
 };
 
-export const joinFields = ({ data, prefix, separator, paths, formatters = [] }) => {
+export const joinFields = ({
+  data,
+  prefix,
+  separator,
+  paths,
+  formatters = [],
+}) => {
   const value = paths
     .map(path => get(data, path))
     .map((part, index) => (part && formatters[index] ? formatters[index](part) : part))
@@ -28,4 +39,4 @@ export const joinFields = ({ data, prefix, separator, paths, formatters = [] }) 
     .join(separator);
 
   return ((value && prefix) ? `${prefix}${value}` : value);
-}
+};

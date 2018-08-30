@@ -22,10 +22,6 @@ const defaultProps = {
 export default class SearchResultPanel extends Component {
   constructor() {
     super();
-
-    this.state = {
-      scrollTarget: undefined,
-    };
   }
 
   render() {
@@ -40,7 +36,7 @@ export default class SearchResultPanel extends Component {
     return (
       <div className={styles.common}>
         <SelectedFilters
-          className='cspace-SearchResultListSelectedFilters'
+          className="cspace-SearchResultListSelectedFilters"
           innerClass={{
             button: 'cspace-SearchResultListSelectedFiltersButton',
           }}
@@ -55,7 +51,7 @@ export default class SearchResultPanel extends Component {
           types={types}
         />
       </div>
-    )
+    );
   }
 }
 

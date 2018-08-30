@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { LIST, MAP, TILE } from '../constants/viewTypes';
 
 const propTypes = {
-  view: PropTypes.string,
-  onViewChange: PropTypes.func,
+  // view: PropTypes.string,
+  onViewChange: PropTypes.func.isRequired,
 };
 
 export default class ViewPicker extends Component {

@@ -1,3 +1,5 @@
+/* global window */
+
 import Immutable from 'immutable';
 
 import {
@@ -12,30 +14,7 @@ import { getPrefs } from '../reducers';
 // Username to use for pref storage when user is not logged in
 const anonymousUsername = '*';
 
-export const expandFilter = (id, expanded = true) => dispatch => {
-  dispatch({
-    type: EXPAND_FILTER,
-    payload: expanded,
-    meta: {
-      id,
-    },
-  });
-
-  dispatch(savePrefs());
-};
-
-export const toggleFilter = id => dispatch => {
-  dispatch({
-    type: TOGGLE_FILTER,
-    meta: {
-      id,
-    },
-  });
-
-  dispatch(savePrefs());
-};
-
-export const loadPrefs = () => dispatch => {
+export const loadPrefs = () => (dispatch) => {
   const username = anonymousUsername;
   const storageKey = config.get('storageKey');
 
@@ -90,4 +69,27 @@ export const savePrefs = () => (dispatch, getState) => {
 
     window.localStorage.setItem(storageKey, JSON.stringify(prefs));
   }
+};
+
+export const expandFilter = (id, expanded = true) => (dispatch) => {
+  dispatch({
+    type: EXPAND_FILTER,
+    payload: expanded,
+    meta: {
+      id,
+    },
+  });
+
+  dispatch(savePrefs());
+};
+
+export const toggleFilter = id => (dispatch) => {
+  dispatch({
+    type: TOGGLE_FILTER,
+    meta: {
+      id,
+    },
+  });
+
+  dispatch(savePrefs());
 };

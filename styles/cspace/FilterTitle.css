@@ -26,16 +26,20 @@
 }
 
 .common > div  {
+  margin: 2px;
   padding: 16px 36px 16px 16px;
   font-size: .85rem;
   font-weight: bold;
+  /* background-color: #999999; */
   background-position: calc(100% - 12px) center, 0;
   background-repeat: no-repeat;
 }
 
 .common:focus > div {
+  /* background-color: green; */
   /* outline: 1px solid #AAAAAA;
-  outline-offset: -4px; */
+  outline-offset: -2px; */
+  /* box-shadow: 0 3px 6px 0 rgba(64, 64, 64, .3); */
 }
 
 .common:hover > div {

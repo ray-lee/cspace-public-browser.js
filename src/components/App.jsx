@@ -38,6 +38,9 @@ export default class App extends Component {
             titleColor: '#424242',
             alertColor: '#d9534f',
           },
+          component: {
+            margin: 0,
+          }
         }}
       >
         <SearchEntryPanel />

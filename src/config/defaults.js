@@ -1,6 +1,5 @@
 import React from 'react';
-import { joinFields, findFirstValue } from '../helpers/dataHelpers';
-import { getDisplayName } from 'cspace-refname';
+import { findFirstValue } from '../helpers/dataHelpers';
 
 export default {
   container: '#cspace-browser',
@@ -17,6 +16,7 @@ export default {
   },
 
   sortField: 'collectionspace_denorm:title',
+  storageKey: 'mo', //'cspace-public-browser',
 
   types: {
     CollectionObject: {

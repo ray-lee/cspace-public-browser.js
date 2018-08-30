@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import without from 'lodash/without';
-
-import {
-  MultiDropdownList,
-  MultiList,
-} from '@appbaseio/reactivesearch';
-
+import Filter from '../containers/FilterContainer';
 import styles from '../../styles/cspace/FilterPanel.css';
 
 const propTypes = {
@@ -28,36 +23,15 @@ export default class FilterPanel extends Component {
 
     const filterIds = filters.map(filter => filter.id);
 
-    return filters.map(filter => {
-      const {
-        id,
-        field,
-        filterLabel,
-        title,
-      } = filter;
-
-      return (
-        <MultiList
-          className='cspace-FilterPanelBody'
-          componentId={id}
-          dataField={field}
-          filterLabel={filterLabel || title}
-          innerClass={{
-            title: 'cspace-FilterPanelTitle',
-            input: 'cspace-FilterPanelInput',
-            list: 'cspace-FilterPanelList',
-            count: 'cspace-FilterPanelCount',
-          }}
-          key={id}
-          title={title}
-          placeholder="Search"
-          react={{
-            and: [searchEntryId, ...without(filterIds, id)],
-          }}
-          URLParams
-        />
-      );
-    });
+    return filters.map(filter =>
+      <Filter
+        {...filter}
+        key={filter.id}
+        react={{
+          and: [searchEntryId, ...without(filterIds, filter.id)],
+        }}
+      />
+    );
   }
 
   render() {

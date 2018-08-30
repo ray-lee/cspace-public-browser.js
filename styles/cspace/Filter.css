@@ -1,0 +1,61 @@
+@value inputBg, inputBorder, panelBorder from '../colors.css';
+
+.common {
+  padding: 0 16px;
+  border-bottom: 1px solid panelBorder;
+  box-sizing: border-box;
+}
+
+.common:hover {
+  /* background: #FAFAFA;
+  box-shadow: 0 0 4px 0 rgba(64, 64, 64, .3); */
+}
+
+.common:focus-within {
+  /* outline: 2px solid #424242; */
+  /* outline-offset: -2px; */
+  /* background: white; */
+  /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3); */
+  /* background-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 42px); */
+}
+
+.common :global(.cspace-FilterInput) {
+  font-size: .85rem;
+  height: 30px;
+  margin: 0 16px;
+  padding: 0 8px;
+  border: none;
+  box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset;
+  background-color: inputBg;
+}
+
+.common :global(.cspace-FilterList) {
+  font-size: .85rem;
+  min-height: 100px;
+  max-height: 150px;
+}
+
+.common :global(.cspace-FilterCount) {
+  color: #777777;
+}
+
+.common :global(.cspace-FilterTitle) {
+  margin: 0;
+}
+
+.collapsed {
+  composes: common;
+}
+
+.expanded {
+  composes: common;
+}
+
+.collapsed :global(.cspace-FilterInput),
+.collapsed :global(.cspace-FilterList) {
+  display: none;
+}
+
+.expanded :global(.cspace-FilterList) {
+  display: block;
+}

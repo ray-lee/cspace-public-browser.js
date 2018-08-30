@@ -1,0 +1,3 @@
+export const PREFS_LOADED = 'PREFS_LOADED';
+export const EXPAND_FILTER = 'EXPAND_FILTER';
+export const TOGGLE_FILTER = 'TOGGLE_FILTER';

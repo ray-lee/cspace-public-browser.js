@@ -24,9 +24,14 @@
   height: 30px;
   margin: 0 16px;
   padding: 0 8px;
-  border: none;
-  box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset;
+  border: 1px solid inputBorder;
+  /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
   background-color: inputBg;
+}
+
+.common :global(.cspace-FilterCheckbox) + label::before {
+  border: 1px solid inputBorder;
+  /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
 }
 
 .common :global(.cspace-FilterList) {
@@ -35,7 +40,7 @@
 }
 
 .common :global(.cspace-FilterCount) {
-  color: #777777;
+  color: #808080;
 }
 
 .common :global(.cspace-FilterTitle) {

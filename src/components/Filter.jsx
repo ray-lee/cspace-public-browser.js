@@ -37,6 +37,7 @@ export default function Filter(props) {
       dataField={field}
       filterLabel={filterLabel || title}
       innerClass={{
+        checkbox: 'cspace-FilterCheckbox',
         title: 'cspace-FilterTitle',
         input: 'cspace-FilterInput',
         list: 'cspace-FilterList',

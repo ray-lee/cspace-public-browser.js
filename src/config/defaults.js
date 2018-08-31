@@ -1,7 +1,5 @@
-import React from 'react';
-import { findFirstValue } from '../helpers/dataHelpers';
-
 export default {
+  basename: '',
   container: '#cspace-browser',
   esIndexName: 'core',
   gatewayUrl: 'http://localhost:8181',
@@ -25,17 +23,7 @@ export default {
     },
     Materialitem: {
       sort: 'collectionspace_denorm:title',
-      title: (data) => {
-        const title = data['collectionspace_denorm:title'];
-
-        if (!title) {
-          return undefined;
-        }
-
-        return title
-          .split('\n')
-          .map(line => <React.Fragment key={line}>{line}<br /></React.Fragment>);
-      },
+      title: data => data['collectionspace_denorm:title'],
       // title: data => {
       //   const commercialName = findFirstValue({
       //     data,
@@ -73,12 +61,21 @@ export default {
       //     ],
       //     formatters: Array(3).fill(getDisplayName),
       //   }),
-      description: data => findFirstValue({
-        data,
-        inPath: ['materials_common:materialTermGroupList'],
-        test: value => value.termFlag && value.termFlag.includes('(common)'),
-        appendPath: ['termDisplayName'],
-      }),
+      // description: data => findFirstValue({
+      //   data,
+      //   inPath: ['materials_common:materialTermGroupList'],
+      //   test: value => value.termFlag && value.termFlag.includes('(common)'),
+      //   appendPath: ['termDisplayName'],
+      // }),
+      description: (data) => {
+        const materialTermGroups = data['materials_common:materialTermGroupList'];
+
+        if (materialTermGroups.length > 1) {
+          return materialTermGroups[1].termDisplayName;
+        }
+
+        return undefined;
+      },
     },
   },
 

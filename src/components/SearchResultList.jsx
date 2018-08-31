@@ -47,6 +47,12 @@ const renderResultStats = total => (
 
 const noResults = <FormattedMessage {...messages.noResults} />;
 
+const getResultUrl = (result) => {
+  const shortID = get(result, 'materials_common:shortIdentifier');
+
+  return (shortID ? `/material/${shortID}` : undefined);
+};
+
 export default class SearchResultPanel extends Component {
   constructor() {
     super();
@@ -146,6 +152,7 @@ export default class SearchResultPanel extends Component {
       title,
       description,
       image: imageUrl,
+      url: getResultUrl(result),
     };
   }
 

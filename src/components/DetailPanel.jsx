@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ReactiveList } from '@appbaseio/reactivesearch';
 import Helmet from 'react-helmet';
-import get from 'lodash/get';
 import SampleList from './SampleList';
 import styles from '../../styles/cspace/DetailPanel.css';
 
@@ -22,8 +21,19 @@ const handleData = (data) => {
     return undefined;
   }
 
-  const title = get(result, 'collectionspace_denorm:title');
-  const refName = get(result, 'collectionspace_core:refName');
+  const {
+    'collectionspace_denorm:title': title,
+    'collectionspace_core:refName': refName,
+    'materials_common:description': description,
+    'materials_common:materialTermGroupList': materialTermGroups,
+  } = result;
+
+  const altName =
+    materialTermGroups &&
+    materialTermGroups.length > 1 &&
+    materialTermGroups[1].termDisplayName;
+
+  const subtitle = altName && <h2>{altName}</h2>;
 
   return (
     <div className={styles.common}>
@@ -32,6 +42,10 @@ const handleData = (data) => {
       </Helmet>
 
       <h1>{title}</h1>
+      {subtitle}
+
+      {description && <p>{description}</p>}
+
       <SampleList materialRefName={refName} />
     </div>
   );

@@ -5,3 +5,7 @@
 .common > h1 {
   margin: 0;
 }
+
+.common > h1 + h2 {
+  margin-top: 0;
+}

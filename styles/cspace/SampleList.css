@@ -13,7 +13,7 @@
   margin-top: 10px;
 }
 
-.common > ul > li > div + div {
+.common > ul > li > div + dl {
   margin-left: 10px;
 }
 
@@ -31,10 +31,6 @@
   display: table-row;
 }
 
-.common > ul > li dl > div:not(:last-of-type) > dd {
-  padding-bottom: 10px;
-}
-
 .common > ul > li dl > div > dt {
   display: table-cell;
   padding-right: 10px;
@@ -44,4 +40,19 @@
 .common > ul > li dl > div > dd {
   display: table-cell;
   white-space: pre-line;
+  vertical-align: top;
+}
+
+.common > ul > li dl > div > dd::before {
+  display: none;
+}
+
+.common > ul > li dl > div:not(:last-of-type) > dd {
+  padding-bottom: 10px;
+}
+
+.common > ul > li dl > div > dd > ul {
+  /* list-style: none; */
+  list-style: square;
+  padding: 0 0 0 1em;
 }

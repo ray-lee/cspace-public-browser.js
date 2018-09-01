@@ -22,6 +22,13 @@ const joinNewLine = array => array && array.join('\n');
 const joinParagraph = array =>
   array && array.length > 0 && array.map((value, index) => <p key={index}>{value}</p>);
 
+const asList = array =>
+  array && array.length && (
+  <ul>
+    {array.map((value, index) => <li key={index}>{value}</li>)}
+  </ul>
+);
+
 const renderField = (name, value, renderValue) => {
   const renderedValue = renderValue ? renderValue(value) : value;
 
@@ -49,14 +56,12 @@ const renderResult = (result) => {
   return (
     <li key={uri}>
       <div>{objectNumber}</div>
-      <div>
-        {briefDescriptions && briefDescriptions.map((desc, index) => <p key={index}>{desc}</p>)}
-        <dl>
-          {renderField('Collection', collection)}
-          {renderField('Color', colors, joinNewLine)}
-          {renderField('Physical description', physicalDescriptions, joinParagraph)}
-        </dl>
-      </div>
+      <dl>
+        {renderField('Description', briefDescriptions, asList)}
+        {renderField('Collection', collection)}
+        {renderField('Color', colors, asList)}
+        {renderField('Physical description', physicalDescriptions, joinParagraph)}
+      </dl>
     </li>
   );
 };

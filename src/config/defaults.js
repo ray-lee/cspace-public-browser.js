@@ -93,7 +93,7 @@ export default {
       title: 'Composition: Class name',
     },
     {
-      id: 'genmaterialCompositionGenericName',
+      id: 'materialCompositionGenericName',
       field: 'materials_common:materialCompositionGroupList.materialCompositionGenericName.displayName',
       filterLabel: 'Generic',
       title: 'Composition: Generic name',

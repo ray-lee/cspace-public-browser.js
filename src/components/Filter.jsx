@@ -43,6 +43,7 @@ export default function Filter(props) {
         list: 'cspace-FilterList',
         count: 'cspace-FilterCount',
       }}
+      sortBy="asc"
       title={<FilterTitle isExpanded={isExpanded} title={title} onClick={toggleFilter} />}
       placeholder="Search"
       URLParams

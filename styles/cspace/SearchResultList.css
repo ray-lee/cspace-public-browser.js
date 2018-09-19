@@ -22,6 +22,9 @@
 }
 
 .common :global(.cspace-SearchResultListBody) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 0;
   padding-top: 6px;
 }

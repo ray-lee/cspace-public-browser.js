@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 import warning from 'warning';
-import { ResultCard, ResultList } from '@appbaseio/reactivesearch';
+import { ReactiveList, ResultCard, ResultList } from '@appbaseio/reactivesearch';
 import { ReactiveMap } from '@appbaseio/reactivemaps';
 import { LIST, MAP, TILE } from '../constants/viewTypes';
 import styles from '../../styles/cspace/SearchResultList.css';
 import statsStyles from '../../styles/cspace/SearchResultStats.css';
+import tileStyles from '../../styles/cspace/SearchResultTile.css';
 
 const propTypes = {
   filters: PropTypes.arrayOf(PropTypes.object),
@@ -58,6 +60,7 @@ export default class SearchResultPanel extends Component {
     super();
 
     this.handleData = this.handleData.bind(this);
+    this.renderResult = this.renderResult.bind(this);
   }
 
   getSensorIds() {
@@ -156,13 +159,35 @@ export default class SearchResultPanel extends Component {
     };
   }
 
+  renderResult(result) {
+    const data = this.handleData(result);
+
+    // FIXME: Make this a Link instead of an a. When using a Link, the selected filters do not
+    // appear when navigating back to search results.
+
+    return (
+      <a
+        className={tileStyles.common}
+        key={data.url}
+        href={data.url}
+      >
+        <div style={{ backgroundImage: `url(${data.image})` }} />
+
+        <article>
+          <h2>{data.title}</h2>
+          <p>{data.description}</p>
+        </article>
+      </a>
+    )
+  }
+
   renderTileView(props) {
     const {
       sortField,
     } = props;
 
     return (
-      <ResultCard
+      <ReactiveList
         className={styles.common}
         dataField={sortField}
         innerClass={{
@@ -175,11 +200,30 @@ export default class SearchResultPanel extends Component {
         }}
         react={{ and: this.getSensorIds() }}
         sortOptions={this.getSortOptions()}
-        onData={this.handleData}
+        onData={this.renderResult}
         onNoResults={noResults}
         onResultStats={renderResultStats}
         {...props}
       />
+
+      // <ResultCard
+      //   className={styles.common}
+      //   dataField={sortField}
+      //   innerClass={{
+      //     list: 'cspace-SearchResultListBody',
+      //     listItem: 'cspace-SearchResultListItem',
+      //     image: 'cspace-SearchResultListImage',
+      //     resultsInfo: 'cspace-SearchResultListResultsInfo',
+      //     sortOptions: 'cspace-SearchResultListSortOptions',
+      //     title: 'cspace-SearchResultListTitle',
+      //   }}
+      //   react={{ and: this.getSensorIds() }}
+      //   sortOptions={this.getSortOptions()}
+      //   onData={this.handleData}
+      //   onNoResults={noResults}
+      //   onResultStats={renderResultStats}
+      //   {...props}
+      // />
     );
   }
 

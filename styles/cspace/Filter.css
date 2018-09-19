@@ -2,7 +2,7 @@
 
 .common {
   padding: 0 16px;
-  border-bottom: 1px solid #BBBBBB;
+  border-bottom: 1px solid panelBorder;
   box-sizing: border-box;
 }
 
@@ -32,6 +32,10 @@
 .common :global(.cspace-FilterCheckbox) + label::before {
   border: 1px solid inputBorder;
   /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
+}
+
+.common :global(.cspace-FilterCheckbox) + label::after {
+  left: calc(1px + 16px/5);
 }
 
 .common :global(.cspace-FilterList) {

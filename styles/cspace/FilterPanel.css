@@ -1,4 +1,4 @@
-@value inputBg, inputBorder from '../colors.css';
+@value inputBg, inputBorder, panelBorder from '../colors.css';
 @value filterPanelWidth, searchInputHeight from '../dimensions.css';
 
 .common {
@@ -9,4 +9,5 @@
   width: filterPanelWidth;
   overflow-y: auto;
   background-color: rgba(212, 212, 212, .2);
+  border-right: 1px solid panelBorder;
 }

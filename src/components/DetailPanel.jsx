@@ -4,16 +4,19 @@ import { ReactiveList } from '@appbaseio/reactivesearch';
 import Helmet from 'react-helmet';
 import FieldList from './FieldList';
 import ImageGallery from './ImageGallery';
-import SampleListContainer from '../containers/SampleListContainer';
+import ReactiveSampleListContainer from '../containers/ReactiveSampleListContainer';
+import SampleIndexContainer from '../containers/SampleIndexContainer';
 import config from '../config';
 import styles from '../../styles/cspace/DetailPanel.css';
 
 const propTypes = {
+  selectedInstitution: PropTypes.string,
   shortID: PropTypes.string.isRequired,
   sortField: PropTypes.string,
 };
 
 const defaultProps = {
+  selectedInstitution: null,
   sortField: null,
 };
 
@@ -25,6 +28,7 @@ export default class DetailPanel extends Component {
   }
 
   renderSampleLists(materialRefName) {
+    const { selectedInstitution } = this.props;
     const institutions = config.get('institutions');
 
     return Object.keys(institutions).map(institutionId => {
@@ -35,10 +39,11 @@ export default class DetailPanel extends Component {
       } = institutions[institutionId];
 
       return (
-        <SampleListContainer
+        <ReactiveSampleListContainer
           esIndexName={esIndexName}
           gatewayUrl={gatewayUrl}
           institutionId={institutionId}
+          isSelected={institutionId === selectedInstitution}
           key={institutionId}
           materialRefName={materialRefName}
           title={title}
@@ -84,6 +89,7 @@ export default class DetailPanel extends Component {
         <main>
           <section>
             <div>
+              <SampleIndexContainer materialRefName={refName} />
               <ImageGallery blobCsids={blobCsids} />
             </div>
           </section>

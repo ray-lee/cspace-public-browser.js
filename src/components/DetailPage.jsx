@@ -15,10 +15,16 @@ const propTypes = {
 export default function DetailPage(props) {
   const sortField = config.get('sortField');
   const { shortID } = props.match.params;
+  const { hash } = props.location;
+  const selectedInstitution = hash ? hash.replace(/^#/, '') : undefined;
 
   return (
     <div className={styles.common}>
-      <DetailPanel shortID={shortID} sortField={sortField} />
+      <DetailPanel
+        selectedInstitution={selectedInstitution}
+        shortID={shortID}
+        sortField={sortField}
+      />
     </div>
   );
 }

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import { ReactiveList } from '@appbaseio/reactivesearch';
 import { getItemShortID } from 'cspace-refname';
+import { ReactiveList } from '@appbaseio/reactivesearch';
 import FieldList from './FieldList';
 import PanelTitle from './PanelTitle';
 import ImageGallery from './ImageGallery';
 import config from '../config';
-import withReactiveBase from '../enhancers/withReactiveBase';
 import styles from '../../styles/cspace/SampleList.css';
 
 const messages = defineMessages({
@@ -22,14 +21,18 @@ const messages = defineMessages({
 const propTypes = {
   institutionId: PropTypes.string.isRequired,
   isExpanded: PropTypes.bool,
+  isSelected: PropTypes.bool,
   materialRefName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  expandPanel: PropTypes.func,
   togglePanel: PropTypes.func,
   onSamplesLoaded: PropTypes.func,
 };
 
 const defaultProps = {
   isExpanded: false,
+  isSelected: false,
+  expandPanel: undefined,
   togglePanel: undefined,
   onSamplesLoaded: undefined,
 };
@@ -53,12 +56,12 @@ const renderResult = (result) => {
   );
 };
 
-class SampleList extends Component {
+export default class SampleList extends Component {
   constructor() {
     super();
 
     this.handleMaterialData = this.handleMaterialData.bind(this);
-    this.handleSampleData = this.handleSampleData.bind(this);
+    this.handleRef = this.handleRef.bind(this);
   }
 
   handleMaterialData(data) {
@@ -77,7 +80,26 @@ class SampleList extends Component {
     );
   }
 
-  handleSampleData(results) {
+  handleRef(ref) {
+    const {
+      isSelected,
+      expandPanel,
+    } = this.props;
+
+    if (ref && isSelected) {
+      window.setTimeout(() => {
+        if (expandPanel) {
+          expandPanel();
+        }
+
+        ref.scrollIntoView();
+      }, 0);
+    }
+  }
+
+  render() {
+    const results = this.props.hits.map(hit => hit._source);
+
     if (results.length === 0) {
       return null;
     }
@@ -144,43 +166,15 @@ class SampleList extends Component {
     return (
       <section
         className={isExpanded ? styles.expanded : styles.collapsed}
+        id={institutionId}
+        ref={this.handleRef}
       >
         <PanelTitle isExpanded={isExpanded} title={countMessage} onClick={togglePanel} />
         {content}
       </section>
-    );
-  };
-
-  render() {
-    const {
-      institutionId,
-      materialRefName,
-    } = this.props;
-
-    return (
-      <ReactiveList
-        componentId={institutionId}
-        dataField="collectionobjects_common:objectNumber"
-        defaultQuery={() => ({
-          bool: {
-            must: [
-              { term: { 'ecm:primaryType': 'CollectionObject' } },
-              { term: { 'collectionobjects_common:materialGroupList.material': materialRefName } },
-            ],
-          },
-        })}
-        loader={<div />}
-        onAllData={this.handleSampleData}
-        onNoResults={null}
-        showResultStats={false}
-        size={500}
-        sortBy="asc"
-      />
     );
   }
 }
 
 SampleList.propTypes = propTypes;
 SampleList.defaultProps = defaultProps;
-
-export default withReactiveBase(SampleList);

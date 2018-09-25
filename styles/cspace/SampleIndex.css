@@ -1,0 +1,7 @@
+.common {
+  margin-bottom: 16px;
+}
+
+.common > a {
+  display: block;
+}

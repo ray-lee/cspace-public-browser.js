@@ -1,14 +1,11 @@
 @value panelBorder from '../colors.css';
 
 .common {
-}
-
-.common {
   margin: 0;
 }
 
 .common > div {
-  display: table-row;
+  display: flex;
 }
 
 .common > h3 {
@@ -24,12 +21,12 @@
 }
 
 .common > div > dt {
-  display: table-cell;
-  padding: 0 30px 0 0;
+  flex: 1 1 33%;
+  padding: 0;
 }
 
 .common > div > dd {
-  display: table-cell;
+  flex: 1 1 66%;
   white-space: pre-line;
   vertical-align: top;
 }
@@ -47,4 +44,20 @@
   list-style: square;
   margin: 0;
   padding: 0 0 0 1em;
+}
+
+.Materialitem {
+  composes: common;
+}
+
+.CollectionObject {
+  composes: common;
+}
+
+.CollectionObject > div > dt {
+  flex-basis: 15%;
+}
+
+.CollectionObject > div > dd {
+  flex-basis: 85%;
 }

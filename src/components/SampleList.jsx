@@ -25,11 +25,13 @@ const propTypes = {
   materialRefName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   togglePanel: PropTypes.func,
+  onSamplesLoaded: PropTypes.func,
 };
 
 const defaultProps = {
   isExpanded: false,
   togglePanel: undefined,
+  onSamplesLoaded: undefined,
 };
 
 const renderResult = (result) => {
@@ -45,6 +47,7 @@ const renderResult = (result) => {
       <FieldList
         data={result}
         fields={config.get('sampleDetailFields')}
+        recordType="CollectionObject"
       />
     </li>
   );
@@ -85,6 +88,7 @@ class SampleList extends Component {
       materialRefName,
       title,
       togglePanel,
+      onSamplesLoaded,
     } = this.props;
 
     const shortID = getItemShortID(materialRefName);
@@ -117,7 +121,7 @@ class SampleList extends Component {
       );
     }
 
-    const titleMessage = (
+    const countMessage = (
       <FormattedMessage
         {...messages.title}
         tagName="h2"
@@ -128,11 +132,20 @@ class SampleList extends Component {
       />
     );
 
+    if (onSamplesLoaded) {
+      // window.setTimeout(() => {
+        onSamplesLoaded({
+          institutionId,
+          count: results.length,
+        });
+      // }, 0);
+    }
+
     return (
       <section
         className={isExpanded ? styles.expanded : styles.collapsed}
       >
-        <PanelTitle isExpanded={isExpanded} title={titleMessage} onClick={togglePanel} />
+        <PanelTitle isExpanded={isExpanded} title={countMessage} onClick={togglePanel} />
         {content}
       </section>
     );

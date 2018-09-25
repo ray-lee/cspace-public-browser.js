@@ -94,6 +94,7 @@ export default class DetailPanel extends Component {
             <FieldList
               data={result}
               fields={config.get('materialDetailFields')}
+              recordType="Materialitem"
             />
           </section>
         </main>

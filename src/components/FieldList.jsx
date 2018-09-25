@@ -10,6 +10,7 @@ const propTypes = {
   fields: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
   })).isRequired,
+  recordType: PropTypes.string,
 };
 
 const isNotEmpty = (value) => {
@@ -33,6 +34,7 @@ export default class FieldList extends Component {
     const {
       data,
       fields,
+      recordType,
     } = this.props;
 
     const filteredFields = fields
@@ -50,7 +52,7 @@ export default class FieldList extends Component {
       });
 
     return (
-      <dl className={styles.common}>
+      <dl className={styles[recordType]}>
         {filteredFields.map(field => (
           <Field
             data={data}

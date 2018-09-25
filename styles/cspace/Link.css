@@ -3,7 +3,7 @@
 
 .external {
   composes: common;
-  padding-right: 16px;
+  padding-right: 17px;
   background-image: url(../../images/openNew.svg);
   background-repeat: no-repeat;
   background-position: right center;

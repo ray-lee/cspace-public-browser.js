@@ -1,11 +1,53 @@
-.common {
+@value panelBorder from '../colors.css';
 
+.common {
+  width: 1024px;
 }
 
-.common > h1 {
+.common > header {
+  /* position: sticky;
+  top: 0; */
+  padding: 16px 0;
+  background-color: white;
+  z-index: 10;
+}
+
+.common > main {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 16px;
+}
+
+.common > main > section:first-of-type {
+  margin-left: 16px;
+}
+
+.common > main > section:first-of-type > div {
+  width: 420px;
+  /* padding: 16px; */
+  /* background-color: #303030; */
+  /* color: white; */
+}
+
+.common > main > section:first-of-type ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.common > main > section:first-of-type a {
+  /* color: white; */
+}
+
+.common > main > section:last-of-type {
+  flex: 1 1 auto;
+}
+
+.common h1,
+.common h2 {
   margin: 0;
 }
 
-.common > h1 + h2 {
+.common h1 + h2 {
   margin-top: 0;
 }

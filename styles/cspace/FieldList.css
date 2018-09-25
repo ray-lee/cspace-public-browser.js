@@ -1,0 +1,50 @@
+@value panelBorder from '../colors.css';
+
+.common {
+}
+
+.common {
+  margin: 0;
+}
+
+.common > div {
+  display: table-row;
+}
+
+.common > h3 {
+  margin: 2px 0 0 0;
+  border-top: 1px solid panelBorder;
+  /* border-bottom: 1px solid panelBorder; */
+  padding: 12px 0;
+  font-size: inherit;
+}
+
+.common > h3:first-child {
+  margin-top: 0;
+}
+
+.common > div > dt {
+  display: table-cell;
+  padding: 0 30px 0 0;
+}
+
+.common > div > dd {
+  display: table-cell;
+  white-space: pre-line;
+  vertical-align: top;
+}
+
+.common > div > dd::before {
+  display: none;
+}
+
+.common > div:not(:last-child) > dd,
+.common > div:not(:last-child) > dt {
+  padding-bottom: 10px;
+}
+
+.common > div > dd > ul {
+  list-style: square;
+  margin: 0;
+  padding: 0 0 0 1em;
+}

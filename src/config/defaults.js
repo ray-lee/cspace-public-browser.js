@@ -1,8 +1,48 @@
+import {
+  collectionValue,
+  composition,
+  displayName,
+  filterLink,
+  list,
+  listOf,
+  nameRole,
+  nameValue,
+  numberTypeValue,
+  numericRange,
+  paragraphs,
+  property,
+  valueAt,
+  valueWithNote,
+} from '../helpers/formatHelpers';
+
 export default {
   basename: '',
   container: '#cspace-browser',
-  esIndexName: 'core',
+  esIndexName: 'materials',
   gatewayUrl: 'http://localhost:8181',
+
+  institutions: {
+    test: {
+      title: 'Test Institution',
+      esIndexName: 'materials',
+      gatewayUrl: 'http://localhost:8181',
+    },
+    // harvard: {
+    //   title: 'Test Institution',
+    //   esIndexName: 'materials',
+    //   gatewayUrl: 'http://localhost:8181',
+    // },
+    // risd: {
+    //   title: 'Test Institution',
+    //   esIndexName: 'materials',
+    //   gatewayUrl: 'http://localhost:8181',
+    // },
+    // parsons: {
+    //   title: 'Test Institution',
+    //   esIndexName: 'materials',
+    //   gatewayUrl: 'http://localhost:8181',
+    // },
+  },
 
   defaultQuery: {
     // term: {
@@ -245,6 +285,316 @@ export default {
       id: 'additionalProcess',
       field: 'materials_common:additionalProcessGroupList.additionalProcess.displayName',
       title: 'Additional process',
+    },
+  ],
+
+  materialDetailFields: [
+    {
+      category: true,
+      label: 'Composition',
+      name: 'cat_composition',
+    },
+    {
+      label: 'Composition',
+      name: 'materials_common:materialCompositionGroupList',
+      format: listOf(composition),
+    },
+    {
+      category: true,
+      label: 'Use',
+      name: 'cat_use',
+    },
+    {
+      label: 'Typical use',
+      name: 'materials_common:typicalUses',
+      format: listOf(filterLink({
+        filterValueFormat: displayName,
+      })),
+    },
+    {
+      label: 'Featured application',
+      name: 'materials_common:featuredApplicationGroupList',
+      format: listOf(valueWithNote({
+        valueFieldName: 'featuredApplication',
+        noteFieldName: 'featuredApplicationNote',
+      })),
+    },
+    {
+      category: true,
+      label: 'Production',
+      name: 'cat_production',
+    },
+    {
+      label: 'Production organization',
+      name: 'materials_common:materialProductionOrganizationGroupList',
+      format: listOf(nameRole({
+        nameFieldName: 'materialProductionOrganization',
+        roleFieldName: 'materialProductionOrganizationRole',
+      })),
+    },
+    {
+      label: 'Production person',
+      name: 'materials_common:materialProductionPersonGroupList',
+      format: listOf(nameRole({
+        nameFieldName: 'materialProductionPerson',
+        roleFieldName: 'materialProductionPersonRole',
+        linkName: false,
+      })),
+    },
+    {
+      label: 'Production place',
+      name: 'materials_common:materialProductionPlaceGroupList',
+      format: listOf(nameRole({
+        nameFieldName: 'materialProductionPlace',
+        roleFieldName: 'materialProductionPlaceRole',
+        linkName: false,
+      })),
+    },
+    // {
+    //   label: 'Web site',
+    //   name: 'materials_common:externalUrlGroupList',
+    //   format: listOf(linkText('externalUrl', 'externalUrlNote')),
+    // },
+    {
+      category: true,
+      label: 'Form',
+      name: 'cat_form',
+    },
+    {
+      label: 'Common form',
+      name: 'materials_common:commonForm',
+      format: filterLink({
+        filterValueFormat: displayName,
+      }),
+    },
+    {
+      label: 'Form type',
+      name: 'materials_common:formTypeGroupList',
+      format: listOf(valueAt({
+        path: 'formType',
+        format: filterLink({
+          filterValueFormat: displayName,
+        }),
+      })),
+    },
+    {
+      category: true,
+      label: 'Properties',
+      name: 'cat_property',
+    },
+    {
+      label: 'Acoustical property',
+      name: 'materials_common:acousticalPropertyGroupList',
+      format: listOf(property({
+        nameFieldName: 'acousticalPropertyType',
+        valueFieldName: 'acousticalPropertyNote',
+      })),
+    },
+    {
+      label: 'Durability property',
+      name: 'materials_common:durabilityPropertyGroupList',
+      format: listOf(property({
+        nameFieldName: 'durabilityPropertyType',
+        valueFieldName: 'durabilityPropertyNote'
+      })),
+    },
+    {
+      label: 'Electrical property',
+      name: 'materials_common:electricalPropertyGroupList',
+      format: listOf(property({
+        nameFieldName: 'electricalPropertyType',
+        valueFieldName: 'electricalPropertyNote',
+      })),
+    },
+    {
+      label: 'Hygro-thermal property',
+      name: 'materials_common:hygrothermalPropertyGroupList',
+      format: listOf(property({
+        nameFieldName: 'hygrothermalPropertyType',
+        valueFieldName: 'hygrothermalPropertyNote',
+      })),
+    },
+    {
+      label: 'Mechanical property',
+      name: 'materials_common:mechanicalPropertyGroupList',
+      format: listOf(property({
+        nameFieldName: 'mechanicalPropertyType',
+        valueFieldName: 'mechanicalPropertyNote'
+      })),
+    },
+    {
+      label: 'Optical property',
+      name: 'materials_common:opticalPropertyGroupList',
+      format: listOf(property({
+        nameFieldName: 'opticalPropertyType',
+        valueFieldName: 'opticalPropertyNote',
+      })),
+    },
+    {
+      label: 'Sensorial property',
+      name: 'materials_common:sensorialPropertyGroupList',
+      format: listOf(property({
+        nameFieldName: 'sensorialPropertyType',
+        valueFieldName: 'sensorialPropertyNote',
+      })),
+    },
+    {
+      label: 'Smart material property',
+      name: 'materials_common:smartMaterialPropertyGroupList',
+      format: listOf(property({
+        nameFieldName: 'smartMaterialPropertyType',
+        valueFieldName: 'smartMaterialPropertyNote',
+      })),
+    },
+    {
+      label: 'Additional property',
+      name: 'materials_common:additionalPropertyGroupList',
+      format: listOf(property({
+        nameFieldName: 'additionalPropertyType',
+        valueFieldName: 'additionalPropertyNote',
+      })),
+    },
+    {
+      category: true,
+      label: 'Material Ecologies',
+      name: 'cat_ecology',
+    },
+    {
+      label: 'Recycled content',
+      name: 'materials_common:recycledContentGroupList',
+      format: listOf(numericRange({
+        lowFieldName: 'recycledContent',
+        highFieldName: 'recycledContentHigh',
+        unit: '%',
+        qualifierFieldName: 'recycledContentQualifier',
+        linkQualifier: true,
+      })),
+    },
+    {
+      label: 'Lifecycle component',
+      name: 'materials_common:lifecycleComponentGroupList',
+      format: listOf(property({
+        nameFieldName: 'lifecycleComponent',
+        valueFieldName: 'lifecycleComponentNote',
+      })),
+    },
+    {
+      label: 'Embodied energy',
+      name: 'materials_common:embodiedEnergyGroupList',
+      format: listOf(numericRange({
+        lowFieldName: 'embodiedEnergyValue',
+        highFieldName: 'embodiedEnergyValueHigh',
+        unitFieldName: 'embodiedEnergyUnit',
+        qualifierFieldName: 'embodiedEnergyNote',
+      })),
+    },
+    {
+      label: 'Certification credit',
+      name: 'materials_common:certificationCreditGroupList',
+      format: listOf(property({
+        nameFieldName: 'certificationProgram',
+        valueFieldName: 'certificationCreditNote',
+      })),
+    },
+    {
+      category: true,
+      label: 'Processes',
+      name: 'cat_process',
+    },
+    {
+      label: 'Casting',
+      name: 'materials_common:castingProcesses',
+      format: listOf(filterLink({
+        filterValueFormat: displayName,
+      })),
+    },
+    {
+      label: 'Joining',
+      name: 'materials_common:joiningProcesses',
+      format: listOf(filterLink({
+        filterValueFormat: displayName,
+      })),
+    },
+    {
+      label: 'Molding',
+      name: 'materials_common:moldingProcesses',
+      format: listOf(filterLink({
+        filterValueFormat: displayName,
+      })),
+    },
+    {
+      label: 'Surfacing',
+      name: 'materials_common:surfacingProcesses',
+      format: listOf(filterLink({
+        filterValueFormat: displayName,
+      })),
+    },
+    {
+      label: 'Deforming',
+      name: 'materials_common:deformingProcesses',
+      format: listOf(filterLink({
+        filterValueFormat: displayName,
+      })),
+    },
+    {
+      label: 'Machining',
+      name: 'materials_common:machiningProcesses',
+      format: listOf(filterLink({
+        filterValueFormat: displayName,
+      })),
+    },
+    {
+      label: 'Rapid prototyping',
+      name: 'materials_common:rapidPrototypingProcesses',
+      format: listOf(filterLink({
+        filterValueFormat: displayName,
+      })),
+    },
+    {
+      label: 'Additional process',
+      name: 'materials_common:additionalProcessGroupList',
+      format: listOf(property({
+        nameFieldName: 'additionalProcess',
+        valueFieldName: 'additionalProcessNote',
+      })),
+    },
+
+    // TODO: Broader/narrower
+  ],
+
+  sampleDetailFields: [
+    {
+      label: 'Description',
+      name: 'collectionobjects_common:briefDescriptions',
+      format: list,
+    },
+    {
+      label: 'Number',
+      name: 'collectionobjects_common:otherNumberList',
+      format: listOf(nameValue({
+        nameFormat: valueAt({
+          path: 'numberType',
+          format: numberTypeValue,
+        }),
+        valueFormat: valueAt({
+          path: 'numberValue',
+        }),
+      })),
+    },
+    {
+      label: 'Collection',
+      name: 'collectionobjects_common:collection',
+      format: collectionValue,
+    },
+    {
+      label: 'Color',
+      name: 'collectionobjects_common:colors',
+      format: list,
+    },
+    {
+      label: 'Physical description',
+      name: 'collectionobjects_materials:materialPhysicalDescriptions',
+      format: paragraphs,
     },
   ],
 };

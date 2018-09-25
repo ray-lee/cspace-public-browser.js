@@ -1,0 +1,8 @@
+.common {
+  width: 420px;
+  padding-bottom: 6px;
+}
+
+.common :global(.image-gallery-thumbnails) {
+  padding-bottom: 0;
+}

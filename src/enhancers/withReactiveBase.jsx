@@ -1,11 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ReactiveBase } from '@appbaseio/reactivesearch';
 import config from '../config';
 
 export default function withReactiveBase(BaseComponent) {
+  const propTypes = {
+    esIndexName: PropTypes.string,
+    gatewayUrl: PropTypes.string,
+  };
+
+  const defaultProps = {
+    esIndexName: config.get('esIndexName'),
+    gatewayUrl: config.get('gatewayUrl'),
+  };
+
   function WithReactiveBase(props) {
-    const esIndexName = config.get('esIndexName');
-    const gatewayUrl = config.get('gatewayUrl');
+    const {
+      esIndexName,
+      gatewayUrl,
+      ...remainingProps
+    } = props;
 
     return (
       <ReactiveBase
@@ -30,10 +44,13 @@ export default function withReactiveBase(BaseComponent) {
           },
         }}
       >
-        <BaseComponent {...props} />
+        <BaseComponent {...remainingProps} />
       </ReactiveBase>
     );
   }
+
+  WithReactiveBase.propTypes = propTypes;
+  WithReactiveBase.defaultProps = defaultProps;
 
   return WithReactiveBase;
 }

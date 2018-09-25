@@ -6,3 +6,7 @@ body {
 .common p {
   margin: 10px 0;
 }
+
+.common p:first-child {
+  margin-top: 0;
+}

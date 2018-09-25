@@ -7,5 +7,5 @@ export default combineReducers({
 
 export const getPrefs = state => state.prefs;
 
-export const isFilterExpanded = (state, id) =>
-  fromPrefs.isFilterExpanded(state.prefs, id);
+export const isPanelExpanded = (state, id) =>
+  fromPrefs.isPanelExpanded(state.prefs, id);

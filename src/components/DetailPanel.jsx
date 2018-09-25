@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ReactiveList } from '@appbaseio/reactivesearch';
 import Helmet from 'react-helmet';
-import SampleList from './SampleList';
+import FieldList from './FieldList';
+import ImageGallery from './ImageGallery';
+import SampleListContainer from '../containers/SampleListContainer';
+import config from '../config';
+import { linkText, listOf } from '../helpers/formatHelpers';
+import externalLinkListStyles from '../../styles/cspace/ExternalLinkList.css';
 import styles from '../../styles/cspace/DetailPanel.css';
 
 const propTypes = {
@@ -14,44 +19,95 @@ const defaultProps = {
   sortField: null,
 };
 
-const handleData = (data) => {
-  const result = data[0];
+export default class DetailPanel extends Component {
+  constructor() {
+    super();
 
-  if (!result) {
-    return undefined;
+    this.handleData = this.handleData.bind(this);
   }
 
-  const {
-    'collectionspace_denorm:title': title,
-    'collectionspace_core:refName': refName,
-    'materials_common:description': description,
-    'materials_common:materialTermGroupList': materialTermGroups,
-  } = result;
+  renderSampleLists(materialRefName) {
+    const institutions = config.get('institutions');
 
-  const altName =
-    materialTermGroups &&
-    materialTermGroups.length > 1 &&
-    materialTermGroups[1].termDisplayName;
+    return Object.keys(institutions).map(institutionId => {
+      const {
+        title,
+        esIndexName,
+        gatewayUrl,
+      } = institutions[institutionId];
 
-  const subtitle = altName && <h2>{altName}</h2>;
+      return (
+        <SampleListContainer
+          esIndexName={esIndexName}
+          gatewayUrl={gatewayUrl}
+          institutionId={institutionId}
+          key={institutionId}
+          materialRefName={materialRefName}
+          title={title}
+        />
+      );
+    });
+  }
 
-  return (
-    <div className={styles.common}>
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
+  handleData(data) {
+    const result = data[0];
 
-      <h1>{title}</h1>
-      {subtitle}
+    if (!result) {
+      return undefined;
+    }
 
-      {description && <p>{description}</p>}
+    const {
+      'collectionspace_denorm:blobCsid': blobCsids,
+      'collectionspace_denorm:title': title,
+      'collectionspace_core:refName': refName,
+      'materials_common:description': description,
+      'materials_common:materialTermGroupList': materialTermGroups,
+      'materials_common:externalUrlGroupList': urlGroups,
+    } = result;
 
-      <SampleList materialRefName={refName} />
-    </div>
-  );
-};
+    const altName =
+      materialTermGroups &&
+      materialTermGroups.length > 1 &&
+      materialTermGroups[1].termDisplayName;
 
-export default class DetailPanel extends Component {
+    const subtitle = altName && <h2>{altName}</h2>;
+
+    return (
+      <div className={styles.common}>
+        <Helmet>
+          <title>{title}</title>
+        </Helmet>
+
+        <header>
+          <h1>{title}</h1>
+          {subtitle}
+        </header>
+
+        <main>
+          <section>
+            <div>
+              <ImageGallery blobCsids={blobCsids} />
+              {description && <p>{description}</p>}
+
+              <div className={externalLinkListStyles.common}>
+                {listOf(linkText('externalUrl', 'externalUrlNote'))(urlGroups)}
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <FieldList
+              data={result}
+              fields={config.get('materialDetailFields')}
+            />
+          </section>
+        </main>
+
+        {this.renderSampleLists(refName)}
+      </div>
+    );
+  };
+
   render() {
     const {
       shortID,
@@ -65,20 +121,12 @@ export default class DetailPanel extends Component {
         defaultQuery={() => ({
           bool: {
             must: [
-              {
-                term: {
-                  'ecm:primaryType': 'Materialitem',
-                },
-              },
-              {
-                term: {
-                  'materials_common:shortIdentifier': shortID,
-                },
-              },
+              { term: { 'ecm:primaryType': 'Materialitem' } },
+              { term: { 'materials_common:shortIdentifier': shortID } },
             ],
           },
         })}
-        onAllData={handleData}
+        onAllData={this.handleData}
         showResultStats={false}
         size={1}
       />

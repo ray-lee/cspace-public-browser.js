@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MultiList } from '@appbaseio/reactivesearch';
-import FilterTitle from './FilterTitle';
+import PanelTitle from './PanelTitle';
 import styles from '../../styles/cspace/Filter.css';
+import titleStyles from '../../styles/cspace/FilterTitle.css';
 
 const propTypes = {
   field: PropTypes.string.isRequired,
@@ -10,13 +11,13 @@ const propTypes = {
   id: PropTypes.string.isRequired,
   isExpanded: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  toggleFilter: PropTypes.func,
+  togglePanel: PropTypes.func,
 };
 
 const defaultProps = {
   filterLabel: null,
   isExpanded: false,
-  toggleFilter: undefined,
+  togglePanel: undefined,
 };
 
 export default function Filter(props) {
@@ -26,7 +27,7 @@ export default function Filter(props) {
     id,
     isExpanded,
     title,
-    toggleFilter,
+    togglePanel,
     ...remainingProps
   } = props;
 
@@ -44,7 +45,14 @@ export default function Filter(props) {
         count: 'cspace-FilterCount',
       }}
       sortBy="asc"
-      title={<FilterTitle isExpanded={isExpanded} title={title} onClick={toggleFilter} />}
+      title={
+        <PanelTitle
+          isExpanded={isExpanded}
+          styles={titleStyles}
+          title={title}
+          onClick={togglePanel}
+        />
+      }
       placeholder="Search"
       URLParams
       {...remainingProps}

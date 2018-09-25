@@ -1,10 +1,8 @@
 @value panelBorder from '../colors.css';
 
 .common {
-  position: relative;
   display: block;
-  left: -16px;
-  width: calc(100% + 32px);
+  width: 100%;
   border: none;
   margin: 0;
   padding: 0;
@@ -27,32 +25,18 @@
 }
 
 .common > div  {
-  margin: 2px;
-  padding: 16px 36px 16px 16px;
-  font-size: .85rem;
+  margin: 2px 0;
+  padding: 10px 0;
   font-weight: bold;
-  /* background-color: #999999; */
-  background-position: calc(100% - 12px) center, 0;
+  background-position: right center;
   background-repeat: no-repeat;
-}
-
-.common:focus > div {
-  /* background-color: green; */
-  /* outline: 1px solid #AAAAAA;
-  outline-offset: -2px; */
-  /* box-shadow: 0 3px 6px 0 rgba(64, 64, 64, .3); */
-}
-
-.common:hover > div {
-  /* background-color: #FAFAFA; */
 }
 
 .expanded > div {
   background-image: url(../../images/collapse.svg);
 }
 
-.expanded:hover > div
-/* .expanded:focus > div */ {
+.expanded:hover > div {
   background-image: url(../../images/collapseActive.svg);
 }
 
@@ -60,7 +44,6 @@
   background-image: url(../../images/expand.svg);
 }
 
-.collapsed:hover > div
-/* .collapsed:focus > div */ {
+.collapsed:hover > div {
   background-image: url(../../images/expandActive.svg);
 }

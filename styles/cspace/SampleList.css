@@ -1,58 +1,70 @@
+@value panelBorder from '../colors.css';
+
 .common {
+  border-top: 1px solid panelBorder;
+  border-bottom: 1px solid panelBorder;
 }
 
-.common > ul {
-  padding: 0;
+.expanded {
+  composes: common;
 }
 
-.common > ul > li {
-  display: flex;
+.collapsed {
+  composes: common;
 }
 
-.common > ul > li + li {
-  margin-top: 10px;
-}
-
-.common > ul > li > div + dl {
-  margin-left: 10px;
-}
-
-.common > ul > li p,
-.common > ul > li dl {
+.common h3,
+.common h4 {
   margin: 0;
 }
 
-.common > ul > li p + p,
-.common > ul > li p + dl {
+.common h4 {
+  font-size: inherit;
+}
+
+.common > div {
+  display: flex;
+  margin-top: 2px;
+  padding-bottom: 16px;
+}
+
+.common > div > ul {
+  margin: 0 0 0 16px;
+  padding: 0;
+}
+
+.common > div > ul > li {
+  display: flex;
+}
+
+.common > div > ul > li + li {
   margin-top: 10px;
 }
 
-.common > ul > li dl > div {
-  display: table-row;
+.common > div > ul > li > h4 + dl {
+  margin-left: 10px;
 }
 
-.common > ul > li dl > div > dt {
-  display: table-cell;
-  padding-right: 10px;
-  width: 110px;
+.common > div > ul > li p,
+.common > div > ul > li dl {
+  margin: 0;
 }
 
-.common > ul > li dl > div > dd {
-  display: table-cell;
-  white-space: pre-line;
-  vertical-align: top;
+.common > div > ul > li p + p,
+.common > div > ul > li p + dl {
+  margin-top: 10px;
 }
 
-.common > ul > li dl > div > dd::before {
-  display: none;
+.common :global(.cspace-ImageGallery--common) {
+  width: 210px;
 }
 
-.common > ul > li dl > div:not(:last-of-type) > dd {
-  padding-bottom: 10px;
+.common :global(.image-gallery-thumbnail) {
+  width: 46px;
 }
 
-.common > ul > li dl > div > dd > ul {
-  /* list-style: none; */
-  list-style: square;
-  padding: 0 0 0 1em;
+
+.common :global(.image-gallery-left-nav),
+.common :global(.image-gallery-right-nav) {
+  font-size: 2.5em;
 }

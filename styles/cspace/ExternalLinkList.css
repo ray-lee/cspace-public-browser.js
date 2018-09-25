@@ -1,0 +1,11 @@
+.common {
+  text-align: right;
+}
+
+.common a {
+  padding-right: 16px;
+  background-image: url(../../images/arrowRight.svg);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 16px;
+}

@@ -7,6 +7,7 @@ import warning from 'warning';
 import { ReactiveList, ResultCard, ResultList } from '@appbaseio/reactivesearch';
 import { ReactiveMap } from '@appbaseio/reactivemaps';
 import { LIST, MAP, TILE } from '../constants/viewTypes';
+import { blobUrl } from '../helpers/urlHelpers';
 import styles from '../../styles/cspace/SearchResultList.css';
 import statsStyles from '../../styles/cspace/SearchResultStats.css';
 import tileStyles from '../../styles/cspace/SearchResultTile.css';
@@ -146,10 +147,7 @@ export default class SearchResultPanel extends Component {
     }
 
     const blobCsid = get(result, ['collectionspace_denorm:blobCsid', 0]);
-
-    const imageUrl = blobCsid
-      ? `${gatewayUrl}/cspace-services/blobs/${blobCsid}/derivatives/Medium/content`
-      : null;
+    const imageUrl = blobCsid && blobUrl(gatewayUrl, blobCsid, 'OriginalJpeg');
 
     return {
       title,

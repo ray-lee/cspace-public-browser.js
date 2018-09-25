@@ -3,9 +3,9 @@
 import Immutable from 'immutable';
 
 import {
-  EXPAND_FILTER,
+  EXPAND_PANEL,
   PREFS_LOADED,
-  TOGGLE_FILTER,
+  TOGGLE_PANEL,
 } from '../constants/actionCodes';
 
 import config from '../config';
@@ -71,9 +71,9 @@ export const savePrefs = () => (dispatch, getState) => {
   }
 };
 
-export const expandFilter = (id, expanded = true) => (dispatch) => {
+export const expandPanel = (id, expanded = true) => (dispatch) => {
   dispatch({
-    type: EXPAND_FILTER,
+    type: EXPAND_PANEL,
     payload: expanded,
     meta: {
       id,
@@ -83,9 +83,9 @@ export const expandFilter = (id, expanded = true) => (dispatch) => {
   dispatch(savePrefs());
 };
 
-export const toggleFilter = id => (dispatch) => {
+export const togglePanel = id => (dispatch) => {
   dispatch({
-    type: TOGGLE_FILTER,
+    type: TOGGLE_PANEL,
     meta: {
       id,
     },

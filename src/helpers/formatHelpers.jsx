@@ -2,9 +2,10 @@ import React from 'react';
 import get from 'lodash/get';
 import qs from 'qs';
 import { getDisplayName } from 'cspace-refname';
+import linkStyles from '../../styles/cspace/Link.css';
 
-const renderLink = (url, text) =>
-  url ? <a href={url}>{text || url}</a> : (text || url);
+const renderLink = (url, text, type) =>
+  url ? <a className={type && linkStyles[type]} href={url}>{text || url}</a> : (text || url);
 
 const renderFilterLink = (filterId, filterValue, linkText) => {
   if (!filterValue) {
@@ -107,8 +108,15 @@ export const linkNote = (urlField, noteField, separator = ' - ') => (object) => 
 
 export const linkedDisplayName = filterId => data => renderFilterLink(filterId, displayName(data));
 
-export const linkText = (urlField, textField) => (object) =>
-  renderLink(object[urlField], object[textField]);
+export const linkText = config => (data) => {
+  const {
+    urlFieldName,
+    textFieldName,
+    type,
+  } = config;
+
+  return renderLink(data[urlFieldName], data[textFieldName], type);
+}
 
 const numberType = {
   callnumber: 'call number',

@@ -1,10 +1,10 @@
 .common {
-  text-align: right;
 }
 
-.common a {
+.external {
+  composes: common;
   padding-right: 16px;
-  background-image: url(../../images/arrowRight.svg);
+  background-image: url(../../images/openNew.svg);
   background-repeat: no-repeat;
   background-position: right center;
   background-size: 16px;

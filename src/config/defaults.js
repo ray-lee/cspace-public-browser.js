@@ -3,6 +3,7 @@ import {
   composition,
   displayName,
   filterLink,
+  linkText,
   list,
   listOf,
   nameRole,
@@ -350,11 +351,6 @@ export default {
         linkName: false,
       })),
     },
-    // {
-    //   label: 'Web site',
-    //   name: 'materials_common:externalUrlGroupList',
-    //   format: listOf(linkText('externalUrl', 'externalUrlNote')),
-    // },
     {
       category: true,
       label: 'Form',
@@ -558,7 +554,20 @@ export default {
         valueFieldName: 'additionalProcessNote',
       })),
     },
-
+    {
+      category: true,
+      label: 'External Links',
+      name: 'cat_link',
+    },
+    {
+      label: 'Links',
+      name: 'materials_common:externalUrlGroupList',
+      format: listOf(linkText({
+        urlFieldName: 'externalUrl',
+        textFieldName: 'externalUrlNote',
+        type: 'external',
+      })),
+    },
     // TODO: Broader/narrower
   ],
 

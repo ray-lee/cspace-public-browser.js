@@ -6,8 +6,6 @@ import FieldList from './FieldList';
 import ImageGallery from './ImageGallery';
 import SampleListContainer from '../containers/SampleListContainer';
 import config from '../config';
-import { linkText, listOf } from '../helpers/formatHelpers';
-import externalLinkListStyles from '../../styles/cspace/ExternalLinkList.css';
 import styles from '../../styles/cspace/DetailPanel.css';
 
 const propTypes = {
@@ -87,15 +85,12 @@ export default class DetailPanel extends Component {
           <section>
             <div>
               <ImageGallery blobCsids={blobCsids} />
-              {description && <p>{description}</p>}
-
-              <div className={externalLinkListStyles.common}>
-                {listOf(linkText('externalUrl', 'externalUrlNote'))(urlGroups)}
-              </div>
             </div>
           </section>
 
           <section>
+            {description && <p>{description}</p>}
+
             <FieldList
               data={result}
               fields={config.get('materialDetailFields')}

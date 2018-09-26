@@ -29,16 +29,6 @@
   /* color: white; */
 }
 
-.common > main > section:first-of-type ul {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0 0;
-}
-
-.common > main > section:first-of-type a {
-  /* color: white; */
-}
-
 .common > main > section:last-of-type {
   flex: 1 1 auto;
 }

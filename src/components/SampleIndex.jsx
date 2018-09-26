@@ -7,6 +7,7 @@ import get from 'lodash/get';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import config from '../config';
+import linkStyles from '../../styles/cspace/Link.css';
 import styles from '../../styles/cspace/SampleIndex.css';
 
 const messages = defineMessages({
@@ -42,18 +43,26 @@ export default function SampleIndex(props) {
     const title = get(institutions, [institutionId, 'title']);
 
     return (
-      <Link key={institutionId} replace to={`#${institutionId}`}>
-        <FormattedMessage
-          {...messages.link}
-          values={{ count, title }}
-        />
-      </Link>
+      <li key={institutionId}>
+        <Link className={linkStyles.hash} replace to={`#${institutionId}`}>
+          <FormattedMessage
+            {...messages.link}
+            values={{ count, title }}
+          />
+        </Link>
+      </li>
     );
   });
 
+  if (links.size === 0) {
+    return null;
+  }
+
   return (
     <nav className={styles.common}>
-      {links}
+      <ul>
+        {links}
+      </ul>
     </nav>
   );
 }

@@ -1,11 +1,16 @@
 .common {
+  padding-right: 17px;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 16px;
 }
 
 .external {
   composes: common;
-  padding-right: 17px;
   background-image: url(../../images/openNew.svg);
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-size: 16px;
+}
+
+.hash {
+  composes: common;
+  background-image: url(../../images/linkDown.svg);
 }

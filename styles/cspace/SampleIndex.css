@@ -2,6 +2,15 @@
   margin-bottom: 16px;
 }
 
-.common > a {
-  display: block;
+.common > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
+
+/* .common > ul > li {
+  padding-left: 17px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 16px auto;
+} */

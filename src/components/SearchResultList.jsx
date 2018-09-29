@@ -13,6 +13,7 @@ import statsStyles from '../../styles/cspace/SearchResultStats.css';
 import tileStyles from '../../styles/cspace/SearchResultTile.css';
 
 const propTypes = {
+  advancedSearchFields: PropTypes.arrayOf(PropTypes.object),
   filters: PropTypes.arrayOf(PropTypes.object),
   gatewayUrl: PropTypes.string.isRequired,
   searchEntryId: PropTypes.string,
@@ -22,6 +23,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  advancedSearchFields: [],
   filters: [],
   searchEntryId: 'search',
   sortField: null,
@@ -66,11 +68,16 @@ export default class SearchResultPanel extends Component {
 
   getSensorIds() {
     const {
+      advancedSearchFields,
       filters,
       searchEntryId,
     } = this.props;
 
-    return [searchEntryId, ...filters.map(filter => filter.id)];
+    return [
+      searchEntryId,
+      ...advancedSearchFields.map(field => field.id),
+      ...filters.map(filter => filter.id),
+    ];
   }
 
   getSortOptions() {

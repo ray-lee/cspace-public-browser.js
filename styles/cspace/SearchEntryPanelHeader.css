@@ -1,0 +1,58 @@
+@value searchInputHeight, searchInputBorderWidth from '../dimensions.css';
+@value inputBg, inputBorder, panelBorder from '../colors.css';
+
+.common {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: searchInputBorderWidth solid inputBorder;
+}
+
+.common :global(.cspace-DataSearch) {
+  flex: 1 1 auto;
+}
+
+.common :global(.cspace-SearchInput) {
+  border: none;
+}
+
+.common button {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: searchInputHeight;
+}
+
+.common button:focus {
+  outline: 1px dotted black;
+  outline-offset: -1px;
+}
+
+.collapsed {
+  composes: common;
+}
+
+.collapsed button {
+  background-image: url(../../images/expand.svg);
+}
+
+.collapsed button:hover {
+  background-image: url(../../images/expandActive.svg);
+}
+
+.expanded {
+  composes: common;
+}
+
+.expanded button {
+  background-image: url(../../images/collapse.svg);
+}
+
+.expanded button:hover {
+  background-image: url(../../images/collapseActive.svg);
+}

@@ -2,8 +2,11 @@
 
 .common {
   padding: 0 16px;
-  border-bottom: 1px solid panelBorder;
   box-sizing: border-box;
+}
+
+.common:not(:last-child) {
+  border-bottom: 1px solid panelBorder;
 }
 
 .common:hover {

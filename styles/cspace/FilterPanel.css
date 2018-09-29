@@ -1,11 +1,10 @@
 @value inputBg, inputBorder, panelBorder from '../colors.css';
-@value filterPanelWidth, searchInputHeight from '../dimensions.css';
+@value filterPanelWidth, searchInputHeight, searchInputBorderWidth from '../dimensions.css';
 
 .common {
-  grid-area: filter;
   position: fixed;
-  margin-top: searchInputHeight;
-  height: calc(100% - searchInputHeight);
+  top: calc(searchInputHeight + searchInputBorderWidth);
+  bottom: 0;
   width: filterPanelWidth;
   overflow-y: auto;
   background-color: rgba(212, 212, 212, .2);

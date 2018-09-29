@@ -289,6 +289,26 @@ export default {
     },
   ],
 
+  advancedSearchFields: [
+    {
+      id: 'adv-commercialNames',
+      autoSuggest: true,
+      field: 'collectionspace_denorm:commercialNames',
+      title: 'Commercial name',
+    },
+    {
+      id: 'adv-commonNames',
+      autoSuggest: true,
+      field: 'collectionspace_denorm:commonNames',
+      title: 'Common name',
+    },
+    {
+      id: 'adv-description',
+      field: 'materials_common:description',
+      title: 'Description',
+    },
+  ],
+
   materialDetailFields: [
     {
       category: true,

@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DataSearch } from '@appbaseio/reactivesearch';
+import AdvancedSearchForm from './AdvancedSearchForm';
+import SearchEntryPanelHeader from './SearchEntryPanelHeader';
 import styles from '../../styles/cspace/SearchEntryPanel.css';
 
 const propTypes = {
   id: PropTypes.string,
+  isExpanded: PropTypes.bool,
+  onExpandButtonClick: PropTypes.func,
+  onRectChange: PropTypes.func,
 };
 
 const defaultProps = {
   id: 'search',
+  isExpanded: false,
+  onExpandButtonClick: null,
+  onRectChange: null,
 };
 
 export default class SearchEntryPanel extends Component {
@@ -19,6 +26,48 @@ export default class SearchEntryPanel extends Component {
   }
 
   componentDidMount() {
+    const {
+      onRectChange,
+    } = this.props;
+
+    this.focus();
+
+    if (onRectChange) {
+      onRectChange(this.getRect());
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      isExpanded,
+      onRectChange,
+    } = this.props;
+
+    if (onRectChange) {
+      const { isExpanded: prevIsExpanded } = prevProps;
+
+      if (isExpanded !== prevIsExpanded) {
+        onRectChange(this.getRect());
+      }
+    }
+  }
+
+  getRect() {
+    if (this.domNode) {
+      const rect = this.domNode.getBoundingClientRect();
+
+      return {
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        bottom: rect.bottom,
+      };
+    }
+
+    return undefined;
+  }
+
+  focus() {
     if (this.domNode) {
       const input = this.domNode.querySelector('input');
 
@@ -35,27 +84,22 @@ export default class SearchEntryPanel extends Component {
   render() {
     const {
       id,
+      isExpanded,
+      onExpandButtonClick,
     } = this.props;
 
     return (
       <div
-        className={styles.common}
+        className={isExpanded ? styles.expanded : styles.common}
         ref={this.handleRef}
       >
-        <DataSearch
-          autosuggest={false}
-          componentId={id}
-          debounce={200}
-          dataField="_all"
-          innerClass={{
-            input: 'cspace-SearchEntryPanelInput',
-            title: 'cspace-SearchEntryPanelTitle',
-            icon: 'foo',
-          }}
-          placeholder="Search"
-          filterLabel="Search"
-          URLParams
+        <SearchEntryPanelHeader
+          id={id}
+          isExpanded={isExpanded}
+          onExpandButtonClick={onExpandButtonClick}
         />
+
+        <AdvancedSearchForm isOpen={isExpanded} />
       </div>
     );
   }

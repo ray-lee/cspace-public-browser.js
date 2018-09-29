@@ -147,7 +147,12 @@ export default {
     {
       id: 'materialProductionOrganization',
       field: 'materials_common:materialProductionOrganizationGroupList.materialProductionOrganization.displayName',
-      title: 'Producer',
+      title: 'Production organization',
+    },
+    {
+      id: 'materialProductionPerson',
+      field: 'materials_common:materialProductionPersonGroupList.materialProductionPerson.displayName',
+      title: 'Production person',
     },
     {
       id: 'materialProductionPlace',

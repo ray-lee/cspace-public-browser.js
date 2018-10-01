@@ -31,7 +31,7 @@ export default function SearchResultPage(props) {
 
   const advancedSearchFields = config.get('advancedSearchFields');
   const defaultQuery = config.get('defaultQuery');
-  const filters = config.get('filters');
+  const filterGroups = config.get('filterGroups');
   const gatewayUrl = config.get('gatewayUrl');
   const sortField = config.get('sortField');
   const types = config.get('types');
@@ -50,14 +50,14 @@ export default function SearchResultPage(props) {
 
       <FilterPanel
         advancedSearchFields={advancedSearchFields}
-        filters={filters}
+        filterGroups={filterGroups}
         top={searchEntryPanelRect.bottom}
       />
 
       <SearchResultPanel
         advancedSearchFields={advancedSearchFields}
         defaultQuery={defaultQuery}
-        filters={filters}
+        filterGroups={filterGroups}
         gatewayUrl={gatewayUrl}
         sortField={sortField}
         top={searchEntryPanelRect.bottom}

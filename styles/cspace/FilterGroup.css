@@ -1,0 +1,19 @@
+
+@value panelBorder from '../colors.css';
+
+.common {
+}
+
+.common > h1 {
+  font-size: .85rem;
+  margin: 0;
+  border-bottom: 1px solid panelBorder;
+  border-top: 1px solid panelBorder;
+  background-color: panelBorder;
+  padding: 16px 36px 16px 16px;
+  /* text-transform: uppercase; */
+}
+
+.empty {
+  display: none;
+}

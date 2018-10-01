@@ -6,6 +6,7 @@ import styles from '../../styles/cspace/FilterPanel.css';
 const propTypes = {
   advancedSearchFields: PropTypes.arrayOf(PropTypes.object),
   filterGroups: PropTypes.arrayOf(PropTypes.object),
+  filterIds: PropTypes.arrayOf(PropTypes.string),
   searchEntryId: PropTypes.string,
   top: PropTypes.number,
 };
@@ -13,6 +14,7 @@ const propTypes = {
 const defaultProps = {
   advancedSearchFields: [],
   filterGroups: [],
+  filterIds: [],
   searchEntryId: 'search',
   top: null,
 };
@@ -22,12 +24,14 @@ export default class FilterPanel extends Component {
     const {
       advancedSearchFields,
       filterGroups,
+      filterIds,
       searchEntryId,
     } = this.props;
 
     return filterGroups.map(filterGroup => (
       <FilterGroupContainer
         {...filterGroup}
+        filterIds={filterIds}
         key={filterGroup.id}
         advancedSearchFields={advancedSearchFields}
         searchEntryId={searchEntryId}

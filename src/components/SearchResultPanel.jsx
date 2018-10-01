@@ -7,7 +7,7 @@ import styles from '../../styles/cspace/SearchResultPanel.css';
 const propTypes = {
   advancedSearchFields: PropTypes.arrayOf(PropTypes.object),
   defaultQuery: PropTypes.object,
-  filterGroups: PropTypes.arrayOf(PropTypes.object),
+  filterIds: PropTypes.arrayOf(PropTypes.string),
   gatewayUrl: PropTypes.string.isRequired,
   sortField: PropTypes.string,
   top: PropTypes.number,
@@ -17,7 +17,7 @@ const propTypes = {
 const defaultProps = {
   advancedSearchFields: [],
   defaultQuery: {},
-  filterGroups: [],
+  filterIds: [],
   sortField: null,
   top: null,
   types: {},
@@ -32,7 +32,7 @@ export default class SearchResultPanel extends Component {
     const {
       advancedSearchFields,
       defaultQuery,
-      filterGroups,
+      filterIds,
       gatewayUrl,
       sortField,
       top,
@@ -54,7 +54,7 @@ export default class SearchResultPanel extends Component {
           advancedSearchFields={advancedSearchFields}
           componentId="results"
           defaultQuery={() => defaultQuery}
-          filterGroups={filterGroups}
+          filterIds={filterIds}
           gatewayUrl={gatewayUrl}
           sortField={sortField}
           types={types}

@@ -8,10 +8,10 @@ const renderFilters = (props) => {
   const {
     advancedSearchFields,
     filters,
+    filterIds,
     searchEntryId,
   } = props;
 
-  const filterIds = filters.map(filter => filter.id);
   const advancedSearchIds = advancedSearchFields.map(field => field.id);
 
   return filters.map(filter => (

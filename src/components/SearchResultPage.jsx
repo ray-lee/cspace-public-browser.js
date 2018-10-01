@@ -36,6 +36,12 @@ export default function SearchResultPage(props) {
   const sortField = config.get('sortField');
   const types = config.get('types');
 
+  const filterIds = [];
+
+  filterGroups.forEach((filterGroup) => {
+    filterIds.push(...filterGroup.filters.map(filter => filter.id));
+  });
+
   return (
     <div className={styles.common}>
       <Helmet>
@@ -51,6 +57,7 @@ export default function SearchResultPage(props) {
       <FilterPanel
         advancedSearchFields={advancedSearchFields}
         filterGroups={filterGroups}
+        filterIds={filterIds}
         top={searchEntryPanelRect.bottom}
       />
 

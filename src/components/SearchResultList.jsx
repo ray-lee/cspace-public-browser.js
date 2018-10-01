@@ -14,7 +14,7 @@ import tileStyles from '../../styles/cspace/SearchResultTile.css';
 
 const propTypes = {
   advancedSearchFields: PropTypes.arrayOf(PropTypes.object),
-  filterGroups: PropTypes.arrayOf(PropTypes.object),
+  filterIds: PropTypes.arrayOf(PropTypes.string),
   gatewayUrl: PropTypes.string.isRequired,
   searchEntryId: PropTypes.string,
   sortField: PropTypes.string,
@@ -24,7 +24,7 @@ const propTypes = {
 
 const defaultProps = {
   advancedSearchFields: [],
-  filterGroups: [],
+  filterIds: [],
   searchEntryId: 'search',
   sortField: null,
   view: TILE,
@@ -69,15 +69,9 @@ export default class SearchResultPanel extends Component {
   getSensorIds() {
     const {
       advancedSearchFields,
-      filterGroups,
+      filterIds,
       searchEntryId,
     } = this.props;
-
-    const filterIds = [];
-
-    filterGroups.forEach((filterGroup) => {
-      filterIds.push(...filterGroup.filters.map(filter => filter.id));
-    });
 
     return [
       searchEntryId,

@@ -65,6 +65,7 @@ export default function SearchResultPage(props) {
         advancedSearchFields={advancedSearchFields}
         defaultQuery={defaultQuery}
         filterGroups={filterGroups}
+        filterIds={filterIds}
         gatewayUrl={gatewayUrl}
         sortField={sortField}
         top={searchEntryPanelRect.bottom}

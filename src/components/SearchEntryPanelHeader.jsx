@@ -21,7 +21,7 @@ export default function SearchEntryPanelHeader(props) {
           input: 'cspace-SearchInput',
           title: 'cspace-SearchInputTitle',
         }}
-        placeholder="Search"
+        placeholder="Search materials"
         filterLabel="Search"
         URLParams
       />

@@ -18,12 +18,14 @@ export default function AdvancedSearchForm(props) {
 
   return (
     <div className={styles.common} style={{ display: isOpen ? 'block' : 'none' }}>
-      {fields.map(field => (
-        <AdvancedSearchInput
-          key={field.id}
-          {...field}
-        />
-      ))}
+      <div>
+        {fields.map(field => (
+          <AdvancedSearchInput
+            key={field.id}
+            {...field}
+          />
+        ))}
+      </div>
     </div>
   );
 }

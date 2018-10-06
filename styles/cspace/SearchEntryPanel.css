@@ -1,4 +1,4 @@
-@value inputBg, inputBorder, panelBorder from '../colors.css';
+@value inputBgColor, inputBorder, panelBorderColor from '../colors.css';
 
 .common {
   position: fixed;
@@ -6,12 +6,12 @@
   flex-direction: column;
   width: 100%;
   background-color: white;
-  box-shadow: 0 0 9px 3px panelBorder;
+  box-shadow: 0 0 9px 3px panelBorderColor;
   z-index: 1;
 }
 
 .common :global(.cspace-SearchInput) {
-  background-color: inputBg;
+  background-color: inputBgColor;
   font-size: 1rem;
 }
 

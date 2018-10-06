@@ -1,4 +1,4 @@
-@value inputBg, inputBorder, panelBorder from '../colors.css';
+@value inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
 
 .common {
   padding: 0 49px 10px 49px;
@@ -10,5 +10,5 @@
 }
 
 .common :global(.cspace-SearchInput) {
-  border: 1px solid inputBorder;
+  border: 1px solid inputBorderColor;
 }

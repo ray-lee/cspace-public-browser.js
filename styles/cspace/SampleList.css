@@ -1,8 +1,8 @@
-@value panelBorder from '../colors.css';
+@value panelBorderColor from '../colors.css';
 
 .common {
-  border-top: 1px solid panelBorder;
-  border-bottom: 1px solid panelBorder;
+  border-top: 1px solid panelBorderColor;
+  border-bottom: 1px solid panelBorderColor;
 }
 
 .expanded {

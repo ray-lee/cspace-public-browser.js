@@ -1,5 +1,5 @@
 @value searchInputHeight, searchInputBorderWidth from '../dimensions.css';
-@value inputBg, inputBorder, panelBorder from '../colors.css';
+@value inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
 
 .common {
   display: flex;
@@ -7,7 +7,7 @@
   width: 100%;
   padding: 16px;
   background-color: rgba(212, 212, 212, .2);
-  /* border-bottom: searchInputBorderWidth solid inputBorder; */
+  /* border-bottom: searchInputBorderWidth solid inputBorderColor; */
 }
 
 .common :global(.cspace-DataSearch) {

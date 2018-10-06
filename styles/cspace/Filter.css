@@ -1,4 +1,4 @@
-@value inputBg, inputBorder, panelBorder from '../colors.css';
+@value inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
 
 .common {
   padding: 0 16px;
@@ -6,7 +6,7 @@
 }
 
 .common:not(:last-child) {
-  border-bottom: 1px solid panelBorder;
+  border-bottom: 1px solid panelBorderColor;
 }
 
 .common:hover {
@@ -27,13 +27,13 @@
   height: 30px;
   margin: 0 16px;
   padding: 0 8px;
-  border: 1px solid inputBorder;
+  border: 1px solid inputBorderColor;
   /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
-  background-color: inputBg;
+  background-color: inputBgColor;
 }
 
 .common :global(.cspace-FilterCheckbox) + label::before {
-  border: 1px solid inputBorder;
+  border: 1px solid inputBorderColor;
   /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
 }
 

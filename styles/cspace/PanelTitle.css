@@ -1,4 +1,4 @@
-@value panelBorder from '../colors.css';
+@value panelBorderColor from '../colors.css';
 
 .common {
   display: block;

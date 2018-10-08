@@ -10,3 +10,21 @@ body {
 .common p:first-child {
   margin-top: 0;
 }
+
+@media only screen
+and (max-device-width: 1080px)
+and (min-resolution: 192dpi)
+and (orientation: portrait) {
+  html {
+    font-size: 2rem;
+  }
+}
+
+@media only screen
+and (max-device-width: 1080px)
+and (min-resolution: 192dpi)
+and (orientation: landscape) {
+  html {
+    font-size: 1.5rem;
+  }
+}

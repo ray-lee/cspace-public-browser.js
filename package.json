@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@appbaseio/reactivemaps": "^2.0.1",
-    "@appbaseio/reactivesearch": "^2.8.2",
+    "@appbaseio/reactivesearch": "^2.10.3",
     "@types/googlemaps": "^3.30.13",
     "@types/markerclustererplus": "^2.1.29",
     "@types/react": "^16.4.14",

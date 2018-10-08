@@ -30,7 +30,7 @@ export default function withReactiveBase(BaseComponent) {
         theme={{
           typography: {
             fontFamily: 'Arial, sans-serif',
-            fontSize: '16px',
+            fontSize: '1rem',
           },
           colors: {
             textColor: '#424242',

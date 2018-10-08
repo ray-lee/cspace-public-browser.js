@@ -1,4 +1,4 @@
-@value inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
+@value highlightColor, inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
 
 .common {
   padding: 0 16px;
@@ -23,6 +23,7 @@
 }
 
 .common :global(.cspace-FilterInput) {
+  -webkit-appearance: none;
   font-size: .85rem;
   height: 30px;
   margin: 0 16px;
@@ -30,6 +31,10 @@
   border: 1px solid inputBorderColor;
   /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
   background-color: inputBgColor;
+}
+
+.common :global(.cspace-FilterInput):focus {
+  outline: 2px solid highlightColor;
 }
 
 .common :global(.cspace-FilterCheckbox) + label::before {

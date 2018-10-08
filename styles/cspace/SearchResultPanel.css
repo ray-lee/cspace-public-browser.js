@@ -9,6 +9,7 @@
 
 .common :global(.cspace-SearchResultListSelectedFilters) {
   margin: 0;
+  padding: 0 16px;
 }
 
 .common :global(.cspace-SearchResultListSelectedFilters) :global(.cspace-SearchResultListSelectedFiltersButton) {

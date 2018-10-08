@@ -1,4 +1,4 @@
-@value inputBgColor, inputBorder, panelBorderColor from '../colors.css';
+@value highlightColor, inputBgColor, panelBorderColor from '../colors.css';
 
 .common {
   position: fixed;
@@ -11,8 +11,13 @@
 }
 
 .common :global(.cspace-SearchInput) {
+  -webkit-appearance: none;
   background-color: inputBgColor;
   font-size: 1rem;
+}
+
+.common :global(.cspace-SearchInput):focus {
+  outline: 2px solid highlightColor;
 }
 
 .expanded {

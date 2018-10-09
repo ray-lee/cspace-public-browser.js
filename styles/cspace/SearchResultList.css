@@ -18,7 +18,7 @@
 
 .common :global(.cspace-SearchResultListSortOptions) {
   font-size: .85rem;
-  margin: 16px;
+  margin: 8px;
 }
 
 .common :global(.cspace-SearchResultListBody) {

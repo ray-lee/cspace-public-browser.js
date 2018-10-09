@@ -54,31 +54,3 @@
 .expanded button:hover {
   background-image: url(../../images/collapseActive.svg);
 }
-
-@media only screen
-and (max-device-width: 1080px)
-and (min-resolution: 192dpi)
-and (orientation: portrait) {
-  .common :global(.cspace-SearchInput) {
-    height: 84px;
-    padding-left: 44px;
-  }
-
-  .common svg {
-    padding-left: 10px;
-  }
-}
-
-@media only screen
-and (max-device-width: 1080px)
-and (min-resolution: 192dpi)
-and (orientation: landscape) {
-  .common :global(.cspace-SearchInput) {
-    height: 64px;
-    padding-left: 38px;
-  }
-
-  .common svg {
-    padding-left: 5px;
-  }
-}

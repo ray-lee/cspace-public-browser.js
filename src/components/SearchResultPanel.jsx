@@ -45,6 +45,7 @@ export default class SearchResultPanel extends Component {
       <div className={styles.common} style={inlineStyle}>
         <SelectedFilters
           className="cspace-SearchResultListSelectedFilters"
+          clearAllLabel="Clear all"
           innerClass={{
             button: 'cspace-SearchResultListSelectedFiltersButton',
           }}

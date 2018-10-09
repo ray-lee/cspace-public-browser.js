@@ -9,7 +9,7 @@
 
 .common :global(.cspace-SearchResultListSelectedFilters) {
   margin: 0;
-  padding: 0 16px;
+  padding: 0 4px;
 }
 
 .common :global(.cspace-SearchResultListSelectedFilters) :global(.cspace-SearchResultListSelectedFiltersButton) {
@@ -17,5 +17,12 @@
 }
 
 .common :global(.cspace-SearchResultListSelectedFilters) :global(.cspace-SearchResultListSelectedFiltersButton):first-of-type {
-  margin-top: 10px;
+  margin-top: 14px;
+}
+
+@media only screen
+and (max-width: 768px) {
+  .common {
+    padding-left: 8px;
+  }
 }

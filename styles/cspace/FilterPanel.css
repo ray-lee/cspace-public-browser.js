@@ -10,3 +10,11 @@
   background-color: rgba(212, 212, 212, .2);
   border-right: 1px solid panelBorderColor;
 }
+
+@media only screen
+and (max-width: 768px) {
+  .common {
+    display: none;
+    width: 0;
+  }
+}

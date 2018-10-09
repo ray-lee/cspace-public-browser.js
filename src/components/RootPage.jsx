@@ -14,7 +14,9 @@ export default function RootPage(props) {
       <Helmet
         defaultTitle={title}
         titleTemplate={`%s | ${title}`}
-      />
+      >
+        <meta name="viewport" content="width=device-width" />
+      </Helmet>
 
       <Switch>
         <Route path="/material/:shortID" component={withReactiveBase(DetailPage)} />

@@ -180,7 +180,7 @@ export default class SearchResultPanel extends Component {
 
         <article>
           <h2>{data.title}</h2>
-          <p>{data.description}</p>
+          {data.description}
         </article>
       </a>
     )

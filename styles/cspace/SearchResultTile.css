@@ -1,9 +1,7 @@
 @value highlightColor from '../colors.css';
 
 .common {
-  display: block;
   width: 210px;
-  height: 310px;
   margin: 8px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, .2);
   border-radius: .25rem;
@@ -34,27 +32,43 @@
 
 .common > article {
   padding: 10px;
+  height: 90px;
+  /* overflow: auto; */
 }
 
 .common > article > h2 {
-  margin: 0;
+  margin: 0 0 6px 0;
   font-size: inherit;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 @media only screen
-and (max-device-width: 1080px)
-and (min-resolution: 192dpi)
-and (orientation: portrait) {
+and (max-width: 695px) {
   .common {
-    height: 440px;
+    width: 158px;
+  }
+
+  .common > div {
+    height: 158px;
+  }
+
+  .common > article {
+    height: 106px;
   }
 }
 
 @media only screen
-and (max-device-width: 1080px)
-and (min-resolution: 192dpi)
-and (orientation: landscape) {
+and (max-width: 539px) {
   .common {
-    height: 370px;
+    width: 105px;
+  }
+
+  .common > div {
+    height: 105px;
+  }
+
+  .common > article {
+    height: 138px;
   }
 }

@@ -44,7 +44,7 @@ export default function Filter(props) {
         list: 'cspace-FilterList',
         count: 'cspace-FilterCount',
       }}
-      size={0}
+      size={250}
       sortBy="asc"
       title={
         <PanelTitle

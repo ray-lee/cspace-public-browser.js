@@ -161,27 +161,27 @@ export default {
         },
       ],
     },
-    {
-      id: 'production',
-      title: 'Production',
-      filters: [
-        {
-          id: 'materialProductionOrganization',
-          field: 'materials_common:materialProductionOrganizationGroupList.materialProductionOrganization.displayName',
-          title: 'Production organization',
-        },
-        {
-          id: 'materialProductionPerson',
-          field: 'materials_common:materialProductionPersonGroupList.materialProductionPerson.displayName',
-          title: 'Production person',
-        },
-        {
-          id: 'materialProductionPlace',
-          field: 'materials_common:materialProductionPlaceGroupList.materialProductionPlace.displayName',
-          title: 'Production place',
-        }
-      ],
-    },
+    // {
+    //   id: 'production',
+    //   title: 'Production',
+    //   filters: [
+    //     {
+    //       id: 'materialProductionOrganization',
+    //       field: 'materials_common:materialProductionOrganizationGroupList.materialProductionOrganization.displayName',
+    //       title: 'Production organization',
+    //     },
+    //     {
+    //       id: 'materialProductionPerson',
+    //       field: 'materials_common:materialProductionPersonGroupList.materialProductionPerson.displayName',
+    //       title: 'Production person',
+    //     },
+    //     {
+    //       id: 'materialProductionPlace',
+    //       field: 'materials_common:materialProductionPlaceGroupList.materialProductionPlace.displayName',
+    //       title: 'Production place',
+    //     }
+    //   ],
+    // },
     {
       id: 'form',
       title: 'Form',
@@ -511,23 +511,23 @@ export default {
   ],
 
   advancedSearchFields: [
-    {
-      id: 'adv-commercialNames',
-      autoSuggest: true,
-      field: 'collectionspace_denorm:commercialNames',
-      title: 'Commercial name',
-    },
-    {
-      id: 'adv-commonNames',
-      autoSuggest: true,
-      field: 'collectionspace_denorm:commonNames',
-      title: 'Common name',
-    },
-    {
-      id: 'adv-description',
-      field: 'materials_common:description',
-      title: 'Description',
-    },
+    // {
+    //   id: 'adv-commercialNames',
+    //   autoSuggest: true,
+    //   field: 'collectionspace_denorm:commercialNames',
+    //   title: 'Commercial name',
+    // },
+    // {
+    //   id: 'adv-commonNames',
+    //   autoSuggest: true,
+    //   field: 'collectionspace_denorm:commonNames',
+    //   title: 'Common name',
+    // },
+    // {
+    //   id: 'adv-description',
+    //   field: 'materials_common:description',
+    //   title: 'Description',
+    // },
   ],
 
   materialDetailFields: [

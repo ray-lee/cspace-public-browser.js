@@ -1,7 +1,9 @@
 
 @value panelBorderColor from '../colors.css';
+@value filterPanelWidth from '../dimensions.css';
 
 .common {
+  width: filterPanelWidth;
 }
 
 .common > h1 {
@@ -11,7 +13,8 @@
   border-top: 1px solid panelBorderColor;
   background-color: panelBorderColor;
   padding: 16px 18px;
-  /* text-transform: uppercase; */
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .empty {

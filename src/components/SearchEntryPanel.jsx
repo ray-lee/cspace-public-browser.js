@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AdvancedSearchForm from './AdvancedSearchForm';
+// import AdvancedSearchForm from './AdvancedSearchForm';
 import SearchEntryPanelHeader from './SearchEntryPanelHeader';
 import styles from '../../styles/cspace/SearchEntryPanel.css';
 
@@ -99,7 +99,7 @@ export default class SearchEntryPanel extends Component {
           onExpandButtonClick={onExpandButtonClick}
         />
 
-        <AdvancedSearchForm isOpen={isExpanded} />
+        {/* <AdvancedSearchForm isOpen={isExpanded} /> */}
       </div>
     );
   }

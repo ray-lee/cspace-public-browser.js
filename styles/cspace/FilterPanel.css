@@ -7,14 +7,32 @@
   bottom: 0;
   width: filterPanelWidth;
   overflow-y: auto;
-  background-color: rgba(212, 212, 212, .2);
+  background-color: rgba(245, 245, 245);
   border-right: 1px solid panelBorderColor;
+}
+
+.collapsed {
+  composes: common;
+}
+
+.expanded {
+  composes: common;
 }
 
 @media only screen
 and (max-width: 768px) {
   .common {
-    display: none;
+    z-index: 1;
+    transition: width 0.3s;
+  }
+
+  .collapsed {
     width: 0;
+    border-right: none;
+  }
+
+  .expanded {
+    width: filterPanelWidth;
+    box-shadow: 0 0 9px 3px panelBorderColor;
   }
 }

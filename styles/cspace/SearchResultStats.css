@@ -2,3 +2,10 @@
   font-size: .85rem;
   margin: 8px 0 8px 8px;
 }
+
+@media only screen
+and (max-width: 768px) {
+  .common {
+    margin-left: 70px;
+  }
+}

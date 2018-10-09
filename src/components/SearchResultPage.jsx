@@ -5,27 +5,34 @@ import config from '../config';
 import FilterPanel from './FilterPanel';
 import SearchEntryPanel from './SearchEntryPanel';
 import SearchResultPanel from './SearchResultPanel';
+import ToggleFilterPanelButton from './ToggleFilterPanelButton';
 import styles from '../../styles/cspace/SearchResultPage.css';
 
 const propTypes = {
+  isFilterPanelExpanded: PropTypes.bool,
   isSearchEntryPanelExpanded: PropTypes.bool,
   searchEntryPanelRect: PropTypes.shape({ bottom: PropTypes.number }),
   setSearchEntryPanelRect: PropTypes.func,
+  toggleFilterPanel: PropTypes.func,
   toggleSearchEntryPanel: PropTypes.func,
 };
 
 const defaultProps = {
+  isFilterEntryPanelExpanded: false,
   isSearchEntryPanelExpanded: false,
   searchEntryPanelRect: {},
   setSearchEntryPanelRect: null,
+  toggleFilterPanel: null,
   toggleSearchEntryPanel: null,
 };
 
 export default function SearchResultPage(props) {
   const {
+    isFilterPanelExpanded,
     isSearchEntryPanelExpanded,
     searchEntryPanelRect,
     setSearchEntryPanelRect,
+    toggleFilterPanel,
     toggleSearchEntryPanel,
   } = props;
 
@@ -54,10 +61,16 @@ export default function SearchResultPage(props) {
         onRectChange={setSearchEntryPanelRect}
       />
 
+      <ToggleFilterPanelButton
+        isFilterPanelExpanded={isFilterPanelExpanded}
+        onClick={toggleFilterPanel}
+      />
+
       <FilterPanel
         advancedSearchFields={advancedSearchFields}
         filterGroups={filterGroups}
         filterIds={filterIds}
+        isExpanded={isFilterPanelExpanded}
         top={searchEntryPanelRect.bottom}
       />
 

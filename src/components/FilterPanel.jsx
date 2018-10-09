@@ -7,6 +7,7 @@ const propTypes = {
   advancedSearchFields: PropTypes.arrayOf(PropTypes.object),
   filterGroups: PropTypes.arrayOf(PropTypes.object),
   filterIds: PropTypes.arrayOf(PropTypes.string),
+  isExpanded: PropTypes.bool,
   searchEntryId: PropTypes.string,
   top: PropTypes.number,
 };
@@ -15,6 +16,7 @@ const defaultProps = {
   advancedSearchFields: [],
   filterGroups: [],
   filterIds: [],
+  isExpanded: false,
   searchEntryId: 'search',
   top: null,
 };
@@ -40,11 +42,19 @@ export default class FilterPanel extends Component {
   }
 
   render() {
-    const { top } = this.props;
+    const {
+      isExpanded,
+      top,
+    } = this.props;
+
     const inlineStyle = (top !== null) ? { top } : undefined;
+    const className = isExpanded ? styles.expanded : styles.collapsed;
 
     return (
-      <div className={styles.common} style={inlineStyle}>
+      <div
+        className={className}
+        style={inlineStyle}
+      >
         {this.renderFilterGroups()}
       </div>
     );

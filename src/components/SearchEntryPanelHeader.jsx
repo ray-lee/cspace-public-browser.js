@@ -26,7 +26,7 @@ export default function SearchEntryPanelHeader(props) {
         URLParams
       />
 
-      <button onClick={onExpandButtonClick} />
+      {/* <button onClick={onExpandButtonClick} /> */}
     </div>
   );
 }

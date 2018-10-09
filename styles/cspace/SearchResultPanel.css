@@ -25,4 +25,8 @@ and (max-width: 768px) {
   .common {
     padding-left: 8px;
   }
+
+  .common :global(.cspace-SearchResultListSelectedFilters) {
+    padding-left: 66px;
+  }
 }

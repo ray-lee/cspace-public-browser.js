@@ -8,7 +8,7 @@ const propTypes = {
     '_index': PropTypes.string,
   }),
   format: PropTypes.func,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   name: PropTypes.string.isRequired,
 };
 
@@ -16,6 +16,7 @@ const defaultProps = {
   category: false,
   data: {},
   format: null,
+  label: null,
 };
 
 export default function Field(props) {
@@ -37,10 +38,16 @@ export default function Field(props) {
   const formattedValue = format ? format(value, name) : value;
 
   if (formattedValue) {
+    if (label) {
+      return (
+        <div>
+          <dt>{label}</dt><dd>{formattedValue}</dd>
+        </div>
+      );
+    }
+
     return (
-      <div>
-        <dt>{label}</dt><dd>{formattedValue}</dd>
-      </div>
+      <div>{formattedValue}</div>
     );
   }
 

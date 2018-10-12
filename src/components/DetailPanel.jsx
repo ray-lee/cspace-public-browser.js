@@ -73,7 +73,7 @@ export default class DetailPanel extends Component {
       materialTermGroups.length > 1 &&
       materialTermGroups[1].termDisplayName;
 
-    const subtitle = altName && <h2>{altName}</h2>;
+    const detailFields = config.get('materialDetailFields');
 
     return (
       <div className={styles.common}>
@@ -83,27 +83,34 @@ export default class DetailPanel extends Component {
 
         <header>
           <h1>{title}</h1>
-          {subtitle}
+          {altName && <h2>{altName}</h2>}
         </header>
 
-        <main>
-          <section>
-            <div>
-              <SampleIndexContainer materialRefName={refName} />
-              <ImageGallery blobCsids={blobCsids} />
-            </div>
-          </section>
+        <SampleIndexContainer materialRefName={refName} />
 
-          <section>
-            {description && <p>{description}</p>}
+        {description && <p>{description}</p>}
 
-            <FieldList
-              data={result}
-              fields={config.get('materialDetailFields')}
-              recordType="Materialitem"
-            />
-          </section>
-        </main>
+        <section>
+          <ImageGallery blobCsids={blobCsids} />
+
+          <FieldList
+            data={result}
+            fields={detailFields[0]}
+            recordType="Materialitem"
+          />
+
+          <FieldList
+            data={result}
+            fields={detailFields[1]}
+            recordType="Materialitem"
+          />
+
+          <FieldList
+            data={result}
+            fields={detailFields[2]}
+            recordType="Materialitem"
+          />
+        </section>
 
         {this.renderSampleLists(refName)}
       </div>

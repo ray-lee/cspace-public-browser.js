@@ -1,36 +1,21 @@
 @value highlightColor from '../colors.css';
 
 .common {
-  width: 1024px;
+  max-width: 840px;
+  padding: 16px;
 }
 
-.common > header {
-  /* position: sticky;
-  top: 0; */
-  padding: 16px 0;
-  background-color: white;
-  z-index: 10;
+.common > section {
+  display: grid;
+  grid-template-columns: auto 420px;
+  grid-column-gap: 10px;
+  grid-template-areas:
+    "fields1 gallery"
+    "fields2 fields3";
 }
 
-.common > main {
-  display: flex;
-  flex-direction: row-reverse;
-  margin-bottom: 16px;
-}
-
-.common > main > section:first-of-type {
-  margin-left: 16px;
-}
-
-.common > main > section:first-of-type > div {
-  width: 420px;
-  /* padding: 16px; */
-  /* background-color: #303030; */
-  /* color: white; */
-}
-
-.common > main > section:last-of-type {
-  flex: 1 1 auto;
+.common > section > :global(.cspace-ImageGallery--common) {
+  grid-area: gallery;
 }
 
 .common h1,
@@ -38,8 +23,12 @@
   margin: 0;
 }
 
-.common h1 + h2 {
-  margin-top: 0;
+.common h1 {
+  font-size: 2rem;
+}
+
+.common h2 {
+  font-size: 1.5rem;
 }
 
 .common a {
@@ -49,4 +38,19 @@
 
 .common a:hover {
   text-decoration: underline;
+}
+
+@media only screen
+and (max-width: 719px) {
+  .common > section {
+    display: block;
+  }
+}
+
+@media only screen
+and (min-width: 720px)
+and (max-width: 839px) {
+  .common > section {
+    grid-template-columns: auto 360px;
+  }
 }

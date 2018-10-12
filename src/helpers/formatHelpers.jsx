@@ -30,8 +30,10 @@ const renderJoined = (parts, separator = '') => {
     return null;
   }
 
+  const separatorElement = (separator === '\n') ? <br /> : separator;
+
   return nonEmptyParts.reduce((joinedParts, nextPart) => (
-    <React.Fragment>{joinedParts}{separator}{nextPart}</React.Fragment>
+    <span>{joinedParts}{separatorElement}{nextPart}</span>
   ));
 }
 
@@ -160,14 +162,14 @@ export const property = config => (data) => {
 export const nameRole = config => (data) => {
   const {
     nameFieldName,
-    valueFieldName,
+    roleFieldName,
     linkName = true,
     separator = ' ',
   } = config;
 
   const name = displayName(data[nameFieldName]);
 
-  let role = displayName(data[valueFieldName]);
+  let role = displayName(data[roleFieldName]);
 
   if (role) {
     role = `(${role})`;
@@ -185,11 +187,17 @@ export const valueWithNote = config => (data) => {
   const {
     valueFieldName,
     noteFieldName,
-    separator = ' - ',
+    separator = '\n',
+    noteLabel = 'Note: ',
   } = config;
 
   const value = displayName(data[valueFieldName]);
-  const note = data[noteFieldName];
+
+  let note = data[noteFieldName];
+
+  if (note) {
+    note = `${noteLabel}${note}`;
+  }
 
   const parts = [
     renderFilterLink(valueFieldName, value),
@@ -204,24 +212,32 @@ export const numericRange = config => (data) => {
     linkQualifier,
     lowFieldName,
     highFieldName,
-    unit,
     unitFieldName,
     qualifierFieldName,
+    qualifierSeparator = ' ',
+  } = config;
+
+  let {
+    unit,
   } = config;
 
   const low = data[lowFieldName];
   const high = data[highFieldName];
   const range = [low, high].filter(part => !!part).join('-');
 
+  if (range) {
+    unit = unit || displayName(data[unitFieldName]);
+  } else {
+    unit = null;
+  }
+
   const qualifier = displayName(data[qualifierFieldName]);
+  const rangeUnit = renderJoined([range, unit], ' ');
 
-  const parts = [
-    range,
-    unit ? unit : displayName(data[unitFieldName]),
+  return renderJoined([
+    rangeUnit,
     linkQualifier ? renderFilterLink(qualifierFieldName, qualifier) : qualifier,
-  ];
-
-  return renderJoined(parts, ' ');
+  ], qualifierSeparator);
 };
 
 export const paragraphs = array =>

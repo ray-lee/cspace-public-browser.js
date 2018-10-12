@@ -59,12 +59,14 @@
   width: 210px;
 }
 
-.common :global(.image-gallery-thumbnail) {
-  width: 46px;
-}
-
-
 .common :global(.image-gallery-left-nav),
 .common :global(.image-gallery-right-nav) {
   font-size: 2.5em;
+}
+
+@media only screen
+and (max-width: 640px) {
+  .common > div {
+    display: block;
+  }
 }

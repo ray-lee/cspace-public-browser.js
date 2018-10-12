@@ -1,18 +1,11 @@
 @value panelBorderColor from '../colors.css';
 
 .common {
-  margin: 0;
-}
-
-.common > div {
-  display: flex;
+  margin: 0 0 16px 0;
 }
 
 .common > h3 {
-  margin: 2px 0 0 0;
-  border-top: 1px solid panelBorderColor;
-  /* border-bottom: 1px solid panelBorderColor; */
-  padding: 12px 0;
+  margin: 16px 0 4px 0;
   font-size: inherit;
 }
 
@@ -20,31 +13,33 @@
   margin-top: 0;
 }
 
+.common > div {
+  display: table-row;
+}
+
 .common > div > dt {
-  flex: 0 0 auto;
-  padding: 0;
-  width: 12em;
+  display: table-cell;
+  padding-right: .3em;
+}
+
+.common > div > dt::after {
+  content: ': ';
 }
 
 .common > div > dd {
-  flex: 1 1 auto;
-  white-space: pre-line;
-  vertical-align: top;
-}
-
-.common > div > dd::before {
-  display: none;
-}
-
-.common > div:not(:last-child) > dd,
-.common > div:not(:last-child) > dt {
-  padding-bottom: 10px;
-}
-
-.common > div > dd > ul {
-  list-style: square;
+  display: table-cell;
   margin: 0;
-  padding: 0 0 0 1em;
+}
+
+.common > div > dt,
+.common > div > dd {
+  padding-bottom: 4px;
+}
+
+.common > div ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .Materialitem {

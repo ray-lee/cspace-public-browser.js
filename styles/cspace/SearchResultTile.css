@@ -47,6 +47,7 @@
 and (max-width: 695px) {
   .common {
     width: 158px;
+    margin: 6px;
   }
 
   .common > div {
@@ -59,9 +60,10 @@ and (max-width: 695px) {
 }
 
 @media only screen
-and (max-width: 539px) {
+  and (max-width: 539px) {
   .common {
     width: 105px;
+    margin: 4px;
   }
 
   .common > div {

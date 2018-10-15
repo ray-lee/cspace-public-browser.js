@@ -3,6 +3,7 @@
 .common {
   max-width: 840px;
   padding: 16px;
+  box-sizing: border-box;
 }
 
 .common > section {
@@ -42,6 +43,10 @@
 
 @media only screen
 and (max-width: 719px) {
+  .common {
+    max-width: 100%;
+  }
+
   .common > section {
     display: block;
   }
@@ -50,6 +55,10 @@ and (max-width: 719px) {
 @media only screen
 and (min-width: 720px)
 and (max-width: 839px) {
+  .common {
+    max-width: 100%;
+  }
+
   .common > section {
     grid-template-columns: auto 360px;
   }

@@ -8,10 +8,10 @@
 .common > section {
   display: grid;
   grid-template-columns: auto 420px;
-  grid-column-gap: 10px;
+  grid-column-gap: 16px;
   grid-template-areas:
-    "fields1 gallery"
-    "fields2 fields3";
+    "fields0 gallery"
+    "fields0 fields1";
 }
 
 .common > section > :global(.cspace-ImageGallery--common) {

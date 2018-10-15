@@ -2,7 +2,9 @@ import React from 'react';
 import get from 'lodash/get';
 import qs from 'qs';
 import { getDisplayName } from 'cspace-refname';
+import FieldValueList from '../components/FieldValueList';
 import linkStyles from '../../styles/cspace/Link.css';
+import noteStyles from '../../styles/cspace/FieldValueNote.css';
 
 const renderLink = (url, text, type) =>
   url ? <a className={type && linkStyles[type]} href={url}>{text || url}</a> : (text || url);
@@ -37,13 +39,13 @@ const renderJoined = (parts, separator = '') => {
   ));
 }
 
-const renderList = (values) => {
+const renderList = (values, inline = false) => {
   if (Array.isArray(values)) {
     if (values.length > 1) {
       return (
-        <ul>
+        <FieldValueList inline={inline}>
           {values.map((value, index) => <li key={index}>{value}</li>)}
-        </ul>
+        </FieldValueList>
       );
     }
 
@@ -63,8 +65,13 @@ export const lines = values => values && values.join('\n');
 
 export const list = values => renderList(values);
 
+export const inlineList = values => renderJoined(values, ', ');
+
 export const listOf = format => (array, fieldName) =>
   renderList(array.map(value => format(value, fieldName)));
+
+export const inlineListOf = format => (array, fieldName) =>
+  renderJoined(array.map(value => format(value, fieldName)), ', ');
 
 export const displayName = value => (getDisplayName(value) || value);
 
@@ -187,6 +194,7 @@ export const valueWithNote = config => (data) => {
   const {
     valueFieldName,
     noteFieldName,
+    linkValue = true,
     separator = '\n',
     noteLabel = 'Note: ',
   } = config;
@@ -200,7 +208,7 @@ export const valueWithNote = config => (data) => {
   }
 
   const parts = [
-    renderFilterLink(valueFieldName, value),
+    linkValue ? renderFilterLink(valueFieldName, value) : value,
     note,
   ];
 
@@ -265,3 +273,22 @@ export const valueAt = config => (data) => {
   return format(value, fieldName);
 };
 
+export const pickFromList = config => (array) => {
+  const {
+    condition,
+    format,
+  } = config;
+
+  const {
+    path,
+    value: targetValue,
+  } = condition;
+
+  const value = array.find((candidateItem) => {
+    const candidateValue = path ? get(candidateItem, path) : candidateItem;
+
+    return (candidateValue === targetValue);
+  });
+
+  return (format ? format(value) : value);
+};

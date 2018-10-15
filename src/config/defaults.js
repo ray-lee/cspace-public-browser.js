@@ -1,17 +1,15 @@
 import {
-  collectionValue,
   composition,
   displayName,
   filterLink,
   linkText,
-  list,
+  inlineList,
   listOf,
+  inlineListOf,
   nameRole,
-  nameValue,
-  numberTypeValue,
   numericRange,
   paragraphs,
-  property,
+  pickFromList,
   valueAt,
   valueWithNote,
 } from '../helpers/formatHelpers';
@@ -550,7 +548,7 @@ export default {
       {
         // label: 'Typical use',
         name: 'materials_common:typicalUses',
-        format: listOf(filterLink({
+        format: inlineListOf(filterLink({
           filterValueFormat: displayName,
         })),
       },
@@ -645,15 +643,13 @@ export default {
       {
         label: 'Form type',
         name: 'materials_common:formTypeGroupList',
-        format: listOf(valueAt({
+        format: inlineListOf(valueAt({
           path: 'formType',
           format: filterLink({
             filterValueFormat: displayName,
           }),
         })),
       },
-    ],
-    [
       {
         category: true,
         label: 'Properties',
@@ -860,37 +856,98 @@ export default {
 
   sampleDetailFields: [
     {
-      label: 'Description',
-      name: 'collectionobjects_common:briefDescriptions',
-      format: list,
+      label: 'Collection',
+      name: 'collectionobjects_common:collection',
+      format: displayName,
     },
     {
-      label: 'Number',
+      label: 'Call number',
       name: 'collectionobjects_common:otherNumberList',
-      format: listOf(nameValue({
-        nameFormat: valueAt({
+      format: pickFromList({
+        condition: {
           path: 'numberType',
-          format: numberTypeValue,
-        }),
-        valueFormat: valueAt({
-          path: 'numberValue',
-        }),
+          value: 'callnumber',
+        },
+        format: valueAt({ path: 'numberValue' })
+      }),
+    },
+    {
+      label: 'Current location',
+      name: 'collectionobjects_common:computedCurrentLocation',
+      format: displayName,
+    },
+    {
+      name: 'cat_samplecondition',
+      category: true,
+    },
+    {
+      label: 'Container',
+      name: 'collectionobjects_materials:materialContainerGroupList',
+      format: listOf(valueWithNote({
+        valueFieldName: 'container',
+        noteFieldName: 'containerNote',
+        linkValue: false,
       })),
     },
     {
-      label: 'Collection',
-      name: 'collectionobjects_common:collection',
-      format: collectionValue,
+      label: 'Condition',
+      name: 'collectionobjects_materials:materialConditionGroupList',
+      format: listOf(valueWithNote({
+        valueFieldName: 'condition',
+        noteFieldName: 'conditionNote',
+        linkValue: false,
+      })),
+    },
+    {
+      label: 'Handling',
+      name: 'collectionobjects_materials:materialHandlingGroupList',
+      format: listOf(valueWithNote({
+        valueFieldName: 'handling',
+        noteFieldName: 'handlingNote',
+        linkValue: false,
+      })),
+    },
+    {
+      name: 'cat_sampledescription',
+      category: true,
     },
     {
       label: 'Color',
       name: 'collectionobjects_common:colors',
-      format: list,
+      format: inlineList,
     },
     {
-      label: 'Physical description',
-      name: 'collectionobjects_materials:materialPhysicalDescriptions',
+      label: 'Finish',
+      name: 'collectionobjects_materials:materialFinishGroupList',
+      format: listOf(valueWithNote({
+        valueFieldName: 'finish',
+        noteFieldName: 'finishNote',
+        linkValue: false,
+      })),
+    },
+    {
+      label: 'Samples',
+      name: 'collectionobjects_common:numberOfObjects',
+    },
+    {
+      label: 'Production description',
+      name: 'collectionobjects_common:briefDescriptions',
       format: paragraphs,
+    },
+    {
+      label: 'Size',
+      name: 'collectionobjects_common:measuredPartGroupList',
+      format: listOf(
+        valueAt({ path: 'dimensionSummary' })
+      ),
+    },
+    {
+      name: 'cat_samplesystem',
+      category: true,
+    },
+    {
+      label: 'System number',
+      name: 'collectionobjects_common:objectNumber',
     },
   ],
 };

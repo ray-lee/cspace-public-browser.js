@@ -23,17 +23,25 @@
 }
 
 .common > div {
-  display: flex;
+  display: grid;
+  grid-template-columns: 210px auto;
+  grid-column-gap: 16px;
   margin-top: 2px;
   padding-bottom: 16px;
 }
 
+.common > div > div {
+  max-width: 210px;
+}
+
 .common > div > ul {
-  margin: 0 0 0 16px;
+  margin: 0;
   padding: 0;
 }
 
 .common > div > ul > li {
+  border-top: 1px solid panelBorderColor;
+  padding-top: 16px;
   display: flex;
 }
 
@@ -52,11 +60,7 @@
 
 .common > div > ul > li p + p,
 .common > div > ul > li p + dl {
-  margin-top: 10px;
-}
-
-.common :global(.cspace-ImageGallery--common) {
-  width: 210px;
+  margin-top: 4px;
 }
 
 .common :global(.image-gallery-left-nav),

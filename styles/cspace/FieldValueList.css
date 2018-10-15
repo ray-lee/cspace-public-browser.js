@@ -1,0 +1,16 @@
+.common {
+}
+
+.common > li {
+  margin-bottom: 4px;
+}
+
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.inline > li {
+  margin-right: 1em;
+  white-space: nowrap;
+}

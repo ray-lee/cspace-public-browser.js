@@ -94,20 +94,16 @@ export default class DetailPanel extends Component {
           <ImageGallery blobCsids={blobCsids} />
 
           <FieldList
+            style={{ gridArea: 'fields0' }}
             data={result}
             fields={detailFields[0]}
             recordType="Materialitem"
           />
 
           <FieldList
+            style={{ gridArea: 'fields1' }}
             data={result}
             fields={detailFields[1]}
-            recordType="Materialitem"
-          />
-
-          <FieldList
-            data={result}
-            fields={detailFields[2]}
             recordType="Materialitem"
           />
         </section>

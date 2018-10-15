@@ -40,13 +40,10 @@ const defaultProps = {
 const renderResult = (result) => {
   const {
     'collectionspace_core:uri': uri,
-    'collectionobjects_common:objectNumber': objectNumber,
   } = result;
 
   return (
     <li key={uri}>
-      <h4>{objectNumber}</h4>
-
       <FieldList
         data={result}
         fields={config.get('sampleDetailFields')}

@@ -5,7 +5,7 @@
 }
 
 .common > h3 {
-  margin: 16px 0 4px 0;
+  margin: 16px 0 6px 0;
   font-size: inherit;
 }
 
@@ -33,7 +33,7 @@
 
 .common > div > dt,
 .common > div > dd {
-  padding-bottom: 4px;
+  padding-bottom: 6px;
 }
 
 .common > div ul {

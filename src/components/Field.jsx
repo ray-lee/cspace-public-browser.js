@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import get from 'lodash/get';
 
 const propTypes = {
   category: PropTypes.bool,
@@ -29,9 +28,7 @@ export default function Field(props) {
   } = props;
 
   if (category) {
-    return (
-      <h3>{label}</h3>
-    );
+    return label ? <h3>{label}</h3> : <br />;
   }
 
   const value = data[name];

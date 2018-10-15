@@ -35,6 +35,7 @@ export default class FieldList extends Component {
       data,
       fields,
       recordType,
+      ...remainingProps
     } = this.props;
 
     const filteredFields = fields
@@ -52,7 +53,7 @@ export default class FieldList extends Component {
       });
 
     return (
-      <dl className={styles[recordType]}>
+      <dl className={styles[recordType]} {...remainingProps}>
         {filteredFields.map(field => (
           <Field
             data={data}

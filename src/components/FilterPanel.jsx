@@ -55,6 +55,7 @@ export default class FilterPanel extends Component {
         className={className}
         style={inlineStyle}
       >
+        <header>Refine results</header>
         {this.renderFilterGroups()}
       </div>
     );

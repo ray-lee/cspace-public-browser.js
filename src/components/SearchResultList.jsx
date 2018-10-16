@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 import warning from 'warning';
 import { ReactiveList, ResultCard, ResultList } from '@appbaseio/reactivesearch';
@@ -11,6 +11,7 @@ import { blobUrl } from '../helpers/urlHelpers';
 import styles from '../../styles/cspace/SearchResultList.css';
 import statsStyles from '../../styles/cspace/SearchResultStats.css';
 import tileStyles from '../../styles/cspace/SearchResultTile.css';
+import cssDimensions from '../../styles/dimensions.css';
 
 const propTypes = {
   advancedSearchFields: PropTypes.arrayOf(PropTypes.object),
@@ -78,6 +79,29 @@ export default class SearchResultPanel extends Component {
       ...advancedSearchFields.map(field => field.id),
       ...filterIds,
     ];
+  }
+
+  getPageSize() {
+    let width;
+    let height;
+    let ratio;
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+    ratio = window.devicePixelRatio || 1;
+
+    const {
+      searchResultTileWidth: cssTileWidth,
+      searchResultTileBodyHeight: cssTileBodyHeight,
+    } = cssDimensions;
+
+    const tileWidth = parseInt(cssTileWidth, 10);
+    const tileBodyHeight = parseInt(cssTileBodyHeight, 10);
+    const tileHeight = tileWidth + tileBodyHeight;
+
+    const pageSize = (width / tileWidth) * (height / tileHeight + 2) / ratio;
+
+    return Math.max(Math.ceil(pageSize), 12);
   }
 
   getSortOptions() {
@@ -191,6 +215,8 @@ export default class SearchResultPanel extends Component {
       sortField,
     } = props;
 
+    const size = this.getPageSize();
+
     return (
       <ReactiveList
         className={styles.common}
@@ -204,6 +230,7 @@ export default class SearchResultPanel extends Component {
           title: 'cspace-SearchResultListTitle',
         }}
         react={{ and: this.getSensorIds() }}
+        size={size}
         sortOptions={this.getSortOptions()}
         onData={this.renderResult}
         onNoResults={noResults}

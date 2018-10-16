@@ -6,7 +6,7 @@ export default function SearchEntryPanelHeader(props) {
   const {
     id,
     isExpanded,
-    onExpandButtonClick,
+    // onExpandButtonClick,
   } = props;
 
   return (

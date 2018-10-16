@@ -1,7 +1,8 @@
 @value highlightColor from '../colors.css';
+@value searchResultTileWidth, searchResultTileBodyHeight from '../dimensions.css';
 
 .common {
-  width: 210px;
+  width: searchResultTileWidth;
   margin: 8px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, .2);
   border-radius: .25rem;
@@ -25,14 +26,14 @@
 
 .common > div {
   width: 100%;
-  height: 210px;
+  height: searchResultTileWidth;
   background-color: rgb(252, 252, 252);
   background-size: cover;
 }
 
 .common > article {
   padding: 10px;
-  height: 90px;
+  height: searchResultTileBodyHeight;
   /* overflow: auto; */
 }
 

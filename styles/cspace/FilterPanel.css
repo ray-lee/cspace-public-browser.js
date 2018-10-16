@@ -7,8 +7,16 @@
   bottom: 0;
   width: filterPanelWidth;
   overflow-y: auto;
-  background-color: rgba(245, 245, 245);
+  background-color: rgb(245, 245, 245);
   border-right: 1px solid panelBorderColor;
+}
+
+.common > header {
+  padding: 18px 18px 16px 18px;
+  font-size: .85rem;
+  font-weight: bold;
+  white-space: nowrap;
+  transition: padding 0.3s;
 }
 
 .collapsed {
@@ -34,5 +42,9 @@ and (max-width: 768px) {
   .expanded {
     width: filterPanelWidth;
     box-shadow: 0 0 9px 3px panelBorderColor;
+  }
+
+  .common > header {
+    padding-left: 78px;
   }
 }

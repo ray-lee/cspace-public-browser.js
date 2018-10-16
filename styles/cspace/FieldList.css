@@ -31,6 +31,10 @@
   margin: 0;
 }
 
+.common > div > dd::before {
+  display: none;
+}
+
 .common > div > dt,
 .common > div > dd {
   padding-bottom: 6px;

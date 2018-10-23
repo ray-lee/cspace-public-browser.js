@@ -19,7 +19,7 @@ const renderFilterLink = (filterId, filterValue, linkText) => {
   const basename = config.get('basename');
 
   return renderLink(
-    `${basename}/material?${query}`,
+    `${basename}/search?${query}`,
     typeof linkText === 'undefined' ? filterValue : linkText,
   );
 };

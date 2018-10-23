@@ -19,8 +19,8 @@ export default function RootPage(props) {
       </Helmet>
 
       <Switch>
+        <Route path="/search" component={withReactiveBase(SearchResultPageContainer)} />
         <Route path="/material/:shortID" component={withReactiveBase(DetailPage)} />
-        <Route path="/material" component={withReactiveBase(SearchResultPageContainer)} />
       </Switch>
     </div>
   );

@@ -2,9 +2,9 @@ import React from 'react';
 import get from 'lodash/get';
 import qs from 'qs';
 import { getDisplayName } from 'cspace-refname';
+import config from '../config';
 import FieldValueList from '../components/FieldValueList';
 import linkStyles from '../../styles/cspace/Link.css';
-import noteStyles from '../../styles/cspace/FieldValueNote.css';
 
 const renderLink = (url, text, type) =>
   url ? <a className={type && linkStyles[type]} href={url}>{text || url}</a> : (text || url);
@@ -16,9 +16,10 @@ const renderFilterLink = (filterId, filterValue, linkText) => {
 
   const values = [filterValue];
   const query = qs.stringify({ [filterId]: JSON.stringify(values) });
+  const basename = config.get('basename');
 
   return renderLink(
-    `/material?${query}`,
+    `${basename}/material?${query}`,
     typeof linkText === 'undefined' ? filterValue : linkText,
   );
 };

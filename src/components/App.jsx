@@ -10,7 +10,7 @@ export default function App() {
   return (
     <Router basename={basename}>
       <Switch>
-        <Redirect exact path="/" to="/material" />
+        <Redirect exact path="/" to="/search" />
         <Route component={RootPage} />
       </Switch>
     </Router>

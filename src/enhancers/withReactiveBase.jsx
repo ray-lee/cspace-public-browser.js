@@ -29,7 +29,7 @@ export default function withReactiveBase(BaseComponent) {
         url={`${gatewayUrl}/es`}
         theme={{
           typography: {
-            fontFamily: 'Arial, sans-serif',
+            fontFamily: 'inherit',
             fontSize: '1rem',
           },
           colors: {

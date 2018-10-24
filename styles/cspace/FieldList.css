@@ -7,6 +7,7 @@
 .common > h3 {
   margin: 16px 0 6px 0;
   font-size: inherit;
+  font-weight: 600;
 }
 
 .common > h3:first-child {
@@ -20,6 +21,7 @@
 .common > div > dt {
   display: table-cell;
   padding-right: .3em;
+  font-weight: initial;
 }
 
 .common > div > dt::after {

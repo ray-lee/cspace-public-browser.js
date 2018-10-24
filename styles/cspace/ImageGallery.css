@@ -2,10 +2,11 @@
   display: flex;
   justify-content: center;
   margin-bottom: 16px;
+  width: 100%;
 }
 
-.common :global(.image-gallery-image) {
-  max-width: 420px;
+.common :global(.image-gallery) {
+  width: 100%;
 }
 
 .common :global(.image-gallery-thumbnails) {
@@ -15,4 +16,13 @@
 .common :global(.image-gallery-thumbnail) {
   width: 25%;
   max-width: 100px;
+}
+
+.common :global(.image-gallery-slide) {
+  display: flex;
+  justify-content: center;
+}
+
+.common :global(.image-gallery-slide img) {
+  max-width: 420px;
 }

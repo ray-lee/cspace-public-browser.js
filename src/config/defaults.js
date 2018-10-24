@@ -854,6 +854,17 @@ export default {
     ],
   ],
 
+  sampleTitle: {
+    name: 'collectionobjects_common:otherNumberList',
+    format: pickFromList({
+      condition: {
+        path: 'numberType',
+        value: 'callnumber',
+      },
+      format: valueAt({ path: 'numberValue' })
+    }),
+  },
+
   sampleDetailFields: [
     {
       label: 'Collection',

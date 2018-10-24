@@ -2,7 +2,6 @@
 
 .common {
   max-width: 840px;
-  padding: 16px;
   box-sizing: border-box;
 }
 
@@ -22,6 +21,7 @@
 .common h1,
 .common h2 {
   margin: 0;
+  padding: 0;
 }
 
 .common h1 {
@@ -39,6 +39,11 @@
 
 .common a:hover {
   text-decoration: underline;
+}
+
+.common a:focus {
+  outline: 1px dotted highlightColor;
+  outline-offset: 1px;
 }
 
 @media only screen

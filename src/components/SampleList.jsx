@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { getItemShortID } from 'cspace-refname';
 import { ReactiveList } from '@appbaseio/reactivesearch';
+import Field from './Field';
 import FieldList from './FieldList';
 import PanelTitle from './PanelTitle';
 import ImageGallery from './ImageGallery';
@@ -42,8 +43,12 @@ const renderResult = (result) => {
     'collectionspace_core:uri': uri,
   } = result;
 
+  const titleConfig = config.get('sampleTitle');
+
   return (
     <li key={uri}>
+      <h3><Field data={result} {...titleConfig} /></h3>
+
       <FieldList
         data={result}
         fields={config.get('sampleDetailFields')}

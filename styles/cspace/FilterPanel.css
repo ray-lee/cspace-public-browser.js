@@ -1,5 +1,5 @@
 @value inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
-@value filterPanelWidth, searchInputHeight, searchInputPaddingHeight, searchInputBorderWidth from '../dimensions.css';
+@value filterPanelWidth, filterPanelCollapsedLeft, searchInputHeight, searchInputPaddingHeight, searchInputBorderWidth from '../dimensions.css';
 
 .common {
   position: absolute;
@@ -31,16 +31,15 @@
 and (max-width: 768px) {
   .common {
     z-index: 1;
-    transition: width 0.3s;
+    transition: left 0.3s;
   }
 
   .collapsed {
-    width: 0;
-    border-right: none;
+    left: filterPanelCollapsedLeft;
   }
 
   .expanded {
-    width: filterPanelWidth;
+    left: 0;
     box-shadow: 0 0 9px 3px panelBorderColor;
   }
 

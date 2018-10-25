@@ -2,5 +2,6 @@
 @value searchInputPaddingHeight: 16px;
 @value searchInputBorderWidth: 1px;
 @value filterPanelWidth: 284px;
+@value filterPanelCollapsedLeft: -284px;
 @value searchResultTileWidth: 210px;
 @value searchResultTileBodyHeight: 90px;

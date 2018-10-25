@@ -2,9 +2,9 @@
 @value panelBorderColor from '../colors.css';
 @value filterPanelWidth from '../dimensions.css';
 
-.common {
-  width: filterPanelWidth;
-}
+/* .common {
+  width: 100%;
+} */
 
 .common > h1 {
   font-size: .85rem;

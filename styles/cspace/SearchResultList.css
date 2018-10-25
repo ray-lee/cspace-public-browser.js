@@ -1,7 +1,9 @@
 .common {
   display: flex;
   flex-direction: column;
-  background-color: inherit;
+  background-color: white;
+  z-index: 9;
+  padding-left: 8px;
 }
 
 .common > p {

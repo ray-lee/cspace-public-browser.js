@@ -1,18 +1,17 @@
 @value inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
-@value filterPanelWidth, searchInputHeight, searchInputBorderWidth from '../dimensions.css';
+@value filterPanelWidth, searchInputHeight, searchInputPaddingHeight, searchInputBorderWidth from '../dimensions.css';
 
 .common {
-  position: fixed;
-  top: calc(searchInputHeight + searchInputBorderWidth + 32px);
-  bottom: 0;
+  position: absolute;
+  top: calc(searchInputHeight + searchInputBorderWidth + searchInputPaddingHeight * 2);
   width: filterPanelWidth;
+  height: 100px;
   overflow-y: auto;
   background-color: rgb(245, 245, 245);
-  /* border-right: 1px solid panelBorderColor; */
-  transition: top .3s;
+  z-index: 1;
 }
 
-.common > header {
+.common > div > header {
   padding: 18px 18px 16px 18px;
   font-size: .85rem;
   font-weight: 600;
@@ -45,7 +44,7 @@ and (max-width: 768px) {
     box-shadow: 0 0 9px 3px panelBorderColor;
   }
 
-  .common > header {
+  .common > div > header {
     padding-left: 78px;
   }
 }

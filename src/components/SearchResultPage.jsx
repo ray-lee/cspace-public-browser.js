@@ -7,12 +7,11 @@ import SearchEntryPanel from './SearchEntryPanel';
 import SearchResultPanel from './SearchResultPanel';
 import ToggleFilterPanelButton from './ToggleFilterPanelButton';
 import styles from '../../styles/cspace/SearchResultPage.css';
+import fixedStyles from '../../styles/cspace/Fixed.css';
 
 const propTypes = {
   isFilterPanelExpanded: PropTypes.bool,
   isSearchEntryPanelExpanded: PropTypes.bool,
-  searchEntryPanelRect: PropTypes.shape({ bottom: PropTypes.number }),
-  setSearchEntryPanelRect: PropTypes.func,
   toggleFilterPanel: PropTypes.func,
   toggleSearchEntryPanel: PropTypes.func,
 };
@@ -20,8 +19,6 @@ const propTypes = {
 const defaultProps = {
   isFilterEntryPanelExpanded: false,
   isSearchEntryPanelExpanded: false,
-  searchEntryPanelRect: {},
-  setSearchEntryPanelRect: null,
   toggleFilterPanel: null,
   toggleSearchEntryPanel: null,
 };
@@ -30,8 +27,6 @@ export default function SearchResultPage(props) {
   const {
     isFilterPanelExpanded,
     isSearchEntryPanelExpanded,
-    searchEntryPanelRect,
-    setSearchEntryPanelRect,
     toggleFilterPanel,
     toggleSearchEntryPanel,
   } = props;
@@ -55,24 +50,24 @@ export default function SearchResultPage(props) {
         <title>Search</title>
       </Helmet>
 
-      <SearchEntryPanel
-        isExpanded={isSearchEntryPanelExpanded}
-        onExpandButtonClick={toggleSearchEntryPanel}
-        onRectChange={setSearchEntryPanelRect}
-      />
+      <div className={fixedStyles.common}>
+        <SearchEntryPanel
+          isExpanded={isSearchEntryPanelExpanded}
+          onExpandButtonClick={toggleSearchEntryPanel}
+        />
 
-      <ToggleFilterPanelButton
-        isFilterPanelExpanded={isFilterPanelExpanded}
-        onClick={toggleFilterPanel}
-      />
+        <ToggleFilterPanelButton
+          isFilterPanelExpanded={isFilterPanelExpanded}
+          onClick={toggleFilterPanel}
+        />
 
-      <FilterPanel
-        advancedSearchFields={advancedSearchFields}
-        filterGroups={filterGroups}
-        filterIds={filterIds}
-        isExpanded={isFilterPanelExpanded}
-        top={searchEntryPanelRect.bottom}
-      />
+        <FilterPanel
+          advancedSearchFields={advancedSearchFields}
+          filterGroups={filterGroups}
+          filterIds={filterIds}
+          isExpanded={isFilterPanelExpanded}
+        />
+      </div>
 
       <SearchResultPanel
         advancedSearchFields={advancedSearchFields}
@@ -81,7 +76,6 @@ export default function SearchResultPage(props) {
         filterIds={filterIds}
         gatewayUrl={gatewayUrl}
         sortField={sortField}
-        top={searchEntryPanelRect.bottom}
         types={types}
       />
     </div>

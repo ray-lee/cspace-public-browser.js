@@ -8,79 +8,17 @@ const propTypes = {
   id: PropTypes.string,
   isExpanded: PropTypes.bool,
   onExpandButtonClick: PropTypes.func,
-  onRectChange: PropTypes.func,
 };
 
 const defaultProps = {
   id: 'search',
   isExpanded: false,
   onExpandButtonClick: null,
-  onRectChange: null,
 };
 
 export default class SearchEntryPanel extends Component {
-  constructor() {
-    super();
-
-    this.handleRef = this.handleRef.bind(this);
-    this.handleScroll = this.handleScroll.bind(this);
-
-    this.prevRect = {};
-  }
-
   componentDidMount() {
     this.focus();
-
-    window.addEventListener('scroll', this.handleScroll);
-
-    this.fireRectChange();
-  }
-
-  componentDidUpdate(prevProps) {
-    const {
-      isExpanded,
-    } = this.props;
-
-    const { isExpanded: prevIsExpanded } = prevProps;
-
-    if (isExpanded !== prevIsExpanded) {
-      this.fireRectChange();
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  getRect() {
-    if (this.domNode) {
-      const rect = this.domNode.getBoundingClientRect();
-
-      return {
-        left: rect.left,
-        right: rect.right,
-        top: rect.top,
-        bottom: rect.bottom,
-      };
-    }
-
-    return undefined;
-  }
-
-  fireRectChange() {
-    const {
-      onRectChange,
-    } = this.props;
-
-    if (onRectChange) {
-      const rect = this.getRect();
-
-      if (rect.top !== this.prevRect.top) {
-        this.prevRect = rect;
-
-        onRectChange(rect);
-      }
-    }
   }
 
   focus() {
@@ -93,14 +31,6 @@ export default class SearchEntryPanel extends Component {
     }
   }
 
-  handleRef(ref) {
-    this.domNode = ref;
-  }
-
-  handleScroll() {
-    this.fireRectChange();
-  }
-
   render() {
     const {
       id,
@@ -111,7 +41,6 @@ export default class SearchEntryPanel extends Component {
     return (
       <div
         className={isExpanded ? styles.expanded : styles.common}
-        ref={this.handleRef}
       >
         <SearchEntryPanelHeader
           id={id}

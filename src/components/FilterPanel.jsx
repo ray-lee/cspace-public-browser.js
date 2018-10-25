@@ -9,7 +9,6 @@ const propTypes = {
   filterIds: PropTypes.arrayOf(PropTypes.string),
   isExpanded: PropTypes.bool,
   searchEntryId: PropTypes.string,
-  top: PropTypes.number,
 };
 
 const defaultProps = {
@@ -18,10 +17,56 @@ const defaultProps = {
   filterIds: [],
   isExpanded: false,
   searchEntryId: 'search',
-  top: null,
 };
 
 export default class FilterPanel extends Component {
+  constructor() {
+    super();
+
+    this.handleRef = this.handleRef.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+
+    this.state = {};
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('scroll', this.handleScroll);
+
+    this.setHeight();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  setHeight() {
+    if (this.domNode) {
+      const height = window.innerHeight;
+      const rect = this.domNode.getBoundingClientRect();
+
+      const maxHeight = height - rect.top;
+
+      this.setState({
+        height: maxHeight,
+      });
+    }
+  }
+
+  handleRef(ref) {
+    this.domNode = ref;
+  }
+
+  handleResize() {
+    this.setHeight();
+  }
+
+  handleScroll() {
+    this.setHeight();
+  }
+
   renderFilterGroups() {
     const {
       advancedSearchFields,
@@ -33,9 +78,9 @@ export default class FilterPanel extends Component {
     return filterGroups.map(filterGroup => (
       <FilterGroupContainer
         {...filterGroup}
+        advancedSearchFields={advancedSearchFields}
         filterIds={filterIds}
         key={filterGroup.id}
-        advancedSearchFields={advancedSearchFields}
         searchEntryId={searchEntryId}
       />
     ));
@@ -44,19 +89,25 @@ export default class FilterPanel extends Component {
   render() {
     const {
       isExpanded,
-      top,
     } = this.props;
 
-    const inlineStyle = (top !== null) ? { top } : undefined;
+    const {
+      height,
+    } = this.state;
+
+    const inlineStyle = height ? { height } : undefined;
     const className = isExpanded ? styles.expanded : styles.collapsed;
 
     return (
       <div
         className={className}
+        ref={this.handleRef}
         style={inlineStyle}
       >
-        <header>Refine results:</header>
-        {this.renderFilterGroups()}
+        <div>
+          <header>Refine results:</header>
+          {this.renderFilterGroups()}
+        </div>
       </div>
     );
   }

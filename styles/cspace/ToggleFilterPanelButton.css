@@ -1,17 +1,18 @@
 @value highlightColor, panelBorderColor from '../colors.css';
 
 .common {
-  position: fixed;
-  z-index: 3;
+  position: absolute;
   width: 64px;
   height: 64px;
   left: 6px;
-  top: 66px;
+  top: 68px;
   border-radius: 32px;
   border: none;
+  padding: 0;
   background-color: #eeeeee;
   box-shadow: 0 0 9px 3px panelBorderColor;
   display: none;
+  z-index: 15;
 }
 
 .common:focus {

@@ -4,12 +4,13 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
-  padding: 0 10px 0 calc(filterPanelWidth + 8px);
+  padding: 0 10px 0 filterPanelWidth;
+  min-height: 500px;
 }
 
 .common :global(.cspace-SearchResultListSelectedFilters) {
   margin: 0;
-  padding: 0 4px;
+  padding: 0 4px 0 12px;
 }
 
 .common :global(.cspace-SearchResultListSelectedFilters) :global(.cspace-SearchResultListSelectedFiltersButton) {

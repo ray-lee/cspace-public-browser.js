@@ -1,7 +1,5 @@
 .common {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
+  padding: 32px;
 }
 
 /* @media only screen

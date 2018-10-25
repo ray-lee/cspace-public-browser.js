@@ -42,7 +42,7 @@ export default class SearchResultPanel extends Component {
     const inlineStyle = (top !== null) ? { paddingTop: top } : undefined;
 
     return (
-      <div className={styles.common} style={inlineStyle}>
+      <div className={styles.common}>
         <SelectedFilters
           className="cspace-SearchResultListSelectedFilters"
           clearAllLabel="Clear all"

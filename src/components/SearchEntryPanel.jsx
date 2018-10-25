@@ -23,33 +23,33 @@ export default class SearchEntryPanel extends Component {
     super();
 
     this.handleRef = this.handleRef.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+
+    this.prevRect = {};
   }
 
   componentDidMount() {
-    const {
-      onRectChange,
-    } = this.props;
-
     this.focus();
 
-    if (onRectChange) {
-      onRectChange(this.getRect());
-    }
+    window.addEventListener('scroll', this.handleScroll);
+
+    this.fireRectChange();
   }
 
   componentDidUpdate(prevProps) {
     const {
       isExpanded,
-      onRectChange,
     } = this.props;
 
-    if (onRectChange) {
-      const { isExpanded: prevIsExpanded } = prevProps;
+    const { isExpanded: prevIsExpanded } = prevProps;
 
-      if (isExpanded !== prevIsExpanded) {
-        onRectChange(this.getRect());
-      }
+    if (isExpanded !== prevIsExpanded) {
+      this.fireRectChange();
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   getRect() {
@@ -67,6 +67,22 @@ export default class SearchEntryPanel extends Component {
     return undefined;
   }
 
+  fireRectChange() {
+    const {
+      onRectChange,
+    } = this.props;
+
+    if (onRectChange) {
+      const rect = this.getRect();
+
+      if (rect.top !== this.prevRect.top) {
+        this.prevRect = rect;
+
+        onRectChange(rect);
+      }
+    }
+  }
+
   focus() {
     if (this.domNode) {
       const input = this.domNode.querySelector('input');
@@ -79,6 +95,10 @@ export default class SearchEntryPanel extends Component {
 
   handleRef(ref) {
     this.domNode = ref;
+  }
+
+  handleScroll() {
+    this.fireRectChange();
   }
 
   render() {

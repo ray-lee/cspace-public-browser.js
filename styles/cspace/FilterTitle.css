@@ -4,7 +4,7 @@
   position: relative;
   display: block;
   left: -16px;
-  width: calc(100% + 31px);
+  width: calc(100% + 32px);
   border: none;
   margin: 0;
   padding: 0;
@@ -15,8 +15,14 @@
   outline-offset: -1px;
 }
 
-.common:focus {
+.common:focus, .common:focus:hover {
+  background-color: rgba(255, 255, 255, .5);
   outline: 1px dotted black;
+  outline-offset: -1px;
+}
+
+.common:hover {
+  background-color: inherit;
 }
 
 .expanded {
@@ -31,7 +37,7 @@
   margin: 2px;
   padding: 16px 46px 16px 16px;
   font-size: .85rem;
-  font-weight: bold;
+  font-weight: 600;
   /* background-color: #999999; */
   background-position: calc(100% - 12px) center, 0;
   background-repeat: no-repeat;

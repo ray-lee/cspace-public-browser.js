@@ -1,12 +1,16 @@
 @value highlightColor, inputBgColor, panelBorderColor from '../colors.css';
+@value searchInputBorderWidth from '../dimensions.css';
 
 .common {
-  position: fixed;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
   background-color: white;
-  box-shadow: 0 0 9px 3px panelBorderColor;
+  /* box-shadow: 0 0 9px 3px panelBorderColor; */
+  border-bottom: searchInputBorderWidth solid panelBorderColor;
   z-index: 2;
 }
 

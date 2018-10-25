@@ -19,6 +19,10 @@
   box-shadow: 0 0 9px 3px highlightColor;
 }
 
+.common:focus, .common:hover {
+  background-color: white;
+}
+
 @media only screen
 and (max-width: 768px) {
   .common {

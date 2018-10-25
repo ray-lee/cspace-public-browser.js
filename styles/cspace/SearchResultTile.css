@@ -40,6 +40,7 @@
 .common > article > h2 {
   margin: 0 0 6px 0;
   font-size: inherit;
+  font-weight: 600;
   overflow-x: hidden;
   text-overflow: ellipsis;
 }

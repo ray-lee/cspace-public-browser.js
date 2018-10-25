@@ -3,18 +3,19 @@
 
 .common {
   position: fixed;
-  top: calc(searchInputHeight + searchInputBorderWidth);
+  top: calc(searchInputHeight + searchInputBorderWidth + 32px);
   bottom: 0;
   width: filterPanelWidth;
   overflow-y: auto;
   background-color: rgb(245, 245, 245);
-  border-right: 1px solid panelBorderColor;
+  /* border-right: 1px solid panelBorderColor; */
+  transition: top .3s;
 }
 
 .common > header {
   padding: 18px 18px 16px 18px;
   font-size: .85rem;
-  font-weight: bold;
+  font-weight: 600;
   white-space: nowrap;
   transition: padding 0.3s;
 }

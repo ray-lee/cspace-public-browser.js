@@ -48,6 +48,10 @@
   outline-offset: 1px;
 }
 
+.common button:hover {
+  background-color: inherit;
+}
+
 @media only screen
 and (max-width: 719px) {
   .common {

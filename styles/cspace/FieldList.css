@@ -20,8 +20,7 @@
 
 .common > div > dt {
   display: table-cell;
-  padding-right: .3em;
-  font-weight: initial;
+  padding-right: 1em;
 }
 
 .common > div > dt::after {

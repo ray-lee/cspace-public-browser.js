@@ -28,7 +28,7 @@ export default function Field(props) {
   } = props;
 
   if (category) {
-    return label ? <h3>{label}</h3> : <br />;
+    return label ? <h3>{label}</h3> : <div><br/></div>;
   }
 
   const value = data[name];

@@ -5,6 +5,7 @@
   margin-right: auto;
   max-width: 840px;
   box-sizing: border-box;
+  padding-bottom: 64px;
 }
 
 .common > header > nav {

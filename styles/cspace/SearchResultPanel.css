@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
-  padding: 0 10px 0 filterPanelWidth;
+  padding: 0 10px 96px filterPanelWidth;
   min-height: 500px;
 }
 

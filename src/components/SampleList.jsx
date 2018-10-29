@@ -43,12 +43,8 @@ const renderResult = (result) => {
     'collectionspace_core:uri': uri,
   } = result;
 
-  const titleConfig = config.get('sampleTitle');
-
   return (
     <li key={uri}>
-      <h3><Field data={result} {...titleConfig} /></h3>
-
       <FieldList
         data={result}
         fields={config.get('sampleDetailFields')}

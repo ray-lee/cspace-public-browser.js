@@ -1,6 +1,6 @@
 /* global document */
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import get from 'lodash/get';

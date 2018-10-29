@@ -3,7 +3,6 @@ import get from 'lodash/get';
 import qs from 'qs';
 import { Link } from 'react-router-dom';
 import { getDisplayName } from 'cspace-refname';
-import config from '../config';
 import FieldValueList from '../components/FieldValueList';
 import linkStyles from '../../styles/cspace/Link.css';
 
@@ -28,10 +27,9 @@ const renderFilterLink = (filterId, filterValue, linkText) => {
 
   const values = [filterValue];
   const query = qs.stringify({ [filterId]: JSON.stringify(values) });
-  const basename = config.get('basename');
 
   return renderLink(
-    `${basename}/search?${query}`,
+    `/search?${query}`,
     typeof linkText === 'undefined' ? filterValue : linkText,
   );
 };

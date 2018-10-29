@@ -7,7 +7,6 @@ import warning from 'warning';
 import { ReactiveList, ResultList } from '@appbaseio/reactivesearch';
 import { ReactiveMap } from '@appbaseio/reactivemaps';
 import { LIST, MAP, TILE } from '../constants/viewTypes';
-import config from '../config';
 import { blobUrl } from '../helpers/urlHelpers';
 import styles from '../../styles/cspace/SearchResultList.css';
 import statsStyles from '../../styles/cspace/SearchResultStats.css';
@@ -58,13 +57,7 @@ const noResults = <FormattedMessage {...messages.noResults} />;
 const getResultUrl = (result) => {
   const shortID = get(result, 'materials_common:shortIdentifier');
 
-  if (shortID) {
-    const basename = config.get('basename');
-
-    return `${basename}/material/${shortID}`;
-  }
-
-  return undefined;
+  return (shortID ? `/material/${shortID}` : undefined);
 };
 
 export default class SearchResultPanel extends Component {

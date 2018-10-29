@@ -4,20 +4,22 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
-  padding: 0 10px 96px filterPanelWidth;
+  padding: 0 10px 0 filterPanelWidth;
   min-height: 500px;
 }
 
-.common :global(.cspace-SearchResultListSelectedFilters) {
+.common :global(.cspace-SelectedFilters) {
   margin: 0;
   padding: 0 4px 0 12px;
+  background-color: white;
+  z-index: 9;
 }
 
-.common :global(.cspace-SearchResultListSelectedFilters) :global(.cspace-SearchResultListSelectedFiltersButton) {
+.common :global(.cspace-SelectedFilters) :global(.cspace-SelectedFiltersButton) {
   margin: 2px;
 }
 
-.common :global(.cspace-SearchResultListSelectedFilters) :global(.cspace-SearchResultListSelectedFiltersButton):first-of-type {
+.common :global(.cspace-SelectedFilters) :global(.cspace-SelectedFiltersButton):first-of-type {
   margin-top: 14px;
 }
 
@@ -27,7 +29,7 @@ and (max-width: 768px) {
     padding-left: 8px;
   }
 
-  .common :global(.cspace-SearchResultListSelectedFilters) {
+  .common :global(.cspace-SelectedFilters) {
     padding-left: 66px;
   }
 }

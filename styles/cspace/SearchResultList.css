@@ -4,6 +4,7 @@
   background-color: white;
   z-index: 9;
   padding-left: 8px;
+  padding-bottom: 64px;
 }
 
 .common > p {

@@ -39,10 +39,10 @@ export default class SearchResultPanel extends Component {
     return (
       <div className={styles.common}>
         <SelectedFilters
-          className="cspace-SearchResultListSelectedFilters"
+          className="cspace-SelectedFilters"
           clearAllLabel="Clear all"
           innerClass={{
-            button: 'cspace-SearchResultListSelectedFiltersButton',
+            button: 'cspace-SelectedFiltersButton',
           }}
         />
 

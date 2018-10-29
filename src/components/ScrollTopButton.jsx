@@ -1,3 +1,5 @@
+/* global window */
+
 import React, { Component } from 'react';
 import styles from '../../styles/cspace/ScrollTopButton.css';
 import topIcon from '../../images/top.svg';
@@ -37,7 +39,7 @@ export default class ScrollTopButton extends Component {
 
   setVisibility() {
     const { visible } = this.state;
-    const nextVisible = window.document.body.scrollTop > 0;
+    const nextVisible = window.document.scrollingElement.scrollTop > 0;
 
     if (visible !== nextVisible) {
       this.setState({

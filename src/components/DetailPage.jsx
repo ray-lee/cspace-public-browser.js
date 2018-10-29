@@ -5,6 +5,7 @@ import DetailPanel from './DetailPanel';
 import styles from '../../styles/cspace/DetailPage.css';
 
 const propTypes = {
+  history: PropTypes.object.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       shortID: PropTypes.string,
@@ -13,14 +14,22 @@ const propTypes = {
 };
 
 export default function DetailPage(props) {
+  const {
+    location,
+    match,
+  } = props;
+
   const sortField = config.get('sortField');
-  const { shortID } = props.match.params;
-  const { hash } = props.location;
+  const { shortID } = match.params;
+  const { hash, state } = location;
+
   const selectedInstitution = hash ? hash.replace(/^#/, '') : undefined;
 
   return (
     <div className={styles.common}>
       <DetailPanel
+        isFromSearch={state && state.isFromSearch}
+        searchParams={state && state.searchParams}
         selectedInstitution={selectedInstitution}
         shortID={shortID}
         sortField={sortField}

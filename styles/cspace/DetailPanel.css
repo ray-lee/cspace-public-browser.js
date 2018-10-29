@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+.common > header > nav {
+  margin-bottom: 10px;
+}
+
 .common > section {
   display: grid;
   grid-template-columns: auto 420px;

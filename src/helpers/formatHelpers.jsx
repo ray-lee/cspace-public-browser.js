@@ -1,13 +1,25 @@
 import React from 'react';
 import get from 'lodash/get';
 import qs from 'qs';
+import { Link } from 'react-router-dom';
 import { getDisplayName } from 'cspace-refname';
 import config from '../config';
 import FieldValueList from '../components/FieldValueList';
 import linkStyles from '../../styles/cspace/Link.css';
 
-const renderLink = (url, text, type) =>
-  url ? <a className={type && linkStyles[type]} href={url}>{text || url}</a> : (text || url);
+const renderLink = (url, text, type) => {
+  if (!url) {
+    return text;
+  }
+
+  if (type === 'external') {
+    const fullUrl = !url.startsWith('http') ? `http://${url}` : url;
+
+    return <a target="_blank" className={linkStyles[type]} href={fullUrl}>{text || url}</a>
+  }
+
+  return <Link className={type && linkStyles[type]} to={url}>{text || url}</Link>;
+}
 
 const renderFilterLink = (filterId, filterValue, linkText) => {
   if (!filterValue) {

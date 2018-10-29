@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 import warning from 'warning';
-import { ReactiveList, ResultCard, ResultList } from '@appbaseio/reactivesearch';
+import { ReactiveList, ResultList } from '@appbaseio/reactivesearch';
 import { ReactiveMap } from '@appbaseio/reactivemaps';
 import { LIST, MAP, TILE } from '../constants/viewTypes';
 import config from '../config';
@@ -28,6 +28,7 @@ const defaultProps = {
   advancedSearchFields: [],
   filterIds: [],
   searchEntryId: 'search',
+  searchParams: null,
   sortField: null,
   view: TILE,
 };
@@ -198,14 +199,17 @@ export default class SearchResultPanel extends Component {
   renderResult(result) {
     const data = this.handleData(result);
 
-    // FIXME: Make this a Link instead of an a. When using a Link, the selected filters do not
-    // appear when navigating back to search results.
-
     return (
-      <a
+      <Link
         className={tileStyles.common}
         key={data.url}
-        href={data.url}
+        to={{
+          pathname: data.url,
+          state: {
+            isFromSearch: true,
+            searchParams: window.location.search,
+          },
+        }}
       >
         <div style={{ backgroundImage: `url(${data.image})` }} />
 
@@ -213,7 +217,7 @@ export default class SearchResultPanel extends Component {
           <h2>{data.title}</h2>
           {data.description}
         </article>
-      </a>
+      </Link>
     )
   }
 

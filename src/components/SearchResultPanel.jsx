@@ -10,7 +10,6 @@ const propTypes = {
   filterIds: PropTypes.arrayOf(PropTypes.string),
   gatewayUrl: PropTypes.string.isRequired,
   sortField: PropTypes.string,
-  top: PropTypes.number,
   types: PropTypes.object,
 };
 
@@ -19,7 +18,6 @@ const defaultProps = {
   defaultQuery: {},
   filterIds: [],
   sortField: null,
-  top: null,
   types: {},
 };
 
@@ -35,11 +33,8 @@ export default class SearchResultPanel extends Component {
       filterIds,
       gatewayUrl,
       sortField,
-      top,
       types,
     } = this.props;
-
-    const inlineStyle = (top !== null) ? { paddingTop: top } : undefined;
 
     return (
       <div className={styles.common}>

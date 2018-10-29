@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ReactiveList } from '@appbaseio/reactivesearch';
 import Helmet from 'react-helmet';
+import { Link } from 'react-router-dom';
 import FieldList from './FieldList';
 import ImageGallery from './ImageGallery';
 import ReactiveSampleListContainer from '../containers/ReactiveSampleListContainer';
 import SampleIndexContainer from '../containers/SampleIndexContainer';
 import config from '../config';
 import styles from '../../styles/cspace/DetailPanel.css';
+import linkStyles from '../../styles/cspace/Link.css';
 
 const propTypes = {
+  isFromSearch: PropTypes.bool,
+  searchParams: PropTypes.string,
   selectedInstitution: PropTypes.string,
   shortID: PropTypes.string.isRequired,
   sortField: PropTypes.string,
 };
 
 const defaultProps = {
+  isFromSearch: false,
+  searchParams: null,
   selectedInstitution: null,
   sortField: null,
 };
@@ -25,6 +31,31 @@ export default class DetailPanel extends Component {
     super();
 
     this.handleData = this.handleData.bind(this);
+  }
+
+  renderSearchLink() {
+    const {
+      isFromSearch,
+      searchParams,
+    } = this.props;
+
+    if (!isFromSearch) {
+      return null;
+    }
+
+    return (
+      <nav>
+        <Link
+          className={linkStyles.back}
+          to={{
+            pathname: '/search',
+            search: searchParams,
+          }}
+        >
+          Return to search
+        </Link>
+      </nav>
+    );
   }
 
   renderSampleLists(materialRefName) {
@@ -82,6 +113,7 @@ export default class DetailPanel extends Component {
         </Helmet>
 
         <header>
+          {this.renderSearchLink()}
           <h1>{title}</h1>
           {altName && <h2>{altName}</h2>}
         </header>

@@ -67,6 +67,8 @@
 
 .common > div > ul > li + li {
   margin-top: 10px;
+  border-top: 1px solid panelBorderColor;
+  padding-top: 10px;
 }
 
 .common > div > ul > li > h4 + dl {

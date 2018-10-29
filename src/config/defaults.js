@@ -867,11 +867,6 @@ export default {
 
   sampleDetailFields: [
     {
-      label: 'Collection',
-      name: 'collectionobjects_common:collection',
-      format: displayName,
-    },
-    {
       label: 'Call number',
       name: 'collectionobjects_common:otherNumberList',
       format: pickFromList({
@@ -881,6 +876,12 @@ export default {
         },
         format: valueAt({ path: 'numberValue' })
       }),
+      className: 'title',
+    },
+    {
+      label: 'Collection',
+      name: 'collectionobjects_common:collection',
+      format: displayName,
     },
     {
       label: 'Current location',

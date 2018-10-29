@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../../styles/cspace/Field.css';
 
 const propTypes = {
   category: PropTypes.bool,
+  className: PropTypes.string,
   data: PropTypes.shape({
     '_index': PropTypes.string,
   }),
@@ -13,6 +15,7 @@ const propTypes = {
 
 const defaultProps = {
   category: false,
+  className: undefined,
   data: {},
   format: null,
   label: null,
@@ -21,14 +24,19 @@ const defaultProps = {
 export default function Field(props) {
   const {
     category,
+    className: classNameProp,
     data,
     format,
     label,
     name,
   } = props;
 
+  const className = styles[classNameProp];
+
   if (category) {
-    return label ? <h3>{label}</h3> : <div><br/></div>;
+    return label
+      ? <h3 className={className}>{label}</h3>
+      : <div className={className}><br/></div>;
   }
 
   const value = data[name];
@@ -37,14 +45,14 @@ export default function Field(props) {
   if (formattedValue) {
     if (label) {
       return (
-        <div>
+        <div className={className}>
           <dt>{label}</dt><dd>{formattedValue}</dd>
         </div>
       );
     }
 
     return (
-      <div>{formattedValue}</div>
+      <div className={className}>{formattedValue}</div>
     );
   }
 

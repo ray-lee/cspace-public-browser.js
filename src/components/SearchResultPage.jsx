@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import config from '../config';
+import bodyClassName from '../helpers/bodyClassName';
 import FilterPanel from './FilterPanel';
 import SearchEntryPanel from './SearchEntryPanel';
 import SearchResultPanel from './SearchResultPanel';
@@ -24,65 +25,75 @@ const defaultProps = {
   toggleSearchEntryPanel: null,
 };
 
-export default function SearchResultPage(props) {
-  const {
-    isFilterPanelExpanded,
-    isSearchEntryPanelExpanded,
-    toggleFilterPanel,
-    toggleSearchEntryPanel,
-  } = props;
+export default class SearchResultPage extends Component {
+  componentDidMount() {
+    window.document.body.classList.add(bodyClassName(styles.common));
+  }
 
-  const advancedSearchFields = config.get('advancedSearchFields');
-  const defaultQuery = config.get('defaultQuery');
-  const filterGroups = config.get('filterGroups');
-  const gatewayUrl = config.get('gatewayUrl');
-  const sortField = config.get('sortField');
-  const types = config.get('types');
+  componentWillUnmount() {
+    window.document.body.classList.remove(bodyClassName(styles.common));
+  }
 
-  const filterIds = [];
+  render() {
+    const {
+      isFilterPanelExpanded,
+      isSearchEntryPanelExpanded,
+      toggleFilterPanel,
+      toggleSearchEntryPanel,
+    } = this.props;
 
-  filterGroups.forEach((filterGroup) => {
-    filterIds.push(...filterGroup.filters.map(filter => filter.id));
-  });
+    const advancedSearchFields = config.get('advancedSearchFields');
+    const defaultQuery = config.get('defaultQuery');
+    const filterGroups = config.get('filterGroups');
+    const gatewayUrl = config.get('gatewayUrl');
+    const sortField = config.get('sortField');
+    const types = config.get('types');
 
-  return (
-    <div className={styles.common}>
-      <Helmet>
-        <title>Search</title>
-      </Helmet>
+    const filterIds = [];
 
-      <div className={fixedStyles.common}>
-        <SearchEntryPanel
-          isExpanded={isSearchEntryPanelExpanded}
-          onExpandButtonClick={toggleSearchEntryPanel}
-        />
+    filterGroups.forEach((filterGroup) => {
+      filterIds.push(...filterGroup.filters.map(filter => filter.id));
+    });
 
-        <ToggleFilterPanelButton
-          isFilterPanelExpanded={isFilterPanelExpanded}
-          onClick={toggleFilterPanel}
-        />
+    return (
+      <div className={styles.common}>
+        <Helmet>
+          <title>Search</title>
+        </Helmet>
 
-        <FilterPanel
+        <div className={fixedStyles.common}>
+          <SearchEntryPanel
+            isExpanded={isSearchEntryPanelExpanded}
+            onExpandButtonClick={toggleSearchEntryPanel}
+          />
+
+          <ToggleFilterPanelButton
+            isFilterPanelExpanded={isFilterPanelExpanded}
+            onClick={toggleFilterPanel}
+          />
+
+          <FilterPanel
+            advancedSearchFields={advancedSearchFields}
+            filterGroups={filterGroups}
+            filterIds={filterIds}
+            isExpanded={isFilterPanelExpanded}
+          />
+        </div>
+
+        <SearchResultPanel
           advancedSearchFields={advancedSearchFields}
+          defaultQuery={defaultQuery}
           filterGroups={filterGroups}
           filterIds={filterIds}
-          isExpanded={isFilterPanelExpanded}
+          gatewayUrl={gatewayUrl}
+          sortField={sortField}
+          types={types}
         />
+
+        <ScrollTopButton />
       </div>
-
-      <SearchResultPanel
-        advancedSearchFields={advancedSearchFields}
-        defaultQuery={defaultQuery}
-        filterGroups={filterGroups}
-        filterIds={filterIds}
-        gatewayUrl={gatewayUrl}
-        sortField={sortField}
-        types={types}
-      />
-
-      <ScrollTopButton />
-    </div>
-  );
+    );
+  }
 }
 
 SearchResultPage.propTypes = propTypes;

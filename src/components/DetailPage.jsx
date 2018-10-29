@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import config from '../config';
+import ScrollTopButton from './ScrollTopButton';
 import DetailPanel from './DetailPanel';
 import styles from '../../styles/cspace/DetailPage.css';
 
@@ -34,6 +35,7 @@ export default function DetailPage(props) {
         shortID={shortID}
         sortField={sortField}
       />
+      <ScrollTopButton />
     </div>
   );
 }

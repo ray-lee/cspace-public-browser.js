@@ -5,6 +5,7 @@ import config from '../config';
 import FilterPanel from './FilterPanel';
 import SearchEntryPanel from './SearchEntryPanel';
 import SearchResultPanel from './SearchResultPanel';
+import ScrollTopButton from './ScrollTopButton';
 import ToggleFilterPanelButton from './ToggleFilterPanelButton';
 import styles from '../../styles/cspace/SearchResultPage.css';
 import fixedStyles from '../../styles/cspace/Fixed.css';
@@ -78,6 +79,8 @@ export default function SearchResultPage(props) {
         sortField={sortField}
         types={types}
       />
+
+      <ScrollTopButton />
     </div>
   );
 }

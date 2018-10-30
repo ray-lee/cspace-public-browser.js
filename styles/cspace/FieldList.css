@@ -21,6 +21,7 @@
 .common > div > dt {
   display: table-cell;
   padding-right: 1em;
+  font-weight: inherit;
 }
 
 .common > div > dt::after {

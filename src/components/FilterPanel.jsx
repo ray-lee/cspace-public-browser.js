@@ -35,6 +35,12 @@ export default class FilterPanel extends Component {
     window.addEventListener('scroll', this.handleScroll);
 
     this.setHeight();
+
+    window.setTimeout(() => {
+      this.setState({
+        mounted: true,
+      });
+    }, 0);
   }
 
   componentWillUnmount() {
@@ -74,6 +80,14 @@ export default class FilterPanel extends Component {
       filterIds,
       searchEntryId,
     } = this.props;
+
+    if (!this.state.mounted) {
+      // Work around a race condition when navigating back from detail page.
+      // If filters are rendered synchronously on mount, the selected filters
+      // do not appear.
+
+      return null;
+    }
 
     return filterGroups.map(filterGroup => (
       <FilterGroupContainer

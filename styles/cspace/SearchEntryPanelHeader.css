@@ -30,6 +30,10 @@
   outline-offset: -1px;
 }
 
+.common :global(.cspace-SearchInput) {
+  height: searchInputHeight;
+}
+
 .collapsed {
   composes: common;
 }

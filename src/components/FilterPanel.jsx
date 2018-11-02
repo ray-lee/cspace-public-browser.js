@@ -8,6 +8,7 @@ const propTypes = {
   filterGroups: PropTypes.arrayOf(PropTypes.object),
   filterIds: PropTypes.arrayOf(PropTypes.string),
   isExpanded: PropTypes.bool,
+  isMounted: PropTypes.bool,
   searchEntryId: PropTypes.string,
 };
 
@@ -16,6 +17,7 @@ const defaultProps = {
   filterGroups: [],
   filterIds: [],
   isExpanded: false,
+  isMounted: false,
   searchEntryId: 'search',
 };
 
@@ -35,12 +37,6 @@ export default class FilterPanel extends Component {
     window.addEventListener('scroll', this.handleScroll);
 
     this.setHeight();
-
-    window.setTimeout(() => {
-      this.setState({
-        mounted: true,
-      });
-    }, 0);
   }
 
   componentWillUnmount() {
@@ -78,10 +74,11 @@ export default class FilterPanel extends Component {
       advancedSearchFields,
       filterGroups,
       filterIds,
+      isMounted,
       searchEntryId,
     } = this.props;
 
-    if (!this.state.mounted) {
+    if (!isMounted) {
       // Work around a race condition when navigating back from detail page.
       // If filters are rendered synchronously on mount, the selected filters
       // do not appear.

@@ -9,6 +9,7 @@ const propTypes = {
   defaultQuery: PropTypes.object,
   filterIds: PropTypes.arrayOf(PropTypes.string),
   gatewayUrl: PropTypes.string.isRequired,
+  isMounted: PropTypes.bool,
   sortField: PropTypes.string,
   types: PropTypes.object,
 };
@@ -17,6 +18,7 @@ const defaultProps = {
   advancedSearchFields: [],
   defaultQuery: {},
   filterIds: [],
+  isMounted: false,
   sortField: null,
   types: {},
 };
@@ -26,16 +28,35 @@ export default class SearchResultPanel extends Component {
     super();
   }
 
-  render() {
+  renderSearchResultList() {
     const {
       advancedSearchFields,
       defaultQuery,
       filterIds,
       gatewayUrl,
+      isMounted,
       sortField,
       types,
     } = this.props;
 
+    if (!isMounted) {
+      return null;
+    }
+
+    return (
+      <SearchResultList
+        advancedSearchFields={advancedSearchFields}
+        componentId="results"
+        defaultQuery={() => defaultQuery}
+        filterIds={filterIds}
+        gatewayUrl={gatewayUrl}
+        sortField={sortField}
+        types={types}
+      />
+    );
+  }
+
+  render() {
     return (
       <div className={styles.common}>
         <SelectedFilters
@@ -46,15 +67,7 @@ export default class SearchResultPanel extends Component {
           }}
         />
 
-        <SearchResultList
-          advancedSearchFields={advancedSearchFields}
-          componentId="results"
-          defaultQuery={() => defaultQuery}
-          filterIds={filterIds}
-          gatewayUrl={gatewayUrl}
-          sortField={sortField}
-          types={types}
-        />
+        {this.renderSearchResultList()}
       </div>
     );
   }

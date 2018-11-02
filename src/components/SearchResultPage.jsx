@@ -26,6 +26,12 @@ const defaultProps = {
 };
 
 export default class SearchResultPage extends Component {
+  constructor() {
+    super();
+
+    this.state = {};
+  }
+
   componentDidMount() {
     window.document.body.classList.add(bodyClassName(styles.common));
 
@@ -33,6 +39,12 @@ export default class SearchResultPage extends Component {
       left: 0,
       top: 0,
     });
+
+    window.setTimeout(() => {
+      this.setState({
+        isMounted: true,
+      });
+    }, 0);
   }
 
   componentWillUnmount() {
@@ -46,6 +58,10 @@ export default class SearchResultPage extends Component {
       toggleFilterPanel,
       toggleSearchEntryPanel,
     } = this.props;
+
+    const {
+      isMounted,
+    } = this.state;
 
     const advancedSearchFields = config.get('advancedSearchFields');
     const defaultQuery = config.get('defaultQuery');
@@ -69,6 +85,7 @@ export default class SearchResultPage extends Component {
         <div className={fixedStyles.common}>
           <SearchEntryPanel
             isExpanded={isSearchEntryPanelExpanded}
+            isMounted={isMounted}
             onExpandButtonClick={toggleSearchEntryPanel}
           />
 
@@ -82,6 +99,7 @@ export default class SearchResultPage extends Component {
             filterGroups={filterGroups}
             filterIds={filterIds}
             isExpanded={isFilterPanelExpanded}
+            isMounted={isMounted}
           />
         </div>
 
@@ -91,6 +109,7 @@ export default class SearchResultPage extends Component {
           filterGroups={filterGroups}
           filterIds={filterIds}
           gatewayUrl={gatewayUrl}
+          isMounted={isMounted}
           sortField={sortField}
           types={types}
         />

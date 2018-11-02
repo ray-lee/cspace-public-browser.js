@@ -929,6 +929,11 @@ export default {
       format: inlineList,
     },
     {
+      label: 'Generic color',
+      name: 'collectionobjects_materials:materialGenericColors',
+      format: inlineListOf(displayName),
+    },
+    {
       label: 'Finish',
       name: 'collectionobjects_materials:materialFinishGroupList',
       format: listOf(valueWithNote({

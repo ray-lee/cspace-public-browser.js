@@ -7,7 +7,7 @@
   width: 100%;
   background-color: white;
   border-bottom: searchInputBorderWidth solid panelBorderColor;
-  z-index: 9;
+  z-index: 11;
 }
 
 .expanded {

@@ -18,7 +18,6 @@ const propTypes = {
   filterIds: PropTypes.arrayOf(PropTypes.string),
   gatewayUrl: PropTypes.string.isRequired,
   searchEntryId: PropTypes.string,
-  sortField: PropTypes.string,
   types: PropTypes.object.isRequired,
   view: PropTypes.string,
 };
@@ -28,7 +27,6 @@ const defaultProps = {
   filterIds: [],
   searchEntryId: 'search',
   searchParams: null,
-  sortField: null,
   view: TILE,
 };
 
@@ -45,28 +43,6 @@ const messages = defineMessages({
     } found`,
   },
 });
-
-const hasQueryType = (query, types) => {
-  const keys = Object.keys(query);
-
-  if (keys.find(key => types.find(type => type === key))) {
-    return true;
-  }
-
-  return keys.reduce((found, key) => {
-    if (found) {
-      return true;
-    }
-
-    const child = query[key];
-
-    if (!child || typeof child !== 'object') {
-      return false;
-    }
-
-    return hasQueryType(child, types);
-  }, false);
-}
 
 const renderResultStats = total => (
   <div className={statsStyles.common}>
@@ -87,10 +63,7 @@ export default class SearchResultPanel extends Component {
     super();
 
     this.handleData = this.handleData.bind(this);
-    this.handleQueryChange = this.handleQueryChange.bind(this);
     this.renderResult = this.renderResult.bind(this);
-
-    this.state = {};
   }
 
   getSensorIds() {
@@ -128,48 +101,6 @@ export default class SearchResultPanel extends Component {
     const pageSize = (width / tileWidth) * (height / tileHeight + 2) / ratio;
 
     return Math.max(Math.ceil(pageSize), 12);
-  }
-
-  getSortOptions() {
-    const {
-      sortField,
-    } = this.props;
-
-    const {
-      hasSearchOrFilter,
-    } = this.state;
-
-    if (sortField) {
-      return [
-        {
-          label: 'Best match',
-          dataField: hasSearchOrFilter ? '_score' : 'collectionspace_core:createdAt',
-          sortBy: 'desc',
-        },
-        {
-          label: 'A to Z',
-          dataField: sortField,
-          sortBy: 'asc',
-        },
-        {
-          label: 'Z to A',
-          dataField: sortField,
-          sortBy: 'desc',
-        },
-        {
-          label: 'Newest to oldest',
-          dataField: 'collectionspace_core:createdAt',
-          sortBy: 'desc',
-        },
-        {
-          label: 'Oldest to newest',
-          dataField: 'collectionspace_core:createdAt',
-          sortBy: 'asc',
-        },
-      ];
-    }
-
-    return undefined;
   }
 
   handleData(result) {
@@ -228,12 +159,6 @@ export default class SearchResultPanel extends Component {
     };
   }
 
-  handleQueryChange(prevQuery, nextQuery) {
-    this.setState({
-      hasSearchOrFilter: hasQueryType(nextQuery, ['multi_match', 'terms']),
-    });
-  }
-
   renderResult(result) {
     const data = this.handleData(result);
 
@@ -260,47 +185,37 @@ export default class SearchResultPanel extends Component {
   }
 
   renderTileView(props) {
-    const {
-      sortField,
-    } = props;
-
     const size = this.getPageSize();
 
     return (
       <ReactiveList
         className={styles.common}
-        dataField={sortField}
+        dataField=""
         innerClass={{
           list: 'cspace-SearchResultListBody',
           listItem: 'cspace-SearchResultListItem',
           image: 'cspace-SearchResultListImage',
           resultsInfo: 'cspace-SearchResultListResultsInfo',
-          sortOptions: 'cspace-SearchResultListSortOptions',
           title: 'cspace-SearchResultListTitle',
         }}
         react={{ and: this.getSensorIds() }}
         size={size}
-        sortOptions={this.getSortOptions()}
         onData={this.renderResult}
         onNoResults={noResults}
         onResultStats={renderResultStats}
-        onQueryChange={this.handleQueryChange}
         {...props}
       />
 
       // <ResultCard
       //   className={styles.common}
-      //   dataField={sortField}
       //   innerClass={{
       //     list: 'cspace-SearchResultListBody',
       //     listItem: 'cspace-SearchResultListItem',
       //     image: 'cspace-SearchResultListImage',
       //     resultsInfo: 'cspace-SearchResultListResultsInfo',
-      //     sortOptions: 'cspace-SearchResultListSortOptions',
       //     title: 'cspace-SearchResultListTitle',
       //   }}
       //   react={{ and: this.getSensorIds() }}
-      //   sortOptions={this.getSortOptions()}
       //   onData={this.handleData}
       //   onNoResults={noResults}
       //   onResultStats={renderResultStats}
@@ -310,16 +225,10 @@ export default class SearchResultPanel extends Component {
   }
 
   renderListView(props) {
-    const {
-      sortField,
-    } = props;
-
     return (
       <ResultList
         className={styles.common}
-        dataField={sortField}
         react={{ and: this.getSensorIds() }}
-        sortOptions={this.getSortOptions()}
         onData={this.handleData}
         onNoResults={noResults}
         onResultStats={renderResultStats}

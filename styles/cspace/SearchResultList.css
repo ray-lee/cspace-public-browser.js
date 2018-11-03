@@ -14,9 +14,10 @@
 }
 
 .common :global(.cspace-SearchResultListResultsInfo) {
-  justify-content: space-between;
-  flex: 0 0 auto;
+  /* justify-content: space-between;
+  flex: 0 0 auto; */
   background-color: inherit;
+  min-height: calc(.85rem + 24px);
 }
 
 .common :global(.cspace-SearchResultListSortOptions) {

@@ -8,6 +8,7 @@ import styles from '../../styles/cspace/DetailPage.css';
 
 const propTypes = {
   history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       shortID: PropTypes.string,

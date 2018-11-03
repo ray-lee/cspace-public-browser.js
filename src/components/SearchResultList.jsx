@@ -113,11 +113,6 @@ export default class SearchResultPanel extends Component {
     if (sortField) {
       return [
         {
-          label: 'Best match',
-          dataField: '_score',
-          sortBy: 'desc',
-        },
-        {
           label: 'Newest to oldest',
           dataField: 'collectionspace_core:createdAt',
           sortBy: 'desc',
@@ -135,6 +130,11 @@ export default class SearchResultPanel extends Component {
         {
           label: 'Z to A',
           dataField: sortField,
+          sortBy: 'desc',
+        },
+        {
+          label: 'Best match',
+          dataField: '_score',
           sortBy: 'desc',
         },
       ];

@@ -13,10 +13,8 @@ import styles from '../../styles/cspace/SampleIndex.css';
 const messages = defineMessages({
   link: {
     id: 'sampleIndex.link',
-    defaultMessage: `{count, number} {count, plural,
-      one {sample}
-      other {samples}
-    } at {title}`},
+    defaultMessage: 'Samples at {title}'
+  },
 });
 
 const propTypes = {

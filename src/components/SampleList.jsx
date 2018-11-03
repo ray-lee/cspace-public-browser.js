@@ -13,10 +13,8 @@ import styles from '../../styles/cspace/SampleList.css';
 const messages = defineMessages({
   title: {
     id: 'sampleList.title',
-    defaultMessage: `{count, number} {count, plural,
-      one {sample}
-      other {samples}
-    } at {title}`},
+    defaultMessage: 'Samples at {title}'
+  },
 });
 
 const propTypes = {

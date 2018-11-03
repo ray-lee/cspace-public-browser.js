@@ -46,6 +46,28 @@ const messages = defineMessages({
   },
 });
 
+const hasQueryType = (query, types) => {
+  const keys = Object.keys(query);
+
+  if (keys.find(key => types.find(type => type === key))) {
+    return true;
+  }
+
+  return keys.reduce((found, key) => {
+    if (found) {
+      return true;
+    }
+
+    const child = query[key];
+
+    if (!child || typeof child !== 'object') {
+      return false;
+    }
+
+    return hasQueryType(child, types);
+  }, false);
+}
+
 const renderResultStats = total => (
   <div className={statsStyles.common}>
     <FormattedMessage {...messages.resultStats} values={{ total }} />
@@ -65,7 +87,10 @@ export default class SearchResultPanel extends Component {
     super();
 
     this.handleData = this.handleData.bind(this);
+    this.handleQueryChange = this.handleQueryChange.bind(this);
     this.renderResult = this.renderResult.bind(this);
+
+    this.state = {};
   }
 
   getSensorIds() {
@@ -110,17 +135,16 @@ export default class SearchResultPanel extends Component {
       sortField,
     } = this.props;
 
+    const {
+      hasSearchOrFilter,
+    } = this.state;
+
     if (sortField) {
       return [
         {
-          label: 'Newest to oldest',
-          dataField: 'collectionspace_core:createdAt',
+          label: 'Best match',
+          dataField: hasSearchOrFilter ? '_score' : 'collectionspace_core:createdAt',
           sortBy: 'desc',
-        },
-        {
-          label: 'Oldest to newest',
-          dataField: 'collectionspace_core:createdAt',
-          sortBy: 'asc',
         },
         {
           label: 'A to Z',
@@ -133,9 +157,14 @@ export default class SearchResultPanel extends Component {
           sortBy: 'desc',
         },
         {
-          label: 'Best match',
-          dataField: '_score',
+          label: 'Newest to oldest',
+          dataField: 'collectionspace_core:createdAt',
           sortBy: 'desc',
+        },
+        {
+          label: 'Oldest to newest',
+          dataField: 'collectionspace_core:createdAt',
+          sortBy: 'asc',
         },
       ];
     }
@@ -199,6 +228,12 @@ export default class SearchResultPanel extends Component {
     };
   }
 
+  handleQueryChange(prevQuery, nextQuery) {
+    this.setState({
+      hasSearchOrFilter: hasQueryType(nextQuery, ['multi_match', 'terms']),
+    });
+  }
+
   renderResult(result) {
     const data = this.handleData(result);
 
@@ -249,6 +284,7 @@ export default class SearchResultPanel extends Component {
         onData={this.renderResult}
         onNoResults={noResults}
         onResultStats={renderResultStats}
+        onQueryChange={this.handleQueryChange}
         {...props}
       />
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from '../../styles/cspace/Field.css';
 
 const propTypes = {
@@ -31,12 +32,12 @@ export default function Field(props) {
     name,
   } = props;
 
-  const className = styles[classNameProp];
+  const classes = classNames(styles.common, styles[classNameProp]);
 
   if (category) {
     return label
-      ? <h3 className={className}>{label}</h3>
-      : <div className={className}><br/></div>;
+      ? <h3 className={classes}>{label}</h3>
+      : <div className={classes}><br/></div>;
   }
 
   const value = data[name];
@@ -45,14 +46,15 @@ export default function Field(props) {
   if (formattedValue) {
     if (label) {
       return (
-        <div className={className}>
-          <dt>{label}</dt><dd>{formattedValue}</dd>
-        </div>
+        <React.Fragment>
+          <dt className={classes}>{label}</dt>
+          <dd className={classes}>{formattedValue}</dd>
+        </React.Fragment>
       );
     }
 
     return (
-      <div className={className}>{formattedValue}</div>
+      <div className={classes}>{formattedValue}</div>
     );
   }
 

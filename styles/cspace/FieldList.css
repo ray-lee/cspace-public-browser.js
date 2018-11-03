@@ -1,51 +1,33 @@
 @value panelBorderColor from '../colors.css';
 
 .common {
+  width: 100%;
   margin: 0 0 16px 0;
+  display: grid;
+  grid-template-columns: 33% auto;
+  grid-auto-rows: min-content;
 }
 
-.common > h3 {
-  margin: 16px 0 6px 0;
-  font-size: inherit;
-  font-weight: 600;
-}
-
-.common > h3:first-child {
-  margin-top: 0;
-}
-
-.common > div {
-  display: table-row;
-}
-
-.common > div > dt {
-  display: table-cell;
+.common > dt {
   padding-right: 1em;
   font-weight: inherit;
 }
 
-.common > div > dt::after {
+.common > dt::after {
   content: ': ';
 }
 
-.common > div > dd {
-  display: table-cell;
+.common > dd {
   margin: 0;
 }
 
-.common > div > dd::before {
+.common > dd::before {
   display: none;
 }
 
-.common > div > dt,
-.common > div > dd {
+.common > dt,
+.common > dd {
   padding-bottom: 6px;
-}
-
-.common > div ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .Materialitem {
@@ -54,8 +36,4 @@
 
 .CollectionObject {
   composes: common;
-}
-
-.CollectionObject > div > dt {
-  width: 7em;
 }

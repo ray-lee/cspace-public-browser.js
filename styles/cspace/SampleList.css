@@ -68,7 +68,7 @@
 .common > div > ul > li + li {
   margin-top: 10px;
   border-top: 1px solid panelBorderColor;
-  padding-top: 10px;
+  padding-top: 16px;
 }
 
 .common > div > ul > li > h4 + dl {
@@ -87,7 +87,6 @@
 
 .common :global(.cspace-FieldList--common) dt {
   font-weight: 600;
-  white-space: nowrap;
 }
 
 .common :global(.image-gallery-left-nav),

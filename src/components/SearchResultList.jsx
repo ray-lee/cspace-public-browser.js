@@ -118,6 +118,16 @@ export default class SearchResultPanel extends Component {
           sortBy: 'desc',
         },
         {
+          label: 'Newest to oldest',
+          dataField: 'collectionspace_core:createdAt',
+          sortBy: 'desc',
+        },
+        {
+          label: 'Oldest to newest',
+          dataField: 'collectionspace_core:createdAt',
+          sortBy: 'asc',
+        },
+        {
           label: 'A to Z',
           dataField: sortField,
           sortBy: 'asc',

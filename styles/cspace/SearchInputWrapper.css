@@ -1,16 +1,17 @@
 @value searchInputHeight from '../dimensions.css';
-@value highlightColor, panelBorderColor from '../colors.css';
+@value highlightColor, inputBorderColor, panelBorderColor from '../colors.css';
 
 .common {
   margin: 0;
 }
 
 .common > input {
+  width: 100%;
   height: searchInputHeight;
   box-sizing: border-box;
-  font-size: 1rem;
+  border: 1px solid inputBorderColor;
   padding: 0 6px;
-  width: 100%;
+  font-size: 1rem;
 }
 
 .common > input:focus {

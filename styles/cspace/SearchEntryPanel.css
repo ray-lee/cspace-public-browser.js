@@ -1,4 +1,4 @@
-@value highlightColor, inputBgColor, panelBorderColor from '../colors.css';
+@value panelBorderColor from '../colors.css';
 @value searchInputBorderWidth from '../dimensions.css';
 
 .common {
@@ -8,16 +8,6 @@
   background-color: white;
   border-bottom: searchInputBorderWidth solid panelBorderColor;
   z-index: 9;
-}
-
-.common :global(.cspace-SearchInput) {
-  -webkit-appearance: none;
-  background-color: inputBgColor;
-  font-size: 1rem;
-}
-
-.common :global(.cspace-SearchInput):focus {
-  outline: 2px solid highlightColor;
 }
 
 .expanded {

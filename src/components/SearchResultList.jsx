@@ -229,6 +229,7 @@ export default class SearchResultPanel extends Component {
   }
 
   handleQueryChange(prevQuery, nextQuery) {
+    console.log(nextQuery);
     this.setState({
       hasSearchOrFilter: hasQueryType(nextQuery, ['multi_match', 'terms']),
     });

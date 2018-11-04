@@ -1,0 +1,38 @@
+@value searchInputHeight from '../dimensions.css';
+@value highlightColor, panelBorderColor from '../colors.css';
+
+.common {
+  margin: 0;
+}
+
+.common > input {
+  height: searchInputHeight;
+  box-sizing: border-box;
+  font-size: 1rem;
+  padding: 0 6px;
+  width: 100%;
+}
+
+.common > input:focus {
+  outline: 2px solid highlightColor;
+}
+
+.common > button {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  padding: 0 12px;
+  background: #609dd2;
+}
+
+.common > button:hover {
+  background-color: highlightColor;
+}
+
+.common > button:focus {
+  outline: none;
+  box-shadow:  0 0 2px 1px rgba(0, 0, 0, 0.3);
+}

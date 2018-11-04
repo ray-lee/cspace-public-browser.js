@@ -8,7 +8,3 @@
 .common > div {
   width: 50%;
 }
-
-.common :global(.cspace-SearchInput) {
-  border: 1px solid inputBorderColor;
-}

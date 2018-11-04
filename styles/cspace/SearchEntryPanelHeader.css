@@ -2,18 +2,12 @@
 @value inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
 
 .common {
-  display: flex;
-  flex-direction: row;
   width: 100%;
   padding: searchInputPaddingHeight;
   background-color: rgba(212, 212, 212, .2);
 }
 
-.common :global(.cspace-DataSearch) {
-  flex: 1 1 auto;
-}
-
-.common button {
+.common > button {
   display: block;
   flex: 0 0 auto;
   margin: 0;
@@ -25,7 +19,7 @@
   width: searchInputHeight;
 }
 
-.common button:focus {
+.common > button:focus {
   outline: 1px dotted black;
   outline-offset: -1px;
 }
@@ -38,11 +32,11 @@
   composes: common;
 }
 
-.collapsed button {
+.collapsed > button {
   background-image: url(../../images/expand.svg);
 }
 
-.collapsed button:hover {
+.collapsed > button:hover {
   background-image: url(../../images/expandActive.svg);
 }
 
@@ -50,10 +44,10 @@
   composes: common;
 }
 
-.expanded button {
+.expanded > button {
   background-image: url(../../images/collapse.svg);
 }
 
-.expanded button:hover {
+.expanded > button:hover {
   background-image: url(../../images/collapseActive.svg);
 }

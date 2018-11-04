@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import get from 'lodash/get';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import config from '../config';
 import linkStyles from '../../styles/cspace/Link.css';
@@ -18,11 +19,17 @@ const messages = defineMessages({
 });
 
 const propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.object,
+  }),
   samples: PropTypes.instanceOf(Immutable.Map),
 };
 
-export default function SampleIndex(props) {
-  const { samples } = props;
+function SampleIndex(props) {
+  const {
+    location,
+    samples,
+  } = props;
 
   if (!samples) {
     return null;
@@ -42,7 +49,16 @@ export default function SampleIndex(props) {
 
     return (
       <li key={institutionId}>
-        <Link className={linkStyles.hash} replace to={`#${institutionId}`}>
+        <Link
+          className={linkStyles.hash}
+          replace
+          to={{
+            hash: `#${institutionId}`,
+            pathname: location.pathname,
+            search: location.search,
+            state: location.state,
+          }}
+        >
           <FormattedMessage
             {...messages.link}
             values={{ count, title }}
@@ -66,3 +82,5 @@ export default function SampleIndex(props) {
 }
 
 SampleIndex.propTypes = propTypes;
+
+export default withRouter(SampleIndex);

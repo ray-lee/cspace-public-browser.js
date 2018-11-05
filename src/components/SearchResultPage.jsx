@@ -67,6 +67,7 @@ export default class SearchResultPage extends Component {
     const defaultQuery = config.get('defaultQuery');
     const filterGroups = config.get('filterGroups');
     const gatewayUrl = config.get('gatewayUrl');
+    const includeFields = config.get('includeFields');
     const sortField = config.get('sortField');
     const types = config.get('types');
 
@@ -109,6 +110,7 @@ export default class SearchResultPage extends Component {
           filterGroups={filterGroups}
           filterIds={filterIds}
           gatewayUrl={gatewayUrl}
+          includeFields={includeFields}
           isMounted={isMounted}
           sortField={sortField}
           types={types}

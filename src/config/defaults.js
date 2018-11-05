@@ -52,6 +52,14 @@ export default {
     },
   },
 
+  includeFields: [
+    'ecm:primaryType',
+    'collectionspace_denorm:blobCsid',
+    'collectionspace_denorm:title',
+    'materials_common:materialTermGroupList',
+    'materials_common:shortIdentifier',
+  ],
+
   sortField: 'collectionspace_denorm:title',
   storageKey: 'mo', // 'cspace-public-browser',
 

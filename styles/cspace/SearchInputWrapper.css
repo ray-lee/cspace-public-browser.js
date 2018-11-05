@@ -25,12 +25,14 @@
   position: absolute;
   right: 22px;
   top: 22px;
-  width: 72px;
+  width: 78px;
   height: 30px;
   border: none;
   border-radius: 3px;
   background: #609dd2;
+  font-family: inherit;
   font-size: 1rem;
+  font-weight: normal;
   color: white;
 }
 

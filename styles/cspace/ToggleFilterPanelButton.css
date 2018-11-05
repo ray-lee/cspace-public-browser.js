@@ -9,7 +9,7 @@
   border-radius: 32px;
   border: none;
   padding: 0;
-  background-color: #eeeeee;
+  background-color: white;
   box-shadow: 0 0 9px 3px panelBorderColor;
   display: none;
   z-index: 15;
@@ -21,7 +21,7 @@
 }
 
 .common:focus, .common:hover {
-  background-color: white;
+  background-color: #eeeeee;
 }
 
 @media only screen

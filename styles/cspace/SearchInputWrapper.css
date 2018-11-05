@@ -10,8 +10,11 @@
   height: searchInputHeight;
   box-sizing: border-box;
   border: 1px solid inputBorderColor;
-  padding: 0 66px 0 12px;
+  padding: 0 66px 0 32px;
   font-size: 1rem;
+  background-image: url(../../images/search.svg);
+  background-repeat: no-repeat;
+  background-position: 6px center;
 }
 
 .common > input:focus {
@@ -22,11 +25,13 @@
   position: absolute;
   right: 22px;
   top: 22px;
-  width: 56px;
+  width: 72px;
   height: 30px;
   border: none;
   border-radius: 3px;
   background: #609dd2;
+  font-size: 1rem;
+  color: white;
 }
 
 .common > button:hover {

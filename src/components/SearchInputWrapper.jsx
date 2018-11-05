@@ -76,7 +76,7 @@ export default class SearchInputWrapper extends Component {
         />
 
         <button type="submit">
-          <img alt="Search" src={searchIcon} />
+          Search
         </button>
       </form>
     );

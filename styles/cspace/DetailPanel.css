@@ -19,7 +19,7 @@
 .common > section {
   display: grid;
   grid-template-columns: auto 420px;
-  grid-template-rows: minmax(0, max-content) auto;
+  grid-template-rows: minmax(0, auto) 1fr;
   grid-column-gap: 16px;
   grid-template-areas:
     "fields0 gallery"

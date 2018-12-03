@@ -8,24 +8,22 @@ import { blobUrl } from '../helpers/urlHelpers';
 import styles from '../../styles/cspace/ImageGallery.css';
 
 const propTypes = {
-  blobCsids: PropTypes.arrayOf(PropTypes.string),
+  mediaCsids: PropTypes.arrayOf(PropTypes.string),
 };
 
 const defaultProps = {
-  blobCsids: [],
+  mediaCsids: [],
 };
 
 export default function ImageGallery(props) {
-  const { blobCsids } = props;
+  const { mediaCsids } = props;
 
-  let gallery = null;
-
-  if (blobCsids && blobCsids.length > 0) {
+  if (mediaCsids && mediaCsids.length > 0) {
     const gatewayUrl = config.get('gatewayUrl');
 
-    const items = blobCsids.map(blobCsid => ({
-      original: blobUrl(gatewayUrl, blobCsid, 'OriginalJpeg'),
-      thumbnail: blobUrl(gatewayUrl, blobCsid, 'Thumbnail'),
+    const items = mediaCsids.map(mediaCsid => ({
+      original: blobUrl(gatewayUrl, mediaCsid, 'OriginalJpeg'),
+      thumbnail: blobUrl(gatewayUrl, mediaCsid, 'Thumbnail'),
     }));
 
     if (items.length > 0) {

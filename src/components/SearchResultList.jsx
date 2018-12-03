@@ -148,8 +148,8 @@ export default class SearchResultPanel extends Component {
       );
     }
 
-    const blobCsid = get(result, ['collectionspace_denorm:blobCsid', 0]);
-    const imageUrl = blobCsid && blobUrl(gatewayUrl, blobCsid, 'OriginalJpeg');
+    const mediaCsid = get(result, ['collectionspace_denorm:mediaCsid', 0]);
+    const imageUrl = mediaCsid && blobUrl(gatewayUrl, mediaCsid, 'OriginalJpeg');
 
     return {
       title,

@@ -68,11 +68,11 @@ export default class SampleList extends Component {
     }
 
     const {
-      'collectionspace_denorm:blobCsid': blobCsids,
+      'collectionspace_denorm:mediaCsid': mediaCsids,
     } = result;
 
     return (
-      <ImageGallery blobCsids={blobCsids} />
+      <ImageGallery mediaCsids={mediaCsids} />
     );
   }
 

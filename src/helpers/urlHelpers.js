@@ -1,2 +1,2 @@
-export const blobUrl = (gatewayUrl, blobCsid, derivative) =>
-  `${gatewayUrl}/cspace-services/blobs/${blobCsid}/derivatives/${derivative}/content`;
+export const blobUrl = (gatewayUrl, mediaCsid, derivative) =>
+  `${gatewayUrl}/cspace-services/media/${mediaCsid}/blob/derivatives/${derivative}/content`;

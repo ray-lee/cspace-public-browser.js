@@ -91,7 +91,7 @@ export default class DetailPanel extends Component {
     }
 
     const {
-      'collectionspace_denorm:blobCsid': blobCsids,
+      'collectionspace_denorm:mediaCsid': mediaCsids,
       'collectionspace_denorm:title': title,
       'collectionspace_core:refName': refName,
       'materials_common:description': description,
@@ -123,7 +123,7 @@ export default class DetailPanel extends Component {
         {description && <p>{description}</p>}
 
         <section>
-          <ImageGallery blobCsids={blobCsids} />
+          <ImageGallery mediaCsids={mediaCsids} />
 
           <FieldList
             style={{ gridArea: 'fields0' }}

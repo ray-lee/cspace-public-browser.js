@@ -54,7 +54,7 @@ export default {
 
   includeFields: [
     'ecm:primaryType',
-    'collectionspace_denorm:blobCsid',
+    'collectionspace_denorm:mediaCsid',
     'collectionspace_denorm:title',
     'materials_common:materialTermGroupList',
     'materials_common:shortIdentifier',

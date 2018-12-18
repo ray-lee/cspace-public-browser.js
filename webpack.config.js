@@ -16,7 +16,6 @@ const config = {
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
   },
-  mode: 'none',
   module: {
     rules: [
       {

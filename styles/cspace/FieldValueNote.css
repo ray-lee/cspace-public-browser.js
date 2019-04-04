@@ -1,0 +1,5 @@
+@value noteColor from '../colors.css';
+
+.common {
+  color: noteColor;
+}

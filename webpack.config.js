@@ -58,6 +58,7 @@ const config = {
       [`${library}.packageName`]: JSON.stringify(process.env.npm_package_name),
       [`${library}.packageVersion`]: JSON.stringify(process.env.npm_package_version),
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -72,7 +73,6 @@ const config = {
 
 if (isProduction) {
   config.plugins.push(new UglifyJsPlugin());
-  config.plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
 }
 
 module.exports = config;

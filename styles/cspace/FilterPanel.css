@@ -1,0 +1,49 @@
+@value inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
+@value filterPanelWidth, filterPanelCollapsedLeft, searchInputHeight, searchInputPaddingHeight, searchInputBorderWidth from '../dimensions.css';
+
+.common {
+  position: absolute;
+  top: calc(searchInputHeight + searchInputBorderWidth + searchInputPaddingHeight * 2);
+  width: filterPanelWidth;
+  height: 100px;
+  overflow-y: auto;
+  background-color: rgb(245, 245, 245);
+  z-index: 1;
+}
+
+.common > div > header {
+  padding: 18px 18px 16px 18px;
+  font-size: .85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: padding 0.3s;
+}
+
+.collapsed {
+  composes: common;
+}
+
+.expanded {
+  composes: common;
+}
+
+@media only screen
+and (max-width: 768px) {
+  .common {
+    z-index: 1;
+    transition: left 0.3s;
+  }
+
+  .collapsed {
+    left: filterPanelCollapsedLeft;
+  }
+
+  .expanded {
+    left: 0;
+    box-shadow: 0 0 9px 3px panelBorderColor;
+  }
+
+  .common > div > header {
+    padding-left: 78px;
+  }
+}

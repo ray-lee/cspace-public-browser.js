@@ -1,0 +1,50 @@
+.common {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 9;
+  padding-left: 8px;
+  padding-bottom: 64px;
+}
+
+.common > p {
+  /* No results */
+  padding-top: 26px;
+  text-align: center;
+}
+
+.common :global(.cspace-SearchResultListResultsInfo) {
+  /* justify-content: space-between;
+  flex: 0 0 auto; */
+  background-color: inherit;
+  min-height: calc(.85rem + 24px);
+}
+
+.common :global(.cspace-SearchResultListSortOptions) {
+  font-size: .85rem;
+  margin: 8px;
+}
+
+.common :global(.cspace-SearchResultListBody) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  padding-top: 6px;
+}
+
+.common :global(.cspace-SearchResultListItem) {
+  min-width: 210px;
+  max-width: 210px;
+  height: 310px;
+}
+
+.common :global(.cspace-SearchResultListImage) {
+  background-size: cover;
+  height: 210px;
+}
+
+.common :global(.cspace-SearchResultListTitle) {
+  white-space: normal;
+}
+

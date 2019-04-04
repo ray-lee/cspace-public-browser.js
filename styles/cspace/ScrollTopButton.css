@@ -1,0 +1,31 @@
+@value highlightColor, panelBorderColor from '../colors.css';
+
+.common {
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  right: 32px;
+  bottom: 32px;
+  border-radius: 32px;
+  border: none;
+  padding: 0;
+  background-color: white;
+  box-shadow: 0 0 9px 3px panelBorderColor;
+  z-index: 15;
+  transition: opacity 1s;
+}
+
+.common:focus {
+  outline: none;
+  box-shadow: 0 0 9px 3px highlightColor;
+}
+
+.common:focus, .common:hover {
+  background-color: #eeeeee;
+}
+
+.hidden {
+  composes: common;
+  opacity: 0;
+  visibility: hidden;
+}

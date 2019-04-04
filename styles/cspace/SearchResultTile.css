@@ -1,0 +1,78 @@
+@value highlightColor from '../colors.css';
+@value searchResultTileWidth, searchResultTileBodyHeight from '../dimensions.css';
+
+.common {
+  width: searchResultTileWidth;
+  margin: 8px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .2);
+  border-radius: .25rem;
+  overflow: hidden;
+  text-decoration: none;
+  background-color: white;
+  color: inherit;
+  font-size: 0.9rem;
+  transition: all 0.3s ease 0s;
+}
+
+.common:hover {
+  box-shadow:  0 0 8px 1px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.common:focus {
+  outline: none;
+  box-shadow:  0 0 8px 1px highlightColor;
+}
+
+.common > div {
+  width: 100%;
+  height: searchResultTileWidth;
+  background-color: rgb(252, 252, 252);
+  background-size: cover;
+}
+
+.common > article {
+  padding: 10px;
+  height: searchResultTileBodyHeight;
+  /* overflow: auto; */
+}
+
+.common > article > h2 {
+  margin: 0 0 6px 0;
+  font-size: inherit;
+  font-weight: 600;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+@media only screen
+and (max-width: 695px) {
+  .common {
+    width: 158px;
+    margin: 6px;
+  }
+
+  .common > div {
+    height: 158px;
+  }
+
+  .common > article {
+    height: 106px;
+  }
+}
+
+@media only screen
+  and (max-width: 539px) {
+  .common {
+    width: 105px;
+    margin: 4px;
+  }
+
+  .common > div {
+    height: 105px;
+  }
+
+  .common > article {
+    height: 138px;
+  }
+}

@@ -1,0 +1,49 @@
+@value panelBorderColor from '../colors.css';
+
+.common {
+  display: block;
+  width: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: inherit;
+  text-align: left;
+  color: #424242;
+  font: inherit;
+}
+
+.common:focus {
+  outline: none;
+}
+
+.expanded {
+  composes: common;
+}
+
+.collapsed {
+  composes: common;
+}
+
+.common > div  {
+  margin: 2px 0;
+  padding: 10px 32px 10px 0;
+  font-weight: bold;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+.expanded > div {
+  background-image: url(../../images/collapse.svg);
+}
+
+.expanded:hover > div {
+  background-image: url(../../images/collapseActive.svg);
+}
+
+.collapsed > div {
+  background-image: url(../../images/expand.svg);
+}
+
+.collapsed:hover > div {
+  background-image: url(../../images/expandActive.svg);
+}

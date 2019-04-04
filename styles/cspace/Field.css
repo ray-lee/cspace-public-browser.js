@@ -1,0 +1,18 @@
+h3.common,
+div.common {
+  grid-column: 1 / span 2;
+}
+
+h3.common {
+  margin: 16px 0 6px 0;
+  font-size: inherit;
+  font-weight: 600;
+}
+
+h3.common:first-child {
+  margin-top: 0;
+}
+
+dd.title {
+  font-weight: 600;
+}

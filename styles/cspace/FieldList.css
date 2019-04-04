@@ -1,0 +1,39 @@
+@value panelBorderColor from '../colors.css';
+
+.common {
+  width: 100%;
+  margin: 0 0 16px 0;
+  display: grid;
+  grid-template-columns: 33% auto;
+  grid-auto-rows: min-content;
+}
+
+.common > dt {
+  padding-right: 1em;
+  font-weight: inherit;
+}
+
+.common > dt::after {
+  content: ': ';
+}
+
+.common > dd {
+  margin: 0;
+}
+
+.common > dd::before {
+  display: none;
+}
+
+.common > dt,
+.common > dd {
+  padding-bottom: 6px;
+}
+
+.Materialitem {
+  composes: common;
+}
+
+.CollectionObject {
+  composes: common;
+}

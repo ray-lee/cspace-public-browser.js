@@ -1,0 +1,19 @@
+@value highlightColor, inputBgColor, inputBorderColor from '../colors.css';
+
+.common {
+  flex: 1 1 auto;
+}
+
+.common :global(.cspace-FullTextSearchInput) {
+  border: 1px solid inputBorderColor;
+}
+
+.common :global(.cspace-FullTextSearchInput) {
+  -webkit-appearance: none;
+  background-color: inputBgColor;
+  font-size: 1rem;
+}
+
+.common :global(.cspace-FullTextSearchInput):focus {
+  outline: 2px solid highlightColor;
+}

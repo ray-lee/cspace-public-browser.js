@@ -1,0 +1,38 @@
+.common {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.common :global(.image-gallery) {
+  width: 100%;
+}
+
+.common :global(.image-gallery-thumbnails) {
+  padding-bottom: 0;
+}
+
+.common :global(.image-gallery-thumbnail) {
+  width: 25%;
+  max-width: 100px;
+}
+
+.common :global(.image-gallery-slide) {
+  display: flex;
+  justify-content: center;
+}
+
+.common :global(.image-gallery-slide img) {
+  max-width: 420px;
+}
+
+.common button:focus, .common button:focus:hover {
+  background-color: rgba(255, 255, 255, .5);
+  outline: 1px dotted black;
+  outline-offset: -1px;
+}
+
+.common button:hover {
+  background-color: inherit;
+}

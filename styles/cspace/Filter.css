@@ -1,0 +1,78 @@
+@value highlightColor, inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
+
+.common {
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.common:not(:last-child) {
+  border-bottom: 1px solid panelBorderColor;
+}
+
+.common:hover {
+  /* background: #FAFAFA;
+  box-shadow: 0 0 4px 0 rgba(64, 64, 64, .3); */
+}
+
+.common:focus-within {
+  /* outline: 2px solid #424242; */
+  /* outline-offset: -2px; */
+  /* background: white; */
+  /* box-shadow: 0 0 6px 0 rgba(64, 64, 64, .3); */
+  /* background-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 42px); */
+}
+
+.common :global(.cspace-FilterInput) {
+  -webkit-appearance: none;
+  font-size: .85rem;
+  height: 30px;
+  margin: 0 16px;
+  padding: 0 8px;
+  border: 1px solid inputBorderColor;
+  /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
+  background-color: inputBgColor;
+}
+
+.common :global(.cspace-FilterInput):focus {
+  outline: 2px solid highlightColor;
+}
+
+.common :global(.cspace-FilterCheckbox) + label::before {
+  border: 1px solid inputBorderColor;
+  /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
+}
+
+.common :global(.cspace-FilterCheckbox) + label::after {
+  left: calc(1px + 16px/5);
+}
+
+.common :global(.cspace-FilterList) {
+  font-size: .85rem;
+  max-height: 150px;
+}
+
+.common :global(.cspace-FilterCount) {
+  color: #808080;
+}
+
+.common :global(.cspace-FilterTitle) {
+  margin: 0;
+}
+
+.collapsed {
+  composes: common;
+}
+
+.expanded {
+  composes: common;
+  padding-bottom: 16px;
+}
+
+.collapsed :global(.cspace-FilterInput),
+.collapsed :global(.cspace-FilterList) {
+  display: none;
+}
+
+.expanded :global(.cspace-FilterList) {
+  display: block;
+}

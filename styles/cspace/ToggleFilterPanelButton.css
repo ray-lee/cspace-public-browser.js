@@ -1,0 +1,32 @@
+@value highlightColor, panelBorderColor from '../colors.css';
+
+.common {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  left: 6px;
+  top: 68px;
+  border-radius: 32px;
+  border: none;
+  padding: 0;
+  background-color: white;
+  box-shadow: 0 0 9px 3px panelBorderColor;
+  display: none;
+  z-index: 15;
+}
+
+.common:focus {
+  outline: none;
+  box-shadow: 0 0 9px 3px highlightColor;
+}
+
+.common:focus, .common:hover {
+  background-color: #eeeeee;
+}
+
+@media only screen
+and (max-width: 768px) {
+  .common {
+    display: block;
+  }
+}

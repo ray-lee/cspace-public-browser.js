@@ -1,0 +1,15 @@
+@value panelBorderColor from '../colors.css';
+@value searchInputBorderWidth from '../dimensions.css';
+
+.common {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: white;
+  border-bottom: searchInputBorderWidth solid panelBorderColor;
+  z-index: 11;
+}
+
+.expanded {
+  composes: common;
+}

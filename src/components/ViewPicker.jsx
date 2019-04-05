@@ -30,9 +30,9 @@ export default class ViewPicker extends Component {
     return (
       <div>
         View:
-        <button onClick={this.handleButtonClick} value={LIST}>list</button>
-        <button onClick={this.handleButtonClick} value={TILE}>tile</button>
-        <button onClick={this.handleButtonClick} value={MAP}>map</button>
+        <button onClick={this.handleButtonClick} type="button" value={LIST}>list</button>
+        <button onClick={this.handleButtonClick} type="button" value={TILE}>tile</button>
+        <button onClick={this.handleButtonClick} type="button" value={MAP}>map</button>
       </div>
     );
   }

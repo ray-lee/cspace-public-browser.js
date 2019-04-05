@@ -2,7 +2,6 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const library = 'cspacePublicBrowser';
 const isProduction = process.env.NODE_ENV === 'production';
@@ -16,11 +15,12 @@ const config = {
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
   },
+  mode: isProduction ? 'production' : 'development',
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: path.resolve(__dirname, 'node_modules'),
         use: [
           {
             loader: 'babel-loader',
@@ -29,6 +29,7 @@ const config = {
       },
       {
         test: /\.css$/,
+        exclude: path.resolve(__dirname, 'node_modules'),
         use: [
           {
             loader: 'style-loader',
@@ -39,6 +40,18 @@ const config = {
               modules: true,
               localIdentName: '[folder]-[name]--[local]',
             },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        include: path.resolve(__dirname, 'node_modules'),
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
           },
         ],
       },
@@ -54,11 +67,9 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       [`${library}.packageName`]: JSON.stringify(process.env.npm_package_name),
       [`${library}.packageVersion`]: JSON.stringify(process.env.npm_package_version),
     }),
-    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -70,9 +81,5 @@ const config = {
     port: 8081,
   },
 };
-
-if (isProduction) {
-  config.plugins.push(new UglifyJsPlugin());
-}
 
 module.exports = config;

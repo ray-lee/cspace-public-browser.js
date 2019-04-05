@@ -6,7 +6,7 @@ import SearchResultPageContainer from '../containers/SearchResultPageContainer';
 import withReactiveBase from '../enhancers/withReactiveBase';
 import styles from '../../styles/cspace/RootPage.css';
 
-export default function RootPage(props) {
+export default function RootPage() {
   const title = 'Material Order';
 
   return (

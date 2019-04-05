@@ -9,17 +9,16 @@ export default combineReducers({
   prefs,
 });
 
-export const getLayoutPanelRect = (state, id) =>
-  fromLayout.getPanelRect(state.layout, id);
+export const getLayoutPanelRect = (state, id) => fromLayout.getPanelRect(state.layout, id);
 
-export const getMaterialSamples = (state, material) =>
-  fromMaterial.getSamples(state.material, material);
+export const getMaterialSamples = (state, materialRefName) => (
+  fromMaterial.getSamples(state.material, materialRefName)
+);
 
-export const getMaterialSampleCount = (state, material, institutionId) =>
-  fromMaterial.getSampleCount(state.material, material, institutionId);
+export const getMaterialSampleCount = (state, materialRefName, institutionId) => (
+  fromMaterial.getSampleCount(state.material, materialRefName, institutionId)
+);
 
-export const getPrefs = state =>
-  state.prefs;
+export const getPrefs = state => state.prefs;
 
-export const isPanelExpanded = (state, id) =>
-  fromPrefs.isPanelExpanded(state.prefs, id);
+export const isPanelExpanded = (state, id) => fromPrefs.isPanelExpanded(state.prefs, id);

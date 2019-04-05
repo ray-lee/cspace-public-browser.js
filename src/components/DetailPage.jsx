@@ -1,3 +1,5 @@
+/* global window */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import config from '../config';
@@ -7,8 +9,10 @@ import DetailPanel from './DetailPanel';
 import styles from '../../styles/cspace/DetailPage.css';
 
 const propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    state: PropTypes.object,
+  }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       shortID: PropTypes.string,

@@ -8,7 +8,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  childen: null,
+  children: undefined,
   inline: false,
 };
 

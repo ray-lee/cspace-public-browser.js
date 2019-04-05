@@ -46,14 +46,14 @@ export default function Filter(props) {
       }}
       size={250}
       sortBy="asc"
-      title={
+      title={(
         <PanelTitle
           isExpanded={isExpanded}
           styles={titleStyles}
           title={title}
           onClick={togglePanel}
         />
-      }
+      )}
       placeholder="Search"
       URLParams
       {...remainingProps}

@@ -5,12 +5,16 @@ import styles from '../../styles/cspace/FieldList.css';
 
 const propTypes = {
   data: PropTypes.shape({
-    '_index': PropTypes.string,
+    _index: PropTypes.string,
   }).isRequired,
   fields: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
   })).isRequired,
   recordType: PropTypes.string,
+};
+
+const defaultProps = {
+  recordType: undefined,
 };
 
 const isNotEmpty = (value) => {
@@ -40,14 +44,14 @@ export default class FieldList extends Component {
 
     const filteredFields = fields
       .filter(
-        field => (field.category || isNotEmpty(data[field.name]))
+        field => (field.category || isNotEmpty(data[field.name])),
       )
-      .filter((field, index, fields) => {
+      .filter((field, index, arr) => {
         if (!field.category) {
           return true;
         }
 
-        const nextField = fields[index + 1];
+        const nextField = arr[index + 1];
 
         return (nextField && !nextField.category);
       });
@@ -67,3 +71,4 @@ export default class FieldList extends Component {
 }
 
 FieldList.propTypes = propTypes;
+FieldList.defaultProps = defaultProps;

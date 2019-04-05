@@ -64,9 +64,9 @@ let config = {
 };
 
 if (
-  process.env.TRAVIS_SECURE_ENV_VARS === 'true' &&
-  process.env.SAUCE_USERNAME &&
-  process.env.SAUCE_ACCESS_KEY
+  process.env.TRAVIS_SECURE_ENV_VARS === 'true'
+  && process.env.SAUCE_USERNAME
+  && process.env.SAUCE_ACCESS_KEY
 ) {
   // We're on Travis, and Sauce Labs environment variables are available.
   // Run on the Sauce Labs cloud using the full set of browsers.

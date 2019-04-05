@@ -30,7 +30,7 @@ class ReactiveSampleList extends Component {
     if (hits && onSamplesLoaded) {
       onSamplesLoaded(institutionId, hits.length);
     }
-  };
+  }
 
   render() {
     const {

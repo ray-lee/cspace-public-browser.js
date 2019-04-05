@@ -7,7 +7,7 @@ const propTypes = {
   category: PropTypes.bool,
   className: PropTypes.string,
   data: PropTypes.shape({
-    '_index': PropTypes.string,
+    _index: PropTypes.string,
   }),
   format: PropTypes.func,
   label: PropTypes.string,
@@ -37,7 +37,7 @@ export default function Field(props) {
   if (category) {
     return label
       ? <h3 className={classes}>{label}</h3>
-      : <div className={classes}><br/></div>;
+      : <div className={classes}><br /></div>;
   }
 
   const value = data[name];

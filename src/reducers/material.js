@@ -16,7 +16,7 @@ const setSampleCount = (state, action) => {
   const shortId = getItemShortID(material) || material;
 
   return state.setIn([shortId, 'samples', institutionId, 'count'], sampleCount);
-}
+};
 
 export default (state = Immutable.Map(), action) => {
   switch (action.type) {
@@ -27,14 +27,14 @@ export default (state = Immutable.Map(), action) => {
   }
 };
 
-export const getSamples = (state, material) => {
-  const shortId = getItemShortID(material) || material;
+export const getSamples = (state, materialRefName) => {
+  const shortId = getItemShortID(materialRefName) || materialRefName;
 
   return state.getIn([shortId, 'samples']);
 };
 
-export const getSampleCount = (state, material, institutionId) => {
-  const shortId = getItemShortID(material) || material;
+export const getSampleCount = (state, materialRefName, institutionId) => {
+  const shortId = getItemShortID(materialRefName) || materialRefName;
 
   return state.getIn([shortId, 'samples', institutionId, 'count']);
 };

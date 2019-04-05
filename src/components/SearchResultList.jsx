@@ -1,3 +1,5 @@
+/* global window */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
@@ -18,7 +20,7 @@ const propTypes = {
   filterIds: PropTypes.arrayOf(PropTypes.string),
   gatewayUrl: PropTypes.string.isRequired,
   searchEntryId: PropTypes.string,
-  types: PropTypes.object.isRequired,
+  types: PropTypes.objectOf(PropTypes.object).isRequired,
   view: PropTypes.string,
 };
 
@@ -26,7 +28,6 @@ const defaultProps = {
   advancedSearchFields: [],
   filterIds: [],
   searchEntryId: 'search',
-  searchParams: null,
   view: TILE,
 };
 
@@ -51,6 +52,25 @@ const renderResultStats = total => (
 );
 
 const noResults = <FormattedMessage {...messages.noResults} />;
+
+const getPageSize = () => {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const ratio = window.devicePixelRatio || 1;
+
+  const {
+    searchResultTileWidth: cssTileWidth,
+    searchResultTileBodyHeight: cssTileBodyHeight,
+  } = cssDimensions;
+
+  const tileWidth = parseInt(cssTileWidth, 10);
+  const tileBodyHeight = parseInt(cssTileBodyHeight, 10);
+  const tileHeight = tileWidth + tileBodyHeight;
+
+  const pageSize = (width / tileWidth) * (height / tileHeight + 2) / ratio;
+
+  return Math.max(Math.ceil(pageSize), 12);
+};
 
 const getResultUrl = (result) => {
   const shortID = get(result, 'materials_common:shortIdentifier');
@@ -78,29 +98,6 @@ export default class SearchResultPanel extends Component {
       ...advancedSearchFields.map(field => field.id),
       ...filterIds,
     ];
-  }
-
-  getPageSize() {
-    let width;
-    let height;
-    let ratio;
-
-    width = window.innerWidth;
-    height = window.innerHeight;
-    ratio = window.devicePixelRatio || 1;
-
-    const {
-      searchResultTileWidth: cssTileWidth,
-      searchResultTileBodyHeight: cssTileBodyHeight,
-    } = cssDimensions;
-
-    const tileWidth = parseInt(cssTileWidth, 10);
-    const tileBodyHeight = parseInt(cssTileBodyHeight, 10);
-    const tileHeight = tileWidth + tileBodyHeight;
-
-    const pageSize = (width / tileWidth) * (height / tileHeight + 2) / ratio;
-
-    return Math.max(Math.ceil(pageSize), 12);
   }
 
   handleData(result) {
@@ -181,11 +178,11 @@ export default class SearchResultPanel extends Component {
           {data.description}
         </article>
       </Link>
-    )
+    );
   }
 
   renderTileView(props) {
-    const size = this.getPageSize();
+    const size = getPageSize();
 
     return (
       <ReactiveList
@@ -205,22 +202,6 @@ export default class SearchResultPanel extends Component {
         onResultStats={renderResultStats}
         {...props}
       />
-
-      // <ResultCard
-      //   className={styles.common}
-      //   innerClass={{
-      //     list: 'cspace-SearchResultListBody',
-      //     listItem: 'cspace-SearchResultListItem',
-      //     image: 'cspace-SearchResultListImage',
-      //     resultsInfo: 'cspace-SearchResultListResultsInfo',
-      //     title: 'cspace-SearchResultListTitle',
-      //   }}
-      //   react={{ and: this.getSensorIds() }}
-      //   onData={this.handleData}
-      //   onNoResults={noResults}
-      //   onResultStats={renderResultStats}
-      //   {...props}
-      // />
     );
   }
 

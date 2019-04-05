@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DataSearch } from '@appbaseio/reactivesearch';
 import FullTextSearchInput from './FullTextSearchInput';
 import styles from '../../styles/cspace/SearchEntryPanelHeader.css';
 

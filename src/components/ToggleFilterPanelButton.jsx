@@ -1,7 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from '../../styles/cspace/ToggleFilterPanelButton.css';
 import filterIcon from '../../images/filter.svg';
 import hideIcon from '../../images/hideLeft.svg';
+
+const propTypes = {
+  isFilterPanelExpanded: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+};
+
+const defaultProps = {
+  isFilterPanelExpanded: false,
+};
 
 export default function ToggleFilterPanelButton(props) {
   const {
@@ -12,6 +22,7 @@ export default function ToggleFilterPanelButton(props) {
   return (
     <button
       className={styles.common}
+      type="button"
       onClick={onClick}
     >
       <img
@@ -21,3 +32,6 @@ export default function ToggleFilterPanelButton(props) {
     </button>
   );
 }
+
+ToggleFilterPanelButton.propTypes = propTypes;
+ToggleFilterPanelButton.defaultProps = defaultProps;

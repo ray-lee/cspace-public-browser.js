@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../styles/cspace/PanelTitle.css';
+import cssStyles from '../../styles/cspace/PanelTitle.css';
 
 const propTypes = {
   isExpanded: PropTypes.bool,
@@ -15,7 +15,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  styles,
+  styles: cssStyles,
   isExpanded: false,
 };
 
@@ -30,6 +30,7 @@ export default function PanelTitle(props) {
   return (
     <button
       className={isExpanded ? styles.expanded : styles.collapsed}
+      type="button"
       {...remainingProps}
     >
       <div>{title}</div>

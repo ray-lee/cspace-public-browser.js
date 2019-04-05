@@ -23,6 +23,7 @@ export default function AdvancedSearchInput(props) {
   } = props;
 
   return (
+    /* eslint-disable jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */
     <label className={styles.common}>
       <span>{title}</span>
       <DataSearch
@@ -40,6 +41,7 @@ export default function AdvancedSearchInput(props) {
         URLParams
       />
     </label>
+    /* eslint-enable jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */
   );
 }
 

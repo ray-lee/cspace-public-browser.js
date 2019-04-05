@@ -1,6 +1,8 @@
+/* global window */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from "react-router";
+import { withRouter } from 'react-router';
 import qs from 'qs';
 import get from 'lodash/get';
 import { SelectedFilters } from '@appbaseio/reactivesearch';
@@ -28,19 +30,25 @@ const hasQueryType = (query, types) => {
 
     return hasQueryType(child, types);
   }, false);
-}
+};
 
 const propTypes = {
   advancedSearchFields: PropTypes.arrayOf(PropTypes.object),
-  defaultQuery: PropTypes.object,
+  defaultQuery: PropTypes.objectOf(PropTypes.object),
   filterIds: PropTypes.arrayOf(PropTypes.string),
   gatewayUrl: PropTypes.string.isRequired,
   includeFields: PropTypes.arrayOf(PropTypes.string),
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+    replace: PropTypes.func,
+  }).isRequired,
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    pathname: PropTypes.string,
+    state: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
   isMounted: PropTypes.bool,
   sortField: PropTypes.string,
-  types: PropTypes.object,
+  types: PropTypes.objectOf(PropTypes.object),
 };
 
 const defaultProps = {
@@ -72,12 +80,12 @@ class SearchResultPanel extends Component {
         query: [
           {
             _score: {
-              order: 'desc'
+              order: 'desc',
             },
           },
           {
             [sortField]: {
-              order: 'asc'
+              order: 'asc',
             },
           },
         ],
@@ -87,7 +95,7 @@ class SearchResultPanel extends Component {
         query: [
           {
             [sortField]: {
-              order: 'asc'
+              order: 'asc',
             },
           },
         ],
@@ -97,7 +105,7 @@ class SearchResultPanel extends Component {
         query: [
           {
             [sortField]: {
-              order: 'desc'
+              order: 'desc',
             },
           },
         ],
@@ -107,7 +115,7 @@ class SearchResultPanel extends Component {
         query: [
           {
             'collectionspace_core:createdAt': {
-              order: 'desc'
+              order: 'desc',
             },
           },
         ],
@@ -117,7 +125,7 @@ class SearchResultPanel extends Component {
         query: [
           {
             'collectionspace_core:createdAt': {
-              order: 'asc'
+              order: 'asc',
             },
           },
         ],
@@ -132,7 +140,7 @@ class SearchResultPanel extends Component {
   }
 
   handleSortSelectChange(event) {
-    const value = event.target.value;
+    const { value } = event.target;
 
     const {
       history,

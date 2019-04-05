@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Gallery from 'react-image-gallery';
-// import '!style-loader!css-loader!react-image-gallery/styles/css/image-gallery-no-icon.css';
-import '!style-loader!css-loader!react-image-gallery/styles/css/image-gallery.css';
+import 'react-image-gallery/styles/css/image-gallery.css';
 import config from '../config';
 import { blobUrl } from '../helpers/urlHelpers';
 import styles from '../../styles/cspace/ImageGallery.css';

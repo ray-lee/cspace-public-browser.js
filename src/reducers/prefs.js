@@ -6,8 +6,7 @@ import {
   TOGGLE_PANEL,
 } from '../constants/actionCodes';
 
-const setPanelExpanded = (state, id, expanded) =>
-  state.setIn(['panels', id, 'expand'], expanded);
+const setPanelExpanded = (state, id, expanded) => state.setIn(['panels', id, 'expand'], expanded);
 
 export const isPanelExpanded = (state, id) => state.getIn(['panels', id, 'expand']);
 

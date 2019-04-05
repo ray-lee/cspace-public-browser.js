@@ -1,5 +1,3 @@
-/* global document */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
@@ -14,15 +12,19 @@ import styles from '../../styles/cspace/SampleIndex.css';
 const messages = defineMessages({
   link: {
     id: 'sampleIndex.link',
-    defaultMessage: 'Samples at {title}'
+    defaultMessage: 'Samples at {title}',
   },
 });
 
 const propTypes = {
   location: PropTypes.shape({
     state: PropTypes.object,
-  }),
+  }).isRequired,
   samples: PropTypes.instanceOf(Immutable.Map),
+};
+
+const defaultProps = {
+  samples: undefined,
 };
 
 function SampleIndex(props) {
@@ -82,5 +84,6 @@ function SampleIndex(props) {
 }
 
 SampleIndex.propTypes = propTypes;
+SampleIndex.defaultProps = defaultProps;
 
 export default withRouter(SampleIndex);

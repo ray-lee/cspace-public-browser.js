@@ -33,56 +33,6 @@ export default class DetailPanel extends Component {
     this.handleData = this.handleData.bind(this);
   }
 
-  renderSearchLink() {
-    const {
-      isFromSearch,
-      searchParams,
-    } = this.props;
-
-    if (!isFromSearch) {
-      return null;
-    }
-
-    return (
-      <nav>
-        <Link
-          className={linkStyles.back}
-          to={{
-            pathname: '/search',
-            search: searchParams,
-          }}
-        >
-          Return to search
-        </Link>
-      </nav>
-    );
-  }
-
-  renderSampleLists(materialRefName) {
-    const { selectedInstitution } = this.props;
-    const institutions = config.get('institutions');
-
-    return Object.keys(institutions).map(institutionId => {
-      const {
-        title,
-        esIndexName,
-        gatewayUrl,
-      } = institutions[institutionId];
-
-      return (
-        <ReactiveSampleListContainer
-          esIndexName={esIndexName}
-          gatewayUrl={gatewayUrl}
-          institutionId={institutionId}
-          isSelected={institutionId === selectedInstitution}
-          key={institutionId}
-          materialRefName={materialRefName}
-          title={title}
-        />
-      );
-    });
-  }
-
   handleData(data) {
     const result = data[0];
 
@@ -96,13 +46,11 @@ export default class DetailPanel extends Component {
       'collectionspace_core:refName': refName,
       'materials_common:description': description,
       'materials_common:materialTermGroupList': materialTermGroups,
-      'materials_common:externalUrlGroupList': urlGroups,
     } = result;
 
-    const altName =
-      materialTermGroups &&
-      materialTermGroups.length > 1 &&
-      materialTermGroups[1].termDisplayName;
+    const altName = materialTermGroups
+      && materialTermGroups.length > 1
+      && materialTermGroups[1].termDisplayName;
 
     const detailFields = config.get('materialDetailFields');
 
@@ -143,7 +91,57 @@ export default class DetailPanel extends Component {
         {this.renderSampleLists(refName)}
       </div>
     );
-  };
+  }
+
+  renderSearchLink() {
+    const {
+      isFromSearch,
+      searchParams,
+    } = this.props;
+
+    if (!isFromSearch) {
+      return null;
+    }
+
+    return (
+      <nav>
+        <Link
+          className={linkStyles.back}
+          to={{
+            pathname: '/search',
+            search: searchParams,
+          }}
+        >
+          Return to search
+        </Link>
+      </nav>
+    );
+  }
+
+  renderSampleLists(materialRefName) {
+    const { selectedInstitution } = this.props;
+    const institutions = config.get('institutions');
+
+    return Object.keys(institutions).map((institutionId) => {
+      const {
+        title,
+        esIndexName,
+        gatewayUrl,
+      } = institutions[institutionId];
+
+      return (
+        <ReactiveSampleListContainer
+          esIndexName={esIndexName}
+          gatewayUrl={gatewayUrl}
+          institutionId={institutionId}
+          isSelected={institutionId === selectedInstitution}
+          key={institutionId}
+          materialRefName={materialRefName}
+          title={title}
+        />
+      );
+    });
+  }
 
   render() {
     const {

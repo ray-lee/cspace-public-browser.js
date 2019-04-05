@@ -4,8 +4,7 @@ import {
   SET_PANEL_RECT,
 } from '../constants/actionCodes';
 
-const setPanelRect = (state, id, rect) =>
-  state.setIn(['panels', id, 'rect'], rect);
+const setPanelRect = (state, id, rect) => state.setIn(['panels', id, 'rect'], rect);
 
 export default (state = Immutable.Map(), action) => {
   switch (action.type) {

@@ -71,6 +71,7 @@ export default {
     Materialitem: {
       sort: 'collectionspace_denorm:title',
       title: data => data['collectionspace_denorm:title'],
+      /* eslint-disable max-len */
       // title: data => {
       //   const commercialName = findFirstValue({
       //     data,
@@ -114,6 +115,7 @@ export default {
       //   test: value => value.termFlag && value.termFlag.includes('(common)'),
       //   appendPath: ['termDisplayName'],
       // }),
+      /* eslint-enable max-len */
       description: (data) => {
         const materialTermGroups = data['materials_common:materialTermGroupList'];
 
@@ -167,6 +169,7 @@ export default {
         },
       ],
     },
+    /* eslint-disable max-len */
     // {
     //   id: 'production',
     //   title: 'Production',
@@ -188,6 +191,7 @@ export default {
     //     }
     //   ],
     // },
+    /* eslint-enable max-len */
     {
       id: 'form',
       title: 'Form',
@@ -502,7 +506,7 @@ export default {
         name: 'materials_common:durabilityPropertyGroupList',
         format: listOf(valueWithNote({
           valueFieldName: 'durabilityPropertyType',
-          noteFieldName: 'durabilityPropertyNote'
+          noteFieldName: 'durabilityPropertyNote',
         })),
       },
       {
@@ -526,7 +530,7 @@ export default {
         name: 'materials_common:mechanicalPropertyGroupList',
         format: listOf(valueWithNote({
           valueFieldName: 'mechanicalPropertyType',
-          noteFieldName: 'mechanicalPropertyNote'
+          noteFieldName: 'mechanicalPropertyNote',
         })),
       },
       {
@@ -695,7 +699,7 @@ export default {
         path: 'numberType',
         value: 'callnumber',
       },
-      format: valueAt({ path: 'numberValue' })
+      format: valueAt({ path: 'numberValue' }),
     }),
   },
 
@@ -708,7 +712,7 @@ export default {
           path: 'numberType',
           value: 'callnumber',
         },
-        format: valueAt({ path: 'numberValue' })
+        format: valueAt({ path: 'numberValue' }),
       }),
       className: 'title',
     },
@@ -789,7 +793,7 @@ export default {
       label: 'Size',
       name: 'collectionobjects_common:measuredPartGroupList',
       format: listOf(
-        valueAt({ path: 'dimensionSummary' })
+        valueAt({ path: 'dimensionSummary' }),
       ),
     },
     {

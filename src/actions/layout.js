@@ -9,3 +9,5 @@ export const setPanelRect = (id, rect) => ({
     id,
   },
 });
+
+export default {};

@@ -1,3 +1,5 @@
+/* global window */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
@@ -19,7 +21,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  isFilterEntryPanelExpanded: false,
+  isFilterPanelExpanded: false,
   isSearchEntryPanelExpanded: false,
   toggleFilterPanel: null,
   toggleSearchEntryPanel: null,

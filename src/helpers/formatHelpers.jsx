@@ -14,11 +14,11 @@ const renderLink = (url, text, type) => {
   if (type === 'external') {
     const fullUrl = !url.startsWith('http') ? `http://${url}` : url;
 
-    return <a target="_blank" className={linkStyles[type]} href={fullUrl}>{text || url}</a>
+    return <a target="_blank" rel="noopener noreferrer" className={linkStyles[type]} href={fullUrl}>{text || url}</a>;
   }
 
   return <Link className={type && linkStyles[type]} to={url}>{text || url}</Link>;
-}
+};
 
 const renderFilterLink = (filterId, filterValue, linkText) => {
   if (!filterValue) {
@@ -36,7 +36,7 @@ const renderFilterLink = (filterId, filterValue, linkText) => {
 
 const renderJoined = (parts, separator = '') => {
   const nonEmptyParts = parts.filter(
-    part => (typeof part !== 'undefined' && part !== null && part !== '')
+    part => (typeof part !== 'undefined' && part !== null && part !== ''),
   );
 
   if (nonEmptyParts.length === 0) {
@@ -46,15 +46,17 @@ const renderJoined = (parts, separator = '') => {
   const separatorElement = (separator === '\n') ? <br /> : separator;
 
   return nonEmptyParts.reduce((joinedParts, nextPart) => (
+    // eslint-disable-next-line react/jsx-one-expression-per-line
     <span>{joinedParts}{separatorElement}{nextPart}</span>
   ));
-}
+};
 
 const renderList = (values, inline = false) => {
   if (Array.isArray(values)) {
     if (values.length > 1) {
       return (
         <FieldValueList inline={inline}>
+          {/* eslint-disable-next-line react/no-array-index-key */}
           {values.map((value, index) => <li key={index}>{value}</li>)}
         </FieldValueList>
       );
@@ -78,11 +80,13 @@ export const list = values => renderList(values);
 
 export const inlineList = values => renderJoined(values, ', ');
 
-export const listOf = format => (array, fieldName) =>
-  renderList(array.map(value => format(value, fieldName)));
+export const listOf = format => (array, fieldName) => (
+  renderList(array.map(value => format(value, fieldName)))
+);
 
-export const inlineListOf = format => (array, fieldName) =>
-  renderJoined(array.map(value => format(value, fieldName)), ', ');
+export const inlineListOf = format => (array, fieldName) => (
+  renderJoined(array.map(value => format(value, fieldName)), ', ')
+);
 
 export const displayName = value => (getDisplayName(value) || value);
 
@@ -92,7 +96,7 @@ export const unqualifiedFieldName = (data, fieldName) => {
   const parts = fieldName.split(':');
 
   return (parts.length > 1 ? parts[1] : parts[0]);
-}
+};
 
 export const filterLink = config => (data, fieldName) => {
   const {
@@ -121,6 +125,7 @@ export const linkNote = (urlField, noteField, separator = ' - ') => (object) => 
 
   return (
     <React.Fragment>
+      {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
       {url}{url && note && separator}{note}
     </React.Fragment>
   );
@@ -136,7 +141,7 @@ export const linkText = config => (data) => {
   } = config;
 
   return renderLink(data[urlFieldName], data[textFieldName], type);
-}
+};
 
 const numberType = {
   callnumber: 'call number',
@@ -259,14 +264,16 @@ export const numericRange = config => (data) => {
   ], qualifierSeparator);
 };
 
-export const paragraphs = array =>
-  array && array.length > 0 && array.map((value, index) => <p key={index}>{value}</p>);
+export const paragraphs = array => (
+  // eslint-disable-next-line react/no-array-index-key
+  array && array.length > 0 && array.map((value, index) => <p key={index}>{value}</p>)
+);
 
 export const composition = (data) => {
   const parts = [
     'materialCompositionFamilyName',
     'materialCompositionClassName',
-    'materialCompositionGenericName'
+    'materialCompositionGenericName',
   ].map(fieldName => renderFilterLink(fieldName, displayName(data[fieldName])));
 
   return renderJoined(parts, ' - ');

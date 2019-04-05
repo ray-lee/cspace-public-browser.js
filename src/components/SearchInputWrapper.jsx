@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DataSearch } from '@appbaseio/reactivesearch';
-import searchIcon from '../../images/search.svg';
 import styles from '../../styles/cspace/SearchInputWrapper.css';
+
+const propTypes = {
+  selectedValue: PropTypes.string,
+  setQuery: PropTypes.func,
+};
+
+const defaultProps = {
+  selectedValue: undefined,
+  setQuery: undefined,
+};
 
 export default class SearchInputWrapper extends Component {
   constructor() {
@@ -15,29 +25,32 @@ export default class SearchInputWrapper extends Component {
     };
   }
 
-  updateQuery(value) {
-    const {
-      setQuery,
-    } = this.props;
-
-    setQuery({
-      value,
-      query: DataSearch.defaultQuery(value, {
-        dataField: '_all',
-        queryFormat: 'and',
-      }),
-    });
-  }
-
   componentWillReceiveProps(nextProps) {
+    const { value } = this.state;
     const nextValue = nextProps.selectedValue || '';
 
-    if (nextValue !== this.state.value) {
+    if (nextValue !== value) {
       this.setState({
         value: nextValue,
       });
 
       this.updateQuery(nextValue);
+    }
+  }
+
+  updateQuery(value) {
+    const {
+      setQuery,
+    } = this.props;
+
+    if (setQuery) {
+      setQuery({
+        value,
+        query: DataSearch.defaultQuery(value, {
+          dataField: '_all',
+          queryFormat: 'and',
+        }),
+      });
     }
   }
 
@@ -82,3 +95,6 @@ export default class SearchInputWrapper extends Component {
     );
   }
 }
+
+SearchInputWrapper.propTypes = propTypes;
+SearchInputWrapper.defaultProps = defaultProps;

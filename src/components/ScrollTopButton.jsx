@@ -4,11 +4,17 @@ import React, { Component } from 'react';
 import styles from '../../styles/cspace/ScrollTopButton.css';
 import topIcon from '../../images/top.svg';
 
+const scrollTop = () => {
+  window.scroll({
+    left: 0,
+    top: 0,
+  });
+};
+
 export default class ScrollTopButton extends Component {
   constructor() {
     super();
 
-    this.handleClick = this.handleClick.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
 
     this.state = {
@@ -26,17 +32,6 @@ export default class ScrollTopButton extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  handleClick() {
-    window.scroll({
-      left: 0,
-      top: 0,
-    });
-  }
-
-  handleScroll() {
-    this.setVisibility();
-  }
-
   setVisibility() {
     const { visible } = this.state;
     const nextVisible = window.document.scrollingElement.scrollTop > 0;
@@ -48,13 +43,18 @@ export default class ScrollTopButton extends Component {
     }
   }
 
+  handleScroll() {
+    this.setVisibility();
+  }
+
   render() {
     const { visible } = this.state;
 
     return (
       <button
         className={visible ? styles.common : styles.hidden}
-        onClick={this.handleClick}
+        type="button"
+        onClick={scrollTop}
       >
         <img
           alt="Back to top"

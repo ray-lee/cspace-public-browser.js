@@ -10,3 +10,5 @@ export const setMaterialSampleCount = (material, institutionId, sampleCount) => 
     institutionId,
   },
 });
+
+export default {};

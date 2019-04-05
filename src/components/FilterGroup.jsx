@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import without from 'lodash/without';
 import Filter from '../containers/FilterContainer';
@@ -23,7 +24,22 @@ const renderFilters = (props) => {
       }}
     />
   ));
-}
+};
+
+const propTypes = {
+  aggs: PropTypes.objectOf(PropTypes.object),
+  filters: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    field: PropTypes.string,
+  })),
+  title: PropTypes.string,
+};
+
+const defaultProps = {
+  aggs: undefined,
+  filters: [],
+  title: undefined,
+};
 
 export default function FilterGroup(props) {
   const {
@@ -45,3 +61,6 @@ export default function FilterGroup(props) {
     </div>
   );
 }
+
+FilterGroup.propTypes = propTypes;
+FilterGroup.defaultProps = defaultProps;

@@ -9,19 +9,6 @@
   border-bottom: 1px solid panelBorderColor;
 }
 
-.common:hover {
-  /* background: #FAFAFA;
-  box-shadow: 0 0 4px 0 rgba(64, 64, 64, .3); */
-}
-
-.common:focus-within {
-  /* outline: 2px solid #424242; */
-  /* outline-offset: -2px; */
-  /* background: white; */
-  /* box-shadow: 0 0 6px 0 rgba(64, 64, 64, .3); */
-  /* background-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 42px); */
-}
-
 .common :global(.cspace-FilterInput) {
   -webkit-appearance: none;
   font-size: .85rem;
@@ -29,7 +16,6 @@
   margin: 0 16px;
   padding: 0 8px;
   border: 1px solid inputBorderColor;
-  /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
   background-color: inputBgColor;
 }
 
@@ -39,7 +25,7 @@
 
 .common :global(.cspace-FilterCheckbox) + label::before {
   border: 1px solid inputBorderColor;
-  /* box-shadow: 0 0 2px 0 rgba(64, 64, 64, .3) inset; */
+  flex: 0 0 auto;
 }
 
 .common :global(.cspace-FilterCheckbox) + label::after {

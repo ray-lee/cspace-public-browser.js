@@ -130,13 +130,24 @@ export default {
 
   filterGroups: [
     {
+      id: 'institution',
+      title: 'Holding Institution',
+      filters: [
+        {
+          id: 'materialTermAttributionContributingOrganization',
+          field: 'collectionspace_denorm:holdingInstitutions.displayName',
+          filterLabel: 'Institution',
+          title: 'Institution',
+        },
+      ],
+    },
+    {
       id: 'composition',
       title: 'Composition',
       filters: [
         {
           id: 'materialCompositionFamilyName',
           field: 'materials_common:materialCompositionGroupList.materialCompositionFamilyName.displayName',
-          filterLabel: 'Family',
           title: 'Family name',
         },
         {

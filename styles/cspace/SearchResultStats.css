@@ -1,7 +1,7 @@
 .common {
   font-size: .85rem;
   margin: 12px 8px;
-  max-width: calc(100% - 210px);
+  max-width: calc(100% - 220px);
 }
 
 @media only screen

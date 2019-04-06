@@ -34,6 +34,7 @@
 
 .common :global(.cspace-FilterList) {
   font-size: .85rem;
+  line-height: 1;
   max-height: 150px;
 }
 

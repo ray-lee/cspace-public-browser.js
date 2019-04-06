@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 import warning from 'warning';
 import { ReactiveList, ResultList } from '@appbaseio/reactivesearch';
-import { ReactiveMap } from '@appbaseio/reactivemaps';
+// import { ReactiveMap } from '@appbaseio/reactivemaps';
 import { LIST, MAP, TILE } from '../constants/viewTypes';
 import { blobUrl } from '../helpers/urlHelpers';
 import styles from '../../styles/cspace/SearchResultList.css';
@@ -218,22 +218,22 @@ export default class SearchResultPanel extends Component {
     );
   }
 
-  renderMapView(props) {
-    return (
-      <ReactiveMap
-        autoCenter
-        className={styles.common}
-        dataField="collectionspace_denorm:geoPoint"
-        defaultCenter={{ lat: 39.83, lng: -98.58 }}
-        defaultZoom={4}
-        title="Map"
-        react={{ and: this.getSensorIds() }}
-        // onNoResults={noResults}
-        // onResultStats={renderResultStats}
-        {...props}
-      />
-    );
-  }
+  // renderMapView(props) {
+  //   return (
+  //     <ReactiveMap
+  //       autoCenter
+  //       className={styles.common}
+  //       dataField="collectionspace_denorm:geoPoint"
+  //       defaultCenter={{ lat: 39.83, lng: -98.58 }}
+  //       defaultZoom={4}
+  //       title="Map"
+  //       react={{ and: this.getSensorIds() }}
+  //       // onNoResults={noResults}
+  //       // onResultStats={renderResultStats}
+  //       {...props}
+  //     />
+  //   );
+  // }
 
   render() {
     const {
@@ -244,7 +244,7 @@ export default class SearchResultPanel extends Component {
     switch (view) {
       case TILE: return this.renderTileView(remainingProps);
       case LIST: return this.renderListView(remainingProps);
-      case MAP: return this.renderMapView(remainingProps);
+      // case MAP: return this.renderMapView(remainingProps);
       default: return null;
     }
   }

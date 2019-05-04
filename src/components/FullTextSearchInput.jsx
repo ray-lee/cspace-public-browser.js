@@ -33,7 +33,7 @@ export default function FullTextSearchInput(props) {
   //     className={styles.common}
   //     componentId={id}
   //     debounce={500}
-  //     dataField="_all"
+  //     dataField="all_field"
   //     innerClass={{
   //       input: 'cspace-FullTextSearchInput',
   //     }}

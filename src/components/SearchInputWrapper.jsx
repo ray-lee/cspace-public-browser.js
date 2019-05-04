@@ -47,7 +47,7 @@ export default class SearchInputWrapper extends Component {
       setQuery({
         value,
         query: DataSearch.defaultQuery(value, {
-          dataField: '_all',
+          dataField: 'all_field',
           queryFormat: 'and',
         }),
       });

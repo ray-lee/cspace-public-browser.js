@@ -9,7 +9,7 @@ import warning from 'warning';
 import { ReactiveList, ResultList } from '@appbaseio/reactivesearch';
 // import { ReactiveMap } from '@appbaseio/reactivemaps';
 import SearchResultImage from './SearchResultImage';
-import { LIST, MAP, TILE } from '../constants/viewTypes';
+import { LIST, TILE } from '../constants/viewTypes';
 import styles from '../../styles/cspace/SearchResultList.css';
 import statsStyles from '../../styles/cspace/SearchResultStats.css';
 import tileStyles from '../../styles/cspace/SearchResultTile.css';

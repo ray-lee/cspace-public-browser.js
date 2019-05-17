@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ReactiveComponent } from '@appbaseio/reactivesearch';
-import { getItemShortID, getDisplayName } from 'cspace-refname';
+import { getItemShortID } from 'cspace-refname';
 import withReactiveBase from '../enhancers/withReactiveBase';
 import SampleListContainer from '../containers/SampleListContainer';
 
@@ -45,8 +45,6 @@ class ReactiveSampleList extends Component {
     } = remainingProps;
 
     const materialShortID = getItemShortID(materialRefName);
-    console.log(materialShortID);
-    // const materialDisplayName = getDisplayName(materialRefName);
 
     return (
       <ReactiveComponent
@@ -55,7 +53,6 @@ class ReactiveSampleList extends Component {
           query: {
             term: {
               'collectionobjects_common:materialGroupList.material.shortid': materialShortID,
-              // 'collectionobjects_common:materialGroupList.material.displayName': materialDisplayName,
             },
           },
           size: 500,

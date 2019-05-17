@@ -34,14 +34,18 @@
   <div id="cspace-browser"></div>
   <script>
     cspacePublicBrowser({
-      gatewayUrl: 'http://localhost:8180/gateway',
-      esIndexName: 'materials',
+      // gatewayUrl: 'http://localhost:8180/gateway',
+      // esIndexName: 'materials',
+      gatewayUrl: 'https://materialorder.lyrtech.org/gateway',
+      esIndexName: 'materialorder',
       institutions: {
-        test: {
-          gatewayUrl: 'http://localhost:8180/gateway',
-        },
+        HarvardUniversityGraduateSchoolofDesign1489090937914: {
+          title: 'Harvard University Graduate School of Design',
+          gatewayUrl: 'https://gsd.lyrtech.org/gateway',
+          esIndexName: 'gsd',
+        }
       },
     });
-  </script>
+</script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+/* global fetch */
+
 import { getItemShortID } from 'cspace-refname';
 import config from '../config';
 import { getMaterialMedia } from '../reducers';
@@ -27,7 +29,6 @@ export const setMaterialMedia = (materialRefName, institutionId, mediaCsids) => 
 
 export const findMaterialMedia = (materialRefName, institutionId) => (dispatch, getState) => {
   if (getMaterialMedia(getState(), materialRefName, institutionId)) {
-    console.log('already have ' + institutionId);
     return Promise.resolve();
   }
 
@@ -42,8 +43,7 @@ export const findMaterialMedia = (materialRefName, institutionId) => (dispatch, 
     indexName = config.get(['institutions', institutionId, 'esIndexName']);
   }
 
-  const url = gatewayUrl + '/es/' + indexName + '/doc/_search?size=1&terminate_after=1';
-
+  const url = `${gatewayUrl}/es/${indexName}/doc/_search?size=1&terminate_after=1`;
   const materialShortID = getItemShortID(materialRefName) || materialRefName;
 
   const query = {
@@ -59,7 +59,8 @@ export const findMaterialMedia = (materialRefName, institutionId) => (dispatch, 
     body: JSON.stringify(query),
   })
     .then(response => response.json())
-    .then(data => {
+    .then((data) => {
+      // eslint-disable-next-line no-underscore-dangle
       const mediaCsids = data.hits.hits[0]._source['collectionspace_denorm:mediaCsid'];
 
       return dispatch(setMaterialMedia(materialRefName, institutionId, mediaCsids));

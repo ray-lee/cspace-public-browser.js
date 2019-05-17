@@ -1,3 +1,5 @@
+/* global fetch, AbortController */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getItemShortID } from 'cspace-refname';
@@ -13,6 +15,7 @@ const propTypes = {
 
 const defaultProps = {
   holdingInstitutions: [],
+  mediaCsid: undefined,
 };
 
 export default class SearchResultImage extends Component {
@@ -26,46 +29,6 @@ export default class SearchResultImage extends Component {
 
     if (AbortController) {
       this.abortController = new AbortController();
-    }
-  }
-
-  getMaterialMediaCsid(gatewayUrl, indexName, materialShortID) {
-    const url = gatewayUrl + '/es/' + indexName + '/doc/_search?size=1&terminate_after=1';
-
-    const query = {
-      _source: 'collectionspace_denorm:mediaCsid',
-      query: {
-        term: { 'materials_common:shortIdentifier': materialShortID },
-      },
-    };
-
-    return fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(query),
-      signal: this.abortController ? this.abortController.signal : undefined,
-    })
-      .then(response => response.json())
-      .then(data => data.hits.hits[0]._source['collectionspace_denorm:mediaCsid'][0])
-      .catch(() => undefined);
-  };
-
-  init(materialShortID, mediaCsid, holdingInstitutions) {
-    if (!mediaCsid && holdingInstitutions.length > 0) {
-
-      const instShortID = getItemShortID(holdingInstitutions.find(value => !!value));
-      const instGatewayUrl = config.get(['institutions', instShortID, 'gatewayUrl']);
-      const instIndexName = config.get(['institutions', instShortID, 'esIndexName']);
-
-      if (instGatewayUrl) {
-        this.getMaterialMediaCsid(instGatewayUrl, instIndexName, materialShortID)
-          .then((instMediaCsid) => {
-            this.setState({
-              gatewayUrl: instGatewayUrl,
-              mediaCsid: instMediaCsid,
-            });
-          });
-      }
     }
   }
 
@@ -110,6 +73,46 @@ export default class SearchResultImage extends Component {
   componentWillUnmount() {
     if (this.abortController) {
       this.abortController.abort();
+    }
+  }
+
+  getMaterialMediaCsid(gatewayUrl, indexName, materialShortID) {
+    const url = `${gatewayUrl}/es/${indexName}/doc/_search?size=1&terminate_after=1`;
+
+    const query = {
+      _source: 'collectionspace_denorm:mediaCsid',
+      query: {
+        term: { 'materials_common:shortIdentifier': materialShortID },
+      },
+    };
+
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(query),
+      signal: this.abortController ? this.abortController.signal : undefined,
+    })
+      .then(response => response.json())
+      // eslint-disable-next-line no-underscore-dangle
+      .then(data => data.hits.hits[0]._source['collectionspace_denorm:mediaCsid'][0])
+      .catch(() => undefined);
+  }
+
+  init(materialShortID, mediaCsid, holdingInstitutions) {
+    if (!mediaCsid && holdingInstitutions.length > 0) {
+      const instShortID = getItemShortID(holdingInstitutions.find(value => !!value));
+      const instGatewayUrl = config.get(['institutions', instShortID, 'gatewayUrl']);
+      const instIndexName = config.get(['institutions', instShortID, 'esIndexName']);
+
+      if (instGatewayUrl) {
+        this.getMaterialMediaCsid(instGatewayUrl, instIndexName, materialShortID)
+          .then((instMediaCsid) => {
+            this.setState({
+              gatewayUrl: instGatewayUrl,
+              mediaCsid: instMediaCsid,
+            });
+          });
+      }
     }
   }
 

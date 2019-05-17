@@ -17,13 +17,10 @@ const propTypes = {
 const defaultProps = {
   institutionId: undefined,
   media: undefined,
+  findMaterialMedia: undefined,
 };
 
 export default class ImageGallery extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     const {
       institutionId,
@@ -37,7 +34,7 @@ export default class ImageGallery extends Component {
         ? [null, ...Object.keys(config.get('institutions'))]
         : [institutionId];
 
-      institutionIds.forEach(instId => {
+      institutionIds.forEach((instId) => {
         if (!media || !media.get(instId)) {
           findMaterialMedia(materialRefName, instId);
         }
@@ -61,7 +58,7 @@ export default class ImageGallery extends Component {
 
     const items = [];
 
-    institutionIds.forEach(instId => {
+    institutionIds.forEach((instId) => {
       const mediaCsids = media.get(instId);
 
       if (mediaCsids && mediaCsids.size > 0) {
@@ -76,7 +73,7 @@ export default class ImageGallery extends Component {
           });
         });
       }
-    })
+    });
 
     if (items.length > 0) {
       return (

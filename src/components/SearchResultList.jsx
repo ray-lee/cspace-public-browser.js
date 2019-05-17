@@ -8,8 +8,8 @@ import get from 'lodash/get';
 import warning from 'warning';
 import { ReactiveList, ResultList } from '@appbaseio/reactivesearch';
 // import { ReactiveMap } from '@appbaseio/reactivemaps';
+import SearchResultImage from './SearchResultImage';
 import { LIST, MAP, TILE } from '../constants/viewTypes';
-import { blobUrl } from '../helpers/urlHelpers';
 import styles from '../../styles/cspace/SearchResultList.css';
 import statsStyles from '../../styles/cspace/SearchResultStats.css';
 import tileStyles from '../../styles/cspace/SearchResultTile.css';
@@ -102,7 +102,6 @@ export default class SearchResultPanel extends Component {
 
   handleData(result) {
     const {
-      gatewayUrl,
       types,
     } = this.props;
 
@@ -145,18 +144,21 @@ export default class SearchResultPanel extends Component {
       );
     }
 
-    const mediaCsid = get(result, ['collectionspace_denorm:mediaCsid', 0]);
-    const imageUrl = mediaCsid && blobUrl(gatewayUrl, mediaCsid, 'OriginalJpeg');
-
     return {
       title,
       description,
-      image: imageUrl,
+      mediaCsid: get(result, ['collectionspace_denorm:mediaCsid', 0]),
+      shortID: get(result, 'materials_common:shortIdentifier'),
+      holdingInstitutions: get(result, 'collectionspace_denorm:holdingInstitutions'),
       url: getResultUrl(result),
     };
   }
 
   renderResult(result) {
+    const {
+      gatewayUrl,
+    } = this.props;
+
     const data = this.handleData(result);
 
     return (
@@ -171,7 +173,12 @@ export default class SearchResultPanel extends Component {
           },
         }}
       >
-        <div style={{ backgroundImage: `url(${data.image})` }} />
+        <SearchResultImage
+          gatewayUrl={gatewayUrl}
+          holdingInstitutions={data.holdingInstitutions}
+          mediaCsid={data.mediaCsid}
+          shortID={data.shortID}
+        />
 
         <article>
           <h2>{data.title}</h2>

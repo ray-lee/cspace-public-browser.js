@@ -3,11 +3,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import { getItemShortID } from 'cspace-refname';
-import { ReactiveList } from '@appbaseio/reactivesearch';
 import FieldList from './FieldList';
 import PanelTitle from './PanelTitle';
-import ImageGallery from './ImageGallery';
+import ImageGalleryContainer from '../containers/ImageGalleryContainer';
 import config from '../config';
 import styles from '../../styles/cspace/SampleList.css';
 
@@ -41,22 +39,6 @@ const defaultProps = {
   expandPanel: undefined,
   togglePanel: undefined,
   onSamplesLoaded: undefined,
-};
-
-const renderMaterialImages = (data) => {
-  const result = data[0];
-
-  if (!result) {
-    return undefined;
-  }
-
-  const {
-    'collectionspace_denorm:mediaCsid': mediaCsids,
-  } = result;
-
-  return (
-    <ImageGallery mediaCsids={mediaCsids} />
-  );
 };
 
 const renderResult = (result) => {
@@ -117,28 +99,12 @@ export default class SampleList extends Component {
       onSamplesLoaded,
     } = this.props;
 
-    const shortID = getItemShortID(materialRefName);
-
     let content = null;
 
     if (isExpanded) {
       content = (
         <div>
-          <ReactiveList
-            componentId={`${institutionId}_images`}
-            dataField={config.get('sortField')}
-            defaultQuery={() => ({
-              bool: {
-                must: [
-                  { term: { 'ecm:primaryType': 'Materialitem' } },
-                  { term: { 'materials_common:shortIdentifier': shortID } },
-                ],
-              },
-            })}
-            onAllData={renderMaterialImages}
-            showResultStats={false}
-            size={1}
-          />
+          <ImageGalleryContainer institutionId={institutionId} materialRefName={materialRefName} />
 
           <ul>
             {results.map(result => renderResult(result))}

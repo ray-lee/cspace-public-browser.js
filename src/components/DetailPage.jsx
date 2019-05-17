@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import config from '../config';
 import bodyClassName from '../helpers/bodyClassName';
 import ScrollTopButton from './ScrollTopButton';
-import DetailPanel from './DetailPanel';
+import DetailPanelContainer from '../containers/DetailPanelContainer';
 import styles from '../../styles/cspace/DetailPage.css';
 
 const propTypes = {
@@ -48,7 +48,7 @@ export default class DetailPage extends Component {
 
     return (
       <div className={styles.common}>
-        <DetailPanel
+        <DetailPanelContainer
           isFromSearch={state && state.isFromSearch}
           searchParams={state && state.searchParams}
           selectedInstitution={selectedInstitution}

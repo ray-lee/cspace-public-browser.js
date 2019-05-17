@@ -11,6 +11,10 @@ export default combineReducers({
 
 export const getLayoutPanelRect = (state, id) => fromLayout.getPanelRect(state.layout, id);
 
+export const getMaterialMedia = (state, materialRefName, institutionId) => (
+  fromMaterial.getMedia(state.material, materialRefName, institutionId)
+);
+
 export const getMaterialSamples = (state, materialRefName) => (
   fromMaterial.getSamples(state.material, materialRefName)
 );

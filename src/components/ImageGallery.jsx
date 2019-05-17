@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Immutable from 'immutable';
 import Gallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import config from '../config';
@@ -7,23 +8,75 @@ import { blobUrl } from '../helpers/urlHelpers';
 import styles from '../../styles/cspace/ImageGallery.css';
 
 const propTypes = {
-  mediaCsids: PropTypes.arrayOf(PropTypes.string),
+  institutionId: PropTypes.string,
+  materialRefName: PropTypes.string.isRequired,
+  media: PropTypes.instanceOf(Immutable.Map),
+  findMaterialMedia: PropTypes.func,
 };
 
 const defaultProps = {
-  mediaCsids: [],
+  institutionId: undefined,
+  media: undefined,
 };
 
-export default function ImageGallery(props) {
-  const { mediaCsids } = props;
+export default class ImageGallery extends Component {
+  constructor() {
+    super();
+  }
 
-  if (mediaCsids && mediaCsids.length > 0) {
-    const gatewayUrl = config.get('gatewayUrl');
+  componentDidMount() {
+    const {
+      institutionId,
+      materialRefName,
+      media,
+      findMaterialMedia,
+    } = this.props;
 
-    const items = mediaCsids.map(mediaCsid => ({
-      original: blobUrl(gatewayUrl, mediaCsid, 'OriginalJpeg'),
-      thumbnail: blobUrl(gatewayUrl, mediaCsid, 'Thumbnail'),
-    }));
+    if (findMaterialMedia) {
+      const institutionIds = (typeof institutionId === 'undefined')
+        ? [null, ...Object.keys(config.get('institutions'))]
+        : [institutionId];
+
+      institutionIds.forEach(instId => {
+        if (!media || !media.get(instId)) {
+          findMaterialMedia(materialRefName, instId);
+        }
+      });
+    }
+  }
+
+  render() {
+    const {
+      institutionId,
+      media,
+    } = this.props;
+
+    if (!media) {
+      return null;
+    }
+
+    const institutionIds = (typeof institutionId === 'undefined')
+      ? [null, ...Object.keys(config.get('institutions'))]
+      : [institutionId];
+
+    const items = [];
+
+    institutionIds.forEach(instId => {
+      const mediaCsids = media.get(instId);
+
+      if (mediaCsids && mediaCsids.size > 0) {
+        const gatewayUrl = instId
+          ? config.get(['institutions', instId, 'gatewayUrl'])
+          : config.get('gatewayUrl');
+
+        mediaCsids.forEach((mediaCsid) => {
+          items.push({
+            original: blobUrl(gatewayUrl, mediaCsid, 'OriginalJpeg'),
+            thumbnail: blobUrl(gatewayUrl, mediaCsid, 'Thumbnail'),
+          });
+        });
+      }
+    })
 
     if (items.length > 0) {
       return (
@@ -39,9 +92,9 @@ export default function ImageGallery(props) {
         </div>
       );
     }
-  }
 
-  return null;
+    return null;
+  }
 }
 
 ImageGallery.propTypes = propTypes;

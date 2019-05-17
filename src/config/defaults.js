@@ -21,11 +21,6 @@ export default {
   gatewayUrl: 'http://localhost:8181',
 
   institutions: {
-    test: {
-      title: 'Test Institution',
-      esIndexName: 'materials',
-      gatewayUrl: 'http://localhost:8181',
-    },
     // harvard: {
     //   title: 'Test Institution',
     //   esIndexName: 'materials',
@@ -54,6 +49,7 @@ export default {
 
   includeFields: [
     'ecm:primaryType',
+    'collectionspace_denorm:holdingInstitutions',
     'collectionspace_denorm:mediaCsid',
     'collectionspace_denorm:title',
     'materials_common:materialTermGroupList',

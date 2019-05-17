@@ -4,7 +4,7 @@ import { ReactiveList } from '@appbaseio/reactivesearch';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import FieldList from './FieldList';
-import ImageGallery from './ImageGallery';
+import ImageGalleryContainer from '../containers/ImageGalleryContainer';
 import ReactiveSampleListContainer from '../containers/ReactiveSampleListContainer';
 import SampleIndexContainer from '../containers/SampleIndexContainer';
 import config from '../config';
@@ -17,6 +17,7 @@ const propTypes = {
   selectedInstitution: PropTypes.string,
   shortID: PropTypes.string.isRequired,
   sortField: PropTypes.string,
+  setMaterialMedia: PropTypes.func,
 };
 
 const defaultProps = {
@@ -24,6 +25,7 @@ const defaultProps = {
   searchParams: null,
   selectedInstitution: null,
   sortField: null,
+  setMaterialMedia: undefined,
 };
 
 export default class DetailPanel extends Component {
@@ -41,12 +43,18 @@ export default class DetailPanel extends Component {
     }
 
     const {
+      setMaterialMedia,
+    } = this.props;
+
+    const {
       'collectionspace_denorm:mediaCsid': mediaCsids,
       'collectionspace_denorm:title': title,
       'collectionspace_core:refName': refName,
       'materials_common:description': description,
       'materials_common:materialTermGroupList': materialTermGroups,
     } = result;
+
+    setMaterialMedia(refName, null, mediaCsids);
 
     const altName = materialTermGroups
       && materialTermGroups.length > 1
@@ -71,7 +79,7 @@ export default class DetailPanel extends Component {
         {description && <p>{description}</p>}
 
         <section>
-          <ImageGallery mediaCsids={mediaCsids} />
+          <ImageGalleryContainer materialRefName={refName} />
 
           <FieldList
             style={{ gridArea: 'fields0' }}
@@ -154,12 +162,7 @@ export default class DetailPanel extends Component {
         componentId="detail"
         dataField={sortField}
         defaultQuery={() => ({
-          bool: {
-            must: [
-              { term: { 'ecm:primaryType': 'Materialitem' } },
-              { term: { 'materials_common:shortIdentifier': shortID } },
-            ],
-          },
+          term: { 'materials_common:shortIdentifier': shortID },
         })}
         onAllData={this.handleData}
         showResultStats={false}

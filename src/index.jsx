@@ -12,7 +12,7 @@ import config from './config';
 import App from './components/App';
 import reducer from './reducers';
 
-module.exports = (customConfig) => {
+export default (customConfig) => {
   config.merge(customConfig);
 
   const container = config.get('container');

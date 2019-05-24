@@ -8,14 +8,15 @@ const isProduction = process.env.NODE_ENV === 'production';
 const filename = `${library}${isProduction ? '.min' : ''}.js`;
 
 const config = {
+  mode: isProduction ? 'production' : 'development',
   entry: './src/index.jsx',
   output: {
     filename,
     library,
     libraryTarget: 'umd',
+    libraryExport: 'default',
     path: path.resolve(__dirname, 'dist'),
   },
-  mode: isProduction ? 'production' : 'development',
   module: {
     rules: [
       {

@@ -73,9 +73,9 @@ const getPageSize = () => {
 };
 
 const getResultUrl = (result) => {
-  const shortID = get(result, 'materials_common:shortIdentifier');
+  const csid = get(result, 'ecm:name');
 
-  return (shortID ? `/material/${shortID}` : undefined);
+  return (csid ? `/material/${csid}` : undefined);
 };
 
 export default class SearchResultPanel extends Component {
@@ -147,9 +147,10 @@ export default class SearchResultPanel extends Component {
     return {
       title,
       description,
+      csid: get(result, 'ecm:name'),
       mediaCsid: get(result, ['collectionspace_denorm:mediaCsid', 0]),
-      shortID: get(result, 'materials_common:shortIdentifier'),
       holdingInstitutions: get(result, 'collectionspace_denorm:holdingInstitutions'),
+      shortID: get(result, 'materials_common:shortIdentifier'),
       url: getResultUrl(result),
     };
   }

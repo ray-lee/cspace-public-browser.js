@@ -20,7 +20,7 @@ export default function RootPage() {
 
       <Switch>
         <Route path="/search" component={withReactiveBase(SearchResultPageContainer)} />
-        <Route path="/material/:shortID" component={withReactiveBase(DetailPage)} />
+        <Route path="/material/:csid" component={withReactiveBase(DetailPage)} />
       </Switch>
     </div>
   );

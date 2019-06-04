@@ -48,6 +48,7 @@ export default {
   },
 
   includeFields: [
+    'ecm:name',
     'ecm:primaryType',
     'collectionspace_denorm:holdingInstitutions',
     'collectionspace_denorm:mediaCsid',

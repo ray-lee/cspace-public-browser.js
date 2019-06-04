@@ -12,10 +12,10 @@ import styles from '../../styles/cspace/DetailPanel.css';
 import linkStyles from '../../styles/cspace/Link.css';
 
 const propTypes = {
+  csid: PropTypes.string.isRequired,
   isFromSearch: PropTypes.bool,
   searchParams: PropTypes.string,
   selectedInstitution: PropTypes.string,
-  shortID: PropTypes.string.isRequired,
   sortField: PropTypes.string,
   setMaterialMedia: PropTypes.func,
 };
@@ -153,7 +153,7 @@ export default class DetailPanel extends Component {
 
   render() {
     const {
-      shortID,
+      csid,
       sortField,
     } = this.props;
 
@@ -162,7 +162,7 @@ export default class DetailPanel extends Component {
         componentId="detail"
         dataField={sortField}
         defaultQuery={() => ({
-          term: { 'materials_common:shortIdentifier': shortID },
+          term: { 'ecm:name': csid },
         })}
         onAllData={this.handleData}
         showResultStats={false}

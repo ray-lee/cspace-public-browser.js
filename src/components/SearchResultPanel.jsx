@@ -44,7 +44,6 @@ const propTypes = {
   location: PropTypes.shape({
     hash: PropTypes.string,
     pathname: PropTypes.string,
-    state: PropTypes.objectOf(PropTypes.string),
   }).isRequired,
   isMounted: PropTypes.bool,
   sortField: PropTypes.string,

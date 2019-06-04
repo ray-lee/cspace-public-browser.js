@@ -15,7 +15,7 @@ const propTypes = {
   }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      shortID: PropTypes.string,
+      csid: PropTypes.string,
     }),
   }).isRequired,
 };
@@ -41,7 +41,7 @@ export default class DetailPage extends Component {
     } = this.props;
 
     const sortField = config.get('sortField');
-    const { shortID } = match.params;
+    const { csid } = match.params;
     const { hash, state } = location;
 
     const selectedInstitution = hash ? hash.replace(/^#/, '') : undefined;
@@ -52,7 +52,7 @@ export default class DetailPage extends Component {
           isFromSearch={state && state.isFromSearch}
           searchParams={state && state.searchParams}
           selectedInstitution={selectedInstitution}
-          shortID={shortID}
+          csid={csid}
           sortField={sortField}
         />
         <ScrollTopButton />

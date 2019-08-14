@@ -789,7 +789,7 @@ export default {
       })),
     },
     {
-      label: 'Samples',
+      label: 'Holdings',
       name: 'collectionobjects_common:numberOfObjects',
     },
     {

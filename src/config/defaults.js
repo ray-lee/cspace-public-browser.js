@@ -310,28 +310,16 @@ export default {
           title: 'Casting process',
         },
         {
-          id: 'joiningProcesses',
-          field: 'materials_common:joiningProcesses.displayName',
-          filterLabel: 'Joining',
-          title: 'Joining process',
-        },
-        {
-          id: 'moldingProcesses',
-          field: 'materials_common:moldingProcesses.displayName',
-          filterLabel: 'Molding',
-          title: 'Molding process',
-        },
-        {
-          id: 'surfacingProcesses',
-          field: 'materials_common:surfacingProcesses.displayName',
-          filterLabel: 'Surfacing',
-          title: 'Surfacing process',
-        },
-        {
           id: 'deformingProcesses',
           field: 'materials_common:deformingProcesses.displayName',
           filterLabel: 'Deforming',
           title: 'Deforming process',
+        },
+        {
+          id: 'joiningProcesses',
+          field: 'materials_common:joiningProcesses.displayName',
+          filterLabel: 'Joining',
+          title: 'Joining process',
         },
         {
           id: 'machiningProcesses',
@@ -340,10 +328,22 @@ export default {
           title: 'Machining process',
         },
         {
+          id: 'moldingProcesses',
+          field: 'materials_common:moldingProcesses.displayName',
+          filterLabel: 'Molding',
+          title: 'Molding process',
+        },
+        {
           id: 'rapidPrototypingProcesses',
           field: 'materials_common:rapidPrototypingProcesses.displayName',
           filterLabel: 'Rapid prototyping',
           title: 'Rapid prototyping process',
+        },
+        {
+          id: 'surfacingProcesses',
+          field: 'materials_common:surfacingProcesses.displayName',
+          filterLabel: 'Surfacing',
+          title: 'Surfacing process',
         },
         {
           id: 'additionalProcess',

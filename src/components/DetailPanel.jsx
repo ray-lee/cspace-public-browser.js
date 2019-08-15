@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ReactiveList } from '@appbaseio/reactivesearch';
 import Helmet from 'react-helmet';
-import { Link } from 'react-router-dom';
+import DetailNavBar from './DetailNavBar';
 import FieldList from './FieldList';
 import ImageGalleryContainer from '../containers/ImageGalleryContainer';
 import ReactiveSampleListContainer from '../containers/ReactiveSampleListContainer';
@@ -10,7 +10,6 @@ import SampleIndexContainer from '../containers/SampleIndexContainer';
 import { renderJoined } from '../helpers/formatHelpers';
 import config from '../config';
 import styles from '../../styles/cspace/DetailPanel.css';
-import linkStyles from '../../styles/cspace/Link.css';
 
 const renderAltNames = (materialTermGroups) => {
   if (materialTermGroups.length > 1) {
@@ -33,16 +32,17 @@ const renderAltNames = (materialTermGroups) => {
 
 const propTypes = {
   csid: PropTypes.string.isRequired,
-  isFromSearch: PropTypes.bool,
-  searchParams: PropTypes.string,
+  search: PropTypes.shape({
+    index: PropTypes.number,
+    params: PropTypes.string,
+  }),
   selectedInstitution: PropTypes.string,
   sortField: PropTypes.string,
   setMaterialMedia: PropTypes.func,
 };
 
 const defaultProps = {
-  isFromSearch: false,
-  searchParams: null,
+  search: undefined,
   selectedInstitution: null,
   sortField: null,
   setMaterialMedia: undefined,
@@ -63,6 +63,8 @@ export default class DetailPanel extends Component {
     }
 
     const {
+      csid,
+      search,
       setMaterialMedia,
     } = this.props;
 
@@ -85,7 +87,7 @@ export default class DetailPanel extends Component {
         </Helmet>
 
         <header>
-          {this.renderSearchLink()}
+          <DetailNavBar csid={csid} search={search} />
           <h1>{title}</h1>
           {renderAltNames(materialTermGroups)}
         </header>
@@ -114,31 +116,6 @@ export default class DetailPanel extends Component {
 
         {this.renderSampleLists(refName)}
       </div>
-    );
-  }
-
-  renderSearchLink() {
-    const {
-      isFromSearch,
-      searchParams,
-    } = this.props;
-
-    if (!isFromSearch) {
-      return null;
-    }
-
-    return (
-      <nav>
-        <Link
-          className={linkStyles.back}
-          to={{
-            pathname: '/search',
-            search: searchParams,
-          }}
-        >
-          Return to search
-        </Link>
-      </nav>
     );
   }
 

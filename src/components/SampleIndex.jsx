@@ -18,7 +18,9 @@ const messages = defineMessages({
 
 const propTypes = {
   location: PropTypes.shape({
+    pathname: PropTypes.string,
     state: PropTypes.object,
+    search: PropTypes.string,
   }).isRequired,
   samples: PropTypes.instanceOf(Immutable.Map),
 };

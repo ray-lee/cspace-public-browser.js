@@ -19,6 +19,13 @@ const propTypes = {
   advancedSearchFields: PropTypes.arrayOf(PropTypes.object),
   filterIds: PropTypes.arrayOf(PropTypes.string),
   gatewayUrl: PropTypes.string.isRequired,
+  hits: PropTypes.shape({
+    hits: PropTypes.arrayOf(PropTypes.object),
+  }),
+  query: PropTypes.shape({
+    from: PropTypes.number,
+    size: PropTypes.number,
+  }),
   searchEntryId: PropTypes.string,
   types: PropTypes.objectOf(PropTypes.object).isRequired,
   view: PropTypes.string,
@@ -27,6 +34,8 @@ const propTypes = {
 const defaultProps = {
   advancedSearchFields: [],
   filterIds: [],
+  hits: undefined,
+  query: undefined,
   searchEntryId: 'search',
   view: TILE,
 };
@@ -83,6 +92,7 @@ export default class SearchResultPanel extends Component {
     super();
 
     this.handleData = this.handleData.bind(this);
+    this.renderAllResults = this.renderAllResults.bind(this);
     this.renderResult = this.renderResult.bind(this);
   }
 
@@ -155,9 +165,18 @@ export default class SearchResultPanel extends Component {
     };
   }
 
-  renderResult(result) {
+  renderAllResults(results) {
+    return (
+      <div className="cspace-SearchResultListBody">
+        {results.map((result, index) => this.renderResult(result, index))}
+      </div>
+    );
+  }
+
+  renderResult(result, index) {
     const {
       gatewayUrl,
+      query,
     } = this.props;
 
     const data = this.handleData(result);
@@ -169,8 +188,11 @@ export default class SearchResultPanel extends Component {
         to={{
           pathname: data.url,
           state: {
-            isFromSearch: true,
-            searchParams: window.location.search,
+            search: {
+              index,
+              query,
+              params: window.location.search,
+            },
           },
         }}
       >
@@ -205,7 +227,8 @@ export default class SearchResultPanel extends Component {
         }}
         react={{ and: this.getSensorIds() }}
         size={size}
-        onData={this.renderResult}
+        onAllData={this.renderAllResults}
+        // onData={this.renderResult}
         onNoResults={noResults}
         onResultStats={renderResultStats}
         {...props}

@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import qs from 'qs';
 import get from 'lodash/get';
 import { SelectedFilters } from '@appbaseio/reactivesearch';
-import SearchResultList from './SearchResultList';
+import SearchResultListContainer from '../containers/SearchResultListContainer';
 import SortSelect from './SortSelect';
 import styles from '../../styles/cspace/SearchResultPanel.css';
 
@@ -44,6 +44,8 @@ const propTypes = {
   location: PropTypes.shape({
     hash: PropTypes.string,
     pathname: PropTypes.string,
+    search: PropTypes.string,
+    state: PropTypes.object,
   }).isRequired,
   isMounted: PropTypes.bool,
   sortField: PropTypes.string,
@@ -174,7 +176,7 @@ class SearchResultPanel extends Component {
     }
 
     return (
-      <SearchResultList
+      <SearchResultListContainer
         advancedSearchFields={advancedSearchFields}
         componentId="results"
         defaultQuery={() => ({

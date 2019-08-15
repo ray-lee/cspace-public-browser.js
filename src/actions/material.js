@@ -1,5 +1,6 @@
 /* global fetch */
 
+import get from 'lodash/get';
 import { getItemShortID } from 'cspace-refname';
 import config from '../config';
 import { getMaterialMedia } from '../reducers';
@@ -60,9 +61,44 @@ export const findMaterialMedia = (materialRefName, institutionId) => (dispatch, 
   })
     .then(response => response.json())
     .then((data) => {
-      // eslint-disable-next-line no-underscore-dangle
-      const mediaCsids = data.hits.hits[0]._source['collectionspace_denorm:mediaCsid'];
+      const mediaCsids = get(data, ['hits', 'hits', 0, '_source', 'collectionspace_denorm:mediaCsid']) || [];
 
       return dispatch(setMaterialMedia(materialRefName, institutionId, mediaCsids));
+    });
+};
+
+export const findMaterialPrevNext = (query, index, csid) => {
+  const gatewayUrl = config.get('gatewayUrl');
+  const indexName = config.get('esIndexName');
+
+  const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
+
+  const navQuery = Object.assign({}, query, {
+    from: Math.max(0, index - 1),
+    size: 3,
+  });
+
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(navQuery),
+  })
+    .then(response => response.json())
+    .then((data) => {
+      const { hits } = data.hits;
+      // eslint-disable-next-line no-underscore-dangle
+      const csidIndex = hits.findIndex(hit => hit._source['ecm:name'] === csid);
+
+      if (csidIndex < 0) {
+        return {
+          prev: undefined,
+          next: undefined,
+        };
+      }
+
+      return {
+        prev: (csidIndex > 0) ? hits[csidIndex - 1] : undefined,
+        next: (csidIndex < hits.length - 1) ? hits[csidIndex + 1] : undefined,
+      };
     });
 };

@@ -1,0 +1,16 @@
+.common {
+  display: flex;
+}
+
+.common > div:first-of-type {
+  flex: 1 1 auto;
+}
+
+.common > div > a + a {
+  margin-left: 8px;
+}
+
+.common > div > a + a::before {
+  margin-right: 8px;
+  content: '|';
+}

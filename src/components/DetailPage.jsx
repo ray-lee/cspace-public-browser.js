@@ -49,8 +49,7 @@ export default class DetailPage extends Component {
     return (
       <div className={styles.common}>
         <DetailPanelContainer
-          isFromSearch={state && state.isFromSearch}
-          searchParams={state && state.searchParams}
+          search={state && state.search}
           selectedInstitution={selectedInstitution}
           csid={csid}
           sortField={sortField}

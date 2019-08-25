@@ -310,3 +310,23 @@ export const pickFromList = config => (array) => {
 
   return (format ? format(value) : value);
 };
+
+export const pickAllFromList = config => (array) => {
+  const {
+    condition,
+    format,
+  } = config;
+
+  const {
+    path,
+    value: targetValue,
+  } = condition;
+
+  const values = array.filter((candidateItem) => {
+    const candidateValue = path ? get(candidateItem, path) : candidateItem;
+
+    return (candidateValue === targetValue);
+  });
+
+  return renderJoined((format ? values.map(format) : values), '\n');
+};

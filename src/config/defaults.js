@@ -9,6 +9,7 @@ import {
   nameRole,
   numericRange,
   paragraphs,
+  pickAllFromList,
   pickFromList,
   valueAt,
   valueWithNote,
@@ -715,7 +716,7 @@ export default {
     {
       label: 'Call number',
       name: 'collectionobjects_common:otherNumberList',
-      format: pickFromList({
+      format: pickAllFromList({
         condition: {
           path: 'numberType',
           value: 'callnumber',

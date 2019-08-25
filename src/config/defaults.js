@@ -735,6 +735,11 @@ export default {
       format: displayName,
     },
     {
+      label: 'Physical description',
+      name: 'collectionobjects_materials:materialPhysicalDescriptions',
+      format: paragraphs,
+    },
+    {
       name: 'cat_samplecondition',
       category: true,
     },

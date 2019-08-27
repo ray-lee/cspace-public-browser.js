@@ -452,6 +452,16 @@ export default {
             })),
           },
           {
+            label: 'Date',
+            name: 'materials_common:productionDate',
+            format: valueAt({ path: 'dateDisplayDate' }),
+          },
+          {
+            label: 'Discontinued',
+            name: 'materials_common:discontinued',
+            // format: valueAt({ path: 'dateDisplayDate' }),
+          },
+          {
             label: 'Note',
             name: 'materials_common:productionNote',
           },

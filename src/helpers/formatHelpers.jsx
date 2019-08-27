@@ -74,6 +74,8 @@ export const literal = value => () => value;
 
 export const collectionValue = value => value.replace('_', '-');
 
+export const objectTypeValue = value => value.replace('_', '-');
+
 export const lines = values => values && values.join('\n');
 
 export const list = values => renderList(values);

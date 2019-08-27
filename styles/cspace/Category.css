@@ -1,0 +1,9 @@
+.common {
+  grid-column: 1 / span 2;
+}
+
+.common > h3 {
+  margin: 6px 0;
+  font-size: inherit;
+  font-weight: 600;
+}

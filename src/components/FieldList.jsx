@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { isNotEmpty } from '../helpers/dataHelpers';
+import Category from './Category';
 import Field from './Field';
 import styles from '../../styles/cspace/FieldList.css';
 
@@ -10,64 +13,81 @@ const propTypes = {
   fields: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
   })).isRequired,
+  inline: PropTypes.bool,
   recordType: PropTypes.string,
 };
 
 const defaultProps = {
+  inline: false,
   recordType: undefined,
 };
 
-const isNotEmpty = (value) => {
-  if (typeof value === 'undefined' || value === null || value === '') {
-    return false;
-  }
+export default function FieldList(props) {
+  const {
+    data,
+    fields,
+    inline,
+    recordType,
+    ...remainingProps
+  } = props;
 
-  if (Array.isArray(value)) {
-    return !!value.find(instance => isNotEmpty(instance));
-  }
-
-  if (typeof value === 'object') {
-    return !!Object.values(value).find(childValue => isNotEmpty(childValue));
-  }
-
-  return true;
-};
-
-export default class FieldList extends Component {
-  render() {
+  const renderedFields = fields.map((field) => {
     const {
-      data,
-      fields,
-      recordType,
-      ...remainingProps
-    } = this.props;
+      fields: childFields,
+      inline: categoryInline,
+      className,
+      format,
+      label,
+      name,
+    } = field;
 
-    const filteredFields = fields
-      .filter(
-        field => (field.category || isNotEmpty(data[field.name])),
-      )
-      .filter((field, index, arr) => {
-        if (!field.category) {
-          return true;
-        }
+    if (field.category) {
+      return (
+        <Category
+          className={className}
+          data={data}
+          fields={childFields}
+          inline={categoryInline}
+          key={name}
+          label={label}
+          name={name}
+          recordType={recordType}
+        />
+      );
+    }
 
-        const nextField = arr[index + 1];
+    const value = data[field.name];
 
-        return (nextField && !nextField.category);
-      });
+    if (isNotEmpty(value)) {
+      return (
+        <Field
+          className={className}
+          format={format}
+          key={name}
+          label={label}
+          name={name}
+          value={data[field.name]}
+        />
+      );
+    }
+
+    return null;
+  }).filter(item => !!item);
+
+  if (renderedFields.length > 0) {
+    const classes = classNames(
+      styles[recordType],
+      inline ? styles.inline : styles.grid,
+    );
 
     return (
-      <dl className={styles[recordType]} {...remainingProps}>
-        {filteredFields.map(field => (
-          <Field
-            data={data}
-            key={field.name}
-            {...field}
-          />
-        ))}
+      <dl className={classes} {...remainingProps}>
+        {renderedFields}
       </dl>
     );
   }
+
+  return null;
 }
 
 FieldList.propTypes = propTypes;

@@ -40,3 +40,19 @@ export const joinFields = ({
 
   return ((value && prefix) ? `${prefix}${value}` : value);
 };
+
+export const isNotEmpty = (value) => {
+  if (typeof value === 'undefined' || value === null || value === '') {
+    return false;
+  }
+
+  if (Array.isArray(value)) {
+    return !!value.find(instance => isNotEmpty(instance));
+  }
+
+  if (typeof value === 'object') {
+    return !!Object.values(value).find(childValue => isNotEmpty(childValue));
+  }
+
+  return true;
+};

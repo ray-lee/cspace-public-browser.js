@@ -3,9 +3,18 @@
 .common {
   width: 100%;
   margin: 0 0 16px 0;
+}
+
+.grid {
+  composes: common;
   display: grid;
   grid-template-columns: 33% auto;
   grid-auto-rows: min-content;
+}
+
+.inline {
+  composes: common;
+  display: flex;
 }
 
 .common > dt {
@@ -28,6 +37,14 @@
 .common > dt,
 .common > dd {
   padding-bottom: 6px;
+}
+
+.inline > dt:first-of-type {
+  flex: 0 0 33%;
+}
+
+.inline > dt + dd {
+  margin-right: 2em;
 }
 
 .Materialitem {

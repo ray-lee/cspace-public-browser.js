@@ -7,9 +7,29 @@ import FieldList from './FieldList';
 import ImageGalleryContainer from '../containers/ImageGalleryContainer';
 import ReactiveSampleListContainer from '../containers/ReactiveSampleListContainer';
 import SampleIndexContainer from '../containers/SampleIndexContainer';
+import { renderJoined } from '../helpers/formatHelpers';
 import config from '../config';
 import styles from '../../styles/cspace/DetailPanel.css';
 import linkStyles from '../../styles/cspace/Link.css';
+
+const renderAltNames = (materialTermGroups) => {
+  if (materialTermGroups.length > 1) {
+    const displayNames = materialTermGroups
+      .slice(1)
+      .map((termGroup) => {
+        const {
+          termDisplayName,
+          historicalStatus,
+        } = termGroup;
+
+        return (termDisplayName + (historicalStatus ? ' (formerly known as)' : ''));
+      });
+
+    return <h2>{renderJoined(displayNames, '\n')}</h2>;
+  }
+
+  return null;
+};
 
 const propTypes = {
   csid: PropTypes.string.isRequired,
@@ -56,10 +76,6 @@ export default class DetailPanel extends Component {
 
     setMaterialMedia(refName, null, mediaCsids);
 
-    const altName = materialTermGroups
-      && materialTermGroups.length > 1
-      && materialTermGroups[1].termDisplayName;
-
     const detailFields = config.get('materialDetailFields');
 
     return (
@@ -71,7 +87,7 @@ export default class DetailPanel extends Component {
         <header>
           {this.renderSearchLink()}
           <h1>{title}</h1>
-          {altName && <h2>{altName}</h2>}
+          {renderAltNames(materialTermGroups)}
         </header>
 
         <SampleIndexContainer materialRefName={refName} />

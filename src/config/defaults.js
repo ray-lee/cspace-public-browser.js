@@ -12,6 +12,7 @@ import {
   paragraphs,
   pickAllFromList,
   pickFromList,
+  renderJoined,
   valueAt,
   valueWithNote,
 } from '../helpers/formatHelpers';
@@ -119,7 +120,20 @@ export default {
         const materialTermGroups = data['materials_common:materialTermGroupList'];
 
         if (materialTermGroups.length > 1) {
-          return materialTermGroups[1].termDisplayName;
+          const displayNames = materialTermGroups
+            .slice(1)
+            .map((termGroup) => {
+              const {
+                termDisplayName,
+                // historicalStatus,
+              } = termGroup;
+
+              // return (termDisplayName + (historicalStatus ? ' (formerly known as)' : ''));
+              return termDisplayName;
+            });
+
+          return renderJoined(displayNames, '\n');
+          // return materialTermGroups[1].termDisplayName;
         }
 
         return undefined;

@@ -34,7 +34,7 @@ const renderFilterLink = (filterId, filterValue, linkText) => {
   );
 };
 
-const renderJoined = (parts, separator = '') => {
+export const renderJoined = (parts, separator = '') => {
   const nonEmptyParts = parts.filter(
     part => (typeof part !== 'undefined' && part !== null && part !== ''),
   );

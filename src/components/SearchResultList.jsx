@@ -205,7 +205,6 @@ export default class SearchResultPanel extends Component {
 
         <article>
           <h2>{data.title}</h2>
-          {data.description}
         </article>
       </Link>
     );

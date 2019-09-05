@@ -77,7 +77,7 @@ export default class DetailNavBar extends Component {
 
     if (prev) {
       const csid = get(prev, ['_source', 'ecm:name']);
-      const title = get(prev, ['_source', 'collectionspace_denorm:title']);
+      // const title = get(prev, ['_source', 'collectionspace_denorm:title']);
 
       prevLink = (
         <Link
@@ -91,14 +91,14 @@ export default class DetailNavBar extends Component {
             },
           }}
         >
-          {title}
+          Previous
         </Link>
       );
     }
 
     if (next) {
       const csid = get(next, ['_source', 'ecm:name']);
-      const title = get(next, ['_source', 'collectionspace_denorm:title']);
+      // const title = get(next, ['_source', 'collectionspace_denorm:title']);
 
       nextLink = (
         <Link
@@ -112,7 +112,7 @@ export default class DetailNavBar extends Component {
             },
           }}
         >
-          {title}
+          Next
         </Link>
       );
     }

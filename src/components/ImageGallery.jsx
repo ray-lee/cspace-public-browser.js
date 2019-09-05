@@ -90,7 +90,7 @@ export default class ImageGallery extends Component {
       );
     }
 
-    return null;
+    return <div />;
   }
 }
 

@@ -476,7 +476,7 @@ export default {
             // format: valueAt({ path: 'dateDisplayDate' }),
           },
           {
-            label: 'Note',
+            label: 'Production Note',
             name: 'materials_common:productionNote',
           },
         ],

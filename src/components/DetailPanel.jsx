@@ -11,6 +11,23 @@ import { renderJoined } from '../helpers/formatHelpers';
 import config from '../config';
 import styles from '../../styles/cspace/DetailPanel.css';
 
+const renderPrimaryName = (materialTermGroups) => {
+  if (materialTermGroups.length > 0) {
+    const {
+      termDisplayName,
+      historicalStatus,
+    } = materialTermGroups[0];
+
+    const displayName = (
+      termDisplayName + (historicalStatus === 'historical' ? ' (formerly known as)' : '')
+    );
+
+    return <h1>{displayName}</h1>;
+  }
+
+  return null;
+};
+
 const renderAltNames = (materialTermGroups) => {
   if (materialTermGroups.length > 1) {
     const displayNames = materialTermGroups
@@ -21,7 +38,9 @@ const renderAltNames = (materialTermGroups) => {
           historicalStatus,
         } = termGroup;
 
-        return (termDisplayName + (historicalStatus ? ' (formerly known as)' : ''));
+        return (
+          termDisplayName + (historicalStatus === 'historical' ? ' (formerly known as)' : '')
+        );
       });
 
     return <h2>{renderJoined(displayNames, '\n')}</h2>;
@@ -88,7 +107,7 @@ export default class DetailPanel extends Component {
 
         <header>
           <DetailNavBar csid={csid} search={search} />
-          <h1>{title}</h1>
+          {renderPrimaryName(materialTermGroups)}
           {renderAltNames(materialTermGroups)}
         </header>
 

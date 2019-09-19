@@ -186,11 +186,11 @@ export default {
           field: 'materials_common:typicalUses.displayName',
           title: 'Typical use',
         },
-        {
-          id: 'featuredApplication',
-          field: 'materials_common:featuredApplicationGroupList.featuredApplication.displayName',
-          title: 'Featured application',
-        },
+        // {
+        //   id: 'featuredApplication',
+        //   field: 'materials_common:featuredApplicationGroupList.featuredApplication.displayName',
+        //   title: 'Featured application',
+        // },
       ],
     },
     /* eslint-disable max-len */

@@ -51,6 +51,8 @@ export default function Field(props) {
       <div className={classes}>{formattedValue}</div>
     );
   }
+
+  return null;
 }
 
 Field.propTypes = propTypes;

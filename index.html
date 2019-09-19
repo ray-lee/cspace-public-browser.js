@@ -34,6 +34,7 @@
   <div id="cspace-browser"></div>
   <script>
     cspacePublicBrowser({
+      /* LOCAL */
       // gatewayUrl: 'http://localhost:8180/gateway',
       // esIndexName: 'materials',
       // institutions: {
@@ -43,22 +44,45 @@
       //     esIndexName: 'materials',
       //   },
       // },
-      gatewayUrl: 'https://materialorder.lyrtech.org/gateway',
+
+      /* STAGING */
+      // gatewayUrl: 'https://materialorder.lyrtech.org/gateway',
+      // esIndexName: 'materialorder',
+      // institutions: {
+      //   HarvardUniversityGraduateSchoolofDesign1489090937914: {
+      //     title: 'Harvard University Graduate School of Design',
+      //     gatewayUrl: 'https://gsd.lyrtech.org/gateway',
+      //     esIndexName: 'gsd',
+      //   },
+      //   RhodeIslandSchoolofDesign1518115923204: {
+      //     title: 'Rhode Island School of Design',
+      //     gatewayUrl: 'https://risd.lyrtech.org/gateway',
+      //     esIndexName: 'risd',
+      //   },
+      //   ParsonsSchoolofDesign1552595955932: {
+      //     title: 'Parsons School of Design',
+      //     gatewayUrl: 'https://parsons.lyrtech.org/gateway',
+      //     esIndexName: 'parsons',
+      //   },
+      // },
+
+      /* PRODUCTION */
+      gatewayUrl: 'https://cspace.materialorder.org/gateway',
       esIndexName: 'materialorder',
       institutions: {
         HarvardUniversityGraduateSchoolofDesign1489090937914: {
           title: 'Harvard University Graduate School of Design',
-          gatewayUrl: 'https://gsd.lyrtech.org/gateway',
+          gatewayUrl: 'https://cspace.gsd.harvard.edu/gateway',
           esIndexName: 'gsd',
         },
         RhodeIslandSchoolofDesign1518115923204: {
           title: 'Rhode Island School of Design',
-          gatewayUrl: 'https://risd.lyrtech.org/gateway',
+          gatewayUrl: 'https://cspace.risd.edu/gateway',
           esIndexName: 'risd',
         },
         ParsonsSchoolofDesign1552595955932: {
           title: 'Parsons School of Design',
-          gatewayUrl: 'https://parsons.lyrtech.org/gateway',
+          gatewayUrl: 'https://parsons.lyrasistechnology.org/gateway',
           esIndexName: 'parsons',
         },
       },

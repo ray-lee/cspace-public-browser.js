@@ -99,19 +99,39 @@ export default class SearchResultImage extends Component {
   }
 
   init(materialShortID, mediaCsid, holdingInstitutions) {
-    if (!mediaCsid && holdingInstitutions.length > 0) {
-      const instShortID = getItemShortID(holdingInstitutions.find(value => !!value));
-      const instGatewayUrl = config.get(['institutions', instShortID, 'gatewayUrl']);
-      const instIndexName = config.get(['institutions', instShortID, 'esIndexName']);
+    if (!mediaCsid) {
+      const institutions = holdingInstitutions.filter(value => !!value);
 
-      if (instGatewayUrl) {
-        this.getMaterialMediaCsid(instGatewayUrl, instIndexName, materialShortID)
-          .then((instMediaCsid) => {
+      if (institutions.length > 0) {
+        const findImage = institutions.reduce((promise, institution) => promise.catch(() => {
+          const instShortID = getItemShortID(institution);
+          const instGatewayUrl = config.get(['institutions', instShortID, 'gatewayUrl']);
+          const instIndexName = config.get(['institutions', instShortID, 'esIndexName']);
+
+          if (!instGatewayUrl) {
+            return Promise.reject();
+          }
+
+          return (
+            this.getMaterialMediaCsid(instGatewayUrl, instIndexName, materialShortID)
+              .then((instMediaCsid) => {
+                if (!instMediaCsid) {
+                  return Promise.reject();
+                }
+
+                return Promise.resolve({ instGatewayUrl, instMediaCsid });
+              })
+          );
+        }), Promise.reject());
+
+        findImage
+          .then(({ instGatewayUrl, instMediaCsid }) => {
             this.setState({
               gatewayUrl: instGatewayUrl,
               mediaCsid: instMediaCsid,
             });
-          });
+          })
+          .catch(() => {});
       }
     }
   }

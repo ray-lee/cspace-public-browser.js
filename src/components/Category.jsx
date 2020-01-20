@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { isNotEmpty } from '../helpers/dataHelpers';
+// eslint-disable-next-line import/no-cycle
 import FieldList from './FieldList';
 import styles from '../../styles/cspace/Category.css';
 
@@ -37,7 +38,7 @@ export default function Category(props) {
     recordType,
   } = props;
 
-  if (fields.find(field => isNotEmpty(data[field.name]))) {
+  if (fields.find((field) => isNotEmpty(data[field.name]))) {
     const classes = classNames(styles.common, styles[classNameProp]);
     const title = label ? <h3>{label}</h3> : null;
 

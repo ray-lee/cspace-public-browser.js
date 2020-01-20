@@ -59,7 +59,7 @@ export const findMaterialMedia = (materialRefName, institutionId) => (dispatch, 
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(query),
   })
-    .then(response => response.json())
+    .then((response) => response.json())
     .then((data) => {
       const mediaCsids = get(data, ['hits', 'hits', 0, '_source', 'collectionspace_denorm:mediaCsid']) || [];
 
@@ -73,21 +73,22 @@ export const findMaterialPrevNext = (query, index, csid) => {
 
   const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
 
-  const navQuery = Object.assign({}, query, {
+  const navQuery = {
+    ...query,
     from: Math.max(0, index - 1),
     size: 3,
-  });
+  };
 
   return fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(navQuery),
   })
-    .then(response => response.json())
+    .then((response) => response.json())
     .then((data) => {
       const { hits } = data.hits;
       // eslint-disable-next-line no-underscore-dangle
-      const csidIndex = hits.findIndex(hit => hit._source['ecm:name'] === csid);
+      const csidIndex = hits.findIndex((hit) => hit._source['ecm:name'] === csid);
 
       if (csidIndex < 0) {
         return {

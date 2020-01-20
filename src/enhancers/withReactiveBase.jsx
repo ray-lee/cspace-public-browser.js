@@ -44,6 +44,7 @@ export default function withReactiveBase(BaseComponent) {
           },
         }}
       >
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <BaseComponent {...remainingProps} />
       </ReactiveBase>
     );

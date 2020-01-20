@@ -76,7 +76,7 @@ export default class SearchResultPage extends Component {
     const filterIds = [];
 
     filterGroups.forEach((filterGroup) => {
-      filterIds.push(...filterGroup.filters.map(filter => filter.id));
+      filterIds.push(...filterGroup.filters.map((filter) => filter.id));
     });
 
     return (

@@ -85,9 +85,7 @@ export default class DetailNavBar extends Component {
           to={{
             pathname: `/material/${csid}`,
             state: {
-              search: Object.assign({}, search, {
-                index: search.index - 1,
-              }),
+              search: { ...search, index: search.index - 1 },
             },
           }}
         >
@@ -106,9 +104,7 @@ export default class DetailNavBar extends Component {
           to={{
             pathname: `/material/${csid}`,
             state: {
-              search: Object.assign({}, search, {
-                index: search.index + 1,
-              }),
+              search: { ...search, index: search.index + 1 },
             },
           }}
         >

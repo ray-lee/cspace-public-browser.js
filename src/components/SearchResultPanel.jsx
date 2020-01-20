@@ -13,7 +13,7 @@ import styles from '../../styles/cspace/SearchResultPanel.css';
 const hasQueryType = (query, types) => {
   const keys = Object.keys(query);
 
-  if (keys.find(key => types.find(type => type === key))) {
+  if (keys.find((key) => types.find((type) => type === key))) {
     return true;
   }
 

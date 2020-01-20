@@ -13,10 +13,11 @@ const renderFilters = (props) => {
     searchEntryId,
   } = props;
 
-  const advancedSearchIds = advancedSearchFields.map(field => field.id);
+  const advancedSearchIds = advancedSearchFields.map((field) => field.id);
 
-  return filters.map(filter => (
+  return filters.map((filter) => (
     <Filter
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...filter}
       key={filter.id}
       react={{

@@ -33,9 +33,9 @@ export const joinFields = ({
   formatters = [],
 }) => {
   const value = paths
-    .map(path => get(data, path))
+    .map((path) => get(data, path))
     .map((part, index) => (part && formatters[index] ? formatters[index](part) : part))
-    .filter(part => !!part)
+    .filter((part) => !!part)
     .join(separator);
 
   return ((value && prefix) ? `${prefix}${value}` : value);
@@ -47,11 +47,11 @@ export const isNotEmpty = (value) => {
   }
 
   if (Array.isArray(value)) {
-    return !!value.find(instance => isNotEmpty(instance));
+    return !!value.find((instance) => isNotEmpty(instance));
   }
 
   if (typeof value === 'object') {
-    return !!Object.values(value).find(childValue => isNotEmpty(childValue));
+    return !!Object.values(value).find((childValue) => isNotEmpty(childValue));
   }
 
   return true;

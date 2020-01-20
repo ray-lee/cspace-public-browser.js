@@ -88,8 +88,9 @@ export default class FilterPanel extends Component {
       return null;
     }
 
-    return filterGroups.map(filterGroup => (
+    return filterGroups.map((filterGroup) => (
       <FilterGroupContainer
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...filterGroup}
         advancedSearchFields={advancedSearchFields}
         filterIds={filterIds}

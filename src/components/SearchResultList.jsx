@@ -54,12 +54,14 @@ const messages = defineMessages({
   },
 });
 
-const renderResultStats = total => (
+const renderResultStats = (total) => (
   <div className={statsStyles.common}>
+    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
     <FormattedMessage {...messages.resultStats} values={{ total }} />
   </div>
 );
 
+// eslint-disable-next-line react/jsx-props-no-spreading
 const noResults = <FormattedMessage {...messages.noResults} />;
 
 const getPageSize = () => {
@@ -76,7 +78,7 @@ const getPageSize = () => {
   const tileBodyHeight = parseInt(cssTileBodyHeight, 10);
   const tileHeight = tileWidth + tileBodyHeight;
 
-  const pageSize = (width / tileWidth) * (height / tileHeight + 2) / ratio;
+  const pageSize = ((width / tileWidth) * (height / tileHeight + 2)) / ratio;
 
   return Math.max(Math.ceil(pageSize), 12);
 };
@@ -105,7 +107,7 @@ export default class SearchResultPanel extends Component {
 
     return [
       searchEntryId,
-      ...advancedSearchFields.map(field => field.id),
+      ...advancedSearchFields.map((field) => field.id),
       ...filterIds,
     ];
   }
@@ -148,9 +150,9 @@ export default class SearchResultPanel extends Component {
 
     if (Array.isArray(description)) {
       description = (
-        <React.Fragment>
-          {description.map(line => <div key={line}>{line}</div>)}
-        </React.Fragment>
+        <>
+          {description.map((line) => <div key={line}>{line}</div>)}
+        </>
       );
     }
 
@@ -230,6 +232,7 @@ export default class SearchResultPanel extends Component {
         // onData={this.renderResult}
         onNoResults={noResults}
         onResultStats={renderResultStats}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       />
     );
@@ -243,6 +246,7 @@ export default class SearchResultPanel extends Component {
         onData={this.handleData}
         onNoResults={noResults}
         onResultStats={renderResultStats}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       />
     );

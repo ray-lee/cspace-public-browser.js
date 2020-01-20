@@ -64,6 +64,7 @@ function SampleIndex(props) {
           }}
         >
           <FormattedMessage
+            // eslint-disable-next-line react/jsx-props-no-spreading
             {...messages.link}
             values={{ count, title }}
           />

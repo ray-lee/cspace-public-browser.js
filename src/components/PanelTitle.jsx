@@ -31,6 +31,7 @@ export default function PanelTitle(props) {
     <button
       className={isExpanded ? styles.expanded : styles.collapsed}
       type="button"
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...remainingProps}
     >
       <div>{title}</div>

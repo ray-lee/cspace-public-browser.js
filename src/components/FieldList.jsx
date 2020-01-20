@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { isNotEmpty } from '../helpers/dataHelpers';
+// FIXME
+// eslint-disable-next-line import/no-cycle
 import Category from './Category';
 import Field from './Field';
 import styles from '../../styles/cspace/FieldList.css';
@@ -72,7 +74,7 @@ export default function FieldList(props) {
     }
 
     return null;
-  }).filter(item => !!item);
+  }).filter((item) => !!item);
 
   if (renderedFields.length > 0) {
     const classes = classNames(
@@ -81,6 +83,7 @@ export default function FieldList(props) {
     );
 
     return (
+      // eslint-disable-next-line react/jsx-props-no-spreading
       <dl className={classes} {...remainingProps}>
         {renderedFields}
       </dl>

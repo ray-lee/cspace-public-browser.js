@@ -19,9 +19,10 @@ export default function AdvancedSearchForm(props) {
   return (
     <div className={styles.common} style={{ display: isOpen ? 'block' : 'none' }}>
       <div>
-        {fields.map(field => (
+        {fields.map((field) => (
           <AdvancedSearchInput
             key={field.id}
+            // eslint-disable-next-line react/jsx-props-no-spreading
             {...field}
           />
         ))}

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { storeKey } from '@appbaseio/reactivecore';
 import FilterGroup from '../components/FilterGroup';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   aggs: state.aggregations,
 });
 

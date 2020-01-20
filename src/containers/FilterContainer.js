@@ -3,7 +3,7 @@ import Filter from '../components/Filter';
 import { togglePanel } from '../actions/prefs';
 import { isPanelExpanded } from '../reducers';
 
-const panelId = filterId => `Filter-${filterId}`;
+const panelId = (filterId) => `Filter-${filterId}`;
 
 const mapStateToProps = (state, ownProps) => ({
   isExpanded: isPanelExpanded(state, panelId(ownProps.id)),

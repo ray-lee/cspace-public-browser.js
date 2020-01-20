@@ -25,7 +25,9 @@ export default class SearchInputWrapper extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  // FIXME
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { value } = this.state;
     const nextValue = nextProps.selectedValue || '';
 

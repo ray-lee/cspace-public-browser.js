@@ -70,7 +70,7 @@ export default {
     },
     Materialitem: {
       sort: 'collectionspace_denorm:title',
-      title: data => data['collectionspace_denorm:title'],
+      title: (data) => data['collectionspace_denorm:title'],
       /* eslint-disable max-len */
       // title: data => {
       //   const commercialName = findFirstValue({

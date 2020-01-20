@@ -84,7 +84,7 @@ export default class SampleList extends Component {
   render() {
     const { hits } = this.props;
     // eslint-disable-next-line no-underscore-dangle
-    const results = hits.map(hit => hit._source);
+    const results = hits.map((hit) => hit._source);
 
     if (results.length === 0) {
       return null;
@@ -107,7 +107,7 @@ export default class SampleList extends Component {
           <ImageGalleryContainer institutionId={institutionId} materialRefName={materialRefName} />
 
           <ul>
-            {results.map(result => renderResult(result))}
+            {results.map((result) => renderResult(result))}
           </ul>
         </div>
       );
@@ -115,6 +115,7 @@ export default class SampleList extends Component {
 
     const countMessage = (
       <FormattedMessage
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...messages.title}
         tagName="h2"
         values={{

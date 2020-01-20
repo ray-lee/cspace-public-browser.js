@@ -40,10 +40,10 @@ export default function Field(props) {
   if (formattedValue) {
     if (label) {
       return (
-        <React.Fragment>
+        <>
           <dt className={classes}>{label}</dt>
           <dd className={classes}>{formattedValue}</dd>
-        </React.Fragment>
+        </>
       );
     }
 

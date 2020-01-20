@@ -83,7 +83,7 @@ export const expandPanel = (id, expanded = true) => (dispatch) => {
   dispatch(savePrefs());
 };
 
-export const togglePanel = id => (dispatch) => {
+export const togglePanel = (id) => (dispatch) => {
   dispatch({
     type: TOGGLE_PANEL,
     meta: {

@@ -56,6 +56,7 @@ export default function Filter(props) {
       )}
       placeholder="Search"
       URLParams
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...remainingProps}
     />
   );

@@ -73,16 +73,18 @@ if (
 
   console.log('Running on Sauce Labs.');
 
-  config = Object.assign({}, config, {
+  config = {
+    ...config,
     user: process.env.SAUCE_USERNAME,
     key: process.env.SAUCE_ACCESS_KEY,
     services: ['sauce', 'selenium-standalone'],
     sauceConnect: true,
-    capabilities: Object.values(sauceBrowsers).map(capability => Object.assign({}, capability, {
+    capabilities: Object.values(sauceBrowsers).map((capability) => ({
+      ...capability,
       name: 'cspace-public-browser integration tests',
       build: process.env.TRAVIS_BUILD_NUMBER,
     })),
-  });
+  };
 }
 
 exports.config = config;

@@ -36,7 +36,7 @@ const renderFilterLink = (filterId, filterValue, linkText) => {
 
 export const renderJoined = (parts, separator = '') => {
   const nonEmptyParts = parts.filter(
-    part => (typeof part !== 'undefined' && part !== null && part !== ''),
+    (part) => (typeof part !== 'undefined' && part !== null && part !== ''),
   );
 
   if (nonEmptyParts.length === 0) {
@@ -68,31 +68,31 @@ const renderList = (values, inline = false) => {
   return values;
 };
 
-export const unformatted = data => data;
+export const unformatted = (data) => data;
 
-export const literal = value => () => value;
+export const literal = (value) => () => value;
 
-export const collectionValue = value => value.replace('_', '-');
+export const collectionValue = (value) => value.replace('_', '-');
 
-export const objectTypeValue = value => value.replace('_', '-');
+export const objectTypeValue = (value) => value.replace('_', '-');
 
-export const lines = values => values && values.join('\n');
+export const lines = (values) => values && values.join('\n');
 
-export const list = values => renderList(values);
+export const list = (values) => renderList(values);
 
-export const inlineList = values => renderJoined(values, ', ');
+export const inlineList = (values) => renderJoined(values, ', ');
 
-export const listOf = format => (array, fieldName) => (
-  renderList(array.map(value => format(value, fieldName)))
+export const listOf = (format) => (array, fieldName) => (
+  renderList(array.map((value) => format(value, fieldName)))
 );
 
-export const inlineListOf = format => (array, fieldName) => (
-  renderJoined(array.map(value => format(value, fieldName)), ', ')
+export const inlineListOf = (format) => (array, fieldName) => (
+  renderJoined(array.map((value) => format(value, fieldName)), ', ')
 );
 
-export const displayName = value => (getDisplayName(value) || value);
+export const displayName = (value) => (getDisplayName(value) || value);
 
-export const displayNameFrom = name => data => displayName(data[name]);
+export const displayNameFrom = (name) => (data) => displayName(data[name]);
 
 export const unqualifiedFieldName = (data, fieldName) => {
   const parts = fieldName.split(':');
@@ -100,7 +100,7 @@ export const unqualifiedFieldName = (data, fieldName) => {
   return (parts.length > 1 ? parts[1] : parts[0]);
 };
 
-export const filterLink = config => (data, fieldName) => {
+export const filterLink = (config) => (data, fieldName) => {
   const {
     filterIdFormat = unqualifiedFieldName,
     filterValueFormat = unformatted,
@@ -126,16 +126,18 @@ export const linkNote = (urlField, noteField, separator = ' - ') => (object) => 
   const note = object[noteField];
 
   return (
-    <React.Fragment>
+    <>
       {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
       {url}{url && note && separator}{note}
-    </React.Fragment>
+    </>
   );
 };
 
-export const linkedDisplayName = filterId => data => renderFilterLink(filterId, displayName(data));
+export const linkedDisplayName = (filterId) => (data) => (
+  renderFilterLink(filterId, displayName(data))
+);
 
-export const linkText = config => (data) => {
+export const linkText = (config) => (data) => {
   const {
     urlFieldName,
     textFieldName,
@@ -149,9 +151,9 @@ const numberType = {
   callnumber: 'call number',
 };
 
-export const numberTypeValue = value => numberType[value] || value;
+export const numberTypeValue = (value) => numberType[value] || value;
 
-export const nameValue = config => (data, fieldName) => {
+export const nameValue = (config) => (data, fieldName) => {
   const {
     nameFormat,
     valueFormat,
@@ -169,7 +171,7 @@ export const nameValue = config => (data, fieldName) => {
   return renderJoined(parts, separator);
 };
 
-export const property = config => (data) => {
+export const property = (config) => (data) => {
   const {
     nameFieldName,
     valueFieldName,
@@ -184,7 +186,7 @@ export const property = config => (data) => {
   return renderJoined(parts, separator);
 };
 
-export const nameRole = config => (data) => {
+export const nameRole = (config) => (data) => {
   const {
     nameFieldName,
     roleFieldName,
@@ -208,7 +210,7 @@ export const nameRole = config => (data) => {
   return renderJoined(parts, separator);
 };
 
-export const valueWithNote = config => (data) => {
+export const valueWithNote = (config) => (data) => {
   const {
     valueFieldName,
     noteFieldName,
@@ -233,7 +235,7 @@ export const valueWithNote = config => (data) => {
   return renderJoined(parts, separator);
 };
 
-export const numericRange = config => (data) => {
+export const numericRange = (config) => (data) => {
   const {
     linkQualifier,
     lowFieldName,
@@ -249,7 +251,7 @@ export const numericRange = config => (data) => {
 
   const low = data[lowFieldName];
   const high = data[highFieldName];
-  const range = [low, high].filter(part => !!part).join('-');
+  const range = [low, high].filter((part) => !!part).join('-');
 
   if (range) {
     unit = unit || displayName(data[unitFieldName]);
@@ -266,7 +268,7 @@ export const numericRange = config => (data) => {
   ], qualifierSeparator);
 };
 
-export const paragraphs = array => (
+export const paragraphs = (array) => (
   // eslint-disable-next-line react/no-array-index-key
   array && array.length > 0 && array.map((value, index) => <p key={index}>{value}</p>)
 );
@@ -276,12 +278,12 @@ export const composition = (data) => {
     'materialCompositionFamilyName',
     'materialCompositionClassName',
     'materialCompositionGenericName',
-  ].map(fieldName => renderFilterLink(fieldName, displayName(data[fieldName])));
+  ].map((fieldName) => renderFilterLink(fieldName, displayName(data[fieldName])));
 
   return renderJoined(parts, ' - ');
 };
 
-export const valueAt = config => (data) => {
+export const valueAt = (config) => (data) => {
   const {
     path,
     format = unformatted,
@@ -293,7 +295,7 @@ export const valueAt = config => (data) => {
   return format(value, fieldName);
 };
 
-export const pickFromList = config => (array) => {
+export const pickFromList = (config) => (array) => {
   const {
     condition,
     format,
@@ -313,7 +315,7 @@ export const pickFromList = config => (array) => {
   return (format ? format(value) : value);
 };
 
-export const pickAllFromList = config => (array) => {
+export const pickAllFromList = (config) => (array) => {
   const {
     condition,
     format,

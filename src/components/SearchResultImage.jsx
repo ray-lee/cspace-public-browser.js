@@ -42,7 +42,9 @@ export default class SearchResultImage extends Component {
     this.init(shortID, mediaCsid, holdingInstitutions);
   }
 
-  componentWillReceiveProps(nextProps) {
+  // FIXME
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const {
       holdingInstitutions: nextHoldingInstitutions,
       gatewayUrl: nextGatewayUrl,
@@ -92,15 +94,15 @@ export default class SearchResultImage extends Component {
       body: JSON.stringify(query),
       signal: this.abortController ? this.abortController.signal : undefined,
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       // eslint-disable-next-line no-underscore-dangle
-      .then(data => data.hits.hits[0]._source['collectionspace_denorm:mediaCsid'][0])
+      .then((data) => data.hits.hits[0]._source['collectionspace_denorm:mediaCsid'][0])
       .catch(() => undefined);
   }
 
   init(materialShortID, mediaCsid, holdingInstitutions) {
     if (!mediaCsid) {
-      const institutions = holdingInstitutions.filter(value => !!value);
+      const institutions = holdingInstitutions.filter((value) => !!value);
 
       if (institutions.length > 0) {
         const findImage = institutions.reduce((promise, institution) => promise.catch(() => {

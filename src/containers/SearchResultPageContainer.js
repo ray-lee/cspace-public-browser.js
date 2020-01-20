@@ -7,16 +7,16 @@ import { getLayoutPanelRect, isPanelExpanded } from '../reducers';
 const filterPanelId = 'filter';
 const searchEntryPanelId = 'searchEntry';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isFilterPanelExpanded: isPanelExpanded(state, filterPanelId),
   isSearchEntryPanelExpanded: isPanelExpanded(state, searchEntryPanelId),
   searchEntryPanelRect: getLayoutPanelRect(state, searchEntryPanelId),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   toggleFilterPanel: () => dispatch(togglePanel(filterPanelId)),
   toggleSearchEntryPanel: () => dispatch(togglePanel(searchEntryPanelId)),
-  setSearchEntryPanelRect: rect => dispatch(setPanelRect(searchEntryPanelId, rect)),
+  setSearchEntryPanelRect: (rect) => dispatch(setPanelRect(searchEntryPanelId, rect)),
 });
 
 export default connect(

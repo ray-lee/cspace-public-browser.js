@@ -67,6 +67,7 @@ class ReactiveSampleList extends Component {
         })}
         onAllData={this.handleData}
       >
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <SampleListContainer {...remainingProps} />
       </ReactiveComponent>
     );

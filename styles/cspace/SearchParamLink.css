@@ -1,0 +1,21 @@
+@value highlightColor from '../colors.css';
+
+.common {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+  margin: 4px 4px 0 0;
+  background-color: rgb(245, 245, 245);
+  outline-offset: -2px;
+}
+
+.common:hover {
+  background-color: rgb(238, 238, 238);
+}
+
+.common:focus {
+  outline: 2px solid highlightColor;
+}

@@ -7,20 +7,20 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider as StoreProvider } from 'react-redux';
 import thunk from 'redux-thunk';
 import warning from 'warning';
-import { loadPrefs } from './actions/prefs';
+import { loadPrefs } from './actions/prefsActions';
 import config from './config';
 import App from './components/App';
 import reducer from './reducers';
 
-export default (customConfig) => {
-  config.merge(customConfig);
+export default (...customConfigs) => {
+  config.merge(...customConfigs);
 
   const container = config.get('container');
   const mountNode = document.querySelector(container);
 
   warning(
     mountNode,
-    `No container element was found using the selector '${container}'. The CollectionSpace browser will not be rendered.`,
+    `No container element was found using the selector '${container}'. The CollectionSpace collection browser will not be rendered.`,
   );
 
   if (!mountNode) {
@@ -33,8 +33,15 @@ export default (customConfig) => {
 
   store.dispatch(loadPrefs());
 
+  const locale = config.get('locale');
+  const messages = config.get('messages');
+
   render(
-    <IntlProvider locale="en-US" defaultLocale="en-US">
+    <IntlProvider
+      defaultLocale="en-US"
+      locale={locale}
+      messages={messages}
+    >
       <StoreProvider store={store}>
         <App />
       </StoreProvider>

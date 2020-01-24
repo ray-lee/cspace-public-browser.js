@@ -3,16 +3,16 @@
 
 .common {
   position: absolute;
-  top: calc(searchInputHeight + searchInputBorderWidth + searchInputPaddingHeight * 2);
   width: filterPanelWidth;
   height: 100px;
   overflow-y: auto;
   background-color: rgb(245, 245, 245);
   z-index: 1;
+  transition: left 0.3s;
 }
 
 .common > div > header {
-  padding: 18px 18px 16px 18px;
+  padding: 18px 20px;
   font-size: .85rem;
   font-weight: 600;
   white-space: nowrap;
@@ -29,11 +29,6 @@
 
 @media only screen
 and (max-width: 768px) {
-  .common {
-    z-index: 1;
-    transition: left 0.3s;
-  }
-
   .collapsed {
     left: filterPanelCollapsedLeft;
   }

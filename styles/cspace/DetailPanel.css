@@ -1,6 +1,16 @@
 @value highlightColor from '../colors.css';
 
 .common {
+  display: grid;
+  grid-template-columns: auto 400px;
+  grid-template-rows: auto auto minmax(0, auto) minmax(0, auto) 1fr;
+  grid-column-gap: 16px;
+  grid-template-areas:
+    "header header"
+    "desc desc"
+    "fields1 gallery"
+    "fields1 fields2"
+    "inst inst";
   margin-left: auto;
   margin-right: auto;
   max-width: 840px;
@@ -9,24 +19,14 @@
 }
 
 .common > header {
-  margin-bottom: 16px;
+  grid-area: header;
 }
 
-.common > header > nav {
-  margin-bottom: 10px;
+.common > p {
+  grid-area: desc;
 }
 
-.common > section {
-  display: grid;
-  grid-template-columns: auto 420px;
-  grid-template-rows: minmax(0, auto) 1fr;
-  grid-column-gap: 16px;
-  grid-template-areas:
-    "fields0 gallery"
-    "fields0 fields1";
-}
-
-.common > section > :global(.cspace-ImageGallery--common) {
+.common :global(.cspace-ImageGallery--common) {
   grid-area: gallery;
 }
 
@@ -44,20 +44,6 @@
   font-size: 1.5rem;
 }
 
-.common a {
-  text-decoration: none;
-  color: highlightColor;
-}
-
-.common a:hover {
-  text-decoration: underline;
-}
-
-.common a:focus {
-  outline: 1px dotted highlightColor;
-  outline-offset: 1px;
-}
-
 .common button:hover {
   background-color: inherit;
 }
@@ -66,9 +52,6 @@
 and (max-width: 719px) {
   .common {
     max-width: 100%;
-  }
-
-  .common > section {
     display: block;
   }
 }
@@ -78,9 +61,6 @@ and (min-width: 720px)
 and (max-width: 839px) {
   .common {
     max-width: 100%;
-  }
-
-  .common > section {
     grid-template-columns: auto 360px;
   }
 }

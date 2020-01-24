@@ -1,56 +1,15 @@
-@value panelBorderColor from '../colors.css';
+@value highlightColor, panelBorderColor from '../colors.css';
 
-.common {
-  width: 100%;
-  margin: 0 0 16px 0;
+.common h3 {
+  margin: 0 0 6px 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
 }
 
-.grid {
-  composes: common;
-  display: grid;
-  grid-template-columns: 33% auto;
-  grid-auto-rows: min-content;
-}
-
-.inline {
-  composes: common;
-  display: flex;
-}
-
-.common > dt {
-  padding-right: 1em;
-  font-weight: inherit;
-}
-
-.common > dt::after {
-  content: ': ';
-}
-
-.common > dd {
-  margin: 0;
-}
-
-.common > dd::before {
-  display: none;
-}
-
-.common > dt,
-.common > dd {
-  padding-bottom: 6px;
-}
-
-.inline > dt:first-of-type {
-  flex: 0 0 33%;
-}
-
-.inline > dt + dd {
-  margin-right: 2em;
-}
-
-.Materialitem {
-  composes: common;
-}
-
-.CollectionObject {
-  composes: common;
+@media only screen
+and (max-width: 719px) {
+  .common {
+    margin-top: 16px;
+  }
 }

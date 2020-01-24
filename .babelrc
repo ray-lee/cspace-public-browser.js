@@ -16,7 +16,7 @@
   ],
   "plugins": [
     "dev-expression",
-    ["react-intl", { "messagesDir": "./build/messages/" }]
+    ["react-intl", { "messagesDir": "./build/messages/" }],
   ],
   "env": {
     "test": {
@@ -28,6 +28,15 @@
             ]
           }
         ]
+      ]
+    },
+    "production": {
+      "plugins": [
+        ["transform-react-remove-prop-types", {
+          "mode": "remove",
+          "removeImport": true,
+          "ignoreFilenames": ["node_modules"]
+        }]
       ]
     }
   }

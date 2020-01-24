@@ -1,0 +1,13 @@
+.common {
+  margin-top: 16px;
+}
+
+.common > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.common > ul > li + li {
+  margin-top: 4px;
+}

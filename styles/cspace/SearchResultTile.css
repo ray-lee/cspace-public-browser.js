@@ -1,17 +1,16 @@
 @value highlightColor from '../colors.css';
-@value searchResultTileWidth, searchResultTileBodyHeight from '../dimensions.css';
+@value searchResultTileMargin, searchResultTileWidth, searchResultTileBodyHeight from '../dimensions.css';
 
 .common {
   width: searchResultTileWidth;
-  margin: 8px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .2);
+  margin: searchResultTileMargin;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, .25);
   border-radius: .25rem;
   overflow: hidden;
   text-decoration: none;
   background-color: white;
   color: inherit;
   font-size: 0.9rem;
-  transition: all 0.3s ease 0s;
 }
 
 .common:hover {
@@ -34,7 +33,7 @@
 .common > article {
   padding: 10px;
   height: searchResultTileBodyHeight;
-  /* overflow: auto; */
+  box-sizing: border-box;
 }
 
 .common > article > h2 {
@@ -57,7 +56,7 @@ and (max-width: 695px) {
   }
 
   .common > article {
-    height: 106px;
+    height: 94px;
   }
 }
 
@@ -73,6 +72,6 @@ and (max-width: 695px) {
   }
 
   .common > article {
-    height: 138px;
+    height: 128px;
   }
 }

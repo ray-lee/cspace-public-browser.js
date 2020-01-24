@@ -1,0 +1,109 @@
+@value panelBorderColor from '../colors.css';
+
+.common {
+  border-top: 1px solid panelBorderColor;
+}
+
+.common:last-child {
+  border-bottom: 1px solid panelBorderColor;
+}
+
+.common > button:focus {
+  background-color: inherit;
+  outline: 1px dotted black;
+  outline-offset: 1px;
+}
+
+.expanded {
+  composes: common;
+}
+
+.collapsed {
+  composes: common;
+}
+
+.common h3 {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+}
+
+.common :global(.cspace-FieldListCategory--common) + :global(.cspace-FieldListCategory--common) {
+  margin-top: 2px;
+}
+
+.common :global(.cspace-FieldListCategory--common) > div > h4 {
+  font-weight: 600;
+}
+
+.common > div {
+  display: grid;
+  grid-template-columns: 210px auto;
+  grid-template-areas: 'gallery holdings';
+  grid-column-gap: 16px;
+  margin-top: 2px;
+  padding-bottom: 16px;
+}
+
+.common :global(.image-gallery-slide img) {
+  max-width: 210px;
+}
+
+.common :global(.image-gallery-slide img) {
+  max-width: 210px;
+}
+
+.common :global(.image-gallery-thumbnail) {
+  max-width: 50px;
+}
+
+.common > div > ul {
+  grid-area: holdings;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.common > div > ul > li {
+  display: grid;
+  grid-template-areas: 'fields1';
+}
+
+.common > div > ul > li > h3 {
+  margin-right: 16px;
+}
+
+.common > div > ul > li + li {
+  margin-top: 10px;
+  border-top: 1px solid panelBorderColor;
+  padding-top: 16px;
+}
+
+.common > div > ul > li > h4 + dl {
+  margin-left: 10px;
+}
+
+.common > div > ul > li p,
+.common > div > ul > li dl {
+  margin: 0;
+}
+
+.common > div > ul > li p + p,
+.common > div > ul > li p + dl {
+  margin-top: 4px;
+}
+
+.common :global(.cspace-FieldList--common) dt {
+  font-weight: 600;
+}
+
+.common :global(.image-gallery-svg){
+  width: 30px;
+  height: 60px;
+}
+
+@media only screen
+and (max-width: 640px) {
+  .common > div {
+    display: block;
+  }
+}

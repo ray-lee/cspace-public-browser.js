@@ -2,17 +2,17 @@
 @value panelBorderColor from '../colors.css';
 @value filterPanelWidth from '../dimensions.css';
 
-/* .common {
-  width: 100%;
-} */
+.common {
+  font-size: .85rem;
+}
 
 .common > h1 {
-  font-size: .85rem;
   margin: 0;
   border-bottom: 1px solid panelBorderColor;
   border-top: 1px solid panelBorderColor;
-  background-color: panelBorderColor;
-  padding: 16px 18px;
+  padding: 18px 20px;
+  background-color: rgb(230, 230, 230);
+  font-size: inherit;
   text-transform: uppercase;
 }
 

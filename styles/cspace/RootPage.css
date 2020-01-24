@@ -1,24 +1,54 @@
-@value highlightColor from '../colors.css';
+@value buttonBgColor, highlightColor from '../colors.css';
 
 body {
   padding: 0;
   margin: 0;
+  color: #424242;
 }
 
-.common p {
+a {
+  text-decoration: none;
+  color: highlightColor;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: 1px dotted highlightColor;
+  outline-offset: 1px;
+}
+
+p {
   margin: 16px 0;
 }
 
-.common p:first-child {
+p:first-child {
   margin-top: 0;
 }
 
-/* .common button:hover {
-  background-color: inherit;
-} */
+input {
+  outline-offset: -2px;
+}
 
-/* .common button:focus {
-  background-color: rgba(255, 255, 255, .5);
-  outline: 1px dotted black;
-  outline-offset: -1px;
-} */
+input, button {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  border: none;
+  border-radius: 3px;
+  background-color: buttonBgColor;
+  color: white;
+  outline-offset: -2px;
+}
+
+button:hover {
+  background-color: highlightColor;
+}
+
+button:focus {
+  outline: 2px solid highlightColor;
+}

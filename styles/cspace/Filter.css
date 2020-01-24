@@ -1,65 +1,62 @@
 @value highlightColor, inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
 
 .common {
-  padding: 0 16px;
-  box-sizing: border-box;
+  padding: 2px 20px 18px 20px;
 }
 
-.common:not(:last-child) {
-  border-bottom: 1px solid panelBorderColor;
-}
-
-.common :global(.cspace-FilterInput) {
-  -webkit-appearance: none;
-  font-size: .85rem;
-  height: 30px;
-  margin: 0 16px;
-  padding: 0 8px;
-  border: 1px solid inputBorderColor;
-  background-color: inputBgColor;
-}
-
-.common :global(.cspace-FilterInput):focus {
-  outline: 2px solid highlightColor;
-}
-
-.common :global(.cspace-FilterCheckbox) + label::before {
-  border: 1px solid inputBorderColor;
-  flex: 0 0 auto;
-}
-
-.common :global(.cspace-FilterCheckbox) + label::after {
-  left: calc(1px + 16px/5);
-}
-
-.common :global(.cspace-FilterList) {
-  font-size: .85rem;
-  line-height: 1;
+.common > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   max-height: 150px;
+  overflow: scroll;
 }
 
-.common :global(.cspace-FilterCount) {
-  color: #808080;
-}
-
-.common :global(.cspace-FilterTitle) {
+.common li {
   margin: 0;
 }
 
-.collapsed {
-  composes: common;
+.common li > label > div {
+  padding: 4px;
 }
 
-.expanded {
-  composes: common;
-  padding-bottom: 16px;
+.common li > label:hover > input + div::before {
+  border-color: #424242;
+  background-color: rgb(248, 248, 248);
 }
 
-.collapsed :global(.cspace-FilterInput),
-.collapsed :global(.cspace-FilterList) {
-  display: none;
+.common li input {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
 
-.expanded :global(.cspace-FilterList) {
-  display: block;
+.common li input + div {
+  display: flex;
+  align-items: center;
+}
+
+.common li input + div::before {
+  flex: 0 0 auto;
+  content: '';
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+  border: 1px solid inputBorderColor;
+  background-color: inputBgColor;
+  background-repeat: none;
+  background-position: center center;
+  outline-offset: -1px;
+}
+
+.common li input:focus + div::before {
+  outline: 2px solid highlightColor;
+}
+
+.common li input:checked + div::before {
+  background-image: url(../../images/check.svg);
+}
+
+.common li label > div > span > span {
+  color: #808080;
 }

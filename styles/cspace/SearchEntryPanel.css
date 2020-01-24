@@ -9,7 +9,3 @@
   border-bottom: searchInputBorderWidth solid panelBorderColor;
   z-index: 11;
 }
-
-.expanded {
-  composes: common;
-}

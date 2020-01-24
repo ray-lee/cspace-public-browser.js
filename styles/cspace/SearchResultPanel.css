@@ -1,35 +1,31 @@
-@value filterPanelWidth, searchInputHeight, searchInputBorderWidth from '../dimensions.css';
+@value filterPanelWidth from '../dimensions.css';
 
 .common {
   display: flex;
   flex-direction: column;
   overflow: auto;
-  padding: 0 10px 0 filterPanelWidth;
+  padding: 0 0 0 filterPanelWidth;
   min-height: 500px;
 }
 
-.common :global(.cspace-SelectedFilters) {
-  margin: 0;
-  padding: 0 4px 0 12px;
-  background-color: white;
-  z-index: 9;
+.common > header {
+  font-size: .85rem;
+  padding: 10px 10px 2px 10px;
 }
 
-.common :global(.cspace-SelectedFilters) :global(.cspace-SelectedFiltersButton) {
-  margin: 2px;
-}
-
-.common :global(.cspace-SelectedFilters) :global(.cspace-SelectedFiltersButton):first-of-type {
-  margin-top: 14px;
+.common > header > div {
+  display: flex;
+  align-items: baseline;
 }
 
 @media only screen
 and (max-width: 768px) {
   .common {
-    padding-left: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
   }
 
-  .common :global(.cspace-SelectedFilters) {
-    padding-left: 66px;
+  .common > header {
+    padding-left: 62px;
   }
 }

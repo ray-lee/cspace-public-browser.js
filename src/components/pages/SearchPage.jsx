@@ -3,38 +3,57 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import config from '../config';
-import bodyClassName from '../helpers/bodyClassName';
-import FilterPanel from './FilterPanel';
-import SearchEntryPanel from './SearchEntryPanel';
-import SearchResultPanel from './SearchResultPanel';
-import ScrollTopButton from './ScrollTopButton';
-import ToggleFilterPanelButton from './ToggleFilterPanelButton';
-import styles from '../../styles/cspace/SearchResultPage.css';
-import fixedStyles from '../../styles/cspace/Fixed.css';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { withRouter } from 'react-router';
+import Immutable from 'immutable';
+import config from '../../config';
+import bodyClassName from '../../helpers/bodyClassName';
+import Fixed from '../layout/Fixed';
+import FilterPanel from '../FilterPanel';
+import SearchEntryPanel from '../search/entry/SearchEntryPanel';
+import SearchResultPanel from '../search/result/SearchResultPanelContainer';
+import ScrollTopButton from '../ScrollTopButton';
+import ToggleFilterPanelButton from '../ToggleFilterPanelButton';
+import styles from '../../../styles/cspace/SearchPage.css';
 
 const propTypes = {
+  init: PropTypes.func,
+  intl: intlShape.isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
   isFilterPanelExpanded: PropTypes.bool,
   isSearchEntryPanelExpanded: PropTypes.bool,
+  params: PropTypes.instanceOf(Immutable.Map),
+  search: PropTypes.func,
   toggleFilterPanel: PropTypes.func,
   toggleSearchEntryPanel: PropTypes.func,
 };
 
 const defaultProps = {
+  init: () => undefined,
   isFilterPanelExpanded: false,
   isSearchEntryPanelExpanded: false,
+  params: undefined,
+  search: () => undefined,
   toggleFilterPanel: null,
   toggleSearchEntryPanel: null,
 };
 
-export default class SearchResultPage extends Component {
-  constructor() {
-    super();
+const messages = defineMessages({
+  title: {
+    id: 'searchPage.title',
+    defaultMessage: 'Search',
+  },
+});
 
-    this.state = {};
-  }
-
+class SearchPage extends Component {
   componentDidMount() {
+    const {
+      init,
+      location,
+    } = this.props;
+
     window.document.body.classList.add(bodyClassName(styles.common));
 
     window.scroll({
@@ -42,11 +61,7 @@ export default class SearchResultPage extends Component {
       top: 0,
     });
 
-    window.setTimeout(() => {
-      this.setState({
-        isMounted: true,
-      });
-    }, 0);
+    init(location);
   }
 
   componentWillUnmount() {
@@ -55,15 +70,18 @@ export default class SearchResultPage extends Component {
 
   render() {
     const {
+      intl,
       isFilterPanelExpanded,
       isSearchEntryPanelExpanded,
+      location,
+      params,
       toggleFilterPanel,
       toggleSearchEntryPanel,
     } = this.props;
 
-    const {
-      isMounted,
-    } = this.state;
+    if (!params) {
+      return null;
+    }
 
     const advancedSearchFields = config.get('advancedSearchFields');
     const defaultQuery = config.get('defaultQuery');
@@ -79,44 +97,31 @@ export default class SearchResultPage extends Component {
       filterIds.push(...filterGroup.filters.map((filter) => filter.id));
     });
 
+    const title = intl.formatMessage(messages.title);
+
     return (
       <div className={styles.common}>
         <Helmet>
-          <title>Search</title>
+          <title>{title}</title>
         </Helmet>
 
-        <div className={fixedStyles.common}>
-          <SearchEntryPanel
-            isExpanded={isSearchEntryPanelExpanded}
-            isMounted={isMounted}
-            onExpandButtonClick={toggleSearchEntryPanel}
-          />
+        <Fixed>
+          <SearchEntryPanel params={params} />
 
-          <ToggleFilterPanelButton
+          {/* <ToggleFilterPanelButton
             isFilterPanelExpanded={isFilterPanelExpanded}
             onClick={toggleFilterPanel}
-          />
+          /> */}
 
-          <FilterPanel
+          {/* <FilterPanel
             advancedSearchFields={advancedSearchFields}
             filterGroups={filterGroups}
             filterIds={filterIds}
             isExpanded={isFilterPanelExpanded}
-            isMounted={isMounted}
-          />
-        </div>
+          /> */}
+        </Fixed>
 
-        <SearchResultPanel
-          advancedSearchFields={advancedSearchFields}
-          defaultQuery={defaultQuery}
-          filterGroups={filterGroups}
-          filterIds={filterIds}
-          gatewayUrl={gatewayUrl}
-          includeFields={includeFields}
-          isMounted={isMounted}
-          sortField={sortField}
-          types={types}
-        />
+        <SearchResultPanel params={params} />
 
         <ScrollTopButton />
       </div>
@@ -124,5 +129,7 @@ export default class SearchResultPage extends Component {
   }
 }
 
-SearchResultPage.propTypes = propTypes;
-SearchResultPage.defaultProps = defaultProps;
+SearchPage.propTypes = propTypes;
+SearchPage.defaultProps = defaultProps;
+
+export default injectIntl(withRouter(SearchPage));

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SearchEntryPanel from '../components/SearchEntryPanel';
+import SearchEntryPanel from '../components/search/entry/SearchEntryPanel';
 import { togglePanel } from '../actions/prefs';
 import { isPanelExpanded } from '../reducers';
 

@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
-import SearchResultPage from '../components/SearchResultPage';
+import SearchPage from '../components/pages/SearchPage';
 import { togglePanel } from '../actions/prefs';
 import { setPanelRect } from '../actions/layout';
+import { initSearchPage } from '../actions/searchPageActions';
 import { getLayoutPanelRect, isPanelExpanded } from '../reducers';
 
 const filterPanelId = 'filter';
@@ -14,6 +15,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  init: (location) => initSearchPage(location),
   toggleFilterPanel: () => dispatch(togglePanel(filterPanelId)),
   toggleSearchEntryPanel: () => dispatch(togglePanel(searchEntryPanelId)),
   setSearchEntryPanelRect: (rect) => dispatch(setPanelRect(searchEntryPanelId, rect)),
@@ -22,4 +24,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SearchResultPage);
+)(SearchPage);

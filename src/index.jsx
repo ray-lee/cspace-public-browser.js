@@ -20,7 +20,7 @@ export default (customConfig) => {
 
   warning(
     mountNode,
-    `No container element was found using the selector '${container}'. The CollectionSpace browser will not be rendered.`,
+    `No container element was found using the selector '${container}'. The CollectionSpace collection browser will not be rendered.`,
   );
 
   if (!mountNode) {
@@ -33,8 +33,15 @@ export default (customConfig) => {
 
   store.dispatch(loadPrefs());
 
+  const locale = config.get('locale');
+  const messages = config.get('messages');
+
   render(
-    <IntlProvider locale="en-US" defaultLocale="en-US">
+    <IntlProvider
+      defaultLocale="en-US"
+      locale={locale}
+      messages={messages}
+    >
       <StoreProvider store={store}>
         <App />
       </StoreProvider>

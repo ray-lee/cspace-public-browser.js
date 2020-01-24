@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { BrowserRouter as Router } from 'react-router-dom';
 import config from '../config';
-import RootPage from './RootPage';
+import RootPage from './pages/RootPage';
 
 export default function App() {
   const basename = config.get('basename');

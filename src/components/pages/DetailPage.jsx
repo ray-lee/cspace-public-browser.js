@@ -2,11 +2,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import config from '../config';
-import bodyClassName from '../helpers/bodyClassName';
-import ScrollTopButton from './ScrollTopButton';
-import DetailPanelContainer from '../containers/DetailPanelContainer';
-import styles from '../../styles/cspace/DetailPage.css';
+import config from '../../config';
+import bodyClassName from '../../helpers/bodyClassName';
+import ScrollTopButton from '../ScrollTopButton';
+import DetailPanelContainer from '../../containers/DetailPanelContainer';
+import styles from '../../../styles/cspace/DetailPage.css';
 
 const propTypes = {
   location: PropTypes.shape({

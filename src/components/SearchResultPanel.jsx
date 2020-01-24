@@ -6,9 +6,9 @@ import { withRouter } from 'react-router';
 import qs from 'qs';
 import get from 'lodash/get';
 import { SelectedFilters } from '@appbaseio/reactivesearch';
-import SearchResultListContainer from '../containers/SearchResultListContainer';
-import SortSelect from './SortSelect';
-import styles from '../../styles/cspace/SearchResultPanel.css';
+import SearchResultListContainer from '../../../containers/SearchResultListContainer';
+import SortSelect from '../../SortSelect';
+import styles from '../../../../styles/cspace/SearchResultPanel.css';
 
 const hasQueryType = (query, types) => {
   const keys = Object.keys(query);

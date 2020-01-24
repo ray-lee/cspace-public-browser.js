@@ -2,11 +2,17 @@ import { combineReducers } from 'redux';
 import layout, * as fromLayout from './layout';
 import material, * as fromMaterial from './material';
 import prefs, * as fromPrefs from './prefs';
+import search, * as fromSearch from './searchReducer';
+import searchEntryForm, * as fromSearchEntryForm from './searchEntryFormReducer';
+import searchPage, * as fromSearchPage from './searchPageReducer';
 
 export default combineReducers({
   layout,
   material,
   prefs,
+  search,
+  searchEntryForm,
+  searchPage,
 });
 
 export const getLayoutPanelRect = (state, id) => fromLayout.getPanelRect(state.layout, id);
@@ -24,5 +30,10 @@ export const getMaterialSampleCount = (state, materialRefName, institutionId) =>
 );
 
 export const getPrefs = (state) => state.prefs;
-
 export const isPanelExpanded = (state, id) => fromPrefs.isPanelExpanded(state.prefs, id);
+
+export const getSearchEntryFormParams = (state) => (
+  fromSearchEntryForm.getParams(state.searchEntryForm)
+);
+
+export const getSearchPageParams = (state) => fromSearchPage.getParams(state.searchPage);

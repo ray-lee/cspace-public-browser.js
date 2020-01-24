@@ -22,6 +22,13 @@ export default {
   container: '#cspace-browser',
   esIndexName: 'materials',
   gatewayUrl: 'http://localhost:8181',
+  locale: 'en-US',
+  detailPath: 'material', // detail
+
+  messages: {
+    'rootPage.title': 'Material Order',
+    'searchQueryInput.label': 'Search materials',
+  },
 
   institutions: {
     // harvard: {

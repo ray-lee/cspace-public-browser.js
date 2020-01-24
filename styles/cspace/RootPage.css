@@ -13,12 +13,21 @@ body {
   margin-top: 0;
 }
 
-/* .common button:hover {
-  background-color: inherit;
-} */
+.common input, .common button {
+  font: inherit;
+}
 
-/* .common button:focus {
-  background-color: rgba(255, 255, 255, .5);
-  outline: 1px dotted black;
-  outline-offset: -1px;
-} */
+.common button {
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+}
+
+.common button:focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, .3);
+}
+
+.common button:hover {
+  background: highlightColor;
+}

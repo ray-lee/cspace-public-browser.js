@@ -5,7 +5,7 @@ import {
   SET_SEARCH_PAGE_PARAMS,
 } from '../constants/actionCodes';
 
-export const initSearchPage = (location) => {
+export const setSearchPageParams = (location) => {
   const params = Immutable.Map(qs.parse(location.search, { ignoreQueryPrefix: true }))
     .filter((value) => !!value)
     .map((value) => JSON.parse(value));

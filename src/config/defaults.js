@@ -57,6 +57,10 @@ export default {
     },
   },
 
+  fulltextSearchFields: [
+    'all_field',
+  ],
+
   includeFields: [
     'ecm:name',
     'ecm:primaryType',

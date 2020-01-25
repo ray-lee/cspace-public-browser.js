@@ -17,13 +17,13 @@ import ToggleFilterPanelButton from '../ToggleFilterPanelButton';
 import styles from '../../../styles/cspace/SearchPage.css';
 
 const propTypes = {
-  init: PropTypes.func,
   intl: intlShape.isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
   isFilterPanelExpanded: PropTypes.bool,
   isSearchEntryPanelExpanded: PropTypes.bool,
+  onLocationChange: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map),
   search: PropTypes.func,
   toggleFilterPanel: PropTypes.func,
@@ -31,9 +31,9 @@ const propTypes = {
 };
 
 const defaultProps = {
-  init: () => undefined,
   isFilterPanelExpanded: false,
   isSearchEntryPanelExpanded: false,
+  onLocationChange: () => undefined,
   params: undefined,
   search: () => undefined,
   toggleFilterPanel: null,
@@ -49,11 +49,6 @@ const messages = defineMessages({
 
 class SearchPage extends Component {
   componentDidMount() {
-    const {
-      init,
-      location,
-    } = this.props;
-
     window.document.body.classList.add(bodyClassName(styles.common));
 
     window.scroll({
@@ -61,11 +56,34 @@ class SearchPage extends Component {
       top: 0,
     });
 
-    init(location);
+    this.handleLocationChange();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      location,
+    } = this.props;
+
+    const {
+      location: prevLocation,
+    } = prevProps;
+
+    if (location !== prevLocation) {
+      this.handleLocationChange();
+    }
   }
 
   componentWillUnmount() {
     window.document.body.classList.remove(bodyClassName(styles.common));
+  }
+
+  handleLocationChange() {
+    const {
+      location,
+      onLocationChange,
+    } = this.props;
+
+    onLocationChange(location);
   }
 
   render() {
@@ -106,7 +124,7 @@ class SearchPage extends Component {
         </Helmet>
 
         <Fixed>
-          <SearchEntryPanel params={params} />
+          <SearchEntryPanel />
 
           {/* <ToggleFilterPanelButton
             isFilterPanelExpanded={isFilterPanelExpanded}
@@ -122,7 +140,6 @@ class SearchPage extends Component {
         </Fixed>
 
         <SearchResultPanel params={params} />
-
         <ScrollTopButton />
       </div>
     );

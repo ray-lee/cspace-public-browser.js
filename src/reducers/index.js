@@ -32,6 +32,10 @@ export const getMaterialSampleCount = (state, materialRefName, institutionId) =>
 export const getPrefs = (state) => state.prefs;
 export const isPanelExpanded = (state, id) => fromPrefs.isPanelExpanded(state.prefs, id);
 
+export const getSearchError = (state) => fromSearch.getError(state.search);
+export const getSearchResult = (state) => fromSearch.getResult(state.search);
+export const isSearchPending = (state) => fromSearch.isPending(state.search);
+
 export const getSearchEntryFormParams = (state) => (
   fromSearchEntryForm.getParams(state.searchEntryForm)
 );

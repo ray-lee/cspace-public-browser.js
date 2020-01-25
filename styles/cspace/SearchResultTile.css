@@ -4,7 +4,7 @@
 .common {
   width: searchResultTileWidth;
   margin: 8px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .2);
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, .25);
   border-radius: .25rem;
   overflow: hidden;
   text-decoration: none;
@@ -34,7 +34,7 @@
 .common > article {
   padding: 10px;
   height: searchResultTileBodyHeight;
-  /* overflow: auto; */
+  box-sizing: border-box;
 }
 
 .common > article > h2 {

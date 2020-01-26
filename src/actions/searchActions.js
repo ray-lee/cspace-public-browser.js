@@ -1,13 +1,20 @@
 import Immutable from 'immutable';
 import qs from 'qs';
 import config from '../config';
-import { createQuery } from '../helpers/esQueryHelpers';
+import { getSort, getQuery } from '../helpers/esQueryHelpers';
+
+import {
+  getSearchPageSize,
+  getSearchParams,
+} from '../reducers';
 
 import {
   OPEN_SEARCH,
   SEARCH_STARTED,
   SEARCH_FULFILLED,
   SEARCH_REJECTED,
+  SET_SEARCH_PAGE_SIZE,
+  SET_SEARCH_PARAMS,
 } from '../constants/actionCodes';
 
 export const openSearch = (history, params = Immutable.Map()) => {
@@ -29,25 +36,25 @@ export const openSearch = (history, params = Immutable.Map()) => {
   };
 };
 
-export const search = (params) => (dispatch) => {
+export const search = () => (dispatch, getState) => {
+  const params = getSearchParams(getState());
+
+  if (!params) {
+    return Promise.resolve();
+  }
+
   const gatewayUrl = config.get('gatewayUrl');
   const indexName = config.get('esIndexName');
   const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
 
   const payload = {
-    query: createQuery(params),
+    query: getQuery(params.delete('sort')),
     from: 0,
-    size: 10,
+    size: getSearchPageSize(getState()) || 15,
     _source: {
       includes: config.get('includeFields'),
     },
-    sort: [
-      {
-        'collectionspace_core:createdAt': {
-          order: 'desc',
-        },
-      },
-    ],
+    sort: getSort(params),
   };
 
   dispatch({
@@ -74,12 +81,38 @@ export const search = (params) => (dispatch) => {
       dispatch({
         type: SEARCH_FULFILLED,
         payload: data,
+        meta: {
+          params,
+        },
       });
     })
     .catch((error) => {
       dispatch({
         type: SEARCH_REJECTED,
         payload: error,
+        meta: {
+          params,
+        },
       });
     });
 };
+
+export const setSearchPageSize = (pageSize) => ({
+  type: SET_SEARCH_PAGE_SIZE,
+  payload: pageSize,
+});
+
+export const setSearchParams = (location) => {
+  const params = Immutable.Map(qs.parse(location.search, { ignoreQueryPrefix: true }))
+    .filter((value) => !!value)
+    .map((value) => JSON.parse(value));
+
+  return {
+    type: SET_SEARCH_PARAMS,
+    payload: params,
+  };
+};
+
+export const applySortOrder = (history, sortOrder) => (dispatch, getState) => (
+  dispatch(openSearch(history, getSearchParams(getState()).set('sort', sortOrder)))
+);

@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 import SearchResultPanel from './SearchResultPanel';
-import { search } from '../../../actions/searchActions';
+
+import {
+  search,
+  setSearchPageSize,
+} from '../../../actions/searchActions';
 
 import {
   getSearchError,
@@ -16,6 +20,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   search,
+  setSearchPageSize,
 };
 
 export default connect(

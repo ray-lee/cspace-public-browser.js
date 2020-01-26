@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import SearchPage from './SearchPage';
-import { setSearchPageParams } from '../../actions/searchPageActions';
-import { getSearchPageParams } from '../../reducers';
+import { setSearchParams } from '../../actions/searchActions';
+import { getSearchParams } from '../../reducers';
 
 const mapStateToProps = (state) => ({
-  params: getSearchPageParams(state),
+  params: getSearchParams(state),
 });
 
 const mapDispatchToProps = {
-  onLocationChange: setSearchPageParams,
+  onLocationChange: setSearchParams,
 };
 
 export default connect(

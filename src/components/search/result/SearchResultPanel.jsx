@@ -1,10 +1,13 @@
+/* global window */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import SearchResultList from './SearchResultList';
 import SearchResultStats from './SearchResultStats';
-import SortSelect from './SortSelect';
+import SortSelect from '../entry/SortSelectContainer';
 import styles from '../../../../styles/cspace/SearchResultPanel.css';
+import cssDimensions from '../../../../styles/dimensions.css';
 
 const propTypes = {
   error: PropTypes.instanceOf(Error),
@@ -12,6 +15,7 @@ const propTypes = {
   result: PropTypes.instanceOf(Immutable.Map),
   params: PropTypes.instanceOf(Immutable.Map),
   search: PropTypes.func,
+  setSearchPageSize: PropTypes.func,
 };
 
 const defaultProps = {
@@ -20,10 +24,36 @@ const defaultProps = {
   result: undefined,
   params: Immutable.Map(),
   search: () => undefined,
+  setSearchPageSize: () => undefined,
+};
+
+const calculateSearchPageSize = () => {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const ratio = window.devicePixelRatio || 1;
+
+  const {
+    searchResultTileWidth: cssTileWidth,
+    searchResultTileBodyHeight: cssTileBodyHeight,
+  } = cssDimensions;
+
+  const tileWidth = parseInt(cssTileWidth, 10);
+  const tileBodyHeight = parseInt(cssTileBodyHeight, 10);
+  const tileHeight = tileWidth + tileBodyHeight;
+
+  const pageSize = ((width / tileWidth) * (height / tileHeight + 2)) / ratio;
+
+  return Math.max(Math.ceil(pageSize), 12);
 };
 
 export default class SearchResultPanel extends Component {
   componentDidMount() {
+    const {
+      setSearchPageSize,
+    } = this.props;
+
+    setSearchPageSize(calculateSearchPageSize());
+
     this.search();
   }
 
@@ -43,13 +73,10 @@ export default class SearchResultPanel extends Component {
 
   search() {
     const {
-      params,
       search,
     } = this.props;
 
-    if (params) {
-      search(params);
-    }
+    search();
   }
 
   renderError() {
@@ -70,7 +97,7 @@ export default class SearchResultPanel extends Component {
       <>
         <header>
           <SearchResultStats count={result.getIn(['hits', 'total'])} />
-          <SortSelect />
+          <SortSelect value={params.get('sort')} />
         </header>
 
         <SearchResultList params={params} results={result.getIn(['hits', 'hits'])} />

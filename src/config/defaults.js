@@ -71,6 +71,7 @@ export default {
     'materials_common:shortIdentifier',
   ],
 
+  defaultSortOrder: 'bestmatch',
   sortField: 'collectionspace_denorm:title',
   storageKey: 'mo', // 'cspace-public-browser',
 

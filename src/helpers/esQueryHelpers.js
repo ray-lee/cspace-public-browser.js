@@ -37,7 +37,7 @@ export const filterParamToQuery = (id, value) => {
 
 }
 
-export const createQuery = (params) => {
+export const getQuery = (params) => {
   const clauses = [
     config.get('defaultQuery'),
     fulltextParamToQuery(params.get('search')),
@@ -59,4 +59,54 @@ export const createQuery = (params) => {
   return {
     match_all: {},
   };
+};
+
+export const getSort = (params) => {
+  const sortOrder = params.get('sort') || config.get('defaultSortOrder');
+
+  const effectiveSortOrder = (sortOrder === 'bestmatch' && params.delete('sort').isEmpty())
+    ? 'newest'
+    : sortOrder;
+
+  switch(effectiveSortOrder) {
+    case 'bestmatch':
+      return [
+        {
+          _score: {
+            order: 'desc',
+          },
+        },
+        {
+          [config.get('sortField')]: {
+            order: 'asc',
+          },
+        },
+      ];
+    case 'atoz':
+      return {
+        [config.get('sortField')]: {
+          order: 'asc',
+        },
+      };
+    case 'ztoa':
+      return {
+        [config.get('sortField')]: {
+          order: 'desc',
+        },
+      };
+    case 'newest':
+      return {
+        'collectionspace_core:createdAt': {
+          order: 'desc',
+        },
+      };
+    case 'oldest':
+      return {
+        'collectionspace_core:createdAt': {
+          order: 'asc',
+        },
+      };
+    default:
+      return {};
+  }
 };

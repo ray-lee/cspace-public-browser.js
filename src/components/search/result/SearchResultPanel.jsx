@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import SearchResultList from './SearchResultList';
 import SearchResultStats from './SearchResultStats';
+import SortSelect from './SortSelect';
 import styles from '../../../../styles/cspace/SearchResultPanel.css';
 
 const propTypes = {
@@ -67,7 +68,11 @@ export default class SearchResultPanel extends Component {
 
     return (
       <>
-        <SearchResultStats count={result.getIn(['hits', 'total'])} />
+        <header>
+          <SearchResultStats count={result.getIn(['hits', 'total'])} />
+          <SortSelect />
+        </header>
+
         <SearchResultList params={params} results={result.getIn(['hits', 'hits'])} />
       </>
     );

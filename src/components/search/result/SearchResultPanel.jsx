@@ -47,10 +47,19 @@ const calculateSearchPageSize = () => {
 };
 
 export default class SearchResultPanel extends Component {
+  constructor() {
+    super();
+
+    this.ref = React.createRef();
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
   componentDidMount() {
     const {
       setSearchPageSize,
     } = this.props;
+
+    window.addEventListener('scroll', this.handleScroll, false);
 
     setSearchPageSize(calculateSearchPageSize());
 
@@ -71,6 +80,23 @@ export default class SearchResultPanel extends Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll, false);
+  }
+
+  handleScroll() {
+    const {
+      search,
+    } = this.props;
+
+    const rect = this.ref.current.getBoundingClientRect();
+    const bottomOffset = rect.bottom - window.innerHeight;
+
+    if (bottomOffset <= 0) {
+      search();
+    }
+  }
+
   search() {
     const {
       search,
@@ -80,15 +106,18 @@ export default class SearchResultPanel extends Component {
   }
 
   renderError() {
-    return 'Uh oh.';
-  }
+    const {
+      error,
+    } = this.props;
 
-  renderPending() {
-    return 'Loading...';
+    return (
+      <div>{error.message}</div>
+    );
   }
 
   renderResult() {
     const {
+      isPending,
       params,
       result,
     } = this.props;
@@ -96,41 +125,27 @@ export default class SearchResultPanel extends Component {
     return (
       <>
         <header>
-          <SearchResultStats count={result.getIn(['hits', 'total'])} />
+          <SearchResultStats count={result && result.get('total')} />
           <SortSelect value={params.get('sort')} />
         </header>
 
-        <SearchResultList params={params} results={result.getIn(['hits', 'hits'])} />
+        <SearchResultList
+          isPending={isPending}
+          params={params}
+          results={result && result.get('hits')}
+        />
       </>
     );
   }
 
-  renderContent() {
+  render() {
     const {
       error,
-      isPending,
-      result,
     } = this.props;
 
-    if (result) {
-      return this.renderResult();
-    }
-
-    if (isPending) {
-      return this.renderPending();
-    }
-
-    if (error) {
-      return this.renderError();
-    }
-
-    return null;
-  }
-
-  render() {
     return (
-      <div className={styles.common}>
-        {this.renderContent()}
+      <div className={styles.common} ref={this.ref}>
+        {error ? this.renderError() : this.renderResult()}
       </div>
     );
   }

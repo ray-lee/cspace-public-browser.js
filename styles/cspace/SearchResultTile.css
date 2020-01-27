@@ -1,9 +1,9 @@
 @value highlightColor from '../colors.css';
-@value searchResultTileWidth, searchResultTileBodyHeight from '../dimensions.css';
+@value searchResultTileMargin, searchResultTileWidth, searchResultTileBodyHeight from '../dimensions.css';
 
 .common {
   width: searchResultTileWidth;
-  margin: 8px;
+  margin: searchResultTileMargin;
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, .25);
   border-radius: .25rem;
   overflow: hidden;

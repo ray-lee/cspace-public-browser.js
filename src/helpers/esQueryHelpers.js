@@ -16,7 +16,7 @@ export const fulltextParamToQuery = (value) => {
             fields: fulltextSearchFields,
             type: 'cross_fields',
             operator: 'and',
-          }
+          },
         },
         {
           multi_match: {
@@ -26,23 +26,22 @@ export const fulltextParamToQuery = (value) => {
             ],
             type: 'phrase_prefix',
             operator: 'and',
-          }
+          },
         },
       ],
     },
   };
-}
+};
 
-export const filterParamToQuery = (id, value) => {
-
-}
+// export const filterParamToQuery = (id, value) => {
+// };
 
 export const getQuery = (params) => {
   const clauses = [
     config.get('defaultQuery'),
     fulltextParamToQuery(params.get('search')),
   ]
-    .filter(clause => !!clause);
+    .filter((clause) => !!clause);
 
   if (clauses.length > 1) {
     return {
@@ -68,7 +67,7 @@ export const getSort = (params) => {
     ? 'newest'
     : sortOrder;
 
-  switch(effectiveSortOrder) {
+  switch (effectiveSortOrder) {
     case 'bestmatch':
       return [
         {

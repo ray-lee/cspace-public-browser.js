@@ -6,11 +6,12 @@ import {
   SEARCH_REJECTED,
   SET_SEARCH_PAGE_SIZE,
   SET_SEARCH_PARAMS,
-  SET_SEARCH_SORT_ORDER,
 } from '../constants/actionCodes';
 
 const handleSearchFulfilled = (state, action) => {
   const {
+    offset,
+    pageSize,
     params: searchParams,
   } = action.meta;
 
@@ -20,18 +21,20 @@ const handleSearchFulfilled = (state, action) => {
     return state;
   }
 
-  // const {
-  //   hits,
-  // } = action.payload;
+  const {
+    hits,
+  } = action.payload;
 
-  // let result = state.get('result') || Immutable.Map();
+  const currentResult = state.get('result') || Immutable.Map({ hits: Immutable.List() });
+  const currentHits = currentResult.get('hits');
 
-  // result = result.set('total', hits.total);
-  // result = result.set('hits', hits.hits);
+  const nextHits = currentHits.setSize(offset).concat(Immutable.fromJS(hits.hits));
+  const nextResult = currentResult.set('total', hits.total).set('hits', nextHits);
 
   return state
+    .set('nextOffset', offset + pageSize)
     .delete('pending')
-    .set('result', Immutable.fromJS(action.payload))
+    .set('result', nextResult)
     .delete('error');
 };
 
@@ -40,26 +43,44 @@ export default (state = Immutable.Map(), action) => {
     case SEARCH_STARTED:
       return state
         .set('pending', true)
-        .delete('result')
         .delete('error');
     case SEARCH_FULFILLED:
       return handleSearchFulfilled(state, action);
     case SEARCH_REJECTED:
       return state
         .delete('pending')
-        .delete('result')
         .set('error', action.payload);
     case SET_SEARCH_PAGE_SIZE:
       return state.set('pageSize', action.payload);
     case SET_SEARCH_PARAMS:
-      return state.set('params', action.payload);
+      return state
+        .delete('error')
+        .delete('nextOffset')
+        .set('params', action.payload)
+        .delete('pending')
+        .delete('result');
     default:
       return state;
   }
 };
 
 export const getError = (state) => state.get('error');
+export const getNextOffset = (state) => state.get('nextOffset') || 0;
 export const getPageSize = (state) => state.get('pageSize');
 export const getParams = (state) => state.get('params');
 export const getResult = (state) => state.get('result');
+
+export const hasMore = (state) => {
+  const result = getResult(state);
+
+  if (!result) {
+    return true;
+  }
+
+  const nextOffset = getNextOffset(state);
+  const total = result.get('total');
+
+  return (nextOffset < total);
+};
+
 export const isPending = (state) => !!state.get('pending');

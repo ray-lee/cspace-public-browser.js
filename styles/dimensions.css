@@ -3,5 +3,6 @@
 @value searchInputBorderWidth: 1px;
 @value filterPanelWidth: 284px;
 @value filterPanelCollapsedLeft: -284px;
+@value searchResultTileMargin: 8px;
 @value searchResultTileWidth: 210px;
 @value searchResultTileBodyHeight: 60px;

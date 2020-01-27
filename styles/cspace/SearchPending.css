@@ -1,0 +1,12 @@
+@value searchResultTileMargin, searchResultTileWidth, searchResultTileBodyHeight from '../dimensions.css';
+
+.common {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: searchResultTileWidth;
+  height: searchResultTileWidth;
+  margin: searchResultTileMargin;
+  color: #606060;
+  text-align: center;
+}

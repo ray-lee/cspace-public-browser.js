@@ -4,8 +4,12 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import styles from '../../../../styles/cspace/SearchResultStats.css';
 
 const propTypes = {
-  count: PropTypes.number.isRequired,
-}
+  count: PropTypes.number,
+};
+
+const defaultProps = {
+  count: undefined,
+};
 
 const messages = defineMessages({
   count: {
@@ -25,9 +29,11 @@ export default function SearchResultStats(props) {
 
   return (
     <div className={styles.common}>
-      <FormattedMessage {...messages.count} values={{ count }} />
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      {count !== undefined && <FormattedMessage {...messages.count} values={{ count }} />}
     </div>
   );
 }
 
 SearchResultStats.propTypes = propTypes;
+SearchResultStats.defaultProps = defaultProps;

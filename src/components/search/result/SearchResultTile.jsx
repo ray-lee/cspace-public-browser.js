@@ -26,7 +26,7 @@ export default function SearchResultTile(props) {
   const holdingInstitutions = doc.get('collectionspace_denorm:holdingInstitutions');
   const mediaCsid = doc.getIn(['collectionspace_denorm:mediaCsid', 0]);
   const shortId = doc.get('materials_common:shortIdentifier');
-  const title = doc.get('collectionspace_denorm:title')
+  const title = doc.get('collectionspace_denorm:title');
 
   return (
     <Link

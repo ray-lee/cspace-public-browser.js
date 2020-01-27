@@ -75,8 +75,13 @@ class SortSelect extends Component {
         onChange={this.handleChange}
       >
         {
-          ['bestmatch', 'atoz', 'ztoa', 'newest', 'oldest'].map((value) => (
-            <option key={value} value={value}>{intl.formatMessage(messages[value])}</option>
+          ['bestmatch', 'atoz', 'ztoa', 'newest', 'oldest'].map((sortOrder) => (
+            <option
+              key={sortOrder}
+              value={sortOrder}
+            >
+              {intl.formatMessage(messages[sortOrder])}
+            </option>
           ))
         }
       </select>

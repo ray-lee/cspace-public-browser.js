@@ -1,11 +1,16 @@
+/* global fetch */
+
 import Immutable from 'immutable';
 import qs from 'qs';
 import config from '../config';
 import { getSort, getQuery } from '../helpers/esQueryHelpers';
 
 import {
+  getSearchNextOffset,
   getSearchPageSize,
   getSearchParams,
+  isSearchPending,
+  searchHasMore,
 } from '../reducers';
 
 import {
@@ -39,7 +44,7 @@ export const openSearch = (history, params = Immutable.Map()) => {
 export const search = () => (dispatch, getState) => {
   const params = getSearchParams(getState());
 
-  if (!params) {
+  if (!params || isSearchPending(getState()) || !searchHasMore(getState())) {
     return Promise.resolve();
   }
 
@@ -47,10 +52,13 @@ export const search = () => (dispatch, getState) => {
   const indexName = config.get('esIndexName');
   const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
 
+  const offset = getSearchNextOffset(getState()) || 0;
+  const pageSize = getSearchPageSize(getState()) || 15;
+
   const payload = {
     query: getQuery(params.delete('sort')),
-    from: 0,
-    size: getSearchPageSize(getState()) || 15,
+    from: offset,
+    size: pageSize,
     _source: {
       includes: config.get('includeFields'),
     },
@@ -82,6 +90,8 @@ export const search = () => (dispatch, getState) => {
         type: SEARCH_FULFILLED,
         payload: data,
         meta: {
+          offset,
+          pageSize,
           params,
         },
       });
@@ -91,6 +101,8 @@ export const search = () => (dispatch, getState) => {
         type: SEARCH_REJECTED,
         payload: error,
         meta: {
+          offset,
+          pageSize,
           params,
         },
       });

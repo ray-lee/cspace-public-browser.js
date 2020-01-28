@@ -1,4 +1,5 @@
 import config from '../config';
+import { SORT_ID } from '../constants/ids';
 
 export const fulltextParamToQuery = (value) => {
   if (!value) {
@@ -61,9 +62,9 @@ export const getQuery = (params) => {
 };
 
 export const getSort = (params) => {
-  const sortOrder = params.get('sort') || config.get('defaultSortOrder');
+  const sortOrder = params.get(SORT_ID) || config.get('defaultSortOrder');
 
-  const effectiveSortOrder = (sortOrder === 'bestmatch' && params.delete('sort').isEmpty())
+  const effectiveSortOrder = (sortOrder === 'bestmatch' && params.delete(SORT_ID).isEmpty())
     ? 'newest'
     : sortOrder;
 

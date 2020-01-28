@@ -1,0 +1,12 @@
+.common {
+  composes: common from './SearchParamLink.css';
+  padding-right: 24px;
+  background-image: url(../../images/close.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 4px) center;
+  background-size: 16px;
+}
+
+.common:hover {
+  text-decoration: line-through;
+}

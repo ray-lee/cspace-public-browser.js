@@ -28,6 +28,8 @@ export default {
   messages: {
     'rootPage.title': 'Material Order',
     'searchQueryInput.label': 'Search materials',
+    'searchQueryInput.placeholder': 'Search materials',
+    'searchResultStats.count': '{count, plural, =0 {No materials} one {# material} other {# materials}} found',
   },
 
   institutions: {

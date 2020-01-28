@@ -1,9 +1,10 @@
 /* global fetch */
 
 import Immutable from 'immutable';
-import qs from 'qs';
 import config from '../config';
 import { getSort, getQuery } from '../helpers/esQueryHelpers';
+import { SORT_ID } from '../constants/ids';
+import { paramsToQueryString, queryStringToParams } from '../helpers/urlHelpers';
 
 import {
   getSearchNextOffset,
@@ -23,13 +24,7 @@ import {
 } from '../constants/actionCodes';
 
 export const openSearch = (history, params = Immutable.Map()) => {
-  const queryString = qs.stringify(
-    params
-      .map((value) => (value && JSON.stringify(value)))
-      .filter((value) => !!value)
-      .toJS(),
-    { format: 'RFC1738' },
-  );
+  const queryString = paramsToQueryString(params);
 
   history.push({
     search: `?${queryString}`,
@@ -56,7 +51,7 @@ export const search = () => (dispatch, getState) => {
   const pageSize = getSearchPageSize(getState()) || 15;
 
   const payload = {
-    query: getQuery(params.delete('sort')),
+    query: getQuery(params.delete(SORT_ID)),
     from: offset,
     size: pageSize,
     _source: {
@@ -115,9 +110,7 @@ export const setSearchPageSize = (pageSize) => ({
 });
 
 export const setSearchParams = (location) => {
-  const params = Immutable.Map(qs.parse(location.search, { ignoreQueryPrefix: true }))
-    .filter((value) => !!value)
-    .map((value) => JSON.parse(value));
+  const params = queryStringToParams(location.search);
 
   return {
     type: SET_SEARCH_PARAMS,
@@ -126,5 +119,5 @@ export const setSearchParams = (location) => {
 };
 
 export const applySortOrder = (history, sortOrder) => (dispatch, getState) => (
-  dispatch(openSearch(history, getSearchParams(getState()).set('sort', sortOrder)))
+  dispatch(openSearch(history, getSearchParams(getState()).set(SORT_ID, sortOrder)))
 );

@@ -1,0 +1,18 @@
+@value highlightColor, inputBorderColor from '../colors.css';
+
+.common {
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid inputBorderColor;
+  border-radius: 3px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.common:hover {
+  background-color: rgb(238, 238, 238);
+}
+
+.common + .common {
+  margin-left: 4px;
+}

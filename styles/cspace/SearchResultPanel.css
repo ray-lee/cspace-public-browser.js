@@ -9,6 +9,10 @@
 }
 
 .common > header {
+  font-size: .85rem;
+}
+
+.common > header > div {
   display: flex;
   align-items: baseline;
 }

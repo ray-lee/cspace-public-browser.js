@@ -15,13 +15,21 @@ const propTypes = {
 const defaultProps = {
   onCommit: () => undefined,
   showSubmitButton: false,
-  value: undefined,
+  value: '',
 };
 
-const messages = defineMessages({
+export const messages = defineMessages({
   label: {
     id: 'searchQueryInput.label',
     defaultMessage: 'Search collection',
+  },
+  placeholder: {
+    id: 'searchQueryInput.placeholder',
+    defaultMessage: 'Search collection',
+  },
+  shortLabel: {
+    id: 'searchQueryInput.shortLabel',
+    defaultMessage: 'Search',
   },
 });
 
@@ -29,23 +37,16 @@ class SearchQueryInput extends Component {
   constructor() {
     super();
 
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleInputRef = this.handleInputRef.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleBlur() {
-    this.commit();
-  }
+  handleChange(event) {
+    const {
+      id,
+      onCommit,
+    } = this.props;
 
-  handleInputRef(ref) {
-    this.inputDomNode = ref;
-  }
-
-  handleKeyDown(event) {
-    if (event.key === 'Enter') {
-      this.commit();
-    }
+    onCommit(id, event.target.value);
   }
 
   commit() {
@@ -67,21 +68,17 @@ class SearchQueryInput extends Component {
       value,
     } = this.props;
 
-    const label = intl.formatMessage(messages.label);
-
     return (
       <div className={styles.common}>
         <input
-          aria-label={label}
+          aria-label={intl.formatMessage(messages.label)}
           autoComplete="off"
           autoCorrect="off"
-          defaultValue={value}
           name={id}
-          placeholder={label}
-          ref={this.handleInputRef}
+          placeholder={intl.formatMessage(messages.placeholder)}
           type="search"
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeyDown}
+          value={value}
+          onChange={this.handleChange}
         />
 
         {showSubmitButton && <SearchSubmitButton />}

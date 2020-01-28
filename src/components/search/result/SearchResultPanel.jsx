@@ -3,9 +3,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
+import SearchParamList from './SearchParamList';
 import SearchResultList from './SearchResultList';
 import SearchResultStats from './SearchResultStats';
 import SortSelect from '../entry/SortSelectContainer';
+import { SORT_ID } from '../../../constants/ids';
 import styles from '../../../../styles/cspace/SearchResultPanel.css';
 import cssDimensions from '../../../../styles/dimensions.css';
 
@@ -125,8 +127,12 @@ export default class SearchResultPanel extends Component {
     return (
       <>
         <header>
-          <SearchResultStats count={result && result.get('total')} />
-          <SortSelect value={params.get('sort')} />
+          <SearchParamList params={params} />
+
+          <div>
+            <SearchResultStats count={result && result.get('total')} />
+            <SortSelect value={params.get(SORT_ID)} />
+          </div>
         </header>
 
         <SearchResultList

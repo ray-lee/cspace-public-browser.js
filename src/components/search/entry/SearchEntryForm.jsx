@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import Immutable from 'immutable';
 import SearchQueryInput from './SearchQueryInput';
+import { SEARCH_QUERY_ID } from '../../../constants/ids';
 import styles from '../../../../styles/cspace/SearchEntryForm.css';
 
 const propTypes = {
@@ -57,8 +58,6 @@ class SearchEntryForm extends Component {
       params,
     } = this.props;
 
-    const queryInputId = 'search';
-
     return (
       <form
         className={styles.common}
@@ -67,9 +66,9 @@ class SearchEntryForm extends Component {
         onSubmit={this.handleSubmit}
       >
         <SearchQueryInput
-          id={queryInputId}
+          id={SEARCH_QUERY_ID}
           showSubmitButton
-          value={params.get(queryInputId)}
+          value={params.get(SEARCH_QUERY_ID)}
           onCommit={this.handleInputCommit}
         />
       </form>

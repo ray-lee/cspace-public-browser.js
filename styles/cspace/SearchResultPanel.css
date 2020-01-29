@@ -10,7 +10,7 @@
 
 .common > header {
   font-size: .85rem;
-  padding: 10px;
+  padding: 10px 10px 2px 10px;
 }
 
 .common > header > div {

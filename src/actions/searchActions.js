@@ -2,8 +2,8 @@
 
 import Immutable from 'immutable';
 import config from '../config';
-import { getAggs, getSort, getQuery } from '../helpers/esQueryHelpers';
-import { SORT_ID } from '../constants/ids';
+import { getAggs, getSort, getQuery, getTermsAgg } from '../helpers/esQueryHelpers';
+import { SEARCH_QUERY_ID, SORT_ID } from '../constants/ids';
 import { paramsToQueryString, queryStringToParams } from '../helpers/urlHelpers';
 
 import {
@@ -45,12 +45,12 @@ export const search = () => (dispatch, getState) => {
 
   const gatewayUrl = config.get('gatewayUrl');
   const indexName = config.get('esIndexName');
-  const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
+  const url = `${gatewayUrl}/es/${indexName}/doc/_msearch`;
 
   const offset = getSearchNextOffset(getState()) || 0;
   const pageSize = getSearchPageSize(getState()) || 15;
 
-  const payload = {
+  const resultPayload = {
     query: getQuery(params.delete(SORT_ID)),
     from: offset,
     size: pageSize,
@@ -58,8 +58,37 @@ export const search = () => (dispatch, getState) => {
       includes: config.get('includeFields'),
     },
     sort: getSort(params),
-    aggs: getAggs(),
   };
+
+  let filterAggPayloads = [];
+
+  if (offset === 0) {
+    // When loading the first page, get aggregations.
+
+    resultPayload.aggs = getAggs(params);
+
+    filterAggPayloads = params
+      .delete(SORT_ID)
+      .delete(SEARCH_QUERY_ID)
+      .keySeq()
+      .flatMap((id) => {
+        const filterConfig = config.getFilterConfig(id);
+
+        return [
+          {
+            preference: id,
+          },
+          {
+            query: getQuery(params.delete(id)),
+            size: 0,
+            aggs: {
+              [id]: getTermsAgg(filterConfig.field),
+            },
+          },
+        ];
+      })
+      .toJS();
+  }
 
   dispatch({
     type: SEARCH_STARTED,
@@ -67,8 +96,12 @@ export const search = () => (dispatch, getState) => {
 
   return fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/x-ndjson' },
+    body: [
+      JSON.stringify({ preference: 'result' }),
+      JSON.stringify(resultPayload),
+      ...filterAggPayloads.map((payload) => JSON.stringify(payload))
+    ].join('\n'),
   })
     .then((response) => {
       if (!response.ok) {

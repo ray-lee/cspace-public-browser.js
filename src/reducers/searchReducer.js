@@ -22,19 +22,37 @@ const handleSearchFulfilled = (state, action) => {
   }
 
   const {
+    responses
+  } = action.payload;
+
+  const [
+    resultResponse,
+    ...filterResponses
+  ] = responses;
+
+  const {
     aggregations,
     hits,
-  } = action.payload;
+  } = resultResponse;
 
   const currentResult = state.get('result') || Immutable.Map({ hits: Immutable.List() });
   const currentHits = currentResult.get('hits');
 
   const nextHits = currentHits.setSize(offset).concat(Immutable.fromJS(hits.hits));
 
-  const nextResult = currentResult
+  let nextResult = currentResult
     .set('total', hits.total)
-    .set('hits', nextHits)
-    .set('aggregations', Immutable.fromJS(aggregations));
+    .set('hits', nextHits);
+
+  if (offset === 0) {
+    let nextAggregations = Immutable.fromJS(aggregations);
+
+    filterResponses.forEach((filterResponse) => {
+      nextAggregations = nextAggregations.merge(Immutable.fromJS(filterResponse.aggregations));
+    });
+
+    nextResult = nextResult.set('aggregations', nextAggregations);
+  }
 
   return state
     .set('nextOffset', offset + pageSize)

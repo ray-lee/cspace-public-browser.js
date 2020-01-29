@@ -77,23 +77,30 @@ export const getQuery = (params) => {
   };
 };
 
+export const getTermsAgg = (field) => ({
+  terms: {
+    field,
+    size: 300,
+    order: {
+      _term: 'asc',
+    },
+  },
+});
+
 let aggs;
 
-export const getAggs = () => {
+export const getAggs = (params) => {
   if (!aggs) {
     aggs = {};
 
     config.get('filterGroups').forEach(({ filters }) => {
       filters.forEach(({ id, field }) => {
-        aggs[id] = {
-          terms: {
-            field,
-            size: 300,
-            order: {
-              _term: 'asc',
-            },
-          },
-        };
+        const param = params.get(id);
+        const hasValue = param && param.size > 0;
+
+        if (!hasValue) {
+          aggs[id] = getTermsAgg(field);
+        }
       });
     });
   }

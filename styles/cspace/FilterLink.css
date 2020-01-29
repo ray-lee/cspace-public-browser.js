@@ -1,0 +1,15 @@
+.common {
+  display: block;
+  padding-left: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.common > span:last-child {
+  color: #808080;
+}
+
+.selected {
+  composes: common;
+  background-color: red;
+}

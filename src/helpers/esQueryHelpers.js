@@ -34,7 +34,14 @@ export const fulltextParamToQuery = (value) => {
 };
 
 export const filterParamToQuery = (id, value) => {
-  return undefined;
+  const filterConfig = config.getFilterConfig(id);
+  const { field } = filterConfig;
+
+  return {
+    terms: {
+      [field]: value.toJS(),
+    },
+  };
 };
 
 export const getSearchQuery = (params) => fulltextParamToQuery(params.get(SEARCH_QUERY_ID));

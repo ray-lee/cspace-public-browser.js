@@ -1,5 +1,9 @@
 .common {
   composes: common from './SearchParamLink.css';
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding-right: 24px;
   background-image: url(../../images/close.svg);
   background-repeat: no-repeat;

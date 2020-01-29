@@ -16,10 +16,6 @@
   margin: 8px 0;
 }
 
-.common > ul > li > span:last-child {
-  color: #808080;
-}
-
 /* .common :global(.cspace-FilterInput) {
   -webkit-appearance: none;
   font-size: .85rem;

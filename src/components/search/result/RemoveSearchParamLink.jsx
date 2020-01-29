@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Immutable from 'immutable';
-import { SEARCH_QUERY_ID } from '../../../constants/ids';
 import { messages } from '../entry/SearchQueryInput';
+import config from '../../../config';
+import { SEARCH_QUERY_ID } from '../../../constants/ids';
 import { paramsToQueryString } from '../../../helpers/urlHelpers';
 import styles from '../../../../styles/cspace/RemoveSearchParamLink.css';
 
@@ -18,6 +19,14 @@ const getLabelMessage = (id) => {
     return messages.shortLabel;
   }
 
+  const filterConfig = config.getFilterConfig(id);
+
+  if (filterConfig) {
+    const { messages } = filterConfig;
+
+    return (messages.shortLabel || messages.label);
+  }
+
   return undefined;
 };
 
@@ -28,6 +37,7 @@ export default function RemoveSearchParamLink(props) {
   } = props;
 
   const value = params.get(id);
+
   const queryString = paramsToQueryString(params.delete(id));
   const labelMessage = getLabelMessage(id);
 
@@ -41,7 +51,7 @@ export default function RemoveSearchParamLink(props) {
       {label}
       :
       {' '}
-      {value}
+      {Immutable.List.isList(value) ? value.join(', ') : value}
     </Link>
   );
 }

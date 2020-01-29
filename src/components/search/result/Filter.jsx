@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import Immutable from 'immutable';
 import FilterSearchInput from './FilterSearchInput';
 import Panel from '../../layout/PanelContainer';
+import { paramsToQueryString } from '../../../helpers/urlHelpers';
 import styles from '../../../../styles/cspace/Filter.css';
+import linkStyles from '../../../../styles/cspace/FilterLink.css';
 
 const propTypes = {
   aggregation: PropTypes.instanceOf(Immutable.Map),
@@ -14,6 +17,7 @@ const propTypes = {
     label: PropTypes.object.isRequired,
   }).isRequired,
   onSearchValueCommit: PropTypes.func,
+  params: PropTypes.instanceOf(Immutable.Map).isRequired,
   searchValue: PropTypes.string,
 };
 
@@ -49,6 +53,8 @@ export default class Filter extends Component {
   renderBuckets() {
     const {
       aggregation,
+      id,
+      params,
       searchValue,
     } = this.props;
 
@@ -66,15 +72,41 @@ export default class Filter extends Component {
       });
     }
 
+    let selectedValues = params.get(id) || Immutable.List();
+
+    if (!Immutable.List.isList(selectedValues)) {
+      selectedValues = Immutable.List.of(selectedValues);
+    }
+
     return matchingBuckets.map((bucket) => {
       const key = bucket.get('key');
       const count = bucket.get('doc_count');
 
+      const selectedIndex = selectedValues.indexOf(key);
+      const isSelected = (selectedIndex >= 0);
+
+      let linkParams;
+
+      if (isSelected) {
+        linkParams = (selectedValues.size > 1)
+          ? params.set(id, selectedValues.delete(selectedIndex))
+          : params.delete(id);
+      } else {
+        linkParams = params.set(id, selectedValues.push(key));
+      }
+
+      const queryString = paramsToQueryString(linkParams);
+
       return (
         <li key={key}>
-          <span>{key}</span>
-          {' '}
-          <FormattedMessage {...messages.count} values={{ count }} />
+          <Link
+            className={isSelected ? linkStyles.selected : linkStyles.common}
+            to={{ search: `?${queryString}` }}
+          >
+            <span>{key}</span>
+            {' '}
+            <FormattedMessage {...messages.count} values={{ count }} />
+          </Link>
         </li>
       )
     });

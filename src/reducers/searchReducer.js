@@ -62,8 +62,8 @@ export default (state = Immutable.Map(), action) => {
         .delete('error')
         .delete('nextOffset')
         .set('params', action.payload)
-        .delete('pending')
-        .delete('result');
+        .delete('pending');
+        // .delete('result');
     default:
       return state;
   }

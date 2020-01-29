@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import Filter from './Filter';
 import { setFilterSearchValue } from '../../../actions/filterActions';
-import { getFilterSearchValue } from '../../../reducers';
+import { getFilterSearchValue, getSearchParams } from '../../../reducers';
 
 const mapStateToProps = (state, ownProps) => ({
   searchValue: getFilterSearchValue(state, ownProps.id),
+  params: getSearchParams(state),
 });
 
 const mapDispatchToProps = ({

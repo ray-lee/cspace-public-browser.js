@@ -15,5 +15,5 @@ export const paramsToQueryString = (params) => qs.stringify(
 export const queryStringToParams = (queryString) => (
   Immutable.Map(qs.parse(queryString, { ignoreQueryPrefix: true }))
     .filter((value) => !!value)
-    .map((value) => JSON.parse(value))
+    .map((value) => Immutable.fromJS(JSON.parse(value)))
 );

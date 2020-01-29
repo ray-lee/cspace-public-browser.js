@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SampleList from '../components/SampleList';
-import { expandPanel, togglePanel } from '../actions/prefs';
+import { expandPanel, togglePanel } from '../actions/prefsActions';
 import { isPanelExpanded } from '../reducers';
 
 const panelId = (institutionId) => `SampleList-${institutionId}`;

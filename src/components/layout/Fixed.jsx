@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import styles from '../../../styles/cspace/Fixed.css';
 
 const propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
 };
 
 const defaultProps = {

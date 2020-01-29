@@ -52,8 +52,9 @@ export default class SearchResultPanel extends Component {
   constructor() {
     super();
 
-    this.ref = React.createRef();
     this.handleScroll = this.handleScroll.bind(this);
+
+    this.ref = React.createRef();
   }
 
   componentDidMount() {
@@ -138,7 +139,7 @@ export default class SearchResultPanel extends Component {
         <SearchResultList
           isPending={isPending}
           params={params}
-          results={result && result.get('hits')}
+          hits={result && result.get('hits')}
         />
       </>
     );

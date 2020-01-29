@@ -2,7 +2,7 @@
 
 import Immutable from 'immutable';
 import config from '../config';
-import { getSort, getQuery } from '../helpers/esQueryHelpers';
+import { getAggs, getSort, getQuery } from '../helpers/esQueryHelpers';
 import { SORT_ID } from '../constants/ids';
 import { paramsToQueryString, queryStringToParams } from '../helpers/urlHelpers';
 
@@ -58,6 +58,7 @@ export const search = () => (dispatch, getState) => {
       includes: config.get('includeFields'),
     },
     sort: getSort(params),
+    aggs: getAggs(),
   };
 
   dispatch({

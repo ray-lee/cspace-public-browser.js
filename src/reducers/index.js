@@ -1,17 +1,21 @@
 import { combineReducers } from 'redux';
+import filter, * as fromFilter from './filterReducer';
 import layout, * as fromLayout from './layout';
 import material, * as fromMaterial from './material';
-import prefs, * as fromPrefs from './prefs';
+import prefs, * as fromPrefs from './prefsReducer';
 import search, * as fromSearch from './searchReducer';
 import searchEntryForm, * as fromSearchEntryForm from './searchEntryFormReducer';
 
 export default combineReducers({
+  filter,
   layout,
   material,
   prefs,
   search,
   searchEntryForm,
 });
+
+export const getFilterSearchValue = (state, id) => fromFilter.getSearchValue(state.filter, id);
 
 export const getLayoutPanelRect = (state, id) => fromLayout.getPanelRect(state.layout, id);
 

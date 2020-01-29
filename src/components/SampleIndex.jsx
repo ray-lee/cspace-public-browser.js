@@ -11,7 +11,7 @@ import styles from '../../styles/cspace/SampleIndex.css';
 
 const messages = defineMessages({
   link: {
-    id: 'sampleIndex.link',
+    id: 'SampleIndex.link',
     defaultMessage: 'Samples at {title}',
   },
 });

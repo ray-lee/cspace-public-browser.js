@@ -1,5 +1,5 @@
 import config from '../config';
-import { SORT_ID } from '../constants/ids';
+import { SEARCH_QUERY_ID, SORT_ID } from '../constants/ids';
 
 export const fulltextParamToQuery = (value) => {
   if (!value) {
@@ -22,25 +22,34 @@ export const fulltextParamToQuery = (value) => {
         {
           multi_match: {
             query: value,
-            fields: [
-              'all_field',
-            ],
+            fields: fulltextSearchFields,
             type: 'phrase_prefix',
             operator: 'and',
           },
         },
       ],
+      minimum_should_match: '1',
     },
   };
 };
 
-// export const filterParamToQuery = (id, value) => {
-// };
+export const filterParamToQuery = (id, value) => {
+  return undefined;
+};
+
+export const getSearchQuery = (params) => fulltextParamToQuery(params.get(SEARCH_QUERY_ID));
+
+export const getFilterQueries = (params) => params
+  .delete(SEARCH_QUERY_ID)
+  .entrySeq()
+  .map(([id, value]) => filterParamToQuery(id, value))
+  .toJS();
 
 export const getQuery = (params) => {
   const clauses = [
     config.get('defaultQuery'),
-    fulltextParamToQuery(params.get('search')),
+    getSearchQuery(params),
+    ...getFilterQueries(params),
   ]
     .filter((clause) => !!clause);
 
@@ -59,6 +68,30 @@ export const getQuery = (params) => {
   return {
     match_all: {},
   };
+};
+
+let aggs;
+
+export const getAggs = () => {
+  if (!aggs) {
+    aggs = {};
+
+    config.get('filterGroups').forEach(({ filters }) => {
+      filters.forEach(({ id, field }) => {
+        aggs[id] = {
+          terms: {
+            field,
+            size: 300,
+            order: {
+              _term: 'asc',
+            },
+          },
+        };
+      });
+    });
+  }
+
+  return aggs;
 };
 
 export const getSort = (params) => {

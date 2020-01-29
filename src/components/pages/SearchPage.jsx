@@ -9,11 +9,11 @@ import Immutable from 'immutable';
 import config from '../../config';
 import bodyClassName from '../../helpers/bodyClassName';
 import Fixed from '../layout/Fixed';
-import FilterPanel from '../FilterPanel';
+import FilterPanel from '../search/result/FilterPanelContainer';
 import SearchEntryPanel from '../search/entry/SearchEntryPanel';
 import SearchResultPanel from '../search/result/SearchResultPanelContainer';
 import ScrollTopButton from '../ScrollTopButton';
-import ToggleFilterPanelButton from '../ToggleFilterPanelButton';
+import ToggleFilterPanelButton from '../search/result/ToggleFilterPanelButton';
 import styles from '../../../styles/cspace/SearchPage.css';
 
 const propTypes = {
@@ -22,7 +22,6 @@ const propTypes = {
     search: PropTypes.string,
   }).isRequired,
   isFilterPanelExpanded: PropTypes.bool,
-  isSearchEntryPanelExpanded: PropTypes.bool,
   onLocationChange: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map),
   search: PropTypes.func,
@@ -32,17 +31,16 @@ const propTypes = {
 
 const defaultProps = {
   isFilterPanelExpanded: false,
-  isSearchEntryPanelExpanded: false,
   onLocationChange: () => undefined,
   params: undefined,
   search: () => undefined,
-  toggleFilterPanel: null,
-  toggleSearchEntryPanel: null,
+  toggleFilterPanel: () => undefined,
+  toggleSearchEntryPanel: undefined,
 };
 
 const messages = defineMessages({
   title: {
-    id: 'searchPage.title',
+    id: 'SearchPage.title',
     defaultMessage: 'Search',
   },
 });
@@ -90,7 +88,6 @@ class SearchPage extends Component {
     const {
       intl,
       isFilterPanelExpanded,
-      isSearchEntryPanelExpanded,
       location,
       params,
       toggleFilterPanel,
@@ -126,17 +123,12 @@ class SearchPage extends Component {
         <Fixed>
           <SearchEntryPanel />
 
-          {/* <ToggleFilterPanelButton
+          <ToggleFilterPanelButton
             isFilterPanelExpanded={isFilterPanelExpanded}
             onClick={toggleFilterPanel}
-          /> */}
+          />
 
-          {/* <FilterPanel
-            advancedSearchFields={advancedSearchFields}
-            filterGroups={filterGroups}
-            filterIds={filterIds}
-            isExpanded={isFilterPanelExpanded}
-          /> */}
+          <FilterPanel />
         </Fixed>
 
         <SearchResultPanel params={params} />

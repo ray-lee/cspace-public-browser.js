@@ -9,12 +9,12 @@ import styles from '../../../../styles/cspace/SearchResultList.css';
 const propTypes = {
   isPending: PropTypes.bool,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
-  results: PropTypes.instanceOf(Immutable.List),
+  hits: PropTypes.instanceOf(Immutable.List),
 };
 
 const defaultProps = {
   isPending: false,
-  results: Immutable.List(),
+  hits: Immutable.List(),
 };
 
 export default class SearchResultList extends Component {
@@ -32,15 +32,15 @@ export default class SearchResultList extends Component {
     );
   }
 
-  renderResults() {
+  renderHits() {
     const {
       params,
-      results,
+      hits,
     } = this.props;
 
     const gatewayUrl = config.get('gatewayUrl');
 
-    return results.map((result, index) => (
+    return hits.map((result, index) => (
       <SearchResultTile
         gatewayUrl={gatewayUrl}
         index={index}
@@ -54,7 +54,7 @@ export default class SearchResultList extends Component {
   render() {
     return (
       <div className={styles.common} ref={this.domNode}>
-        {this.renderResults()}
+        {this.renderHits()}
         {this.renderPending()}
       </div>
     );

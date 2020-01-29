@@ -22,6 +22,7 @@ const handleSearchFulfilled = (state, action) => {
   }
 
   const {
+    aggregations,
     hits,
   } = action.payload;
 
@@ -29,7 +30,11 @@ const handleSearchFulfilled = (state, action) => {
   const currentHits = currentResult.get('hits');
 
   const nextHits = currentHits.setSize(offset).concat(Immutable.fromJS(hits.hits));
-  const nextResult = currentResult.set('total', hits.total).set('hits', nextHits);
+
+  const nextResult = currentResult
+    .set('total', hits.total)
+    .set('hits', nextHits)
+    .set('aggregations', Immutable.fromJS(aggregations));
 
   return state
     .set('nextOffset', offset + pageSize)

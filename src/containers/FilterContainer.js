@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Filter from '../components/Filter';
-import { togglePanel } from '../actions/prefs';
+import { togglePanel } from '../actions/prefsActions';
 import { isPanelExpanded } from '../reducers';
 
 const panelId = (filterId) => `Filter-${filterId}`;

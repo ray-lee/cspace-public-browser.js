@@ -13,7 +13,7 @@ const propTypes = {
 
 const messages = defineMessages({
   title: {
-    id: 'rootPage.title',
+    id: 'RootPage.title',
     defaultMessage: 'Collection Browser',
   },
 });

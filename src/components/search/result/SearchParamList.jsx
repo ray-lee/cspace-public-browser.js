@@ -19,8 +19,13 @@ export default function SearchParamList(props) {
     params,
   } = props;
 
-  const paramButtons = params
-    .delete(SORT_ID)
+  const removableParams = params.delete(SORT_ID);
+
+  if (removableParams.size === 0) {
+    return null;
+  }
+
+  const paramButtons = removableParams
     .keySeq()
     .map((id) => (
       <RemoveSearchParamLink
@@ -30,14 +35,10 @@ export default function SearchParamList(props) {
       />
     ));
 
-  const clearButton = (params.size > 0)
-    ? <ClearSearchParamsLink params={params} />
-    : undefined;
-
   return (
     <div className={styles.common}>
       {paramButtons}
-      {clearButton}
+      <ClearSearchParamsLink params={params} />
     </div>
   );
 }

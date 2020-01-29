@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SearchEntryPanel from '../components/search/entry/SearchEntryPanel';
-import { togglePanel } from '../actions/prefs';
+import { togglePanel } from '../actions/prefsActions';
 import { isPanelExpanded } from '../reducers';
 
 const mapStateToProps = (state, ownProps) => ({

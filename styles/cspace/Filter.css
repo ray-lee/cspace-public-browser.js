@@ -1,15 +1,26 @@
 @value highlightColor, inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
 
 .common {
-  padding: 0 16px;
-  box-sizing: border-box;
+  padding: 2px 20px 18px 20px;
 }
 
-.common:not(:last-child) {
-  border-bottom: 1px solid panelBorderColor;
+.common > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 150px;
+  overflow: scroll;
 }
 
-.common :global(.cspace-FilterInput) {
+.common > ul > li {
+  margin: 8px 0;
+}
+
+.common > ul > li > span:last-child {
+  color: #808080;
+}
+
+/* .common :global(.cspace-FilterInput) {
   -webkit-appearance: none;
   font-size: .85rem;
   height: 30px;
@@ -62,4 +73,4 @@
 
 .expanded :global(.cspace-FilterList) {
   display: block;
-}
+} */

@@ -1,3 +1,5 @@
+import { defineMessages } from 'react-intl';
+
 import {
   composition,
   displayName,
@@ -158,47 +160,99 @@ export default {
   filterGroups: [
     {
       id: 'institution',
-      title: 'Holding Institution',
+      // title: 'Holding Institution',
+      messages: {
+        title: {
+          id: 'filterGroup.institution.title',
+          defaultMessage: 'Holding Institution',
+        },
+      },
       filters: [
         {
           id: 'materialTermAttributionContributingOrganization',
           field: 'collectionspace_denorm:holdingInstitutions.displayName',
-          filterLabel: 'Institution',
-          title: 'Institution',
+          messages: {
+            label: {
+              id: 'filter.materialTermAttributionContributingOrganization.label',
+              defaultMessage: 'Institution',
+            },
+          },
         },
       ],
     },
     {
       id: 'composition',
-      title: 'Composition',
+      // title: 'Composition',
+      messages: {
+        title: {
+          id: 'filterGroup.composition.title',
+          defaultMessage: 'Composition',
+        },
+      },
       filters: [
         {
           id: 'materialCompositionFamilyName',
           field: 'materials_common:materialCompositionGroupList.materialCompositionFamilyName.displayName',
-          title: 'Family name',
+          messages: {
+            label: {
+              id: 'filter.materialCompositionFamilyName.label',
+              defaultMessage: 'Family name',
+            },
+            shortLabel: {
+              id: 'filter.materialCompositionFamilyName.shortLabel',
+              defaultMessage: 'Family',
+            },
+          },
         },
         {
           id: 'materialCompositionClassName',
           field: 'materials_common:materialCompositionGroupList.materialCompositionClassName.displayName',
-          filterLabel: 'Class',
-          title: 'Class name',
+          messages: {
+            label: {
+              id: 'filter.materialCompositionClassName.label',
+              defaultMessage: 'Class name',
+            },
+            shortLabel: {
+              id: 'filter.materialCompositionClassName.shortLabel',
+              defaultMessage: 'Class',
+            },
+          },
         },
         {
           id: 'materialCompositionGenericName',
           field: 'materials_common:materialCompositionGroupList.materialCompositionGenericName.displayName',
-          filterLabel: 'Generic',
-          title: 'Generic name',
+          messages: {
+            label: {
+              id: 'filter.materialCompositionGenericName.label',
+              defaultMessage: 'Generic name',
+            },
+            shortLabel: {
+              id: 'filter.materialCompositionGenericName.shortLabel',
+              defaultMessage: 'Generic',
+            },
+          },
         },
       ],
     },
     {
       id: 'use',
-      title: 'Use',
+      // title: 'Use',
+      messages: {
+        title: {
+          id: 'filterGroup.use.title',
+          defaultMessage: 'Use',
+        },
+      },
       filters: [
         {
           id: 'typicalUses',
           field: 'materials_common:typicalUses.displayName',
-          title: 'Typical use',
+          messages: {
+            label: {
+              id: 'filter.typicalUses.label',
+              defaultMessage: 'Typical use',
+            },
+          },
         },
         // {
         //   id: 'featuredApplication',
@@ -232,153 +286,341 @@ export default {
     /* eslint-enable max-len */
     {
       id: 'form',
-      title: 'Form',
+      // title: 'Form',
+      messages: {
+        title: {
+          id: 'filterGroup.form.title',
+          defaultMessage: 'Form',
+        },
+      },
       filters: [
         {
           id: 'commonForm',
           field: 'materials_common:commonForm.displayName',
-          title: 'Common form',
+          messages: {
+            label: {
+              id: 'filter.commonForm.label',
+              defaultMessage: 'Common form',
+            },
+          },
         },
         {
           id: 'formType',
           field: 'materials_common:formTypeGroupList.formType.displayName',
-          title: 'Form type',
+          messages: {
+            label: {
+              id: 'filter.formType.label',
+              defaultMessage: 'Form type',
+            },
+          },
         },
       ],
     },
     {
       id: 'properties',
-      title: 'Properties',
+      // title: 'Properties',
+      messages: {
+        title: {
+          id: 'filterGroup.properties.title',
+          defaultMessage: 'Properties',
+        },
+      },
       filters: [
         {
           id: 'acousticalPropertyType',
           field: 'materials_common:acousticalPropertyGroupList.acousticalPropertyType.displayName',
-          filterLabel: 'Acoustical',
-          title: 'Acoustical property',
+          messages: {
+            label: {
+              id: 'filter.acousticalPropertyType.label',
+              defaultMessage: 'Acoustical property',
+            },
+            shortLabel: {
+              id: 'filter.acousticalPropertyType.shortLabel',
+              defaultMessage: 'Acoustical',
+            },
+          },
         },
         {
           id: 'durabilityPropertyType',
           field: 'materials_common:durabilityPropertyGroupList.durabilityPropertyType.displayName',
-          filterLabel: 'Durability',
-          title: 'Durability property',
+          messages: {
+            label: {
+              id: 'filter.durabilityPropertyType.label',
+              defaultMessage: 'Durability property',
+            },
+            shortLabel: {
+              id: 'filter.durabilityPropertyType.shortLabel',
+              defaultMessage: 'Durability',
+            },
+          },
         },
         {
           id: 'electricalPropertyType',
           field: 'materials_common:electricalPropertyGroupList.electricalPropertyType.displayName',
-          filterLabel: 'Electrical',
-          title: 'Electrical property',
+          messages: {
+            label: {
+              id: 'filter.electricalPropertyType.label',
+              defaultMessage: 'Electrical property',
+            },
+            shortLabel: {
+              id: 'filter.electricalPropertyType.shortLabel',
+              defaultMessage: 'Electrical',
+            },
+          },
         },
         {
           id: 'hygrothermalPropertyType',
           field: 'materials_common:hygrothermalPropertyGroupList.hygrothermalPropertyType.displayName',
-          filterLabel: 'Hygrothermal',
-          title: 'Hygrothermal property',
+          messages: {
+            label: {
+              id: 'filter.hygrothermalPropertyType.label',
+              defaultMessage: 'Hygrothermal property',
+            },
+            shortLabel: {
+              id: 'filter.hygrothermalPropertyType.shortLabel',
+              defaultMessage: 'Hygrothermal',
+            },
+          },
         },
         {
           id: 'mechanicalPropertyType',
           field: 'materials_common:mechanicalPropertyGroupList.mechanicalPropertyType.displayName',
-          filterLabel: 'Mechanical',
-          title: 'Mechanical property',
+          messages: {
+            label: {
+              id: 'filter.mechanicalPropertyType.label',
+              defaultMessage: 'Mechanical property',
+            },
+            shortLabel: {
+              id: 'filter.mechanicalPropertyType.shortLabel',
+              defaultMessage: 'Mechanical',
+            },
+          },
         },
         {
           id: 'opticalPropertyType',
           field: 'materials_common:opticalPropertyGroupList.opticalPropertyType.displayName',
-          filterLabel: 'Optical',
-          title: 'Optical property',
+          messages: {
+            label: {
+              id: 'filter.opticalPropertyType.label',
+              defaultMessage: 'Optical property',
+            },
+            shortLabel: {
+              id: 'filter.opticalPropertyType.shortLabel',
+              defaultMessage: 'Optical',
+            },
+          },
         },
         {
           id: 'sensorialPropertyType',
           field: 'materials_common:sensorialPropertyGroupList.sensorialPropertyType.displayName',
-          filterLabel: 'Sensorial',
-          title: 'Sensorial property',
+          messages: {
+            label: {
+              id: 'filter.sensorialPropertyType.label',
+              defaultMessage: 'Sensorial property',
+            },
+            shortLabel: {
+              id: 'filter.sensorialPropertyType.shortLabel',
+              defaultMessage: 'Sensorial',
+            },
+          },
         },
         {
           id: 'smartMaterialPropertyType',
           field: 'materials_common:smartMaterialPropertyGroupList.smartMaterialPropertyType.displayName',
-          filterLabel: 'Smart material',
-          title: 'Smart material property',
+          messages: {
+            label: {
+              id: 'filter.smartMaterialPropertyType.label',
+              defaultMessage: 'Smart material property',
+            },
+            shortLabel: {
+              id: 'filter.smartMaterialPropertyType.shortLabel',
+              defaultMessage: 'Smart material',
+            },
+          },
         },
         {
           id: 'additionalPropertyType',
           field: 'materials_common:additionalPropertyGroupList.additionalPropertyType.displayName',
-          title: 'Additional property',
+          messages: {
+            label: {
+              id: 'filter.additionalPropertyType.label',
+              defaultMessage: 'Additional property',
+            },
+          },
         },
       ],
     },
     {
       id: 'ecology',
-      title: 'Material Ecology',
+      // title: 'Material Ecology',
+      messages: {
+        title: {
+          id: 'filterGroup.ecology.title',
+          defaultMessage: 'Material Ecology',
+        },
+      },
       filters: [
         {
           id: 'recycledContentQualifier',
           field: 'materials_common:recycledContentGroupList.recycledContentQualifier.displayName',
-          filterLabel: 'Recycled',
-          title: 'Recycled content',
+          messages: {
+            label: {
+              id: 'filter.recycledContentQualifier.label',
+              defaultMessage: 'Recycled content',
+            },
+            shortLabel: {
+              id: 'filter.recycledContentQualifier.shortLabel',
+              defaultMessage: 'Recycled',
+            },
+          },
         },
         {
           id: 'lifecycleComponent',
           field: 'materials_common:lifecycleComponentGroupList.lifecycleComponent.displayName',
-          filterLabel: 'Lifecycle',
-          title: 'Lifecycle component',
+          messages: {
+            label: {
+              id: 'filter.lifecycleComponent.label',
+              defaultMessage: 'Lifecycle component',
+            },
+            shortLabel: {
+              id: 'filter.lifecycleComponent.shortLabel',
+              defaultMessage: 'Lifecycle',
+            },
+          },
         },
         {
           id: 'certificationProgram',
           field: 'materials_common:certificationCreditGroupList.certificationProgram.displayName',
-          filterLabel: 'Certification',
-          title: 'Certification program',
+          messages: {
+            label: {
+              id: 'filter.certificationProgram.label',
+              defaultMessage: 'Certification program',
+            },
+            shortLabel: {
+              id: 'filter.certificationProgram.shortLabel',
+              defaultMessage: 'Certification',
+            },
+          },
         },
       ],
     },
     {
       id: 'processing',
-      title: 'Processing',
+      // title: 'Processing',
+      messages: {
+        title: {
+          id: 'filterGroup.processing.title',
+          defaultMessage: 'Processing',
+        },
+      },
       filters: [
         {
           id: 'castingProcesses',
           field: 'materials_common:castingProcesses.displayName',
-          filterLabel: 'Casting',
-          title: 'Casting process',
+          messages: {
+            label: {
+              id: 'filter.castingProcesses.label',
+              defaultMessage: 'Casting process',
+            },
+            shortLabel: {
+              id: 'filter.castingProcesses.shortLabel',
+              defaultMessage: 'Casting',
+            },
+          },
         },
         {
           id: 'deformingProcesses',
           field: 'materials_common:deformingProcesses.displayName',
-          filterLabel: 'Deforming',
-          title: 'Deforming process',
+          messages: {
+            label: {
+              id: 'filter.deformingProcesses.label',
+              defaultMessage: 'Deforming process',
+            },
+            shortLabel: {
+              id: 'filter.deformingProcesses.shortLabel',
+              defaultMessage: 'Deforming',
+            },
+          },
         },
         {
           id: 'joiningProcesses',
           field: 'materials_common:joiningProcesses.displayName',
-          filterLabel: 'Joining',
-          title: 'Joining process',
+          messages: {
+            label: {
+              id: 'filter.joiningProcesses.label',
+              defaultMessage: 'Joining process',
+            },
+            shortLabel: {
+              id: 'filter.joiningProcesses.shortLabel',
+              defaultMessage: 'Joining',
+            },
+          },
         },
         {
           id: 'machiningProcesses',
           field: 'materials_common:machiningProcesses.displayName',
-          filterLabel: 'Machining',
-          title: 'Machining process',
+          messages: {
+            label: {
+              id: 'filter.machiningProcesses.label',
+              defaultMessage: 'Machining process',
+            },
+            shortLabel: {
+              id: 'filter.machiningProcesses.shortLabel',
+              defaultMessage: 'Machining',
+            },
+          },
         },
         {
           id: 'moldingProcesses',
           field: 'materials_common:moldingProcesses.displayName',
-          filterLabel: 'Molding',
-          title: 'Molding process',
+          messages: {
+            label: {
+              id: 'filter.moldingProcesses.label',
+              defaultMessage: 'Molding process',
+            },
+            shortLabel: {
+              id: 'filter.moldingProcesses.shortLabel',
+              defaultMessage: 'Molding',
+            },
+          },
         },
         {
           id: 'rapidPrototypingProcesses',
           field: 'materials_common:rapidPrototypingProcesses.displayName',
-          filterLabel: 'Rapid prototyping',
-          title: 'Rapid prototyping process',
+          messages: {
+            label: {
+              id: 'filter.rapidPrototypingProcesses.label',
+              defaultMessage: 'Rapid prototyping process',
+            },
+            shortLabel: {
+              id: 'filter.rapidPrototypingProcesses.shortLabel',
+              defaultMessage: 'Rapid prototyping',
+            },
+          },
         },
         {
           id: 'surfacingProcesses',
           field: 'materials_common:surfacingProcesses.displayName',
-          filterLabel: 'Surfacing',
-          title: 'Surfacing process',
+          messages: {
+            label: {
+              id: 'filter.surfacingProcesses.label',
+              defaultMessage: 'Surfacing process',
+            },
+            shortLabel: {
+              id: 'filter.surfacingProcesses.shortLabel',
+              defaultMessage: 'Surfacing',
+            },
+          },
         },
         {
           id: 'additionalProcess',
           field: 'materials_common:additionalProcessGroupList.additionalProcess.displayName',
-          title: 'Additional process',
+          messages: {
+            label: {
+              id: 'filter.additionalProcess.label',
+              defaultMessage: 'Additional process',
+            },
+          },
         },
       ],
     },

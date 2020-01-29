@@ -4,12 +4,13 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
-  padding: 10px 10px 0 filterPanelWidth;
+  padding: 0 0 0 filterPanelWidth;
   min-height: 500px;
 }
 
 .common > header {
   font-size: .85rem;
+  padding: 10px;
 }
 
 .common > header > div {

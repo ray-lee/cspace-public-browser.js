@@ -80,6 +80,7 @@ export const expandPanel = (id, expanded = true) => (dispatch) => {
     },
   });
 
+
   dispatch(savePrefs());
 };
 

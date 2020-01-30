@@ -1,8 +1,9 @@
-@value highlightColor from '../colors.css';
+@value buttonBgColor, highlightColor from '../colors.css';
 
 body {
   padding: 0;
   margin: 0;
+  color: #424242;
 }
 
 p {
@@ -12,6 +13,11 @@ p {
 p:first-child {
   margin-top: 0;
 }
+
+input {
+  outline-offset: -2px;
+}
+
 input, button {
   color: inherit;
   font: inherit;
@@ -20,9 +26,15 @@ input, button {
 button {
   border: none;
   border-radius: 3px;
+  background-color: buttonBgColor;
+  color: white;
+  outline-offset: -2px;
+}
+
+button:hover {
+  background-color: highlightColor;
 }
 
 button:focus {
-  outline: none;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, .3);
+  outline: 2px solid highlightColor;
 }

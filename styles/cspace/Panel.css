@@ -1,4 +1,4 @@
-@value panelBorderColor from '../colors.css';
+@value highlightColor, panelBorderColor from '../colors.css';
 
 .common {
 
@@ -27,7 +27,13 @@
   color: #424242;
   background-position: calc(100% - 12px) center;
   background-repeat: no-repeat;
-  font-weight: bold;
+  font-weight: 600;
+  outline-offset: -6px;
+}
+
+.common > header > button:focus {
+  outline: 2px solid #424242;
+  box-shadow: none;
 }
 
 .expanded > header > button {

@@ -23,8 +23,9 @@ const propTypes = {
 const defaultProps = {
   error: undefined,
   isPending: false,
-  result: undefined,
+  offset: undefined,
   params: Immutable.Map(),
+  result: undefined,
   search: () => undefined,
   setSearchPageSize: () => undefined,
 };
@@ -121,6 +122,7 @@ export default class SearchResultPanel extends Component {
   renderResult() {
     const {
       isPending,
+      offset,
       params,
       result,
     } = this.props;
@@ -138,6 +140,7 @@ export default class SearchResultPanel extends Component {
 
         <SearchResultList
           isPending={isPending}
+          offset={offset}
           params={params}
           hits={result && result.get('hits')}
         />

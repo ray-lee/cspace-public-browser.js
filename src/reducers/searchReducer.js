@@ -35,12 +35,13 @@ const handleSearchFulfilled = (state, action) => {
     hits,
   } = resultResponse;
 
-  const currentResult = state.get('result') || Immutable.Map({ hits: Immutable.List() });
-  const currentHits = currentResult.get('hits');
+  const currentResult = state.get('result') || Immutable.Map();
+  const currentHits = currentResult.get('hits') || Immutable.List();
 
   const nextHits = currentHits.setSize(offset).concat(Immutable.fromJS(hits.hits));
 
   let nextResult = currentResult
+    .set('params', searchParams)
     .set('total', hits.total)
     .set('hits', nextHits);
 
@@ -99,8 +100,15 @@ export const hasMore = (state) => {
     return true;
   }
 
-  const nextOffset = getNextOffset(state);
+  const currentParams = getParams(state);
+  const resultParams = result.get('params');
+
+  if (currentParams !== resultParams) {
+    return true;
+  }
+
   const total = result.get('total');
+  const nextOffset = getNextOffset(state);
 
   return (nextOffset < total);
 };

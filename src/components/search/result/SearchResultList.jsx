@@ -8,6 +8,7 @@ import styles from '../../../../styles/cspace/SearchResultList.css';
 
 const propTypes = {
   isPending: PropTypes.bool,
+  offset: PropTypes.number,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
   hits: PropTypes.instanceOf(Immutable.List),
 };
@@ -15,15 +16,17 @@ const propTypes = {
 const defaultProps = {
   isPending: false,
   hits: Immutable.List(),
+  offset: 0,
 };
 
 export default class SearchResultList extends Component {
   renderPending() {
     const {
       isPending,
+      offset,
     } = this.props;
 
-    if (!isPending) {
+    if (!isPending || offset === 0) {
       return undefined;
     }
 

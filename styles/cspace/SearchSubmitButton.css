@@ -1,6 +1,3 @@
-@value buttonBgColor from '../colors.css';
-
 .common {
-  background: buttonBgColor;
-  color: white;
+  padding: 0;
 }

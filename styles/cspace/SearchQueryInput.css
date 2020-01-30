@@ -23,14 +23,8 @@
 
 .common > button {
   position: absolute;
-  padding: 0;
   right: 16px;
   top: 16px;
   width: 78px;
   height: 30px;
-  color: white;
-}
-
-.common > button:hover {
-  background: highlightColor;
 }

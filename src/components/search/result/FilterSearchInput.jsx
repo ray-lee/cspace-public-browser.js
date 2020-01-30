@@ -23,7 +23,7 @@ const messages = defineMessages({
     id: 'filterSearchInput.placeholder',
     defaultMessage: 'Search',
   },
-})
+});
 
 class FilterSearchInput extends Component {
   constructor() {

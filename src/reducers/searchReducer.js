@@ -22,7 +22,7 @@ const handleSearchFulfilled = (state, action) => {
   }
 
   const {
-    responses
+    responses,
   } = action.payload;
 
   const [
@@ -81,7 +81,6 @@ export default (state = Immutable.Map(), action) => {
         .delete('nextOffset')
         .set('params', action.payload)
         .delete('pending');
-        // .delete('result');
     default:
       return state;
   }

@@ -28,13 +28,14 @@ export default function FilterGroup(props) {
   } = props;
 
   const {
+    id,
     title,
     filters,
     messages,
   } = config;
 
-  const isEmpty = aggregations.isEmpty() || !filters.find(({ id }) => {
-    const buckets = aggregations.getIn([id, 'buckets']);
+  const isEmpty = aggregations.isEmpty() || !filters.find(({ id: filterId }) => {
+    const buckets = aggregations.getIn([filterId, 'buckets']);
 
     return (buckets && buckets.size > 0);
   });
@@ -44,19 +45,21 @@ export default function FilterGroup(props) {
   }
 
   const titleMessage = messages && messages.title;
+
+  // eslint-disable-next-line react/jsx-props-no-spreading
   const headerContent = (titleMessage ? <FormattedMessage {...titleMessage} /> : title) || id;
 
   return (
     <div className={styles.common}>
       <h1>{headerContent}</h1>
       {
-        filters.map(({ id, field, messages }) => (
+        filters.map(({ field, id: filterId, messages: filterMessages }) => (
           <Filter
-            aggregation={aggregations.get(id)}
-            id={id}
+            aggregation={aggregations.get(filterId)}
+            id={filterId}
             field={field}
-            key={id}
-            messages={messages}
+            key={filterId}
+            messages={filterMessages}
           />
         ))
       }

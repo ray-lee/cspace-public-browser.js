@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Filter from './Filter';
 import { setFilterSearchValue } from '../../../actions/filterActions';
+import { applyFilter } from '../../../actions/searchActions';
 import { getFilterSearchValue, getSearchParams } from '../../../reducers';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -10,6 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = ({
   onSearchValueCommit: setFilterSearchValue,
+  onValueCommit: applyFilter,
 });
 
 export default connect(

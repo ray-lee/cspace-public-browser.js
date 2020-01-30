@@ -97,6 +97,7 @@ export default class FilterPanel extends Component {
     return (
       <div>
         <header>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <FormattedMessage {...messages.title} />
         </header>
 

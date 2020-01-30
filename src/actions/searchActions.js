@@ -2,7 +2,6 @@
 
 import Immutable from 'immutable';
 import config from '../config';
-import { getAggs, getSort, getQuery, getTermsAgg } from '../helpers/esQueryHelpers';
 import { SEARCH_QUERY_ID, SORT_ID } from '../constants/ids';
 import { paramsToQueryString, queryStringToParams } from '../helpers/urlHelpers';
 
@@ -22,6 +21,13 @@ import {
   SET_SEARCH_PAGE_SIZE,
   SET_SEARCH_PARAMS,
 } from '../constants/actionCodes';
+
+import {
+  getAggs,
+  getSort,
+  getQuery,
+  getTermsAgg,
+} from '../helpers/esQueryHelpers';
 
 export const openSearch = (history, params = Immutable.Map()) => {
   const queryString = paramsToQueryString(params);
@@ -100,7 +106,7 @@ export const search = () => (dispatch, getState) => {
     body: [
       JSON.stringify({ preference: 'result' }),
       JSON.stringify(resultPayload),
-      ...filterAggPayloads.map((payload) => JSON.stringify(payload))
+      ...filterAggPayloads.map((payload) => JSON.stringify(payload)),
     ].join('\n'),
   })
     .then((response) => {
@@ -150,6 +156,34 @@ export const setSearchParams = (location) => {
     type: SET_SEARCH_PARAMS,
     payload: params,
   };
+};
+
+export const applyFilter = (history, id, value, isSelected) => (dispatch, getState) => {
+  const params = getSearchParams(getState());
+
+  let selectedValues = params.get(id) || Immutable.List();
+
+  if (!Immutable.List.isList(selectedValues)) {
+    selectedValues = Immutable.List.of(selectedValues);
+  }
+
+  let nextParams;
+
+  if (isSelected) {
+    nextParams = params.set(id, selectedValues.push(value));
+  } else {
+    const selectedIndex = selectedValues.indexOf(value);
+
+    if (selectedIndex >= 0) {
+      nextParams = (selectedValues.size > 1)
+        ? params.set(id, selectedValues.delete(selectedIndex))
+        : params.delete(id);
+    } else {
+      nextParams = params;
+    }
+  }
+
+  return dispatch(openSearch(history, nextParams));
 };
 
 export const applySortOrder = (history, sortOrder) => (dispatch, getState) => (

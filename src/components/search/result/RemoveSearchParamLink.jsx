@@ -22,9 +22,9 @@ const getLabelMessage = (id) => {
   const filterConfig = config.getFilterConfig(id);
 
   if (filterConfig) {
-    const { messages } = filterConfig;
+    const { messages: filterMessages } = filterConfig;
 
-    return (messages.shortLabel || messages.label);
+    return (filterMessages.shortLabel || filterMessages.label);
   }
 
   return undefined;

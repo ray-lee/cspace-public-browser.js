@@ -24,18 +24,14 @@ const propTypes = {
   isFilterPanelExpanded: PropTypes.bool,
   onLocationChange: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map),
-  search: PropTypes.func,
   toggleFilterPanel: PropTypes.func,
-  toggleSearchEntryPanel: PropTypes.func,
 };
 
 const defaultProps = {
   isFilterPanelExpanded: false,
   onLocationChange: () => undefined,
   params: undefined,
-  search: () => undefined,
   toggleFilterPanel: () => undefined,
-  toggleSearchEntryPanel: undefined,
 };
 
 const messages = defineMessages({
@@ -88,24 +84,15 @@ class SearchPage extends Component {
     const {
       intl,
       isFilterPanelExpanded,
-      location,
       params,
       toggleFilterPanel,
-      toggleSearchEntryPanel,
     } = this.props;
 
     if (!params) {
       return null;
     }
 
-    const advancedSearchFields = config.get('advancedSearchFields');
-    const defaultQuery = config.get('defaultQuery');
     const filterGroups = config.get('filterGroups');
-    const gatewayUrl = config.get('gatewayUrl');
-    const includeFields = config.get('includeFields');
-    const sortField = config.get('sortField');
-    const types = config.get('types');
-
     const filterIds = [];
 
     filterGroups.forEach((filterGroup) => {

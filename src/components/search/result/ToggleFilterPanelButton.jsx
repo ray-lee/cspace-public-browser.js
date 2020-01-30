@@ -42,7 +42,7 @@ function ToggleFilterPanelButton(props) {
       type="button"
       onClick={onClick}
     >
-      <img src={isFilterPanelExpanded ? hideIcon : filterIcon} />
+      <img alt="" src={isFilterPanelExpanded ? hideIcon : filterIcon} />
     </button>
   );
 }

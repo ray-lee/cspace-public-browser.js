@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import Immutable from 'immutable';
 import FilterSearchInput from './FilterSearchInput';
 import Panel from '../../layout/PanelContainer';
-import { paramsToQueryString } from '../../../helpers/urlHelpers';
 import styles from '../../../../styles/cspace/Filter.css';
-import linkStyles from '../../../../styles/cspace/FilterLink.css';
 
 const propTypes = {
   aggregation: PropTypes.instanceOf(Immutable.Map),
   field: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   id: PropTypes.string.isRequired,
   messages: PropTypes.shape({
     label: PropTypes.object.isRequired,
   }).isRequired,
   onSearchValueCommit: PropTypes.func,
+  onValueCommit: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
   searchValue: PropTypes.string,
 };
@@ -24,6 +26,7 @@ const propTypes = {
 const defaultProps = {
   aggregation: Immutable.Map(),
   onSearchValueCommit: () => undefined,
+  onValueCommit: () => undefined,
   searchValue: undefined,
 };
 
@@ -31,13 +34,14 @@ const messages = defineMessages({
   count: {
     id: 'filter.count',
     defaultMessage: '({count, number})',
-  }
+  },
 });
 
-export default class Filter extends Component {
+class Filter extends Component {
   constructor() {
     super();
 
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleSearchInputCommit = this.handleSearchInputCommit.bind(this);
   }
 
@@ -48,6 +52,20 @@ export default class Filter extends Component {
     } = this.props;
 
     onSearchValueCommit(id, value);
+  }
+
+  handleCheckboxChange(event) {
+    const {
+      history,
+      id,
+      onValueCommit,
+    } = this.props;
+
+    const {
+      target: checkbox,
+    } = event;
+
+    onValueCommit(history, id, checkbox.name, checkbox.checked);
   }
 
   renderBuckets() {
@@ -81,34 +99,29 @@ export default class Filter extends Component {
     return matchingBuckets.map((bucket) => {
       const key = bucket.get('key');
       const count = bucket.get('doc_count');
-
-      const selectedIndex = selectedValues.indexOf(key);
-      const isSelected = (selectedIndex >= 0);
-
-      let linkParams;
-
-      if (isSelected) {
-        linkParams = (selectedValues.size > 1)
-          ? params.set(id, selectedValues.delete(selectedIndex))
-          : params.delete(id);
-      } else {
-        linkParams = params.set(id, selectedValues.push(key));
-      }
-
-      const queryString = paramsToQueryString(linkParams);
+      const isSelected = (selectedValues.indexOf(key) >= 0);
 
       return (
         <li key={key}>
-          <Link
-            className={isSelected ? linkStyles.selected : linkStyles.common}
-            to={{ search: `?${queryString}` }}
-          >
-            <span>{key}</span>
-            {' '}
-            <FormattedMessage {...messages.count} values={{ count }} />
-          </Link>
+          <label>
+            <input
+              checked={isSelected}
+              name={key}
+              type="checkbox"
+              onChange={this.handleCheckboxChange}
+            />
+
+            <div>
+              <span>
+                {key}
+                {' '}
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                <FormattedMessage {...messages.count} values={{ count }} />
+              </span>
+            </div>
+          </label>
         </li>
-      )
+      );
     });
   }
 
@@ -116,7 +129,7 @@ export default class Filter extends Component {
     const {
       aggregation,
       id,
-      messages,
+      messages: filterMessages,
       searchValue,
     } = this.props;
 
@@ -127,7 +140,8 @@ export default class Filter extends Component {
       return null;
     }
 
-    const title = <FormattedMessage {...messages.label} />;
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    const title = <FormattedMessage {...filterMessages.label} />;
 
     return (
       <Panel id={`Filter-${id}`} title={title}>
@@ -147,3 +161,5 @@ export default class Filter extends Component {
 
 Filter.propTypes = propTypes;
 Filter.defaultProps = defaultProps;
+
+export default withRouter(Filter);

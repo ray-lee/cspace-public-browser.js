@@ -161,39 +161,39 @@ export default {
     {
       id: 'institution',
       // title: 'Holding Institution',
-      messages: {
+      messages: defineMessages({
         title: {
           id: 'filterGroup.institution.title',
           defaultMessage: 'Holding Institution',
         },
-      },
+      }),
       filters: [
         {
           id: 'materialTermAttributionContributingOrganization',
           field: 'collectionspace_denorm:holdingInstitutions.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.materialTermAttributionContributingOrganization.label',
               defaultMessage: 'Institution',
             },
-          },
+          }),
         },
       ],
     },
     {
       id: 'composition',
       // title: 'Composition',
-      messages: {
+      messages: defineMessages({
         title: {
           id: 'filterGroup.composition.title',
           defaultMessage: 'Composition',
         },
-      },
+      }),
       filters: [
         {
           id: 'materialCompositionFamilyName',
           field: 'materials_common:materialCompositionGroupList.materialCompositionFamilyName.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.materialCompositionFamilyName.label',
               defaultMessage: 'Family name',
@@ -202,12 +202,12 @@ export default {
               id: 'filter.materialCompositionFamilyName.shortLabel',
               defaultMessage: 'Family',
             },
-          },
+          }),
         },
         {
           id: 'materialCompositionClassName',
           field: 'materials_common:materialCompositionGroupList.materialCompositionClassName.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.materialCompositionClassName.label',
               defaultMessage: 'Class name',
@@ -216,12 +216,12 @@ export default {
               id: 'filter.materialCompositionClassName.shortLabel',
               defaultMessage: 'Class',
             },
-          },
+          }),
         },
         {
           id: 'materialCompositionGenericName',
           field: 'materials_common:materialCompositionGroupList.materialCompositionGenericName.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.materialCompositionGenericName.label',
               defaultMessage: 'Generic name',
@@ -230,29 +230,29 @@ export default {
               id: 'filter.materialCompositionGenericName.shortLabel',
               defaultMessage: 'Generic',
             },
-          },
+          }),
         },
       ],
     },
     {
       id: 'use',
       // title: 'Use',
-      messages: {
+      messages: defineMessages({
         title: {
           id: 'filterGroup.use.title',
           defaultMessage: 'Use',
         },
-      },
+      }),
       filters: [
         {
           id: 'typicalUses',
           field: 'materials_common:typicalUses.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.typicalUses.label',
               defaultMessage: 'Typical use',
             },
-          },
+          }),
         },
         // {
         //   id: 'featuredApplication',
@@ -287,49 +287,49 @@ export default {
     {
       id: 'form',
       // title: 'Form',
-      messages: {
+      messages: defineMessages({
         title: {
           id: 'filterGroup.form.title',
           defaultMessage: 'Form',
         },
-      },
+      }),
       filters: [
         {
           id: 'commonForm',
           field: 'materials_common:commonForm.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.commonForm.label',
               defaultMessage: 'Common form',
             },
-          },
+          }),
         },
         {
           id: 'formType',
           field: 'materials_common:formTypeGroupList.formType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.formType.label',
               defaultMessage: 'Form type',
             },
-          },
+          }),
         },
       ],
     },
     {
       id: 'properties',
       // title: 'Properties',
-      messages: {
+      messages: defineMessages({
         title: {
           id: 'filterGroup.properties.title',
           defaultMessage: 'Properties',
         },
-      },
+      }),
       filters: [
         {
           id: 'acousticalPropertyType',
           field: 'materials_common:acousticalPropertyGroupList.acousticalPropertyType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.acousticalPropertyType.label',
               defaultMessage: 'Acoustical property',
@@ -338,12 +338,12 @@ export default {
               id: 'filter.acousticalPropertyType.shortLabel',
               defaultMessage: 'Acoustical',
             },
-          },
+          }),
         },
         {
           id: 'durabilityPropertyType',
           field: 'materials_common:durabilityPropertyGroupList.durabilityPropertyType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.durabilityPropertyType.label',
               defaultMessage: 'Durability property',
@@ -352,12 +352,12 @@ export default {
               id: 'filter.durabilityPropertyType.shortLabel',
               defaultMessage: 'Durability',
             },
-          },
+          }),
         },
         {
           id: 'electricalPropertyType',
           field: 'materials_common:electricalPropertyGroupList.electricalPropertyType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.electricalPropertyType.label',
               defaultMessage: 'Electrical property',
@@ -366,12 +366,12 @@ export default {
               id: 'filter.electricalPropertyType.shortLabel',
               defaultMessage: 'Electrical',
             },
-          },
+          }),
         },
         {
           id: 'hygrothermalPropertyType',
           field: 'materials_common:hygrothermalPropertyGroupList.hygrothermalPropertyType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.hygrothermalPropertyType.label',
               defaultMessage: 'Hygrothermal property',
@@ -380,12 +380,12 @@ export default {
               id: 'filter.hygrothermalPropertyType.shortLabel',
               defaultMessage: 'Hygrothermal',
             },
-          },
+          }),
         },
         {
           id: 'mechanicalPropertyType',
           field: 'materials_common:mechanicalPropertyGroupList.mechanicalPropertyType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.mechanicalPropertyType.label',
               defaultMessage: 'Mechanical property',
@@ -394,12 +394,12 @@ export default {
               id: 'filter.mechanicalPropertyType.shortLabel',
               defaultMessage: 'Mechanical',
             },
-          },
+          }),
         },
         {
           id: 'opticalPropertyType',
           field: 'materials_common:opticalPropertyGroupList.opticalPropertyType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.opticalPropertyType.label',
               defaultMessage: 'Optical property',
@@ -408,12 +408,12 @@ export default {
               id: 'filter.opticalPropertyType.shortLabel',
               defaultMessage: 'Optical',
             },
-          },
+          }),
         },
         {
           id: 'sensorialPropertyType',
           field: 'materials_common:sensorialPropertyGroupList.sensorialPropertyType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.sensorialPropertyType.label',
               defaultMessage: 'Sensorial property',
@@ -422,12 +422,12 @@ export default {
               id: 'filter.sensorialPropertyType.shortLabel',
               defaultMessage: 'Sensorial',
             },
-          },
+          }),
         },
         {
           id: 'smartMaterialPropertyType',
           field: 'materials_common:smartMaterialPropertyGroupList.smartMaterialPropertyType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.smartMaterialPropertyType.label',
               defaultMessage: 'Smart material property',
@@ -436,34 +436,34 @@ export default {
               id: 'filter.smartMaterialPropertyType.shortLabel',
               defaultMessage: 'Smart material',
             },
-          },
+          }),
         },
         {
           id: 'additionalPropertyType',
           field: 'materials_common:additionalPropertyGroupList.additionalPropertyType.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.additionalPropertyType.label',
               defaultMessage: 'Additional property',
             },
-          },
+          }),
         },
       ],
     },
     {
       id: 'ecology',
       // title: 'Material Ecology',
-      messages: {
+      messages: defineMessages({
         title: {
           id: 'filterGroup.ecology.title',
           defaultMessage: 'Material Ecology',
         },
-      },
+      }),
       filters: [
         {
           id: 'recycledContentQualifier',
           field: 'materials_common:recycledContentGroupList.recycledContentQualifier.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.recycledContentQualifier.label',
               defaultMessage: 'Recycled content',
@@ -472,12 +472,12 @@ export default {
               id: 'filter.recycledContentQualifier.shortLabel',
               defaultMessage: 'Recycled',
             },
-          },
+          }),
         },
         {
           id: 'lifecycleComponent',
           field: 'materials_common:lifecycleComponentGroupList.lifecycleComponent.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.lifecycleComponent.label',
               defaultMessage: 'Lifecycle component',
@@ -486,12 +486,12 @@ export default {
               id: 'filter.lifecycleComponent.shortLabel',
               defaultMessage: 'Lifecycle',
             },
-          },
+          }),
         },
         {
           id: 'certificationProgram',
           field: 'materials_common:certificationCreditGroupList.certificationProgram.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.certificationProgram.label',
               defaultMessage: 'Certification program',
@@ -500,24 +500,24 @@ export default {
               id: 'filter.certificationProgram.shortLabel',
               defaultMessage: 'Certification',
             },
-          },
+          }),
         },
       ],
     },
     {
       id: 'processing',
       // title: 'Processing',
-      messages: {
+      messages: defineMessages({
         title: {
           id: 'filterGroup.processing.title',
           defaultMessage: 'Processing',
         },
-      },
+      }),
       filters: [
         {
           id: 'castingProcesses',
           field: 'materials_common:castingProcesses.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.castingProcesses.label',
               defaultMessage: 'Casting process',
@@ -526,12 +526,12 @@ export default {
               id: 'filter.castingProcesses.shortLabel',
               defaultMessage: 'Casting',
             },
-          },
+          }),
         },
         {
           id: 'deformingProcesses',
           field: 'materials_common:deformingProcesses.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.deformingProcesses.label',
               defaultMessage: 'Deforming process',
@@ -540,12 +540,12 @@ export default {
               id: 'filter.deformingProcesses.shortLabel',
               defaultMessage: 'Deforming',
             },
-          },
+          }),
         },
         {
           id: 'joiningProcesses',
           field: 'materials_common:joiningProcesses.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.joiningProcesses.label',
               defaultMessage: 'Joining process',
@@ -554,12 +554,12 @@ export default {
               id: 'filter.joiningProcesses.shortLabel',
               defaultMessage: 'Joining',
             },
-          },
+          }),
         },
         {
           id: 'machiningProcesses',
           field: 'materials_common:machiningProcesses.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.machiningProcesses.label',
               defaultMessage: 'Machining process',
@@ -568,12 +568,12 @@ export default {
               id: 'filter.machiningProcesses.shortLabel',
               defaultMessage: 'Machining',
             },
-          },
+          }),
         },
         {
           id: 'moldingProcesses',
           field: 'materials_common:moldingProcesses.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.moldingProcesses.label',
               defaultMessage: 'Molding process',
@@ -582,12 +582,12 @@ export default {
               id: 'filter.moldingProcesses.shortLabel',
               defaultMessage: 'Molding',
             },
-          },
+          }),
         },
         {
           id: 'rapidPrototypingProcesses',
           field: 'materials_common:rapidPrototypingProcesses.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.rapidPrototypingProcesses.label',
               defaultMessage: 'Rapid prototyping process',
@@ -596,12 +596,12 @@ export default {
               id: 'filter.rapidPrototypingProcesses.shortLabel',
               defaultMessage: 'Rapid prototyping',
             },
-          },
+          }),
         },
         {
           id: 'surfacingProcesses',
           field: 'materials_common:surfacingProcesses.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.surfacingProcesses.label',
               defaultMessage: 'Surfacing process',
@@ -610,17 +610,17 @@ export default {
               id: 'filter.surfacingProcesses.shortLabel',
               defaultMessage: 'Surfacing',
             },
-          },
+          }),
         },
         {
           id: 'additionalProcess',
           field: 'materials_common:additionalProcessGroupList.additionalProcess.displayName',
-          messages: {
+          messages: defineMessages({
             label: {
               id: 'filter.additionalProcess.label',
               defaultMessage: 'Additional process',
             },
-          },
+          }),
         },
       ],
     },

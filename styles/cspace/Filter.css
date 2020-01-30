@@ -12,8 +12,52 @@
   overflow: scroll;
 }
 
-.common > ul > li {
-  margin: 8px 0;
+.common li {
+  margin: 0;
+}
+
+.common li > label > div {
+  padding: 4px;
+}
+
+.common li > label:hover > input + div::before {
+  border-color: #424242;
+}
+
+.common li input {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.common li input + div {
+  display: flex;
+  align-items: center;
+}
+
+.common li input + div::before {
+  flex: 0 0 auto;
+  content: '';
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+  border: 1px solid inputBorderColor;
+  background-color: inputBgColor;
+  background-repeat: none;
+  background-position: center center;
+  outline-offset: -1px;
+}
+
+.common li input:focus + div::before {
+  outline: 2px solid highlightColor;
+}
+
+.common li input:checked + div::before {
+  background-image: url(../../images/check.svg);
+}
+
+.common li label > div > span > span {
+  color: #808080;
 }
 
 /* .common :global(.cspace-FilterInput) {

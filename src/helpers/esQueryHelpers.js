@@ -35,6 +35,11 @@ export const fulltextParamToQuery = (value) => {
 
 export const filterParamToQuery = (id, value) => {
   const filterConfig = config.getFilterConfig(id);
+
+  if (!filterConfig) {
+    return undefined;
+  }
+
   const { field } = filterConfig;
 
   return {

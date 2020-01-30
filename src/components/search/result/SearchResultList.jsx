@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
+import { defineMessages, FormattedMessage } from 'react-intl';
 import SearchPending from './SearchPending';
 import SearchResultTile from './SearchResultTile';
 import config from '../../../config';
@@ -18,6 +19,13 @@ const defaultProps = {
   hits: Immutable.List(),
   offset: 0,
 };
+
+const messages = defineMessages({
+  noResult: {
+    id: 'searchResultList.noResult',
+    defaultMessage: 'No results found',
+  },
+});
 
 export default class SearchResultList extends Component {
   renderPending() {
@@ -40,6 +48,14 @@ export default class SearchResultList extends Component {
       params,
       hits,
     } = this.props;
+
+    if (hits.size === 0) {
+      return (
+        <p>
+          <FormattedMessage {...messages.noResult} />
+        </p>
+      );
+    }
 
     const gatewayUrl = config.get('gatewayUrl');
 

@@ -30,7 +30,7 @@ export default function SearchResultStats(props) {
   return (
     <div className={styles.common}>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      {count !== undefined && <FormattedMessage {...messages.count} values={{ count }} />}
+      {count ? <FormattedMessage {...messages.count} values={{ count }} /> : undefined}
     </div>
   );
 }

@@ -5,6 +5,10 @@
   padding: 0 2px;
 }
 
+.common > p {
+  padding-top: 32px;
+}
+
 /*
 .common {
   display: flex;
@@ -13,11 +17,6 @@
   z-index: 9;
   padding-left: 8px;
   padding-bottom: 64px;
-}
-
-.common > p {
-  padding-top: 26px;
-  text-align: center;
 }
 
 .common :global(.cspace-SearchResultListResultsInfo) {

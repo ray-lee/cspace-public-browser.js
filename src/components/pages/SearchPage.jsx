@@ -12,8 +12,9 @@ import Fixed from '../layout/Fixed';
 import FilterPanel from '../search/result/FilterPanelContainer';
 import SearchEntryPanel from '../search/entry/SearchEntryPanel';
 import SearchResultPanel from '../search/result/SearchResultPanelContainer';
-import ScrollTopButton from '../ScrollTopButton';
-import ToggleFilterPanelButton from '../search/result/ToggleFilterPanelButton';
+import ScrollTopButton from '../layout/ScrollTopButton';
+import ToggleFilterPanelButton from '../layout/ToggleFilterPanelButton';
+import { FILTER_PANEL_ID } from '../../constants/ids';
 import styles from '../../../styles/cspace/SearchPage.css';
 
 const propTypes = {
@@ -23,15 +24,15 @@ const propTypes = {
   }).isRequired,
   isFilterPanelExpanded: PropTypes.bool,
   onLocationChange: PropTypes.func,
+  onTogglePanelButtonClick: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map),
-  toggleFilterPanel: PropTypes.func,
 };
 
 const defaultProps = {
   isFilterPanelExpanded: false,
   onLocationChange: () => undefined,
+  onTogglePanelButtonClick: () => undefined,
   params: undefined,
-  toggleFilterPanel: () => undefined,
 };
 
 const messages = defineMessages({
@@ -42,6 +43,12 @@ const messages = defineMessages({
 });
 
 class SearchPage extends Component {
+  constructor() {
+    super();
+
+    this.handleToggleFilterPanelButtonClick = this.handleToggleFilterPanelButtonClick.bind(this);
+  }
+
   componentDidMount() {
     window.document.body.classList.add(bodyClassName(styles.common));
 
@@ -80,12 +87,19 @@ class SearchPage extends Component {
     onLocationChange(location);
   }
 
+  handleToggleFilterPanelButtonClick() {
+    const {
+      onTogglePanelButtonClick,
+    } = this.props;
+
+    onTogglePanelButtonClick(FILTER_PANEL_ID);
+  }
+
   render() {
     const {
       intl,
       isFilterPanelExpanded,
       params,
-      toggleFilterPanel,
     } = this.props;
 
     if (!params) {
@@ -112,10 +126,10 @@ class SearchPage extends Component {
 
           <ToggleFilterPanelButton
             isFilterPanelExpanded={isFilterPanelExpanded}
-            onClick={toggleFilterPanel}
+            onClick={this.handleToggleFilterPanelButtonClick}
           />
 
-          <FilterPanel />
+          <FilterPanel isExpanded={isFilterPanelExpanded} />
         </Fixed>
 
         <SearchResultPanel params={params} />

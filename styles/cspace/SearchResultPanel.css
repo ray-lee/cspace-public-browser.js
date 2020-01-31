@@ -1,4 +1,4 @@
-@value filterPanelWidth, searchInputHeight, searchInputBorderWidth from '../dimensions.css';
+@value filterPanelWidth from '../dimensions.css';
 
 .common {
   display: flex;
@@ -18,28 +18,14 @@
   align-items: baseline;
 }
 
-.common :global(.cspace-SelectedFilters) {
-  margin: 0;
-  padding: 0 4px 0 12px;
-  background-color: white;
-  z-index: 9;
-}
-
-.common :global(.cspace-SelectedFilters) :global(.cspace-SelectedFiltersButton) {
-  margin: 2px;
-}
-
-.common :global(.cspace-SelectedFilters) :global(.cspace-SelectedFiltersButton):first-of-type {
-  margin-top: 14px;
-}
-
 @media only screen
 and (max-width: 768px) {
   .common {
-    padding-left: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
   }
 
-  .common :global(.cspace-SelectedFilters) {
-    padding-left: 66px;
+  .common > header {
+    padding-left: 62px;
   }
 }

@@ -8,6 +8,7 @@
   overflow-y: auto;
   background-color: rgb(245, 245, 245);
   z-index: 1;
+  transition: left 0.3s;
 }
 
 .common > div > header {
@@ -28,11 +29,6 @@
 
 @media only screen
 and (max-width: 768px) {
-  .common {
-    z-index: 1;
-    transition: left 0.3s;
-  }
-
   .collapsed {
     left: filterPanelCollapsedLeft;
   }

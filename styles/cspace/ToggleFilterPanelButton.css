@@ -5,11 +5,13 @@
   width: 64px;
   height: 64px;
   left: 6px;
-  top: 68px;
+  top: 58px;
   border-radius: 32px;
   border: none;
   padding: 0;
-  background-color: white;
+  background: white;
+  background-repeat: no-repeat;
+  background-position: center center;
   box-shadow: 0 0 9px 3px panelBorderColor;
   display: none;
   z-index: 15;
@@ -20,8 +22,18 @@
   box-shadow: 0 0 9px 3px highlightColor;
 }
 
-.common:focus, .common:hover {
-  background-color: #eeeeee;
+.common:hover {
+  background-color: rgb(248, 248, 248);
+}
+
+.collapsed {
+  composes: common;
+  background-image: url(../../images/filter.svg);
+}
+
+.expanded {
+  composes: common;
+  background-image: url(../../images/hideLeft.svg);
 }
 
 @media only screen

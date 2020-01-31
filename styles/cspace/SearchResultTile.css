@@ -56,7 +56,7 @@ and (max-width: 695px) {
   }
 
   .common > article {
-    height: 106px;
+    height: 94px;
   }
 }
 
@@ -72,6 +72,6 @@ and (max-width: 695px) {
   }
 
   .common > article {
-    height: 138px;
+    height: 128px;
   }
 }

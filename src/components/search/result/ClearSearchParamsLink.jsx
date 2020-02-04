@@ -4,7 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Immutable from 'immutable';
 import { SORT_ID } from '../../../constants/ids';
-import { paramsToQueryString } from '../../../helpers/urlHelpers';
+import { searchParamsToQueryString } from '../../../helpers/urlHelpers';
 import styles from '../../../../styles/cspace/SearchParamLink.css';
 
 const propTypes = {
@@ -27,7 +27,7 @@ export default function ClearSearchParamsLink(props) {
   const hasNonSortParam = params.size > sortParam.size;
 
   if (hasNonSortParam) {
-    const queryString = paramsToQueryString(sortParam);
+    const queryString = searchParamsToQueryString(sortParam);
 
     return (
       <Link className={styles.common} to={{ search: `?${queryString}` }}>

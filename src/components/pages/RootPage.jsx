@@ -2,7 +2,7 @@ import React from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Route, Switch } from 'react-router';
 import Helmet from 'react-helmet';
-import DetailPage from './DetailPage';
+import DetailPage from './DetailPageContainer';
 import SearchPage from './SearchPageContainer';
 import config from '../../config';
 import styles from '../../../styles/cspace/RootPage.css';

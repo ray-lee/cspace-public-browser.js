@@ -2,22 +2,30 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import config from '../../config';
+import Immutable from 'immutable';
 import bodyClassName from '../../helpers/bodyClassName';
-import ScrollTopButton from '../ScrollTopButton';
-import DetailPanelContainer from '../../containers/DetailPanelContainer';
+import ScrollTopButton from '../layout/ScrollTopButton';
+import DetailPanel from '../detail/DetailPanelContainer';
 import styles from '../../../styles/cspace/DetailPage.css';
 
 const propTypes = {
   location: PropTypes.shape({
-    hash: PropTypes.string,
-    state: PropTypes.object,
+    search: PropTypes.string,
   }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       csid: PropTypes.string,
     }),
   }).isRequired,
+  params: PropTypes.instanceOf(Immutable.Map),
+  onLeave: PropTypes.func,
+  onLocationChange: PropTypes.func,
+};
+
+const defaultProps = {
+  onLeave: () => undefined,
+  onLocationChange: () => undefined,
+  params: undefined,
 };
 
 export default class DetailPage extends Component {
@@ -28,32 +36,56 @@ export default class DetailPage extends Component {
       left: 0,
       top: 0,
     });
+
+    this.handleLocationChange();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      location,
+    } = this.props;
+
+    const {
+      location: prevLocation,
+    } = prevProps;
+
+    if (location !== prevLocation) {
+      this.handleLocationChange();
+    }
   }
 
   componentWillUnmount() {
+    const {
+      onLeave,
+    } = this.props;
+
     window.document.body.classList.remove(bodyClassName(styles.common));
+
+    onLeave();
+  }
+
+  handleLocationChange() {
+    const {
+      location,
+      match,
+      onLocationChange,
+    } = this.props;
+
+    onLocationChange(location, match);
   }
 
   render() {
     const {
-      location,
-      match,
+      params,
     } = this.props;
 
-    const sortField = config.get('sortField');
-    const { csid } = match.params;
-    const { hash, state } = location;
-
-    const selectedInstitution = hash ? hash.replace(/^#/, '') : undefined;
+    if (!params) {
+      return null;
+    }
 
     return (
       <div className={styles.common}>
-        <DetailPanelContainer
-          search={state && state.search}
-          selectedInstitution={selectedInstitution}
-          csid={csid}
-          sortField={sortField}
-        />
+        <DetailPanel params={params} />
         <ScrollTopButton />
       </div>
     );
@@ -61,3 +93,4 @@ export default class DetailPage extends Component {
 }
 
 DetailPage.propTypes = propTypes;
+DetailPage.defaultProps = defaultProps;

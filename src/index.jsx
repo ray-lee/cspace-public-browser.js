@@ -12,8 +12,8 @@ import config from './config';
 import App from './components/App';
 import reducer from './reducers';
 
-export default (customConfig) => {
-  config.merge(customConfig);
+export default (...customConfigs) => {
+  config.merge(...customConfigs);
 
   const container = config.get('container');
   const mountNode = document.querySelector(container);

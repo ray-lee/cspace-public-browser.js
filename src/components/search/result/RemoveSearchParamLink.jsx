@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 import { messages } from '../entry/SearchQueryInput';
 import config from '../../../config';
 import { SEARCH_QUERY_ID } from '../../../constants/ids';
-import { paramsToQueryString } from '../../../helpers/urlHelpers';
+import { searchParamsToQueryString } from '../../../helpers/urlHelpers';
 import styles from '../../../../styles/cspace/RemoveSearchParamLink.css';
 
 const propTypes = {
@@ -38,7 +38,7 @@ export default function RemoveSearchParamLink(props) {
 
   const value = params.get(id);
 
-  const queryString = paramsToQueryString(params.delete(id));
+  const queryString = searchParamsToQueryString(params.delete(id));
   const labelMessage = getLabelMessage(id);
 
   const label = labelMessage

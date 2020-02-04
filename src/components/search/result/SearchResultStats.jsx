@@ -15,7 +15,6 @@ const messages = defineMessages({
   count: {
     id: 'searchResultStats.count',
     defaultMessage: `{count, plural,
-      =0 {No items}
       one {# item}
       other {# items}
     } found`,

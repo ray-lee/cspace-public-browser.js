@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import detail, * as fromDetail from './detailReducer';
 import filter, * as fromFilter from './filterReducer';
 import layout, * as fromLayout from './layout';
 import material, * as fromMaterial from './material';
@@ -7,6 +8,7 @@ import search, * as fromSearch from './searchReducer';
 import searchEntryForm, * as fromSearchEntryForm from './searchEntryFormReducer';
 
 export default combineReducers({
+  detail,
   filter,
   layout,
   material,
@@ -14,6 +16,11 @@ export default combineReducers({
   search,
   searchEntryForm,
 });
+
+export const getDetailError = (state) => fromDetail.getError(state.detail);
+export const getDetailParams = (state) => fromDetail.getParams(state.detail);
+export const getDetailData = (state) => fromDetail.getData(state.detail);
+export const isDetailPending = (state) => fromDetail.isPending(state.detail);
 
 export const getFilterSearchValue = (state, id) => fromFilter.getSearchValue(state.filter, id);
 

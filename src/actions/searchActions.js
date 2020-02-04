@@ -3,7 +3,7 @@
 import Immutable from 'immutable';
 import config from '../config';
 import { SEARCH_QUERY_ID, SORT_ID } from '../constants/ids';
-import { paramsToQueryString, queryStringToParams } from '../helpers/urlHelpers';
+import { locationToSearchParams, searchParamsToQueryString } from '../helpers/urlHelpers';
 
 import {
   getSearchNextOffset,
@@ -30,7 +30,7 @@ import {
 } from '../helpers/esQueryHelpers';
 
 export const openSearch = (history, params = Immutable.Map()) => {
-  const queryString = paramsToQueryString(params);
+  const queryString = searchParamsToQueryString(params);
 
   history.push({
     search: `?${queryString}`,
@@ -150,7 +150,7 @@ export const setSearchPageSize = (pageSize) => ({
 });
 
 export const setSearchParams = (location) => {
-  const params = queryStringToParams(location.search);
+  const params = locationToSearchParams(location);
 
   return {
     type: SET_SEARCH_PARAMS,

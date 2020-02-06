@@ -24,7 +24,7 @@ import {
 
 import {
   getAggs,
-  getSort,
+  getSearchResultPayload,
   getQuery,
   getTermsAgg,
 } from '../helpers/esQueryHelpers';
@@ -55,16 +55,7 @@ export const search = () => (dispatch, getState) => {
 
   const offset = getSearchNextOffset(getState()) || 0;
   const pageSize = getSearchPageSize(getState()) || 15;
-
-  const resultPayload = {
-    query: getQuery(params.delete(SORT_ID)),
-    from: offset,
-    size: pageSize,
-    _source: {
-      includes: config.get('includeFields'),
-    },
-    sort: getSort(params),
-  };
+  const resultPayload = getSearchResultPayload(params, pageSize, offset);
 
   let filterAggPayloads = [];
 

@@ -10,7 +10,10 @@ import styles from '../../../styles/cspace/DetailPage.css';
 
 const propTypes = {
   location: PropTypes.shape({
-    search: PropTypes.string,
+    search: PropTypes.string.isRequired,
+    state: PropTypes.shape({
+      index: PropTypes.number,
+    }).isRequired,
   }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({

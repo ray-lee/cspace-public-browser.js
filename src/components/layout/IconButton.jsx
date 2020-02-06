@@ -31,6 +31,7 @@ export default function IconButton(props) {
       type="button"
       onClick={onClick}
     >
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <FormattedMessage {...labelMessage} />
     </button>
   );

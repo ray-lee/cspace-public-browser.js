@@ -52,6 +52,7 @@ export default class SearchResultList extends Component {
     if (hits.size === 0) {
       return (
         <p>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <FormattedMessage {...messages.noResult} />
         </p>
       );

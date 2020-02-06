@@ -1,6 +1,16 @@
 @value highlightColor from '../colors.css';
 
 .common {
+  display: grid;
+  grid-template-columns: auto 420px;
+  grid-template-rows: minmax(0, auto) minmax(0, auto) minmax(0, auto) 1fr;
+  grid-column-gap: 16px;
+  grid-template-areas:
+    "header header"
+    "desc desc"
+    "fields1 gallery"
+    "fields1 fields2";
+
   margin-left: auto;
   margin-right: auto;
   max-width: 840px;
@@ -9,6 +19,7 @@
 }
 
 .common > header {
+  grid-area: header;
   margin-bottom: 16px;
 }
 
@@ -16,17 +27,11 @@
   margin-bottom: 10px;
 }
 
-.common > section {
-  display: grid;
-  grid-template-columns: auto 420px;
-  grid-template-rows: minmax(0, auto) 1fr;
-  grid-column-gap: 16px;
-  grid-template-areas:
-    "fields0 gallery"
-    "fields0 fields1";
+.common > p {
+  grid-area: desc;
 }
 
-.common > section > :global(.cspace-ImageGallery--common) {
+.common :global(.cspace-ImageGallery--common) {
   grid-area: gallery;
 }
 
@@ -45,7 +50,7 @@
 }
 
 .common h3 {
-  margin: 6px 0;
+  margin: 0 0 6px 0;
   font-size: inherit;
   font-weight: 600;
 }

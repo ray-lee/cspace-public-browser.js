@@ -21,10 +21,28 @@ export const locationToSearchParams = (location) => (
 export const locationToDetailParams = (location, match) => {
   let params = Immutable.fromJS(match.params);
 
-  const { hash } = location;
+  const {
+    hash,
+    state,
+  } = location;
 
   if (hash) {
     params = params.set('#', hash.substring(1));
+  }
+
+  if (state) {
+    const {
+      index,
+      searchParams,
+    } = state;
+
+    if (typeof index !== 'undefined') {
+      params = params.set('index', index);
+    }
+
+    if (typeof searchParams !== 'undefined') {
+      params = params.set('searchParams', Immutable.fromJS(searchParams));
+    }
   }
 
   return params;

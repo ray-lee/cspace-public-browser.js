@@ -1,3 +1,23 @@
-.common {
+.common + .common {
   margin-top: 16px;
+}
+
+.common > div {
+  display: grid;
+  grid-template-columns: 33% auto;
+  grid-auto-rows: min-content;
+  align-items: baseline;
+}
+
+.common > div > h4 {
+  font: inherit;
+  margin: 0 6px 0 0;
+}
+
+.common > div > h4::after {
+  content: ':';
+}
+
+.common > div > * {
+  margin-bottom: 4px;
 }

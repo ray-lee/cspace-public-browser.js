@@ -17,6 +17,7 @@ export default combineReducers({
   searchEntryForm,
 });
 
+export const getDetailAdjacents = (state) => fromDetail.getAdjacents(state.detail);
 export const getDetailError = (state) => fromDetail.getError(state.detail);
 export const getDetailParams = (state) => fromDetail.getParams(state.detail);
 export const getDetailData = (state) => fromDetail.getData(state.detail);

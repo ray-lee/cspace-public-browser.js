@@ -3,13 +3,22 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import Immutable from 'immutable';
+import DetailNavBar from './DetailNavBar';
+import ImageGallery from './ImageGalleryContainer';
 import config from '../../config';
 import styles from '../../../styles/cspace/DetailPanel.css';
 import categoryStyles from '../../../styles/cspace/DetailCategory.css';
 import fieldStyles from '../../../styles/cspace/DetailField.css';
 
 const propTypes = {
-  data: PropTypes.object,
+  adjacents: PropTypes.shape({
+    prev: PropTypes.object,
+    next: PropTypes.object,
+  }),
+  data: PropTypes.shape({
+    'collectionspace_core:refName': PropTypes.string,
+    'collectionspace_denorm:title': PropTypes.string,
+  }),
   error: PropTypes.instanceOf(Error),
   isPending: PropTypes.bool,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
@@ -17,6 +26,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  adjacents: {},
   data: undefined,
   error: undefined,
   isPending: false,
@@ -58,6 +68,7 @@ export default class DetailPanel extends Component {
     } = categoryConfig;
 
     const title = messages
+      // eslint-disable-next-line react/jsx-props-no-spreading
       ? <FormattedMessage {...messages.label} />
       : label;
 
@@ -67,14 +78,16 @@ export default class DetailPanel extends Component {
       .map((fieldId) => this.renderField(fieldId, fieldsConfig[fieldId]))
       .filter((renderedField) => !!renderedField);
 
-    if (renderedFields.length == 0) {
+    if (renderedFields.length === 0) {
       return null;
     }
 
     return (
       <div className={categoryStyles.common} key={id}>
         {title && <h3>{title}</h3>}
-        {renderedFields}
+        <div>
+          {renderedFields}
+        </div>
       </div>
     );
   }
@@ -92,48 +105,40 @@ export default class DetailPanel extends Component {
     } = fieldConfig;
 
     const title = messages
+      // eslint-disable-next-line react/jsx-props-no-spreading
       ? <FormattedMessage {...messages.label} />
       : label;
 
     const value = data[field];
-
-    let formattedValue = (format && value) ? format(value, id) : value;
+    const formattedValue = (format && value) ? format(value, id) : value;
 
     if (!formattedValue) {
       return null;
     }
 
-    const content = title
-      ? <>{title}: {formattedValue}</>
-      : formattedValue;
+    if (title) {
+      return (
+        <React.Fragment key={id}>
+          <h4>{title}</h4>
+          {formattedValue}
+        </React.Fragment>
+      );
+    }
 
     return (
-      <div className={fieldStyles.common} key={id}>{content}</div>
+      <div className={fieldStyles.unlabeled} key={id}>
+        {formattedValue}
+      </div>
     );
   }
 
-  renderCategoryOrField(id) {
+  renderCategories() {
+    const layout = config.get('detailLayout');
     const categoriesConfig = config.get('detailCategories');
 
-    if (id in categoriesConfig) {
-      return this.renderCategory(id, categoriesConfig[id]);
-    }
-
-    const fieldsConfig = config.get('detailFields');
-
-    if (id in fieldsConfig) {
-      return this.renderField(id, fieldsConfig[id]);
-    }
-
-    return null;
-  }
-
-  renderCategoriesAndFields() {
-    const layout = config.get('detailLayout');
-
     return Object.keys(layout).map((layoutId) => (
-      <div id={layoutId} key={layoutId}>
-        {layout[layoutId].map((catOrFieldId) => this.renderCategoryOrField(catOrFieldId))}
+      <div id={layoutId} key={layoutId} style={{ gridArea: layoutId }}>
+        {layout[layoutId].map((catId) => this.renderCategory(catId, categoriesConfig[catId]))}
       </div>
     ));
   }
@@ -151,7 +156,9 @@ export default class DetailPanel extends Component {
 
   renderHeader() {
     const {
+      adjacents,
       data,
+      params,
     } = this.props;
 
     const titleFormatter = config.get('detailTitle');
@@ -162,11 +169,25 @@ export default class DetailPanel extends Component {
 
     return (
       <header>
-        {/* <DetailNavBar csid={csid} search={search} /> */}
+        <DetailNavBar params={params} prev={adjacents.prev} next={adjacents.next} />
         {title && <h1>{title}</h1>}
         {subtitle && <h2>{subtitle}</h2>}
         {/* <SampleIndexContainer materialRefName={refName} /> */}
       </header>
+    );
+  }
+
+  renderImageGallery() {
+    const {
+      data,
+    } = this.props;
+
+    const {
+      'collectionspace_core:refName': refName,
+    } = data;
+
+    return (
+      <ImageGallery materialRefName={refName} />
     );
   }
 
@@ -200,7 +221,8 @@ export default class DetailPanel extends Component {
         {this.renderPageTitle()}
         {this.renderHeader()}
         {this.renderDescription()}
-        {this.renderCategoriesAndFields()}
+        {this.renderImageGallery()}
+        {this.renderCategories()}
       </div>
     );
   }

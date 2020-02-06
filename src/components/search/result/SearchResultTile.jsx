@@ -34,10 +34,8 @@ export default function SearchResultTile(props) {
       to={{
         pathname: url,
         state: {
-          search: {
-            index,
-            params,
-          },
+          index,
+          searchParams: params.toJS(),
         },
       }}
     >

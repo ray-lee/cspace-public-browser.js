@@ -14,6 +14,7 @@ import cssDimensions from '../../../../styles/dimensions.css';
 const propTypes = {
   error: PropTypes.instanceOf(Error),
   isPending: PropTypes.bool,
+  offset: PropTypes.number,
   result: PropTypes.instanceOf(Immutable.Map),
   params: PropTypes.instanceOf(Immutable.Map),
   search: PropTypes.func,

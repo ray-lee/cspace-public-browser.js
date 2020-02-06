@@ -162,3 +162,13 @@ export const getSort = (params) => {
       return {};
   }
 };
+
+export const getSearchResultPayload = (params, pageSize, offset) => ({
+  query: getQuery(params.delete(SORT_ID)),
+  from: offset,
+  size: pageSize,
+  _source: {
+    includes: config.get('includeFields'),
+  },
+  sort: getSort(params),
+});

@@ -6,12 +6,14 @@ import {
 } from '../../actions/detailActions';
 
 import {
+  getDetailAdjacents,
   getDetailData,
   getDetailError,
   isDetailPending,
 } from '../../reducers';
 
 const mapStateToProps = (state) => ({
+  adjacents: getDetailAdjacents(state),
   data: getDetailData(state),
   error: getDetailError(state),
   isPending: isDetailPending(state),

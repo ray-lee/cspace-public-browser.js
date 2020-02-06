@@ -20,7 +20,7 @@ export default {
         ? namedConfig[source]
         : source;
 
-        lomerge(config, sourceConfig);
+      lomerge(config, sourceConfig);
     });
   },
 

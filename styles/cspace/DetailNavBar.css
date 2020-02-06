@@ -6,11 +6,11 @@
   flex: 1 1 auto;
 }
 
-.common > div > a + a {
+.common > div > span + span {
   margin-left: 8px;
 }
 
-.common > div > a + a::before {
+.common > div > span + span::before {
   margin-right: 8px;
   content: '|';
 }

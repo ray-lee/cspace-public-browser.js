@@ -1,6 +1,12 @@
+/* global fetch */
+
 import config from '../config';
 import { locationToDetailParams } from '../helpers/urlHelpers';
-import { getDetailParams, isDetailPending } from '../reducers';
+
+import {
+  getDetailParams,
+  isDetailPending,
+} from '../reducers';
 
 import {
   CLEAR_DETAIL,
@@ -9,6 +15,10 @@ import {
   DETAIL_READ_REJECTED,
   SET_DETAIL_PARAMS,
 } from '../constants/actionCodes';
+
+import {
+  getSearchResultPayload,
+} from '../helpers/esQueryHelpers';
 
 export const readDetail = () => (dispatch, getState) => {
   const params = getDetailParams(getState());
@@ -19,17 +29,37 @@ export const readDetail = () => (dispatch, getState) => {
 
   const gatewayUrl = config.get('gatewayUrl');
   const indexName = config.get('esIndexName');
-  const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
+  const url = `${gatewayUrl}/es/${indexName}/doc/_msearch`;
 
-  const payload = {
+  const csid = params.get('csid');
+  const index = params.get('index');
+  const searchParams = params.get('searchParams');
+
+  const detailPayload = {
     query: {
       term: {
-        'ecm:name': params.get('csid'),
+        'ecm:name': csid,
       },
     },
     from: 0,
     size: 1,
   };
+
+  const bodyParts = [
+    JSON.stringify({ preference: 'detail' }),
+    JSON.stringify(detailPayload),
+  ];
+
+  if (searchParams && typeof index !== 'undefined') {
+    const adjacentResultsPayload = getSearchResultPayload(
+      searchParams,
+      3,
+      Math.max(0, index - 1),
+    );
+
+    bodyParts.push(JSON.stringify({ preference: 'adjacent' }));
+    bodyParts.push(JSON.stringify(adjacentResultsPayload));
+  }
 
   dispatch({
     type: DETAIL_READ_STARTED,
@@ -37,8 +67,8 @@ export const readDetail = () => (dispatch, getState) => {
 
   return fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/x-ndjson' },
+    body: bodyParts.join('\n'),
   })
     .then((response) => {
       if (!response.ok) {
@@ -71,11 +101,9 @@ export const readDetail = () => (dispatch, getState) => {
     });
 };
 
-export const clearDetail = () => {
-  return {
-    type: CLEAR_DETAIL,
-  };
-};
+export const clearDetail = () => ({
+  type: CLEAR_DETAIL,
+});
 
 export const setDetailParams = (location, match) => {
   const params = locationToDetailParams(location, match);

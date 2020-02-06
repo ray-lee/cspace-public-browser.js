@@ -32,10 +32,10 @@ export default {
   defaultQuery: {
     term: {
       'ecm:primaryType': 'CollectionObject',
-    }
+    },
   },
 
-  fulltextSearchFields: [ 'all_field' ],
+  fulltextSearchFields: ['all_field'],
 
   includeFields: [
     'ecm:name',

@@ -58,14 +58,14 @@ export default {
         historicalStatus,
       } = materialTermGroups[0];
 
-      const displayName = (
+      const title = (
         termDisplayName + (historicalStatus === 'historical' ? ' (formerly known as)' : '')
       );
 
-      return displayName;
+      return title;
     }
 
-    return null;
+    return undefined;
   },
 
   detailSubtitle: (data) => {
@@ -89,6 +89,8 @@ export default {
 
       return renderJoined(displayNames, '\n');
     }
+
+    return undefined;
   },
 
   detailDescription: (data) => {
@@ -933,7 +935,7 @@ export default {
   },
 
   detailLayout: {
-    detailFields: [
+    fields1: [
       'cat_composition',
       'cat_use',
       'cat_application',
@@ -942,365 +944,12 @@ export default {
       'cat_standard',
       'cat_form',
       'cat_property',
+    ],
+    fields2: [
       'cat_ecology',
       'cat_process',
     ],
   },
-
-  // materialDetailFields: [
-  //   [
-      // {
-      //   category: true,
-      //   label: 'Composition',
-      //   name: 'cat_composition',
-      //   fields: [
-      //     {
-      //       // label: 'Composition',
-      //       name: 'materials_common:materialCompositionGroupList',
-      //       format: listOf(composition),
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: true,
-      //   label: 'Typical use',
-      //   name: 'cat_use',
-      //   fields: [
-      //     {
-      //       // label: 'Typical use',
-      //       name: 'materials_common:typicalUses',
-      //       format: inlineListOf(filterLink({
-      //         filterValueFormat: displayName,
-      //       })),
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: true,
-      //   label: 'Featured application',
-      //   name: 'cat_application',
-      //   fields: [
-      //     {
-      //       // label: 'Featured application',
-      //       name: 'materials_common:featuredApplicationGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'featuredApplication',
-      //         noteFieldName: 'featuredApplicationNote',
-      //       })),
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: true,
-      //   label: 'Production',
-      //   name: 'cat_production',
-      //   fields: [
-      //     {
-      //       label: 'Company',
-      //       name: 'materials_common:materialProductionOrganizationGroupList',
-      //       format: listOf(nameRole({
-      //         nameFieldName: 'materialProductionOrganization',
-      //         roleFieldName: 'materialProductionOrganizationRole',
-      //         linkName: false,
-      //       })),
-      //     },
-      //     {
-      //       label: 'Person',
-      //       name: 'materials_common:materialProductionPersonGroupList',
-      //       format: listOf(nameRole({
-      //         nameFieldName: 'materialProductionPerson',
-      //         roleFieldName: 'materialProductionPersonRole',
-      //         linkName: false,
-      //       })),
-      //     },
-      //     {
-      //       label: 'Place',
-      //       name: 'materials_common:materialProductionPlaceGroupList',
-      //       format: listOf(nameRole({
-      //         nameFieldName: 'materialProductionPlace',
-      //         roleFieldName: 'materialProductionPlaceRole',
-      //         linkName: false,
-      //       })),
-      //     },
-      //     {
-      //       label: 'Date',
-      //       name: 'materials_common:productionDate',
-      //       format: valueAt({ path: 'dateDisplayDate' }),
-      //     },
-      //     {
-      //       label: 'Discontinued',
-      //       name: 'materials_common:discontinued',
-      //       // format: valueAt({ path: 'dateDisplayDate' }),
-      //     },
-      //     {
-      //       label: 'Production Note',
-      //       name: 'materials_common:productionNote',
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: true,
-      //   label: 'External links',
-      //   name: 'cat_link',
-      //   fields: [
-      //     {
-      //       // label: 'Links',
-      //       name: 'materials_common:externalUrlGroupList',
-      //       format: listOf(linkText({
-      //         urlFieldName: 'externalUrl',
-      //         textFieldName: 'externalUrlNote',
-      //         type: 'external',
-      //       })),
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: true,
-      //   label: 'External standard',
-      //   name: 'cat_standard',
-      //   fields: [
-      //     {
-      //       // label: 'External standard',
-      //       name: 'materials_common:additionalResourceGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'additionalResource',
-      //         noteFieldName: 'additionalResourceNote',
-      //       })),
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: true,
-      //   label: 'Form',
-      //   name: 'cat_form',
-      //   fields: [
-      //     {
-      //       label: 'Common form',
-      //       name: 'materials_common:commonForm',
-      //       format: filterLink({
-      //         filterValueFormat: displayName,
-      //       }),
-      //     },
-      //     {
-      //       label: 'Form type',
-      //       name: 'materials_common:formTypeGroupList',
-      //       format: inlineListOf(valueAt({
-      //         path: 'formType',
-      //         format: filterLink({
-      //           filterValueFormat: displayName,
-      //         }),
-      //       })),
-      //     },
-      //   ],
-      // },
-      // {
-      //   category: true,
-      //   label: 'Properties',
-      //   name: 'cat_property',
-      //   fields: [
-      //     {
-      //       label: 'Acoustical',
-      //       name: 'materials_common:acousticalPropertyGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'acousticalPropertyType',
-      //         noteFieldName: 'acousticalPropertyNote',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Durability',
-      //       name: 'materials_common:durabilityPropertyGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'durabilityPropertyType',
-      //         noteFieldName: 'durabilityPropertyNote',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Electrical',
-      //       name: 'materials_common:electricalPropertyGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'electricalPropertyType',
-      //         noteFieldName: 'electricalPropertyNote',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Hygro-thermal',
-      //       name: 'materials_common:hygrothermalPropertyGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'hygrothermalPropertyType',
-      //         noteFieldName: 'hygrothermalPropertyNote',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Mechanical',
-      //       name: 'materials_common:mechanicalPropertyGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'mechanicalPropertyType',
-      //         noteFieldName: 'mechanicalPropertyNote',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Optical',
-      //       name: 'materials_common:opticalPropertyGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'opticalPropertyType',
-      //         noteFieldName: 'opticalPropertyNote',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Sensorial',
-      //       name: 'materials_common:sensorialPropertyGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'sensorialPropertyType',
-      //         noteFieldName: 'sensorialPropertyNote',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Smart material',
-      //       name: 'materials_common:smartMaterialPropertyGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'smartMaterialPropertyType',
-      //         noteFieldName: 'smartMaterialPropertyNote',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Additional',
-      //       name: 'materials_common:additionalPropertyGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'additionalPropertyType',
-      //         noteFieldName: 'additionalPropertyNote',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Property note',
-      //       name: 'materials_common:propertyNote',
-      //     },
-      //   ],
-      // },
-    // ],
-    // [
-      // {
-      //   category: true,
-      //   label: 'Material ecology',
-      //   name: 'cat_ecology',
-      //   fields: [
-      //     {
-      //       label: 'Recycled content',
-      //       name: 'materials_common:recycledContentGroupList',
-      //       format: listOf(numericRange({
-      //         lowFieldName: 'recycledContent',
-      //         highFieldName: 'recycledContentHigh',
-      //         unit: '%',
-      //         qualifierFieldName: 'recycledContentQualifier',
-      //         linkQualifier: true,
-      //       })),
-      //     },
-      //     {
-      //       label: 'Lifecycle component',
-      //       name: 'materials_common:lifecycleComponentGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'lifecycleComponent',
-      //         noteFieldName: 'lifecycleComponentNote',
-      //         noteLabel: '',
-      //         separator: ' - ',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Embodied energy',
-      //       name: 'materials_common:embodiedEnergyGroupList',
-      //       format: listOf(numericRange({
-      //         lowFieldName: 'embodiedEnergyValue',
-      //         highFieldName: 'embodiedEnergyValueHigh',
-      //         unitFieldName: 'embodiedEnergyUnit',
-      //         qualifierFieldName: 'embodiedEnergyNote',
-      //         qualifierSeparator: ' - ',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Certification credit',
-      //       name: 'materials_common:certificationCreditGroupList',
-      //       format: listOf(valueWithNote({
-      //         valueFieldName: 'certificationProgram',
-      //         noteFieldName: 'certificationCreditNote',
-      //         noteLabel: '',
-      //         separator: ' - ',
-      //       })),
-      //     },
-      //     {
-      //       label: 'Material ecology note',
-      //       name: 'materials_common:ecologyNote',
-      //     },
-      //   ],
-      // },
-  //     {
-  //       category: true,
-  //       label: 'Processes',
-  //       name: 'cat_process',
-  //       fields: [
-  //         {
-  //           label: 'Casting',
-  //           name: 'materials_common:castingProcesses',
-  //           format: listOf(filterLink({
-  //             filterValueFormat: displayName,
-  //           })),
-  //         },
-  //         {
-  //           label: 'Joining',
-  //           name: 'materials_common:joiningProcesses',
-  //           format: listOf(filterLink({
-  //             filterValueFormat: displayName,
-  //           })),
-  //         },
-  //         {
-  //           label: 'Molding',
-  //           name: 'materials_common:moldingProcesses',
-  //           format: listOf(filterLink({
-  //             filterValueFormat: displayName,
-  //           })),
-  //         },
-  //         {
-  //           label: 'Surfacing',
-  //           name: 'materials_common:surfacingProcesses',
-  //           format: listOf(filterLink({
-  //             filterValueFormat: displayName,
-  //           })),
-  //         },
-  //         {
-  //           label: 'Deforming',
-  //           name: 'materials_common:deformingProcesses',
-  //           format: listOf(filterLink({
-  //             filterValueFormat: displayName,
-  //           })),
-  //         },
-  //         {
-  //           label: 'Machining',
-  //           name: 'materials_common:machiningProcesses',
-  //           format: listOf(filterLink({
-  //             filterValueFormat: displayName,
-  //           })),
-  //         },
-  //         {
-  //           label: 'Rapid prototyping',
-  //           name: 'materials_common:rapidPrototypingProcesses',
-  //           format: listOf(filterLink({
-  //             filterValueFormat: displayName,
-  //           })),
-  //         },
-  //         {
-  //           label: 'Additional process',
-  //           name: 'materials_common:additionalProcessGroupList',
-  //           format: listOf(valueWithNote({
-  //             valueFieldName: 'additionalProcess',
-  //             noteFieldName: 'additionalProcessNote',
-  //           })),
-  //         },
-  //         {
-  //           label: 'Process note',
-  //           name: 'materials_common:processNote',
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // ],
 
   sampleTitle: {
     name: 'collectionobjects_common:otherNumberList',

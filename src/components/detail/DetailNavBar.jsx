@@ -30,7 +30,7 @@ const messages = defineMessages({
   },
   prev: {
     id: 'detailNavBar.prev',
-    defaultMessage: 'Prev',
+    defaultMessage: 'Previous',
   },
   next: {
     id: 'detailNavBar.next',
@@ -47,6 +47,11 @@ export default function DetailNavBar(props) {
 
   const index = params.get('index');
   const searchParams = params.get('searchParams');
+
+  if (!searchParams || typeof index === 'undefined') {
+    return null;
+  }
+
   const searchParamsObj = searchParams.toJS();
 
   let prevLink;

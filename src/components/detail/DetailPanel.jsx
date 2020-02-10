@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import Immutable from 'immutable';
+import FieldList from './FieldList';
 import DetailNavBar from './DetailNavBar';
 import ImageGallery from './ImageGalleryContainer';
+import InstitutionIndex from './InstitutionIndexContainer';
+import InstitutionSection from './InstitutionSectionContainer';
 import config from '../../config';
 import styles from '../../../styles/cspace/DetailPanel.css';
-import categoryStyles from '../../../styles/cspace/DetailCategory.css';
-import fieldStyles from '../../../styles/cspace/DetailField.css';
 
 const propTypes = {
   adjacents: PropTypes.shape({
@@ -60,89 +60,6 @@ export default class DetailPanel extends Component {
     readDetail();
   }
 
-  renderCategory(id, categoryConfig) {
-    const {
-      fields,
-      label,
-      messages,
-    } = categoryConfig;
-
-    const title = messages
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      ? <FormattedMessage {...messages.label} />
-      : label;
-
-    const fieldsConfig = config.get('detailFields');
-
-    const renderedFields = fields
-      .map((fieldId) => this.renderField(fieldId, fieldsConfig[fieldId]))
-      .filter((renderedField) => !!renderedField);
-
-    if (renderedFields.length === 0) {
-      return null;
-    }
-
-    return (
-      <div className={categoryStyles.common} key={id}>
-        {title && <h3>{title}</h3>}
-        <div>
-          {renderedFields}
-        </div>
-      </div>
-    );
-  }
-
-  renderField(id, fieldConfig) {
-    const {
-      data,
-    } = this.props;
-
-    const {
-      field,
-      format,
-      label,
-      messages,
-    } = fieldConfig;
-
-    const title = messages
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      ? <FormattedMessage {...messages.label} />
-      : label;
-
-    const value = data[field];
-    const formattedValue = (format && value) ? format(value, id) : value;
-
-    if (!formattedValue) {
-      return null;
-    }
-
-    if (title) {
-      return (
-        <React.Fragment key={id}>
-          <h4>{title}</h4>
-          {formattedValue}
-        </React.Fragment>
-      );
-    }
-
-    return (
-      <div className={fieldStyles.unlabeled} key={id}>
-        {formattedValue}
-      </div>
-    );
-  }
-
-  renderCategories() {
-    const layout = config.get('detailLayout');
-    const categoriesConfig = config.get('detailCategories');
-
-    return Object.keys(layout).map((layoutId) => (
-      <div id={layoutId} key={layoutId} style={{ gridArea: layoutId }}>
-        {layout[layoutId].map((catId) => this.renderCategory(catId, categoriesConfig[catId]))}
-      </div>
-    ));
-  }
-
   renderDescription() {
     const {
       data,
@@ -152,6 +69,16 @@ export default class DetailPanel extends Component {
     const desc = descFormatter && descFormatter(data);
 
     return (desc && <p>{desc}</p>);
+  }
+
+  renderFieldList() {
+    const {
+      data,
+    } = this.props;
+
+    return (
+      <FieldList config={config.get('detailFieldList')} data={data} />
+    );
   }
 
   renderHeader() {
@@ -167,12 +94,16 @@ export default class DetailPanel extends Component {
     const subtitleFormatter = config.get('detailSubtitle');
     const subtitle = subtitleFormatter && subtitleFormatter(data);
 
+    const {
+      'collectionspace_core:refName': refName,
+    } = data;
+
     return (
       <header>
         <DetailNavBar params={params} prev={adjacents.prev} next={adjacents.next} />
         {title && <h1>{title}</h1>}
         {subtitle && <h2>{subtitle}</h2>}
-        {/* <SampleIndexContainer materialRefName={refName} /> */}
+        <InstitutionIndex refName={refName} />
       </header>
     );
   }
@@ -207,6 +138,33 @@ export default class DetailPanel extends Component {
     );
   }
 
+  renderInstitutions() {
+    const {
+      data,
+      params,
+    } = this.props;
+
+    const institutionsConfig = config.get('institutions');
+
+    if (!institutionsConfig) {
+      return null;
+    }
+
+    const selectedInstitutionId = params.get('#');
+
+    const {
+      'collectionspace_core:refName': refName,
+    } = data;
+
+    return (
+      <InstitutionSection
+        config={institutionsConfig}
+        selectedInstitutionId={selectedInstitutionId}
+        refName={refName}
+      />
+    );
+  }
+
   render() {
     const {
       data,
@@ -222,7 +180,8 @@ export default class DetailPanel extends Component {
         {this.renderHeader()}
         {this.renderDescription()}
         {this.renderImageGallery()}
-        {this.renderCategories()}
+        {this.renderFieldList()}
+        {this.renderInstitutions()}
       </div>
     );
   }

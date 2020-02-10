@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl';
+import { getItemShortID } from 'cspace-refname';
 
 import {
   composition,
@@ -25,6 +26,7 @@ export default {
     'searchQueryInput.label': 'Search materials',
     'searchQueryInput.placeholder': 'Search materials',
     'searchResultStats.count': '{count, plural, one {# material} other {# materials}} found',
+    'institutionIndex.label': 'Samples at {title}',
   },
 
   esIndexName: 'materials',
@@ -568,523 +570,587 @@ export default {
     },
   ],
 
-  detailFields: {
-    materialCompositionGroupList: {
-      field: 'materials_common:materialCompositionGroupList',
-      format: listOf(composition),
-    },
-    typicalUses: {
-      field: 'materials_common:typicalUses',
-      format: inlineListOf(filterLink({
-        filterValueFormat: displayName,
-      })),
-    },
-    featuredApplicationGroupList: {
-      field: 'materials_common:featuredApplicationGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'featuredApplication',
-        noteFieldName: 'featuredApplicationNote',
-      })),
-    },
-    materialProductionOrganizationGroupList: {
-      label: 'Company',
-      field: 'materials_common:materialProductionOrganizationGroupList',
-      format: listOf(nameRole({
-        nameFieldName: 'materialProductionOrganization',
-        roleFieldName: 'materialProductionOrganizationRole',
-        linkName: false,
-      })),
-    },
-    materialProductionPersonGroupList: {
-      label: 'Person',
-      field: 'materials_common:materialProductionPersonGroupList',
-      format: listOf(nameRole({
-        nameFieldName: 'materialProductionPerson',
-        roleFieldName: 'materialProductionPersonRole',
-        linkName: false,
-      })),
-    },
-    materialProductionPlaceGroupList: {
-      label: 'Place',
-      field: 'materials_common:materialProductionPlaceGroupList',
-      format: listOf(nameRole({
-        nameFieldName: 'materialProductionPlace',
-        roleFieldName: 'materialProductionPlaceRole',
-        linkName: false,
-      })),
-    },
-    productionDate: {
-      label: 'Date',
-      field: 'materials_common:productionDate',
-      format: valueAt({ path: 'dateDisplayDate' }),
-    },
-    discontinued: {
-      label: 'Discontinued',
-      field: 'materials_common:discontinued',
-    },
-    productionNote: {
-      label: 'Production Note',
-      field: 'materials_common:productionNote',
-    },
-    externalUrlGroupList: {
-      field: 'materials_common:externalUrlGroupList',
-      format: listOf(linkText({
-        urlFieldName: 'externalUrl',
-        textFieldName: 'externalUrlNote',
-        type: 'external',
-      })),
-    },
-    additionalResourceGroupList: {
-      field: 'materials_common:additionalResourceGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'additionalResource',
-        noteFieldName: 'additionalResourceNote',
-      })),
-    },
-    commonForm: {
-      label: 'Common form',
-      field: 'materials_common:commonForm',
-      format: filterLink({
-        filterValueFormat: displayName,
-      }),
-    },
-    formTypeGroupList: {
-      label: 'Form type',
-      field: 'materials_common:formTypeGroupList',
-      format: inlineListOf(valueAt({
-        path: 'formType',
+  detailFieldList: {
+    fields: {
+      materialCompositionGroupList: {
+        field: 'materials_common:materialCompositionGroupList',
+        format: listOf(composition),
+      },
+      typicalUses: {
+        field: 'materials_common:typicalUses',
+        format: inlineListOf(filterLink({
+          filterValueFormat: displayName,
+        })),
+      },
+      featuredApplicationGroupList: {
+        field: 'materials_common:featuredApplicationGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'featuredApplication',
+          noteFieldName: 'featuredApplicationNote',
+        })),
+      },
+      materialProductionOrganizationGroupList: {
+        label: 'Company',
+        field: 'materials_common:materialProductionOrganizationGroupList',
+        format: listOf(nameRole({
+          nameFieldName: 'materialProductionOrganization',
+          roleFieldName: 'materialProductionOrganizationRole',
+          linkName: false,
+        })),
+      },
+      materialProductionPersonGroupList: {
+        label: 'Person',
+        field: 'materials_common:materialProductionPersonGroupList',
+        format: listOf(nameRole({
+          nameFieldName: 'materialProductionPerson',
+          roleFieldName: 'materialProductionPersonRole',
+          linkName: false,
+        })),
+      },
+      materialProductionPlaceGroupList: {
+        label: 'Place',
+        field: 'materials_common:materialProductionPlaceGroupList',
+        format: listOf(nameRole({
+          nameFieldName: 'materialProductionPlace',
+          roleFieldName: 'materialProductionPlaceRole',
+          linkName: false,
+        })),
+      },
+      productionDate: {
+        label: 'Date',
+        field: 'materials_common:productionDate',
+        format: valueAt({ path: 'dateDisplayDate' }),
+      },
+      discontinued: {
+        label: 'Discontinued',
+        field: 'materials_common:discontinued',
+      },
+      productionNote: {
+        label: 'Production Note',
+        field: 'materials_common:productionNote',
+      },
+      externalUrlGroupList: {
+        field: 'materials_common:externalUrlGroupList',
+        format: listOf(linkText({
+          urlFieldName: 'externalUrl',
+          textFieldName: 'externalUrlNote',
+          type: 'external',
+        })),
+      },
+      additionalResourceGroupList: {
+        field: 'materials_common:additionalResourceGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'additionalResource',
+          noteFieldName: 'additionalResourceNote',
+        })),
+      },
+      commonForm: {
+        label: 'Common form',
+        field: 'materials_common:commonForm',
         format: filterLink({
           filterValueFormat: displayName,
         }),
-      })),
-    },
-    acousticalPropertyGroupList: {
-      label: 'Acoustical',
-      field: 'materials_common:acousticalPropertyGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'acousticalPropertyType',
-        noteFieldName: 'acousticalPropertyNote',
-      })),
-    },
-    durabilityPropertyGroupList: {
-      label: 'Durability',
-      field: 'materials_common:durabilityPropertyGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'durabilityPropertyType',
-        noteFieldName: 'durabilityPropertyNote',
-      })),
-    },
-    electricalPropertyGroupList: {
-      label: 'Electrical',
-      field: 'materials_common:electricalPropertyGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'electricalPropertyType',
-        noteFieldName: 'electricalPropertyNote',
-      })),
-    },
-    hygrothermalPropertyGroupList: {
-      label: 'Hygro-thermal',
-      field: 'materials_common:hygrothermalPropertyGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'hygrothermalPropertyType',
-        noteFieldName: 'hygrothermalPropertyNote',
-      })),
-    },
-    mechanicalPropertyGroupList: {
-      label: 'Mechanical',
-      field: 'materials_common:mechanicalPropertyGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'mechanicalPropertyType',
-        noteFieldName: 'mechanicalPropertyNote',
-      })),
-    },
-    opticalPropertyGroupList: {
-      label: 'Optical',
-      field: 'materials_common:opticalPropertyGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'opticalPropertyType',
-        noteFieldName: 'opticalPropertyNote',
-      })),
-    },
-    sensorialPropertyGroupList: {
-      label: 'Sensorial',
-      field: 'materials_common:sensorialPropertyGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'sensorialPropertyType',
-        noteFieldName: 'sensorialPropertyNote',
-      })),
-    },
-    smartMaterialPropertyGroupList: {
-      label: 'Smart material',
-      field: 'materials_common:smartMaterialPropertyGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'smartMaterialPropertyType',
-        noteFieldName: 'smartMaterialPropertyNote',
-      })),
-    },
-    additionalPropertyGroupList: {
-      label: 'Additional',
-      field: 'materials_common:additionalPropertyGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'additionalPropertyType',
-        noteFieldName: 'additionalPropertyNote',
-      })),
-    },
-    propertyNote: {
-      label: 'Property note',
-      field: 'materials_common:propertyNote',
-    },
-    recycledContentGroupList: {
-      label: 'Recycled content',
-      field: 'materials_common:recycledContentGroupList',
-      format: listOf(numericRange({
-        lowFieldName: 'recycledContent',
-        highFieldName: 'recycledContentHigh',
-        unit: '%',
-        qualifierFieldName: 'recycledContentQualifier',
-        linkQualifier: true,
-      })),
-    },
-    lifecycleComponentGroupList: {
-      label: 'Lifecycle component',
-      field: 'materials_common:lifecycleComponentGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'lifecycleComponent',
-        noteFieldName: 'lifecycleComponentNote',
-        noteLabel: '',
-        separator: ' - ',
-      })),
-    },
-    embodiedEnergyGroupList: {
-      label: 'Embodied energy',
-      field: 'materials_common:embodiedEnergyGroupList',
-      format: listOf(numericRange({
-        lowFieldName: 'embodiedEnergyValue',
-        highFieldName: 'embodiedEnergyValueHigh',
-        unitFieldName: 'embodiedEnergyUnit',
-        qualifierFieldName: 'embodiedEnergyNote',
-        qualifierSeparator: ' - ',
-      })),
-    },
-    certificationCreditGroupList: {
-      label: 'Certification credit',
-      field: 'materials_common:certificationCreditGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'certificationProgram',
-        noteFieldName: 'certificationCreditNote',
-        noteLabel: '',
-        separator: ' - ',
-      })),
-    },
-    ecologyNote: {
-      label: 'Material ecology note',
-      field: 'materials_common:ecologyNote',
-    },
-    castingProcesses: {
-      label: 'Casting',
-      field: 'materials_common:castingProcesses',
-      format: listOf(filterLink({
-        filterValueFormat: displayName,
-      })),
-    },
-    joiningProcesses: {
-      label: 'Joining',
-      field: 'materials_common:joiningProcesses',
-      format: listOf(filterLink({
-        filterValueFormat: displayName,
-      })),
-    },
-    moldingProcesses: {
-      label: 'Molding',
-      field: 'materials_common:moldingProcesses',
-      format: listOf(filterLink({
-        filterValueFormat: displayName,
-      })),
-    },
-    surfacingProcesses: {
-      label: 'Surfacing',
-      field: 'materials_common:surfacingProcesses',
-      format: listOf(filterLink({
-        filterValueFormat: displayName,
-      })),
-    },
-    deformingProcesses: {
-      label: 'Deforming',
-      field: 'materials_common:deformingProcesses',
-      format: listOf(filterLink({
-        filterValueFormat: displayName,
-      })),
-    },
-    machiningProcesses: {
-      label: 'Machining',
-      field: 'materials_common:machiningProcesses',
-      format: listOf(filterLink({
-        filterValueFormat: displayName,
-      })),
-    },
-    rapidPrototypingProcesses: {
-      label: 'Rapid prototyping',
-      field: 'materials_common:rapidPrototypingProcesses',
-      format: listOf(filterLink({
-        filterValueFormat: displayName,
-      })),
-    },
-    additionalProcessGroupList: {
-      label: 'Additional process',
-      field: 'materials_common:additionalProcessGroupList',
-      format: listOf(valueWithNote({
-        valueFieldName: 'additionalProcess',
-        noteFieldName: 'additionalProcessNote',
-      })),
-    },
-    processNote: {
-      label: 'Process note',
-      field: 'materials_common:processNote',
-    },
-  },
-
-  detailCategories: {
-    cat_composition: {
-      label: 'Composition',
-      fields: [
-        'materialCompositionGroupList',
-      ],
-    },
-    cat_use: {
-      label: 'Typical use',
-      fields: [
-        'typicalUses',
-      ],
-    },
-    cat_application: {
-      label: 'Featured application',
-      fields: [
-        'featuredApplicationGroupList',
-      ],
-    },
-    cat_production: {
-      label: 'Production',
-      fields: [
-        'materialProductionOrganizationGroupList',
-        'materialProductionPersonGroupList',
-        'materialProductionPlaceGroupList',
-        'productionDate',
-        'discontinued',
-        'productionNote',
-      ],
-    },
-    cat_link: {
-      label: 'External links',
-      fields: [
-        'externalUrlGroupList',
-      ],
-    },
-    cat_standard: {
-      label: 'External standard',
-      fields: [
-        'additionalResourceGroupList',
-      ],
-    },
-    cat_form: {
-      label: 'Form',
-      name: 'cat_form',
-      fields: [
-        'commonForm',
-        'formTypeGroupList',
-      ],
-    },
-    cat_property: {
-      label: 'Properties',
-      fields: [
-        'acousticalPropertyGroupList',
-        'durabilityPropertyGroupList',
-        'electricalPropertyGroupList',
-        'hygrothermalPropertyGroupList',
-        'mechanicalPropertyGroupList',
-        'opticalPropertyGroupList',
-        'sensorialPropertyGroupList',
-        'smartMaterialPropertyGroupList',
-        'additionalPropertyGroupList',
-        'propertyNote',
-      ],
-    },
-    cat_ecology: {
-      label: 'Material ecology',
-      fields: [
-        'recycledContentGroupList',
-        'lifecycleComponentGroupList',
-        'embodiedEnergyGroupList',
-        'certificationCreditGroupList',
-        'ecologyNote',
-      ],
-    },
-    cat_process: {
-      label: 'Processes',
-      fields: [
-        'castingProcesses',
-        'joiningProcesses',
-        'moldingProcesses',
-        'surfacingProcesses',
-        'deformingProcesses',
-        'machiningProcesses',
-        'rapidPrototypingProcesses',
-        'additionalProcessGroupList',
-        'processNote',
-      ],
-    },
-  },
-
-  detailLayout: {
-    fields1: [
-      'cat_composition',
-      'cat_use',
-      'cat_application',
-      'cat_production',
-      'cat_link',
-      'cat_standard',
-      'cat_form',
-      'cat_property',
-    ],
-    fields2: [
-      'cat_ecology',
-      'cat_process',
-    ],
-  },
-
-  sampleTitle: {
-    name: 'collectionobjects_common:otherNumberList',
-    format: pickFromList({
-      condition: {
-        path: 'numberType',
-        value: 'callnumber',
       },
-      format: valueAt({ path: 'numberValue' }),
-    }),
+      formTypeGroupList: {
+        label: 'Form type',
+        field: 'materials_common:formTypeGroupList',
+        format: inlineListOf(valueAt({
+          path: 'formType',
+          format: filterLink({
+            filterValueFormat: displayName,
+          }),
+        })),
+      },
+      acousticalPropertyGroupList: {
+        label: 'Acoustical',
+        field: 'materials_common:acousticalPropertyGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'acousticalPropertyType',
+          noteFieldName: 'acousticalPropertyNote',
+        })),
+      },
+      durabilityPropertyGroupList: {
+        label: 'Durability',
+        field: 'materials_common:durabilityPropertyGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'durabilityPropertyType',
+          noteFieldName: 'durabilityPropertyNote',
+        })),
+      },
+      electricalPropertyGroupList: {
+        label: 'Electrical',
+        field: 'materials_common:electricalPropertyGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'electricalPropertyType',
+          noteFieldName: 'electricalPropertyNote',
+        })),
+      },
+      hygrothermalPropertyGroupList: {
+        label: 'Hygro-thermal',
+        field: 'materials_common:hygrothermalPropertyGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'hygrothermalPropertyType',
+          noteFieldName: 'hygrothermalPropertyNote',
+        })),
+      },
+      mechanicalPropertyGroupList: {
+        label: 'Mechanical',
+        field: 'materials_common:mechanicalPropertyGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'mechanicalPropertyType',
+          noteFieldName: 'mechanicalPropertyNote',
+        })),
+      },
+      opticalPropertyGroupList: {
+        label: 'Optical',
+        field: 'materials_common:opticalPropertyGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'opticalPropertyType',
+          noteFieldName: 'opticalPropertyNote',
+        })),
+      },
+      sensorialPropertyGroupList: {
+        label: 'Sensorial',
+        field: 'materials_common:sensorialPropertyGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'sensorialPropertyType',
+          noteFieldName: 'sensorialPropertyNote',
+        })),
+      },
+      smartMaterialPropertyGroupList: {
+        label: 'Smart material',
+        field: 'materials_common:smartMaterialPropertyGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'smartMaterialPropertyType',
+          noteFieldName: 'smartMaterialPropertyNote',
+        })),
+      },
+      additionalPropertyGroupList: {
+        label: 'Additional',
+        field: 'materials_common:additionalPropertyGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'additionalPropertyType',
+          noteFieldName: 'additionalPropertyNote',
+        })),
+      },
+      propertyNote: {
+        label: 'Property note',
+        field: 'materials_common:propertyNote',
+      },
+      recycledContentGroupList: {
+        label: 'Recycled content',
+        field: 'materials_common:recycledContentGroupList',
+        format: listOf(numericRange({
+          lowFieldName: 'recycledContent',
+          highFieldName: 'recycledContentHigh',
+          unit: '%',
+          qualifierFieldName: 'recycledContentQualifier',
+          linkQualifier: true,
+        })),
+      },
+      lifecycleComponentGroupList: {
+        label: 'Lifecycle component',
+        field: 'materials_common:lifecycleComponentGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'lifecycleComponent',
+          noteFieldName: 'lifecycleComponentNote',
+          noteLabel: '',
+          separator: ' - ',
+        })),
+      },
+      embodiedEnergyGroupList: {
+        label: 'Embodied energy',
+        field: 'materials_common:embodiedEnergyGroupList',
+        format: listOf(numericRange({
+          lowFieldName: 'embodiedEnergyValue',
+          highFieldName: 'embodiedEnergyValueHigh',
+          unitFieldName: 'embodiedEnergyUnit',
+          qualifierFieldName: 'embodiedEnergyNote',
+          qualifierSeparator: ' - ',
+        })),
+      },
+      certificationCreditGroupList: {
+        label: 'Certification credit',
+        field: 'materials_common:certificationCreditGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'certificationProgram',
+          noteFieldName: 'certificationCreditNote',
+          noteLabel: '',
+          separator: ' - ',
+        })),
+      },
+      ecologyNote: {
+        label: 'Material ecology note',
+        field: 'materials_common:ecologyNote',
+      },
+      castingProcesses: {
+        label: 'Casting',
+        field: 'materials_common:castingProcesses',
+        format: listOf(filterLink({
+          filterValueFormat: displayName,
+        })),
+      },
+      joiningProcesses: {
+        label: 'Joining',
+        field: 'materials_common:joiningProcesses',
+        format: listOf(filterLink({
+          filterValueFormat: displayName,
+        })),
+      },
+      moldingProcesses: {
+        label: 'Molding',
+        field: 'materials_common:moldingProcesses',
+        format: listOf(filterLink({
+          filterValueFormat: displayName,
+        })),
+      },
+      surfacingProcesses: {
+        label: 'Surfacing',
+        field: 'materials_common:surfacingProcesses',
+        format: listOf(filterLink({
+          filterValueFormat: displayName,
+        })),
+      },
+      deformingProcesses: {
+        label: 'Deforming',
+        field: 'materials_common:deformingProcesses',
+        format: listOf(filterLink({
+          filterValueFormat: displayName,
+        })),
+      },
+      machiningProcesses: {
+        label: 'Machining',
+        field: 'materials_common:machiningProcesses',
+        format: listOf(filterLink({
+          filterValueFormat: displayName,
+        })),
+      },
+      rapidPrototypingProcesses: {
+        label: 'Rapid prototyping',
+        field: 'materials_common:rapidPrototypingProcesses',
+        format: listOf(filterLink({
+          filterValueFormat: displayName,
+        })),
+      },
+      additionalProcessGroupList: {
+        label: 'Additional process',
+        field: 'materials_common:additionalProcessGroupList',
+        format: listOf(valueWithNote({
+          valueFieldName: 'additionalProcess',
+          noteFieldName: 'additionalProcessNote',
+        })),
+      },
+      processNote: {
+        label: 'Process note',
+        field: 'materials_common:processNote',
+      },
+    },
+    categories: {
+      cat_composition: {
+        label: 'Composition',
+        fields: [
+          'materialCompositionGroupList',
+        ],
+      },
+      cat_use: {
+        label: 'Typical use',
+        fields: [
+          'typicalUses',
+        ],
+      },
+      cat_application: {
+        label: 'Featured application',
+        fields: [
+          'featuredApplicationGroupList',
+        ],
+      },
+      cat_production: {
+        label: 'Production',
+        fields: [
+          'materialProductionOrganizationGroupList',
+          'materialProductionPersonGroupList',
+          'materialProductionPlaceGroupList',
+          'productionDate',
+          'discontinued',
+          'productionNote',
+        ],
+      },
+      cat_link: {
+        label: 'External links',
+        fields: [
+          'externalUrlGroupList',
+        ],
+      },
+      cat_standard: {
+        label: 'External standard',
+        fields: [
+          'additionalResourceGroupList',
+        ],
+      },
+      cat_form: {
+        label: 'Form',
+        name: 'cat_form',
+        fields: [
+          'commonForm',
+          'formTypeGroupList',
+        ],
+      },
+      cat_property: {
+        label: 'Properties',
+        fields: [
+          'acousticalPropertyGroupList',
+          'durabilityPropertyGroupList',
+          'electricalPropertyGroupList',
+          'hygrothermalPropertyGroupList',
+          'mechanicalPropertyGroupList',
+          'opticalPropertyGroupList',
+          'sensorialPropertyGroupList',
+          'smartMaterialPropertyGroupList',
+          'additionalPropertyGroupList',
+          'propertyNote',
+        ],
+      },
+      cat_ecology: {
+        label: 'Material ecology',
+        fields: [
+          'recycledContentGroupList',
+          'lifecycleComponentGroupList',
+          'embodiedEnergyGroupList',
+          'certificationCreditGroupList',
+          'ecologyNote',
+        ],
+      },
+      cat_process: {
+        label: 'Processes',
+        fields: [
+          'castingProcesses',
+          'joiningProcesses',
+          'moldingProcesses',
+          'surfacingProcesses',
+          'deformingProcesses',
+          'machiningProcesses',
+          'rapidPrototypingProcesses',
+          'additionalProcessGroupList',
+          'processNote',
+        ],
+      },
+    },
+    layout: {
+      fields1: [
+        'cat_composition',
+        'cat_use',
+        'cat_application',
+        'cat_production',
+        'cat_link',
+        'cat_standard',
+        'cat_form',
+        'cat_property',
+      ],
+      fields2: [
+        'cat_ecology',
+        'cat_process',
+      ],
+    },
   },
 
-  sampleDetailFields: [
-    {
-      label: 'Call number',
+  institutionHoldings: {
+    query: (data) => {
+      const {
+        'collectionspace_core:refName': refName,
+      } = data;
+
+      const shortId = getItemShortID(refName);
+
+      return {
+        term: {
+          'collectionobjects_common:materialGroupList.material.shortid': shortId,
+        }
+      }
+    },
+    sortField: 'collectionobjects_common:objectNumber',
+    title: {
       name: 'collectionobjects_common:otherNumberList',
-      format: pickAllFromList({
+      format: pickFromList({
         condition: {
           path: 'numberType',
           value: 'callnumber',
         },
         format: valueAt({ path: 'numberValue' }),
       }),
-      className: 'title',
     },
-    {
-      label: 'Collection',
-      name: 'collectionobjects_common:collection',
-      format: displayName,
-    },
-    {
-      label: 'Current location',
-      name: 'collectionobjects_common:computedCurrentLocation',
-      format: displayName,
-    },
-    {
-      label: 'Physical description',
-      name: 'collectionobjects_materials:materialPhysicalDescriptions',
-      format: paragraphs,
-    },
-    {
-      name: 'cat_samplecondition',
-      category: true,
-      fields: [
-        {
+    fieldList: {
+      fields: {
+        otherNumberList: {
+          label: 'Call number',
+          field: 'collectionobjects_common:otherNumberList',
+          format: pickAllFromList({
+            condition: {
+              path: 'numberType',
+              value: 'callnumber',
+            },
+            format: valueAt({ path: 'numberValue' }),
+          }),
+          className: 'title',
+        },
+        collection: {
+          label: 'Collection',
+          field: 'collectionobjects_common:collection',
+          format: displayName,
+        },
+        computedCurrentLocation: {
+          label: 'Current location',
+          field: 'collectionobjects_common:computedCurrentLocation',
+          format: displayName,
+        },
+        materialPhysicalDescriptions: {
+          label: 'Physical description',
+          field: 'collectionobjects_materials:materialPhysicalDescriptions',
+          format: paragraphs,
+        },
+        materialContainerGroupList: {
           label: 'Container',
-          name: 'collectionobjects_materials:materialContainerGroupList',
+          field: 'collectionobjects_materials:materialContainerGroupList',
           format: listOf(valueWithNote({
-            valueFieldName: 'container',
-            noteFieldName: 'containerNote',
+            valueFieldfield: 'container',
+            noteFieldfield: 'containerNote',
             linkValue: false,
           })),
         },
-        {
+        materialConditionGroupList: {
           label: 'Condition',
-          name: 'collectionobjects_materials:materialConditionGroupList',
+          field: 'collectionobjects_materials:materialConditionGroupList',
           format: listOf(valueWithNote({
-            valueFieldName: 'condition',
-            noteFieldName: 'conditionNote',
+            valueFieldfield: 'condition',
+            noteFieldfield: 'conditionNote',
             linkValue: false,
           })),
         },
-        {
+        materialHandlingGroupList: {
           label: 'Handling',
-          name: 'collectionobjects_materials:materialHandlingGroupList',
+          field: 'collectionobjects_materials:materialHandlingGroupList',
           format: listOf(valueWithNote({
-            valueFieldName: 'handling',
-            noteFieldName: 'handlingNote',
+            valueFieldfield: 'handling',
+            noteFieldfield: 'handlingNote',
             linkValue: false,
           })),
         },
-      ],
-    },
-    {
-      name: 'cat_sampledescription',
-      category: true,
-      fields: [
-        {
+        colors: {
           label: 'Color',
-          name: 'collectionobjects_common:colors',
+          field: 'collectionobjects_common:colors',
           format: inlineList,
         },
-        {
+        materialGenericColors: {
           label: 'Generic color',
-          name: 'collectionobjects_materials:materialGenericColors',
+          field: 'collectionobjects_materials:materialGenericColors',
           format: inlineListOf(displayName),
         },
-        {
+        materialFinishGroupList: {
           label: 'Finish',
-          name: 'collectionobjects_materials:materialFinishGroupList',
+          field: 'collectionobjects_materials:materialFinishGroupList',
           format: listOf(valueWithNote({
-            valueFieldName: 'finish',
-            noteFieldName: 'finishNote',
+            valueFieldfield: 'finish',
+            noteFieldfield: 'finishNote',
             linkValue: false,
           })),
         },
-      ],
-    },
-    {
-      name: 'cat_holdings',
-      category: true,
-      inline: true,
-      fields: [
-        {
+        numberOfObjects: {
           label: 'Holdings',
-          name: 'collectionobjects_common:numberOfObjects',
+          field: 'collectionobjects_common:numberOfObjects',
         },
-        {
+        objectStatusList: {
           label: 'Type',
-          name: 'collectionobjects_common:objectStatusList',
+          field: 'collectionobjects_common:objectStatusList',
           format: inlineListOf(objectTypeValue),
         },
-      ],
-    },
-    {
-      label: 'Production description',
-      name: 'collectionobjects_common:briefDescriptions',
-      format: paragraphs,
-    },
-    {
-      label: 'Size',
-      name: 'collectionobjects_common:measuredPartGroupList',
-      format: listOf(
-        valueAt({ path: 'dimensionSummary' }),
-      ),
-    },
-    {
-      name: 'cat_samplesystem',
-      category: true,
-      fields: [
-        {
-          label: 'System number',
-          name: 'collectionobjects_common:objectNumber',
+        briefDescriptions: {
+          label: 'Production description',
+          field: 'collectionobjects_common:briefDescriptions',
+          format: paragraphs,
         },
-      ],
+        measuredPartGroupList: {
+          label: 'Size',
+          field: 'collectionobjects_common:measuredPartGroupList',
+          format: listOf(
+            valueAt({ path: 'dimensionSummary' }),
+          ),
+        },
+        objectNumber: {
+          label: 'System number',
+          field: 'collectionobjects_common:objectNumber',
+        },
+      },
+      categories: {
+        cat_sample_otherNumberList: {
+          fields: [
+            'otherNumberList',
+          ],
+        },
+        cat_sample_collection: {
+          fields: [
+            'collection',
+          ],
+        },
+        cat_sample_computedCurrentLocation: {
+          fields: [
+            'computedCurrentLocation',
+          ],
+        },
+        cat_sample_materialPhysicalDescriptions: {
+          fields: [
+            'materialPhysicalDescriptions',
+          ],
+        },
+        cat_sample_condition: {
+          fields: [
+            'materialContainerGroupList',
+            'materialConditionGroupList',
+            'materialHandlingGroupList',
+          ],
+        },
+        cat_sample_description: {
+          fields: [
+            'colors',
+            'materialGenericColors',
+            'materialFinishGroupList',
+          ],
+        },
+        cat_sample_holdings: {
+          fields: [
+            'numberOfObjects',
+            'objectStatusList',
+          ],
+          className: 'inline',
+        },
+        cat_sample_briefDescriptions: {
+          fields: [
+            'briefDescriptions',
+          ],
+        },
+        cat_sample_measuredPartGroupList: {
+          fields: [
+            'measuredPartGroupList',
+          ],
+        },
+        cat_sample_system: {
+          fields: [
+            'objectNumber',
+          ],
+        },
+      },
+      layout: {
+        fields1: [
+          'cat_sample_otherNumberList',
+          'cat_sample_collection',
+          'cat_sample_computedCurrentLocation',
+          'cat_sample_materialPhysicalDescriptions',
+          'cat_sample_condition',
+          'cat_sample_description',
+          'cat_sample_holdings',
+          'cat_sample_briefDescriptions',
+          'cat_sample_measuredPartGroupList',
+          'cat_sample_system',
+        ],
+      },
     },
-  ],
+  },
 };

@@ -2,13 +2,16 @@
 
 .common {
   border-top: 1px solid panelBorderColor;
+}
+
+.common:last-child {
   border-bottom: 1px solid panelBorderColor;
 }
 
 .common > button:focus {
   background-color: inherit;
   outline: 1px dotted black;
-  /* box-shadow: 0 0 9px 3px panelBorderColor; */
+  outline-offset: 1px;
 }
 
 .expanded {
@@ -24,14 +27,14 @@
   font-weight: 600;
 }
 
-.common h3,
-.common h4 {
-  font-size: inherit;
+.common :global(.cspace-FieldListCategory--common) > div > h4 {
+  font-weight: 600;
 }
 
 .common > div {
   display: grid;
   grid-template-columns: 210px auto;
+  grid-template-areas: 'gallery holdings';
   grid-column-gap: 16px;
   margin-top: 2px;
   padding-bottom: 16px;
@@ -50,18 +53,18 @@
 }
 
 .common > div > ul {
+  grid-area: holdings;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .common > div > ul > li {
-  /* border-top: 1px solid panelBorderColor; */
-  /* padding-top: 16px; */
-  display: flex;
+  display: grid;
+  grid-template-areas: 'fields1';
 }
 
-.common > div > ul > li > h3{
+.common > div > ul > li > h3 {
   margin-right: 16px;
 }
 

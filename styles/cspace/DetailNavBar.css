@@ -1,5 +1,6 @@
 .common {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .common > div:first-of-type {

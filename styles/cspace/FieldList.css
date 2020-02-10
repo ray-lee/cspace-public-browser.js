@@ -1,6 +1,20 @@
-@value panelBorderColor from '../colors.css';
+@value highlightColor, panelBorderColor from '../colors.css';
 
-.common {
+.common h3 {
+  margin: 0 0 6px 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+}
+
+@media only screen
+and (max-width: 719px) {
+  .common {
+    margin-top: 16px;
+  }
+}
+
+/* .common {
   width: 100%;
   margin: 0 0 16px 0;
 }
@@ -53,4 +67,4 @@
 
 .CollectionObject {
   composes: common;
-}
+} */

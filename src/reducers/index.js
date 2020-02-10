@@ -23,6 +23,14 @@ export const getDetailParams = (state) => fromDetail.getParams(state.detail);
 export const getDetailData = (state) => fromDetail.getData(state.detail);
 export const isDetailPending = (state) => fromDetail.isPending(state.detail);
 
+export const getDetailHoldingInstitutions = (state) => (
+fromDetail.getHoldingInstitutions(state.detail)
+);
+
+export const getDetailInstitutionHits = (state, institutionId) => (
+  fromDetail.getInstitutionHits(state.detail, institutionId)
+);
+
 export const getFilterSearchValue = (state, id) => fromFilter.getSearchValue(state.filter, id);
 
 export const getLayoutPanelRect = (state, id) => fromLayout.getPanelRect(state.layout, id);

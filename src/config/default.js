@@ -27,8 +27,6 @@ export default {
   locale: 'en-US',
   detailPath: 'detail',
 
-  institutions: {},
-
   defaultQuery: {
     term: {
       'ecm:primaryType': 'CollectionObject',

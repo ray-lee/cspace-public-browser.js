@@ -6,6 +6,20 @@ body {
   color: #424242;
 }
 
+a {
+  text-decoration: none;
+  color: highlightColor;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: 1px dotted highlightColor;
+  outline-offset: 1px;
+}
+
 p {
   margin: 16px 0;
 }

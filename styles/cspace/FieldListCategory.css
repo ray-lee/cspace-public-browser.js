@@ -21,3 +21,7 @@
 .common > div > * {
   margin-bottom: 4px;
 }
+
+.inline > div {
+  grid-auto-flow: column;
+}

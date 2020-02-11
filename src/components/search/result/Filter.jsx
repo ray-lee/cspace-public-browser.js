@@ -103,6 +103,8 @@ class Filter extends Component {
 
       return (
         <li key={key}>
+          {/* The linter is not figuring out that there is an input inside this label. */}
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>
             <input
               checked={isSelected}

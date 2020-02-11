@@ -5,7 +5,7 @@ import InstitutionHoldingList from './InstitutionHoldingListContainer';
 import styles from '../../../styles/cspace/InstitutionSection.css';
 
 const propTypes = {
-  config: PropTypes.object.isRequired,
+  config: PropTypes.objectOf(PropTypes.object).isRequired,
   holdingInstitutions: PropTypes.instanceOf(Immutable.Set).isRequired,
   refName: PropTypes.string.isRequired,
   selectedInstitutionId: PropTypes.string,

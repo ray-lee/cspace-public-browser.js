@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../styles/cspace/FieldValueList.css';
+import styles from '../../../styles/cspace/FieldValueList.css';
 
 const propTypes = {
   children: PropTypes.node,

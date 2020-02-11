@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import get from 'lodash/get';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import { withRouter } from 'react-router';
 import config from '../../config';
 import linkStyles from '../../../styles/cspace/Link.css';
 import styles from '../../../styles/cspace/InstitutionIndex.css';
@@ -17,17 +16,11 @@ const messages = defineMessages({
 
 const propTypes = {
   holdingInstitutions: PropTypes.instanceOf(Immutable.Set).isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-    state: PropTypes.object,
-    search: PropTypes.string,
-  }).isRequired,
 };
 
-function InstitutionIndex(props) {
+export default function InstitutionIndex(props) {
   const {
     holdingInstitutions,
-    location,
   } = props;
 
   const institutions = config.get('institutions');
@@ -62,5 +55,3 @@ function InstitutionIndex(props) {
 }
 
 InstitutionIndex.propTypes = propTypes;
-
-export default withRouter(InstitutionIndex);

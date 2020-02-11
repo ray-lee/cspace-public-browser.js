@@ -177,7 +177,7 @@ export const getData = (state) => state.get('data');
 export const isPending = (state) => !!state.get('pending');
 
 export const getHoldingInstitutions = (state) => {
-  const inst =  state.get('inst');
+  const inst = state.get('inst');
 
   if (!inst) {
     return Immutable.Set();
@@ -194,4 +194,8 @@ export const getHoldingInstitutions = (state) => {
 
 export const getInstitutionHits = (state, institutionId) => (
   state.getIn(['inst', institutionId, 'hits'])
+);
+
+export const isInstSearchPending = (state, institutionId) => (
+  state.getIn(['inst', institutionId, 'pending'])
 );

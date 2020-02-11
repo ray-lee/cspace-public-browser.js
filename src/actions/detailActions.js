@@ -7,6 +7,7 @@ import {
   getDetailData,
   getDetailParams,
   isDetailPending,
+  isDetailInstSearchPending,
 } from '../reducers';
 
 import {
@@ -42,10 +43,10 @@ export const findInstitutionHoldings = (institutionId) => (dispatch, getState) =
   const data = getDetailData(getState());
 
   if (
-    !params ||
-    !data ||
-    isDetailPending(getState()) // ||
-    // isInstSearchPending(getState(), institutionId)
+    !params
+    || !data
+    || isDetailPending(getState())
+    || isDetailInstSearchPending(getState(), institutionId)
   ) {
     return Promise.resolve();
   }
@@ -111,10 +112,10 @@ export const findInstitutionHoldings = (institutionId) => (dispatch, getState) =
 
       return response.json();
     })
-    .then((data) => {
+    .then((responseData) => {
       dispatch({
         type: INST_SEARCH_FULFILLED,
-        payload: data,
+        payload: responseData,
         meta: {
           institutionId,
           params,
@@ -143,7 +144,7 @@ export const findAllInstitutionHoldings = () => (dispatch) => {
   return Promise.all(Object.keys(institutionsConfig).map((institutionId) => (
     dispatch(findInstitutionHoldings(institutionId))
   )));
-}
+};
 
 export const readDetail = () => (dispatch, getState) => {
   const params = getDetailParams(getState());

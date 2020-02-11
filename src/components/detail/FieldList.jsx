@@ -18,11 +18,7 @@ const propTypes = {
   }).isRequired,
 };
 
-const renderField = (props, id, fieldConfig) => {
-  const {
-    data,
-  } = props;
-
+const renderField = (id, fieldConfig, data) => {
   const {
     className,
     field,
@@ -49,7 +45,9 @@ const renderField = (props, id, fieldConfig) => {
 
     return (
       <React.Fragment key={id}>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <h4 {...classProp}>{title}</h4>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <div {...classProp}>{formattedValue}</div>
       </React.Fragment>
     );
@@ -62,13 +60,9 @@ const renderField = (props, id, fieldConfig) => {
       {formattedValue}
     </div>
   );
-}
+};
 
-const renderCategory = (props, id, categoryConfig) => {
-  const {
-    config,
-  } = props;
-
+const renderCategory = (id, categoryConfig, config, data) => {
   const {
     className,
     fields,
@@ -84,7 +78,7 @@ const renderCategory = (props, id, categoryConfig) => {
   const fieldsConfig = config.fields;
 
   const renderedFields = fields
-    .map((fieldId) => renderField(props, fieldId, fieldsConfig[fieldId]))
+    .map((fieldId) => renderField(fieldId, fieldsConfig[fieldId], data))
     .filter((renderedField) => !!renderedField);
 
   if (renderedFields.length === 0) {
@@ -101,11 +95,12 @@ const renderCategory = (props, id, categoryConfig) => {
       </div>
     </div>
   );
-}
+};
 
 export default function FieldList(props) {
   const {
     config,
+    data,
   } = props;
 
   const {
@@ -119,7 +114,7 @@ export default function FieldList(props) {
       key={layoutId}
       style={{ gridArea: layoutId }}
     >
-      {layout[layoutId].map((catId) => renderCategory(props, catId, categories[catId]))}
+      {layout[layoutId].map((catId) => renderCategory(catId, categories[catId], config, data))}
     </div>
   ));
 }

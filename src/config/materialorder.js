@@ -964,8 +964,8 @@ export default {
       return {
         term: {
           'collectionobjects_common:materialGroupList.material.shortid': shortId,
-        }
-      }
+        },
+      };
     },
     sortField: 'collectionobjects_common:objectNumber',
     title: {

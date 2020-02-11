@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import qs from 'qs';
 import { Link } from 'react-router-dom';
 import { getDisplayName } from 'cspace-refname';
-import FieldValueList from '../components/FieldValueList';
+import FieldValueList from '../components/detail/FieldValueList';
 import linkStyles from '../../styles/cspace/Link.css';
 
 const renderLink = (url, text, type) => {

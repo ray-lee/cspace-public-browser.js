@@ -1,24 +1,3 @@
-import { defineMessages } from 'react-intl';
-
-import {
-  composition,
-  displayName,
-  filterLink,
-  linkText,
-  inlineList,
-  listOf,
-  inlineListOf,
-  nameRole,
-  numericRange,
-  objectTypeValue,
-  paragraphs,
-  pickAllFromList,
-  pickFromList,
-  renderJoined,
-  valueAt,
-  valueWithNote,
-} from '../helpers/formatHelpers';
-
 export default {
   basename: '',
   container: '#cspace-browser',

@@ -38,10 +38,6 @@
     "test-selenium": "wdio wdio.conf.js"
   },
   "dependencies": {
-    "@appbaseio/reactivecore": "^7.6.0",
-    "@appbaseio/reactivesearch": "^2.18.0",
-    "@types/markerclustererplus": "^2.1.29",
-    "@types/react": "^16.8.12",
     "classnames": "^2.2.6",
     "cspace-refname": "^1.0.1",
     "history": "4.7.2",

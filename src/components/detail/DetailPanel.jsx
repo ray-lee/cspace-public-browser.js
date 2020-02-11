@@ -19,8 +19,6 @@ const propTypes = {
     'collectionspace_core:refName': PropTypes.string,
     'collectionspace_denorm:title': PropTypes.string,
   }),
-  error: PropTypes.instanceOf(Error),
-  isPending: PropTypes.bool,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
   readDetail: PropTypes.func,
 };
@@ -28,8 +26,6 @@ const propTypes = {
 const defaultProps = {
   adjacents: {},
   data: undefined,
-  error: undefined,
-  isPending: false,
   readDetail: () => undefined,
 };
 

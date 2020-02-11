@@ -164,7 +164,7 @@ export default class InstitutionHoldingList extends Component {
 
     if (hits.length === 0) {
       return null;
-    };
+    }
 
     const {
       institutionId,

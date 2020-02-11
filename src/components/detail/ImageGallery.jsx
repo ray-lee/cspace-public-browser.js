@@ -8,56 +8,54 @@ import { blobUrl } from '../../helpers/urlHelpers';
 import styles from '../../../styles/cspace/ImageGallery.css';
 
 const propTypes = {
+  findMedia: PropTypes.func,
   institutionId: PropTypes.string,
-  materialRefName: PropTypes.string.isRequired,
   media: PropTypes.instanceOf(Immutable.Map),
-  findMaterialMedia: PropTypes.func,
+  refName: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
   institutionId: undefined,
   media: undefined,
-  findMaterialMedia: undefined,
+  findMedia: () => undefined,
 };
 
 export default class ImageGallery extends Component {
   componentDidMount() {
-    this.readMedia();
+    this.findMedia();
   }
 
   componentDidUpdate(prevProps) {
     const {
-      materialRefName,
+      refName,
     } = this.props;
 
     const {
-      materialRefName: prevMaterialRefName,
+      refName: prevRefName,
     } = prevProps;
 
-    if (materialRefName !== prevMaterialRefName) {
-      this.readMedia();
+    if (refName !== prevRefName) {
+      this.findMedia();
     }
   }
 
-  readMedia() {
+  findMedia() {
     const {
+      findMedia,
       institutionId,
-      materialRefName,
       media,
-      findMaterialMedia,
+      refName,
     } = this.props;
 
-    if (findMaterialMedia) {
-      const institutionIds = (typeof institutionId === 'undefined')
-        ? [null, ...Object.keys(config.get('institutions'))]
-        : [institutionId];
+    const institutionIds = (typeof institutionId === 'undefined')
+      ? [null, ...Object.keys(config.get('institutions'))]
+      : [institutionId];
 
-      institutionIds.forEach((instId) => {
-        if (!media || !media.get(instId)) {
-          findMaterialMedia(materialRefName, instId);
-        }
-      });
-    }
+    institutionIds.forEach((instId) => {
+      if (!media || !media.get(instId)) {
+        findMedia(refName, instId);
+      }
+    });
   }
 
   render() {
@@ -102,7 +100,6 @@ export default class ImageGallery extends Component {
             showFullscreenButton={false}
             showPlayButton={false}
             showThumbnails={items.length > 1}
-            // useBrowserFullscreen={false}
           />
         </div>
       );

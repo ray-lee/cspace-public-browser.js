@@ -4,6 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Immutable from 'immutable';
 import get from 'lodash/get';
+import config from '../../config';
 import { searchParamsToQueryString } from '../../helpers/urlHelpers';
 import styles from '../../../styles/cspace/DetailNavBar.css';
 import linkStyles from '../../../styles/cspace/Link.css';
@@ -53,6 +54,7 @@ export default function DetailNavBar(props) {
   }
 
   const searchParamsObj = searchParams.toJS();
+  const detailPath = config.get('detailPath');
 
   let prevLink;
   let nextLink;
@@ -65,7 +67,7 @@ export default function DetailNavBar(props) {
         <Link
           className={linkStyles.prev}
           to={{
-            pathname: `/material/${csid}`,
+            pathname: `/${detailPath}/${csid}`,
             state: {
               index: index - 1,
               searchParams: searchParamsObj,
@@ -87,7 +89,7 @@ export default function DetailNavBar(props) {
         <Link
           className={linkStyles.next}
           to={{
-            pathname: `/material/${csid}`,
+            pathname: `/${detailPath}/${csid}`,
             state: {
               index: index + 1,
               searchParams: searchParamsObj,

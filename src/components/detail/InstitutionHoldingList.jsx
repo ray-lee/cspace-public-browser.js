@@ -111,7 +111,7 @@ export default class InstitutionHoldingList extends Component {
     if (isExpanded) {
       return (
         <div>
-          <ImageGallery institutionId={institutionId} materialRefName={refName} />
+          <ImageGallery institutionId={institutionId} refName={refName} />
 
           <ul>
             {/* eslint-disable-next-line no-underscore-dangle */}

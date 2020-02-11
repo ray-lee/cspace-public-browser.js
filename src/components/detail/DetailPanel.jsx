@@ -114,7 +114,7 @@ export default class DetailPanel extends Component {
     } = data;
 
     return (
-      <ImageGallery materialRefName={refName} />
+      <ImageGallery refName={refName} />
     );
   }
 

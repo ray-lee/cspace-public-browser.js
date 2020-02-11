@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import ImageGallery from './ImageGallery';
-import { findMaterialMedia } from '../../actions/material';
-import { getMaterialMedia } from '../../reducers';
+import { findMedia } from '../../actions/mediaActions';
+import { getMedia } from '../../reducers';
 
 const mapStateToProps = (state, ownProps) => ({
-  media: getMaterialMedia(state, ownProps.materialRefName),
+  media: getMedia(state, ownProps.refName),
 });
 
 const mapDispatchToProps = {
-  findMaterialMedia,
+  findMedia,
 };
 
 export default connect(

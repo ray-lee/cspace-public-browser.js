@@ -11,10 +11,3 @@
 .common > ul > li + li {
   margin-top: 4px;
 }
-
-/* .common > ul > li {
-  padding-left: 17px;
-  background-repeat: no-repeat;
-  background-position: left center;
-  background-size: 16px auto;
-} */

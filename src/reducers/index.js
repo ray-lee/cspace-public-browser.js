@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 import detail, * as fromDetail from './detailReducer';
 import filter, * as fromFilter from './filterReducer';
-import layout, * as fromLayout from './layout';
-import material, * as fromMaterial from './material';
+import media, * as fromMedia from './mediaReducer';
 import prefs, * as fromPrefs from './prefsReducer';
 import search, * as fromSearch from './searchReducer';
 import searchEntryForm, * as fromSearchEntryForm from './searchEntryFormReducer';
@@ -10,8 +9,7 @@ import searchEntryForm, * as fromSearchEntryForm from './searchEntryFormReducer'
 export default combineReducers({
   detail,
   filter,
-  layout,
-  material,
+  media,
   prefs,
   search,
   searchEntryForm,
@@ -37,18 +35,8 @@ export const isDetailInstSearchPending = (state, institutionId) => (
 
 export const getFilterSearchValue = (state, id) => fromFilter.getSearchValue(state.filter, id);
 
-export const getLayoutPanelRect = (state, id) => fromLayout.getPanelRect(state.layout, id);
-
-export const getMaterialMedia = (state, materialRefName, institutionId) => (
-  fromMaterial.getMedia(state.material, materialRefName, institutionId)
-);
-
-export const getMaterialSamples = (state, materialRefName) => (
-  fromMaterial.getSamples(state.material, materialRefName)
-);
-
-export const getMaterialSampleCount = (state, materialRefName, institutionId) => (
-  fromMaterial.getSampleCount(state.material, materialRefName, institutionId)
+export const getMedia = (state, refName, institutionId) => (
+  fromMedia.get(state.media, refName, institutionId)
 );
 
 export const getPrefs = (state) => state.prefs;

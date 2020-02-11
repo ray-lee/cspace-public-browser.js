@@ -1011,8 +1011,8 @@ export default {
           label: 'Container',
           field: 'collectionobjects_materials:materialContainerGroupList',
           format: listOf(valueWithNote({
-            valueFieldfield: 'container',
-            noteFieldfield: 'containerNote',
+            valueFieldName: 'container',
+            noteFieldName: 'containerNote',
             linkValue: false,
           })),
         },
@@ -1020,8 +1020,8 @@ export default {
           label: 'Condition',
           field: 'collectionobjects_materials:materialConditionGroupList',
           format: listOf(valueWithNote({
-            valueFieldfield: 'condition',
-            noteFieldfield: 'conditionNote',
+            valueFieldName: 'condition',
+            noteFieldName: 'conditionNote',
             linkValue: false,
           })),
         },
@@ -1029,8 +1029,8 @@ export default {
           label: 'Handling',
           field: 'collectionobjects_materials:materialHandlingGroupList',
           format: listOf(valueWithNote({
-            valueFieldfield: 'handling',
-            noteFieldfield: 'handlingNote',
+            valueFieldName: 'handling',
+            noteFieldName: 'handlingNote',
             linkValue: false,
           })),
         },
@@ -1048,8 +1048,8 @@ export default {
           label: 'Finish',
           field: 'collectionobjects_materials:materialFinishGroupList',
           format: listOf(valueWithNote({
-            valueFieldfield: 'finish',
-            noteFieldfield: 'finishNote',
+            valueFieldName: 'finish',
+            noteFieldName: 'finishNote',
             linkValue: false,
           })),
         },

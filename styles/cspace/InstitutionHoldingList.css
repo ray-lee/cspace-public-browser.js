@@ -27,6 +27,10 @@
   font-weight: 600;
 }
 
+.common :global(.cspace-FieldListCategory--common) + :global(.cspace-FieldListCategory--common) {
+  margin-top: 0;
+}
+
 .common :global(.cspace-FieldListCategory--common) > div > h4 {
   font-weight: 600;
 }

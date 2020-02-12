@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import SearchSubmitButton from './SearchSubmitButton';
 import styles from '../../../../styles/cspace/SearchQueryInput.css';
 
 const propTypes = {
   id: PropTypes.string.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.shape({
+    formatMessage: PropTypes.func.isRequired,
+  }).isRequired,
   onCommit: PropTypes.func,
   showSubmitButton: PropTypes.bool,
   value: PropTypes.string,

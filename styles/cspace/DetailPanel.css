@@ -2,7 +2,7 @@
 
 .common {
   display: grid;
-  grid-template-columns: auto 420px;
+  grid-template-columns: auto 400px;
   grid-template-rows: auto auto minmax(0, auto) 1fr auto;
   grid-column-gap: 16px;
   grid-template-areas:

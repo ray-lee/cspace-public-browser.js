@@ -1,15 +1,11 @@
 import React from 'react';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 import { Route, Switch } from 'react-router';
 import Helmet from 'react-helmet';
 import DetailPage from './DetailPageContainer';
 import SearchPage from './SearchPageContainer';
 import config from '../../config';
 import styles from '../../../styles/cspace/RootPage.css';
-
-const propTypes = {
-  intl: intlShape.isRequired,
-};
 
 const messages = defineMessages({
   title: {
@@ -18,11 +14,8 @@ const messages = defineMessages({
   },
 });
 
-function RootPage(props) {
-  const {
-    intl,
-  } = props;
-
+export default function RootPage() {
+  const intl = useIntl();
   const title = intl.formatMessage(messages.title);
   const detailPath = config.get('detailPath');
 
@@ -42,7 +35,3 @@ function RootPage(props) {
     </div>
   );
 }
-
-RootPage.propTypes = propTypes;
-
-export default injectIntl(RootPage);

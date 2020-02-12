@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import Immutable from 'immutable';
 import config from '../../config';
@@ -18,7 +18,9 @@ import { FILTER_PANEL_ID } from '../../constants/ids';
 import styles from '../../../styles/cspace/SearchPage.css';
 
 const propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.shape({
+    formatMessage: PropTypes.func.isRequired,
+  }).isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,

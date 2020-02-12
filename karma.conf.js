@@ -101,8 +101,9 @@ module.exports = function karma(config) {
               {
                 loader: 'css-loader',
                 options: {
-                  modules: true,
-                  localIdentName: '[folder]-[name]--[local]',
+                  modules: {
+                    localIdentName: '[folder]-[name]--[local]',
+                  },
                 },
               },
             ],

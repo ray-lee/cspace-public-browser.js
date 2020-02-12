@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import config from '../../../config';
 import styles from '../../../../styles/cspace/SortSelect.css';
 
@@ -9,7 +9,9 @@ const propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.shape({
+    formatMessage: PropTypes.func.isRequired,
+  }).isRequired,
   onCommit: PropTypes.func,
   value: PropTypes.string,
 };

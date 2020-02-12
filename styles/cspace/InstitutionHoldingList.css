@@ -96,9 +96,9 @@
   font-weight: 600;
 }
 
-.common :global(.image-gallery-left-nav),
-.common :global(.image-gallery-right-nav) {
-  font-size: 2.5em;
+.common :global(.image-gallery-svg){
+  width: 30px;
+  height: 60px;
 }
 
 @media only screen

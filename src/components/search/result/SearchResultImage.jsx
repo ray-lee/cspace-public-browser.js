@@ -43,33 +43,33 @@ export default class SearchResultImage extends Component {
     this.init(referenceValue, mediaCsid, holdingInstitutions);
   }
 
-  // FIXME
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const {
-      holdingInstitutions: nextHoldingInstitutions,
-      gatewayUrl: nextGatewayUrl,
-      mediaCsid: nextMediaCsid,
-      referenceValue: nextReferenceValue,
-    } = nextProps;
+      gatewayUrl: prevGatewayUrl,
+      mediaCsid: prevMediaCsid,
+      referenceValue: prevReferenceValue,
+    } = prevProps;
 
     const {
+      holdingInstitutions,
       gatewayUrl,
       mediaCsid,
       referenceValue,
     } = this.props;
 
     if (
-      mediaCsid !== nextMediaCsid
-      || gatewayUrl !== nextGatewayUrl
-      || referenceValue !== nextReferenceValue
+      mediaCsid !== prevMediaCsid
+      || gatewayUrl !== prevGatewayUrl
+      || referenceValue !== prevReferenceValue
     ) {
+      // FIXME: Make this component stateless.
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        gatewayUrl: nextGatewayUrl,
-        mediaCsid: nextMediaCsid,
+        gatewayUrl,
+        mediaCsid,
       });
 
-      this.init(nextReferenceValue, nextMediaCsid, nextHoldingInstitutions);
+      this.init(referenceValue, mediaCsid, holdingInstitutions);
     }
   }
 

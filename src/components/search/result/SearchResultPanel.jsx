@@ -31,20 +31,19 @@ const defaultProps = {
   setSearchPageSize: () => undefined,
 };
 
+const {
+  searchResultTileWidth: cssTileWidth,
+  searchResultTileBodyHeight: cssTileBodyHeight,
+} = cssDimensions;
+
+const tileWidth = parseInt(cssTileWidth, 10);
+const tileBodyHeight = parseInt(cssTileBodyHeight, 10);
+const tileHeight = tileWidth + tileBodyHeight;
+
 const calculateSearchPageSize = () => {
   const width = window.innerWidth;
   const height = window.innerHeight;
   const ratio = window.devicePixelRatio || 1;
-
-  const {
-    searchResultTileWidth: cssTileWidth,
-    searchResultTileBodyHeight: cssTileBodyHeight,
-  } = cssDimensions;
-
-  const tileWidth = parseInt(cssTileWidth, 10);
-  const tileBodyHeight = parseInt(cssTileBodyHeight, 10);
-  const tileHeight = tileWidth + tileBodyHeight;
-
   const pageSize = ((width / tileWidth) * (height / tileHeight + 2)) / ratio;
 
   return Math.max(Math.ceil(pageSize), 12);
@@ -97,7 +96,7 @@ export default class SearchResultPanel extends Component {
     const rect = this.ref.current.getBoundingClientRect();
     const bottomOffset = rect.bottom - window.innerHeight;
 
-    if (bottomOffset <= 0) {
+    if (bottomOffset <= tileHeight) {
       search();
     }
   }

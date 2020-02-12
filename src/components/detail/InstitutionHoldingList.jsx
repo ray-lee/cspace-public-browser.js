@@ -28,8 +28,8 @@ const propTypes = {
   institutionId: PropTypes.string.isRequired,
   isExpanded: PropTypes.bool,
   isSelected: PropTypes.bool,
-  refName: PropTypes.string.isRequired,
   expandPanel: PropTypes.func,
+  referenceValue: PropTypes.string.isRequired,
   togglePanel: PropTypes.func,
 };
 
@@ -105,13 +105,13 @@ export default class InstitutionHoldingList extends Component {
       hits,
       institutionId,
       isExpanded,
-      refName,
+      referenceValue,
     } = this.props;
 
     if (isExpanded) {
       return (
         <div>
-          <ImageGallery institutionId={institutionId} refName={refName} />
+          <ImageGallery institutionId={institutionId} referenceValue={referenceValue} />
 
           <ul>
             {/* eslint-disable-next-line no-underscore-dangle */}

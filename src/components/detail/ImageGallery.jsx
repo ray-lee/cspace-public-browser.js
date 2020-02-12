@@ -11,7 +11,7 @@ const propTypes = {
   findMedia: PropTypes.func,
   institutionId: PropTypes.string,
   media: PropTypes.instanceOf(Immutable.Map),
-  refName: PropTypes.string.isRequired,
+  referenceValue: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -27,14 +27,14 @@ export default class ImageGallery extends Component {
 
   componentDidUpdate(prevProps) {
     const {
-      refName,
+      referenceValue,
     } = this.props;
 
     const {
-      refName: prevRefName,
+      referenceValue: prevReferenceValue,
     } = prevProps;
 
-    if (refName !== prevRefName) {
+    if (referenceValue !== prevReferenceValue) {
       this.findMedia();
     }
   }
@@ -44,7 +44,7 @@ export default class ImageGallery extends Component {
       findMedia,
       institutionId,
       media,
-      refName,
+      referenceValue,
     } = this.props;
 
     const institutionIds = (typeof institutionId === 'undefined')
@@ -53,7 +53,7 @@ export default class ImageGallery extends Component {
 
     institutionIds.forEach((instId) => {
       if (!media || !media.get(instId)) {
-        findMedia(refName, instId);
+        findMedia(referenceValue, instId);
       }
     });
   }

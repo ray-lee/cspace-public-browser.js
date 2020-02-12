@@ -1,5 +1,4 @@
 import Immutable from 'immutable';
-import { getItemShortID } from 'cspace-refname';
 
 import {
   SET_MEDIA,
@@ -10,12 +9,10 @@ const setMedia = (state, action) => {
 
   const {
     institutionId,
-    refName,
+    referenceValue,
   } = action.meta;
 
-  const shortId = getItemShortID(refName) || refName;
-
-  return state.setIn([shortId, 'media', institutionId], Immutable.fromJS(mediaCsids));
+  return state.setIn([referenceValue, 'media', institutionId], Immutable.fromJS(mediaCsids));
 };
 
 export default (state = Immutable.Map(), action) => {
@@ -27,12 +24,10 @@ export default (state = Immutable.Map(), action) => {
   }
 };
 
-export const get = (state, refName, institutionId) => {
-  const shortId = getItemShortID(refName) || refName;
-
+export const get = (state, referenceValue, institutionId) => {
   if (typeof institutionId === 'undefined') {
-    return state.getIn([shortId, 'media']);
+    return state.getIn([referenceValue, 'media']);
   }
 
-  return state.getIn([shortId, 'media', institutionId]);
+  return state.getIn([referenceValue, 'media', institutionId]);
 };

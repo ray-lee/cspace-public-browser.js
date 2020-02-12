@@ -2,7 +2,6 @@ import { defineMessages } from 'react-intl';
 import { getItemShortID } from 'cspace-refname';
 
 import {
-  composition,
   displayName,
   filterLink,
   linkText,
@@ -15,10 +14,21 @@ import {
   paragraphs,
   pickAllFromList,
   pickFromList,
+  renderFilterLink,
   renderJoined,
   valueAt,
   valueWithNote,
 } from '../helpers/formatHelpers';
+
+const composition = (data) => {
+  const parts = [
+    'materialCompositionFamilyName',
+    'materialCompositionClassName',
+    'materialCompositionGenericName',
+  ].map((fieldName) => renderFilterLink(fieldName, displayName(data[fieldName])));
+
+  return renderJoined(parts, ' - ');
+};
 
 export default {
   messages: {
@@ -46,6 +56,8 @@ export default {
     'collectionspace_denorm:title',
     'materials_common:shortIdentifier',
   ],
+
+  referenceField: 'materials_common:shortIdentifier',
 
   storageKey: 'mo',
 
@@ -127,7 +139,6 @@ export default {
     },
     {
       id: 'composition',
-      // title: 'Composition',
       messages: defineMessages({
         title: {
           id: 'filterGroup.composition.title',
@@ -181,7 +192,6 @@ export default {
     },
     {
       id: 'use',
-      // title: 'Use',
       messages: defineMessages({
         title: {
           id: 'filterGroup.use.title',
@@ -199,36 +209,8 @@ export default {
             },
           }),
         },
-        // {
-        //   id: 'featuredApplication',
-        //   field: 'materials_common:featuredApplicationGroupList.featuredApplication.displayName',
-        //   title: 'Featured application',
-        // },
       ],
     },
-    /* eslint-disable max-len */
-    // {
-    //   id: 'production',
-    //   title: 'Production',
-    //   filters: [
-    //     {
-    //       id: 'materialProductionOrganization',
-    //       field: 'materials_common:materialProductionOrganizationGroupList.materialProductionOrganization.displayName',
-    //       title: 'Production organization',
-    //     },
-    //     {
-    //       id: 'materialProductionPerson',
-    //       field: 'materials_common:materialProductionPersonGroupList.materialProductionPerson.displayName',
-    //       title: 'Production person',
-    //     },
-    //     {
-    //       id: 'materialProductionPlace',
-    //       field: 'materials_common:materialProductionPlaceGroupList.materialProductionPlace.displayName',
-    //       title: 'Production place',
-    //     }
-    //   ],
-    // },
-    /* eslint-enable max-len */
     {
       id: 'form',
       messages: defineMessages({
@@ -262,7 +244,6 @@ export default {
     },
     {
       id: 'properties',
-      // title: 'Properties',
       messages: defineMessages({
         title: {
           id: 'filterGroup.properties.title',
@@ -396,7 +377,6 @@ export default {
     },
     {
       id: 'ecology',
-      // title: 'Material Ecology',
       messages: defineMessages({
         title: {
           id: 'filterGroup.ecology.title',
@@ -450,7 +430,6 @@ export default {
     },
     {
       id: 'processing',
-      // title: 'Processing',
       messages: defineMessages({
         title: {
           id: 'filterGroup.processing.title',

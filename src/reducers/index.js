@@ -35,8 +35,8 @@ export const isDetailInstSearchPending = (state, institutionId) => (
 
 export const getFilterSearchValue = (state, id) => fromFilter.getSearchValue(state.filter, id);
 
-export const getMedia = (state, refName, institutionId) => (
-  fromMedia.get(state.media, refName, institutionId)
+export const getMedia = (state, referenceValue, institutionId) => (
+  fromMedia.get(state.media, referenceValue, institutionId)
 );
 
 export const getPrefs = (state) => state.prefs;

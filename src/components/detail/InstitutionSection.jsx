@@ -7,7 +7,7 @@ import styles from '../../../styles/cspace/InstitutionSection.css';
 const propTypes = {
   config: PropTypes.objectOf(PropTypes.object).isRequired,
   holdingInstitutions: PropTypes.instanceOf(Immutable.Set).isRequired,
-  refName: PropTypes.string.isRequired,
+  referenceValue: PropTypes.string.isRequired,
   selectedInstitutionId: PropTypes.string,
 };
 
@@ -19,7 +19,7 @@ export default function InstitutionSection(props) {
   const {
     config,
     holdingInstitutions,
-    refName,
+    referenceValue,
     selectedInstitutionId,
   } = props;
 
@@ -33,7 +33,7 @@ export default function InstitutionSection(props) {
       institutionId={institutionId}
       isSelected={institutionId === selectedInstitutionId}
       key={institutionId}
-      refName={refName}
+      referenceValue={referenceValue}
     />
   ));
 

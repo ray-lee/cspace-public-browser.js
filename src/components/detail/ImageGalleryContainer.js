@@ -4,7 +4,7 @@ import { findMedia } from '../../actions/mediaActions';
 import { getMedia } from '../../reducers';
 
 const mapStateToProps = (state, ownProps) => ({
-  media: getMedia(state, ownProps.refName),
+  media: getMedia(state, ownProps.referenceValue),
 });
 
 const mapDispatchToProps = {

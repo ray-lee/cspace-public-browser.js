@@ -6,7 +6,7 @@ import { getDisplayName } from 'cspace-refname';
 import FieldValueList from '../components/detail/FieldValueList';
 import linkStyles from '../../styles/cspace/Link.css';
 
-const renderLink = (url, text, type) => {
+export const renderLink = (url, text, type) => {
   if (!url) {
     return text;
   }
@@ -20,7 +20,7 @@ const renderLink = (url, text, type) => {
   return <Link className={type && linkStyles[type]} to={url}>{text || url}</Link>;
 };
 
-const renderFilterLink = (filterId, filterValue, linkText) => {
+export const renderFilterLink = (filterId, filterValue, linkText) => {
   if (!filterValue) {
     return null;
   }
@@ -147,12 +147,6 @@ export const linkText = (config) => (data) => {
   return renderLink(data[urlFieldName], data[textFieldName], type);
 };
 
-const numberType = {
-  callnumber: 'call number',
-};
-
-export const numberTypeValue = (value) => numberType[value] || value;
-
 export const nameValue = (config) => (data, fieldName) => {
   const {
     nameFormat,
@@ -272,16 +266,6 @@ export const paragraphs = (array) => (
   // eslint-disable-next-line react/no-array-index-key
   array && array.length > 0 && array.map((value, index) => <p key={index}>{value}</p>)
 );
-
-export const composition = (data) => {
-  const parts = [
-    'materialCompositionFamilyName',
-    'materialCompositionClassName',
-    'materialCompositionGenericName',
-  ].map((fieldName) => renderFilterLink(fieldName, displayName(data[fieldName])));
-
-  return renderJoined(parts, ' - ');
-};
 
 export const valueAt = (config) => (data) => {
   const {

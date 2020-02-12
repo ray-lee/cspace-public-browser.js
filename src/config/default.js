@@ -22,6 +22,8 @@ export default {
     'collectionspace_denorm:title',
   ],
 
+  referenceField: 'ecm:name',
+
   defaultSortOrder: 'bestmatch',
   sortField: 'collectionspace_denorm:title',
   storageKey: 'cspace-browser',

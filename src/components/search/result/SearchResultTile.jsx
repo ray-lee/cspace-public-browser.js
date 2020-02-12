@@ -22,12 +22,14 @@ export default function SearchResultTile(props) {
   } = props;
 
   const detailPath = config.get('detailPath');
+  const referenceField = config.get('referenceField');
+
   const doc = result.get('_source');
   const csid = doc.get('ecm:name');
   const url = csid && `/${detailPath}/${csid}`;
   const holdingInstitutions = doc.get('collectionspace_denorm:holdingInstitutions');
   const mediaCsid = doc.getIn(['collectionspace_denorm:mediaCsid', 0]);
-  const shortId = doc.get('materials_common:shortIdentifier');
+  const referenceValue = doc.get(referenceField);
   const title = doc.get('collectionspace_denorm:title');
 
   return (
@@ -45,7 +47,7 @@ export default function SearchResultTile(props) {
         gatewayUrl={gatewayUrl}
         holdingInstitutions={holdingInstitutions}
         mediaCsid={mediaCsid}
-        shortId={shortId}
+        referenceValue={referenceValue}
       />
 
       <article>

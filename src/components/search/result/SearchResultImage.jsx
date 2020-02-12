@@ -11,7 +11,7 @@ const propTypes = {
   gatewayUrl: PropTypes.string.isRequired,
   holdingInstitutions: PropTypes.instanceOf(Immutable.List),
   mediaCsid: PropTypes.string,
-  shortId: PropTypes.string.isRequired,
+  referenceValue: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -37,10 +37,10 @@ export default class SearchResultImage extends Component {
     const {
       holdingInstitutions,
       mediaCsid,
-      shortId,
+      referenceValue,
     } = this.props;
 
-    this.init(shortId, mediaCsid, holdingInstitutions);
+    this.init(referenceValue, mediaCsid, holdingInstitutions);
   }
 
   // FIXME
@@ -50,26 +50,26 @@ export default class SearchResultImage extends Component {
       holdingInstitutions: nextHoldingInstitutions,
       gatewayUrl: nextGatewayUrl,
       mediaCsid: nextMediaCsid,
-      shortId: nextShortId,
+      referenceValue: nextReferenceValue,
     } = nextProps;
 
     const {
       gatewayUrl,
       mediaCsid,
-      shortId,
+      referenceValue,
     } = this.props;
 
     if (
       mediaCsid !== nextMediaCsid
       || gatewayUrl !== nextGatewayUrl
-      || shortId !== nextShortId
+      || referenceValue !== nextReferenceValue
     ) {
       this.setState({
         gatewayUrl: nextGatewayUrl,
         mediaCsid: nextMediaCsid,
       });
 
-      this.init(nextShortId, nextMediaCsid, nextHoldingInstitutions);
+      this.init(nextReferenceValue, nextMediaCsid, nextHoldingInstitutions);
     }
   }
 
@@ -79,14 +79,19 @@ export default class SearchResultImage extends Component {
     }
   }
 
-  getMaterialMediaCsid(gatewayUrl, indexName, materialShortId) {
-    const url = `${gatewayUrl}/es/${indexName}/doc/_search?size=1&terminate_after=1`;
+  getMediaCsid(gatewayUrl, indexName, referenceValue) {
+    const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
+    const referenceField = config.get('referenceField');
 
     const query = {
       _source: 'collectionspace_denorm:mediaCsid',
       query: {
-        term: { 'materials_common:shortIdentifier': materialShortId },
+        term: {
+          [referenceField]: referenceValue,
+        },
       },
+      size: 1,
+      terminate_after: 1,
     };
 
     return fetch(url, {
@@ -101,7 +106,7 @@ export default class SearchResultImage extends Component {
       .catch(() => undefined);
   }
 
-  init(materialShortId, mediaCsid, holdingInstitutions) {
+  init(referenceValue, mediaCsid, holdingInstitutions) {
     if (!mediaCsid) {
       const institutions = holdingInstitutions.filter((value) => !!value);
 
@@ -116,7 +121,7 @@ export default class SearchResultImage extends Component {
           }
 
           return (
-            this.getMaterialMediaCsid(instGatewayUrl, instIndexName, materialShortId)
+            this.getMediaCsid(instGatewayUrl, instIndexName, referenceValue)
               .then((instMediaCsid) => {
                 if (!instMediaCsid) {
                   return Promise.reject();

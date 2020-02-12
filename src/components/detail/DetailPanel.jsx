@@ -109,12 +109,11 @@ export default class DetailPanel extends Component {
       data,
     } = this.props;
 
-    const {
-      'collectionspace_core:refName': refName,
-    } = data;
+    const referenceField = config.get('referenceField');
+    const referenceValue = data[referenceField];
 
     return (
-      <ImageGallery refName={refName} />
+      <ImageGallery referenceValue={referenceValue} />
     );
   }
 
@@ -148,15 +147,14 @@ export default class DetailPanel extends Component {
 
     const selectedInstitutionId = params.get('#');
 
-    const {
-      'collectionspace_core:refName': refName,
-    } = data;
+    const referenceField = config.get('referenceField');
+    const referenceValue = data[referenceField];
 
     return (
       <InstitutionSection
         config={institutionsConfig}
         selectedInstitutionId={selectedInstitutionId}
-        refName={refName}
+        referenceValue={referenceValue}
       />
     );
   }

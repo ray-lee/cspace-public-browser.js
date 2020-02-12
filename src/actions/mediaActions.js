@@ -1,7 +1,6 @@
 /* global fetch */
 
 import get from 'lodash/get';
-import { getItemShortID } from 'cspace-refname';
 import config from '../config';
 import { getMedia } from '../reducers';
 
@@ -9,17 +8,17 @@ import {
   SET_MEDIA,
 } from '../constants/actionCodes';
 
-export const setMedia = (refName, institutionId, mediaCsids) => ({
+export const setMedia = (referenceValue, institutionId, mediaCsids) => ({
   type: SET_MEDIA,
   payload: mediaCsids,
   meta: {
     institutionId,
-    refName,
+    referenceValue,
   },
 });
 
-export const findMedia = (refName, institutionId) => (dispatch, getState) => {
-  if (getMedia(getState(), refName, institutionId)) {
+export const findMedia = (referenceValue, institutionId) => (dispatch, getState) => {
+  if (getMedia(getState(), referenceValue, institutionId)) {
     return Promise.resolve();
   }
 
@@ -35,13 +34,13 @@ export const findMedia = (refName, institutionId) => (dispatch, getState) => {
   }
 
   const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
-  const shortId = getItemShortID(refName) || refName;
+  const referenceField = config.get('referenceField');
 
   const query = {
     _source: 'collectionspace_denorm:mediaCsid',
     query: {
       term: {
-        'materials_common:shortIdentifier': shortId,
+        [referenceField]: referenceValue,
       },
     },
     size: 1,
@@ -57,6 +56,6 @@ export const findMedia = (refName, institutionId) => (dispatch, getState) => {
     .then((data) => {
       const mediaCsids = get(data, ['hits', 'hits', 0, '_source', 'collectionspace_denorm:mediaCsid']) || [];
 
-      return dispatch(setMedia(refName, institutionId, mediaCsids));
+      return dispatch(setMedia(referenceValue, institutionId, mediaCsids));
     });
 };

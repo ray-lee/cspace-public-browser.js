@@ -13,8 +13,25 @@ export const renderLink = (url, text, type) => {
 
   if (type === 'external') {
     const fullUrl = !url.startsWith('http') ? `http://${url}` : url;
+    const content = text || url;
 
-    return <a target="_blank" rel="noopener noreferrer" className={linkStyles[type]} href={fullUrl}>{text || url}</a>;
+    // Make sure urls with no spaces are able to wrap anywhere.
+
+    const inlineStyle = content.startsWith('http')
+      ? { overflowWrap: 'anywhere' }
+      : undefined;
+
+    return (
+      <a
+        className={linkStyles[type]}
+        href={fullUrl}
+        rel="noopener noreferrer"
+        style={inlineStyle}
+        target="_blank"
+      >
+        {content}
+      </a>
+    );
   }
 
   return <Link className={type && linkStyles[type]} to={url}>{text || url}</Link>;

@@ -7,6 +7,7 @@ import Immutable from 'immutable';
 import FilterGroup from './FilterGroup';
 import config from '../../../config';
 import styles from '../../../../styles/cspace/FilterPanel.css';
+import cssDimensions from '../../../../styles/dimensions.css';
 
 const propTypes = {
   isExpanded: PropTypes.bool,
@@ -27,12 +28,17 @@ const messages = defineMessages({
   },
 });
 
+const {
+  filterPanelCutoffWidth: cssFilterPanelCutoffWidth,
+} = cssDimensions;
+
+const filterPanelCutoffWidth = parseInt(cssFilterPanelCutoffWidth, 10);
+
 export default class FilterPanel extends Component {
   constructor() {
     super();
 
     this.handleResize = this.handleResize.bind(this);
-    // this.handleScroll = this.handleScroll.bind(this);
 
     this.ref = React.createRef();
 
@@ -41,14 +47,12 @@ export default class FilterPanel extends Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
-    // window.addEventListener('scroll', this.handleScroll);
 
     this.setHeight();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
-    // window.removeEventListener('scroll', this.handleScroll);
   }
 
   setHeight() {
@@ -64,10 +68,6 @@ export default class FilterPanel extends Component {
   handleResize() {
     this.setHeight();
   }
-
-  // handleScroll() {
-  //   this.setHeight();
-  // }
 
   renderFilterGroups() {
     const {
@@ -87,10 +87,13 @@ export default class FilterPanel extends Component {
 
   renderContent() {
     const {
+      isExpanded,
       result,
     } = this.props;
 
-    if (!result.get('total')) {
+    const isVisible = (window.innerWidth > filterPanelCutoffWidth) || isExpanded;
+
+    if (!isVisible || !result.get('total')) {
       return undefined;
     }
 

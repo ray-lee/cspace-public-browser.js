@@ -1,5 +1,5 @@
 @value inputBgColor, inputBorderColor, panelBorderColor from '../colors.css';
-@value filterPanelWidth, filterPanelCollapsedLeft, searchInputHeight, searchInputPaddingHeight, searchInputBorderWidth from '../dimensions.css';
+@value filterPanelCutoffWidth, filterPanelWidth, filterPanelCollapsedLeft, searchInputHeight, searchInputPaddingHeight, searchInputBorderWidth from '../dimensions.css';
 
 .common {
   position: absolute;
@@ -28,7 +28,7 @@
 }
 
 @media only screen
-and (max-width: 768px) {
+and (max-width: filterPanelCutoffWidth) {
   .collapsed {
     left: filterPanelCollapsedLeft;
   }

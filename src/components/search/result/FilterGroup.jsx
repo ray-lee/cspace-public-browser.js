@@ -7,11 +7,12 @@ import styles from '../../../../styles/cspace/FilterGroup.css';
 
 const propTypes = {
   config: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    filters: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fields: PropTypes.arrayOf(PropTypes.string).isRequired,
+    label: PropTypes.string,
     messages: PropTypes.object,
-    title: PropTypes.string,
   }).isRequired,
+  fieldsConfig: PropTypes.objectOf(PropTypes.object).isRequired,
+  id: PropTypes.string.isRequired,
   isPending: PropTypes.bool,
   aggregations: PropTypes.instanceOf(Immutable.Map),
 };
@@ -23,19 +24,19 @@ const defaultProps = {
 
 export default function FilterGroup(props) {
   const {
-    config,
     aggregations,
+    config,
+    fieldsConfig,
   } = props;
 
   const {
-    id,
-    title,
-    filters,
+    fields,
+    label,
     messages,
   } = config;
 
-  const isEmpty = aggregations.isEmpty() || !filters.find(({ id: filterId }) => {
-    const buckets = aggregations.getIn([filterId, 'buckets']);
+  const isEmpty = aggregations.isEmpty() || !fields.find((fieldId) => {
+    const buckets = aggregations.getIn([fieldId, 'buckets']);
 
     return (buckets && buckets.size > 0);
   });
@@ -44,24 +45,35 @@ export default function FilterGroup(props) {
     return null;
   }
 
-  const titleMessage = messages && messages.title;
+  const labelMessage = messages && messages.label;
 
   // eslint-disable-next-line react/jsx-props-no-spreading
-  const headerContent = (titleMessage ? <FormattedMessage {...titleMessage} /> : title) || id;
+  const headerContent = labelMessage ? <FormattedMessage {...labelMessage} /> : label;
 
   return (
     <div className={styles.common}>
-      <h1>{headerContent}</h1>
+      {headerContent && <h1>{headerContent}</h1>}
       {
-        filters.map(({ field, id: filterId, messages: filterMessages }) => (
-          <Filter
-            aggregation={aggregations.get(filterId)}
-            id={filterId}
-            field={field}
-            key={filterId}
-            messages={filterMessages}
-          />
-        ))
+        fields.map((fieldId) => {
+          const {
+            field,
+            formatValue,
+            messages: fieldMessages,
+            showSearch,
+          } = fieldsConfig[fieldId];
+
+          return (
+            <Filter
+              aggregation={aggregations.get(fieldId)}
+              id={fieldId}
+              field={field}
+              formatValue={formatValue}
+              key={fieldId}
+              messages={fieldMessages}
+              showSearch={showSearch}
+            />
+          );
+        })
       }
     </div>
   );

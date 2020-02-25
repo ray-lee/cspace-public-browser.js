@@ -15,7 +15,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  holdingInstitutions: [],
+  holdingInstitutions: Immutable.List(),
   mediaCsid: undefined,
 };
 

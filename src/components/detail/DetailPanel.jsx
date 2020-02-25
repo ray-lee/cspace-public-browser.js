@@ -64,7 +64,7 @@ export default class DetailPanel extends Component {
     const descFormatter = config.get('detailDescription');
     const desc = descFormatter && descFormatter(data);
 
-    return (desc && <p>{desc}</p>);
+    return <p>{desc}</p>;
   }
 
   renderFieldList() {
@@ -73,7 +73,7 @@ export default class DetailPanel extends Component {
     } = this.props;
 
     return (
-      <FieldList config={config.get('detailFieldList')} data={data} />
+      <FieldList config={config.get('detailFields')} data={data} />
     );
   }
 

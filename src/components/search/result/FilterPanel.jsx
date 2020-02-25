@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import Immutable from 'immutable';
-import FilterGroup from './FilterGroup';
+import FilterList from './FilterList';
 import config from '../../../config';
 import styles from '../../../../styles/cspace/FilterPanel.css';
 import cssDimensions from '../../../../styles/dimensions.css';
@@ -69,25 +69,10 @@ export default class FilterPanel extends Component {
     this.setHeight();
   }
 
-  renderFilterGroups() {
-    const {
-      isPending,
-      result,
-    } = this.props;
-
-    return config.get('filterGroups').map((filterGroupConfig) => (
-      <FilterGroup
-        config={filterGroupConfig}
-        key={filterGroupConfig.id}
-        isPending={isPending}
-        aggregations={result.get('aggregations')}
-      />
-    ));
-  }
-
   renderContent() {
     const {
       isExpanded,
+      isPending,
       result,
     } = this.props;
 
@@ -104,7 +89,11 @@ export default class FilterPanel extends Component {
           <FormattedMessage {...messages.title} />
         </header>
 
-        {this.renderFilterGroups()}
+        <FilterList
+          aggregations={result.get('aggregations')}
+          config={config.get('filters')}
+          isPending={isPending}
+        />
       </div>
     );
   }

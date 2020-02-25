@@ -27,11 +27,11 @@
   font-weight: 600;
 }
 
-.common :global(.cspace-FieldListCategory--common) + :global(.cspace-FieldListCategory--common) {
+.common :global(.cspace-FieldListGroup--common) + :global(.cspace-FieldListGroup--common) {
   margin-top: 2px;
 }
 
-.common :global(.cspace-FieldListCategory--common) > div > h4 {
+.common :global(.cspace-FieldListGroup--common) > div > h4 {
   font-weight: 600;
 }
 

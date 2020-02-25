@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import { IntlProvider } from 'react-intl';
+import { RawIntlProvider } from 'react-intl';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider as StoreProvider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -10,6 +10,7 @@ import warning from 'warning';
 import { loadPrefs } from './actions/prefsActions';
 import config from './config';
 import App from './components/App';
+import { createIntl } from './intl';
 import reducer from './reducers';
 
 export default (...customConfigs) => {
@@ -36,16 +37,18 @@ export default (...customConfigs) => {
   const locale = config.get('locale');
   const messages = config.get('messages');
 
+  const intl = createIntl({
+    locale,
+    messages,
+    defaultLocale: 'en-US',
+  });
+
   render(
-    <IntlProvider
-      defaultLocale="en-US"
-      locale={locale}
-      messages={messages}
-    >
+    <RawIntlProvider value={intl}>
       <StoreProvider store={store}>
         <App />
       </StoreProvider>
-    </IntlProvider>,
+    </RawIntlProvider>,
     mountNode,
   );
 };

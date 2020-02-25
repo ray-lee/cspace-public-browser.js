@@ -12,9 +12,11 @@
 }
 
 .common > div > header {
+  margin-bottom: 1px;
+  border-bottom: 1px solid panelBorderColor;
   padding: 18px 20px;
   font-size: .85rem;
-  font-weight: 600;
+  /* font-weight: 600; */
   white-space: nowrap;
   transition: padding 0.3s;
 }

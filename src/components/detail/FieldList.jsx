@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import styles from '../../../styles/cspace/FieldList.css';
-import categoryStyles from '../../../styles/cspace/FieldListCategory.css';
+import groupStyles from '../../../styles/cspace/FieldListGroup.css';
 import fieldStyles from '../../../styles/cspace/FieldListField.css';
 
 const propTypes = {
   config: PropTypes.shape({
-    categories: PropTypes.object.isRequired,
     fields: PropTypes.object.isRequired,
+    groups: PropTypes.object.isRequired,
     layout: PropTypes.object.isRequired,
   }).isRequired,
   data: PropTypes.shape({
@@ -62,13 +62,13 @@ const renderField = (id, fieldConfig, data) => {
   );
 };
 
-const renderCategory = (id, categoryConfig, config, data) => {
+const renderGroup = (id, groupConfig, config, data) => {
   const {
     className,
     fields,
     label,
     messages,
-  } = categoryConfig;
+  } = groupConfig;
 
   const title = messages
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -85,7 +85,7 @@ const renderCategory = (id, categoryConfig, config, data) => {
     return null;
   }
 
-  const classes = classNames(categoryStyles.common, categoryStyles[className]);
+  const classes = classNames(groupStyles.common, groupStyles[className]);
 
   return (
     <div className={classes} key={id}>
@@ -104,7 +104,7 @@ export default function FieldList(props) {
   } = props;
 
   const {
-    categories,
+    groups,
     layout,
   } = config;
 
@@ -114,7 +114,7 @@ export default function FieldList(props) {
       key={layoutId}
       style={{ gridArea: layoutId }}
     >
-      {layout[layoutId].map((catId) => renderCategory(catId, categories[catId], config, data))}
+      {layout[layoutId].map((groupId) => renderGroup(groupId, groups[groupId], config, data))}
     </div>
   ));
 }

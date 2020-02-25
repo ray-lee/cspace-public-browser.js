@@ -1,15 +1,27 @@
 import loget from 'lodash/get';
 import lomerge from 'lodash/merge';
 import defaultConfig from './default';
-import materialorderConfig from './materialorder';
+import anthroConfig from './anthro';
+import bonsaiConfig from './bonsai';
+import botgardenConfig from './botgarden';
+import fcartConfig from './fcart';
+import herbariumConfig from './herbarium';
+import lhmcConfig from './lhmc';
+import materialsConfig from './materials';
+import publicartConfig from './publicart';
 
 const namedConfig = {
-  materialorder: materialorderConfig,
+  anthro: anthroConfig,
+  bonsai: bonsaiConfig,
+  botgarden: botgardenConfig,
+  fcart: fcartConfig,
+  herbarium: herbariumConfig,
+  lhmc: lhmcConfig,
+  materials: materialsConfig,
+  publicart: publicartConfig,
 };
 
 const config = lomerge({}, defaultConfig);
-
-let filterConfigsById;
 
 export default {
   get: (path, defaultValue) => loget(config, path, defaultValue),
@@ -24,17 +36,5 @@ export default {
     });
   },
 
-  getFilterConfig: (id) => {
-    if (!filterConfigsById) {
-      filterConfigsById = {};
-
-      loget(config, 'filterGroups', []).forEach(({ filters }) => {
-        filters.forEach((filterConfig) => {
-          filterConfigsById[filterConfig.id] = filterConfig;
-        });
-      });
-    }
-
-    return filterConfigsById[id];
-  },
+  getFilterFieldConfig: (id) => loget(config, ['filters', 'fields', id]),
 };

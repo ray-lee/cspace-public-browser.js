@@ -6,7 +6,6 @@ import Helmet from 'react-helmet';
 import { defineMessages, injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import Immutable from 'immutable';
-import config from '../../config';
 import bodyClassName from '../../helpers/bodyClassName';
 import Fixed from '../layout/Fixed';
 import FilterPanel from '../search/result/FilterPanelContainer';
@@ -107,13 +106,6 @@ class SearchPage extends Component {
     if (!params) {
       return null;
     }
-
-    const filterGroups = config.get('filterGroups');
-    const filterIds = [];
-
-    filterGroups.forEach((filterGroup) => {
-      filterIds.push(...filterGroup.filters.map((filter) => filter.id));
-    });
 
     const title = intl.formatMessage(messages.title);
 

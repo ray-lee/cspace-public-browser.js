@@ -33,20 +33,50 @@ export const fulltextParamToQuery = (value) => {
   };
 };
 
-export const filterParamToQuery = (id, value) => {
-  const filterConfig = config.getFilterConfig(id);
+export const termFilterParamToQuery = (field, value) => ({
+  terms: {
+    [field]: value.toJS(),
+  },
+});
 
-  if (!filterConfig) {
+export const histogramFilterParamToQuery = (field, value, interval) => {
+  const clauses = value.map((v) => ({
+    range: {
+      [field]: {
+        gte: v,
+        lt: v + interval,
+      },
+    },
+  })).toJS();
+
+  if (clauses.length === 1) {
+    return clauses[0];
+  }
+
+  return {
+    bool: {
+      should: clauses,
+    },
+  };
+};
+
+export const filterParamToQuery = (id, value) => {
+  const filterFieldConfig = config.getFilterFieldConfig(id);
+
+  if (!filterFieldConfig) {
     return undefined;
   }
 
-  const { field } = filterConfig;
+  const {
+    field,
+    type,
+  } = filterFieldConfig;
 
-  return {
-    terms: {
-      [field]: value.toJS(),
-    },
-  };
+  if (type === 'histogram') {
+    return histogramFilterParamToQuery(field, value, filterFieldConfig.interval);
+  }
+
+  return termFilterParamToQuery(field, value);
 };
 
 export const getSearchQuery = (params) => fulltextParamToQuery(params.get(SEARCH_QUERY_ID));
@@ -82,6 +112,14 @@ export const getQuery = (params) => {
   };
 };
 
+export const getHistogramAgg = (field, interval = 1) => ({
+  histogram: {
+    field,
+    interval,
+    min_doc_count: 1,
+  },
+});
+
 export const getTermsAgg = (field) => ({
   terms: {
     field,
@@ -92,21 +130,34 @@ export const getTermsAgg = (field) => ({
   },
 });
 
+export const getFilterAgg = (filterFieldConfig) => {
+  const {
+    field,
+    type,
+  } = filterFieldConfig;
+
+  if (type === 'histogram') {
+    return getHistogramAgg(field, filterFieldConfig.interval);
+  }
+
+  return getTermsAgg(field);
+};
+
 let aggs;
 
 export const getAggs = (params) => {
   if (!aggs) {
     aggs = {};
 
-    config.get('filterGroups').forEach(({ filters }) => {
-      filters.forEach(({ id, field }) => {
-        const param = params.get(id);
-        const hasValue = param && param.size > 0;
+    const filterFieldsConfig = config.get('filters').fields;
 
-        if (!hasValue) {
-          aggs[id] = getTermsAgg(field);
-        }
-      });
+    Object.entries(filterFieldsConfig).forEach(([id, filterFieldConfig]) => {
+      const param = params.get(id);
+      const hasValue = param && param.size > 0;
+
+      if (!hasValue) {
+        aggs[id] = getFilterAgg(filterFieldConfig);
+      }
     });
   }
 

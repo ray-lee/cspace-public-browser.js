@@ -87,6 +87,17 @@ const renderList = (values, inline = false) => {
 
 export const unformatted = (data) => data;
 
+export const boolean = (value) => {
+  switch (value) {
+    case 0:
+      return 'No';
+    case 1:
+      return 'Yes';
+    default:
+      return value;
+  }
+};
+
 export const literal = (value) => () => value;
 
 export const collectionValue = (value) => value.replace('_', '-');
@@ -334,4 +345,10 @@ export const pickAllFromList = (config) => (array) => {
   });
 
   return renderJoined((format ? values.map(format) : values), '\n');
+};
+
+export const decade = (startYear) => {
+  const endYear = startYear + 9;
+
+  return `${startYear}–${endYear}`;
 };

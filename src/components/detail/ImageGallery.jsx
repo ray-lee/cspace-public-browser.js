@@ -20,6 +20,13 @@ const defaultProps = {
   findMedia: () => undefined,
 };
 
+const getInstitutionIds = () => {
+  const institutionsConfig = config.get('institutions');
+
+  return (institutionsConfig ? Object.keys(institutionsConfig) : []);
+};
+
+
 export default class ImageGallery extends Component {
   componentDidMount() {
     this.findMedia();
@@ -48,7 +55,7 @@ export default class ImageGallery extends Component {
     } = this.props;
 
     const institutionIds = (typeof institutionId === 'undefined')
-      ? [null, ...Object.keys(config.get('institutions'))]
+      ? [null, ...getInstitutionIds()]
       : [institutionId];
 
     institutionIds.forEach((instId) => {
@@ -69,7 +76,7 @@ export default class ImageGallery extends Component {
     }
 
     const institutionIds = (typeof institutionId === 'undefined')
-      ? [null, ...Object.keys(config.get('institutions'))]
+      ? [null, ...getInstitutionIds()]
       : [institutionId];
 
     const items = [];

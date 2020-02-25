@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import Immutable from 'immutable';
+import memoize from 'memoize-one';
 import FilterSearchInput from './FilterSearchInput';
 import Panel from '../../layout/PanelContainer';
 import styles from '../../../../styles/cspace/Filter.css';
@@ -10,6 +11,7 @@ import styles from '../../../../styles/cspace/Filter.css';
 const propTypes = {
   aggregation: PropTypes.instanceOf(Immutable.Map),
   field: PropTypes.string.isRequired,
+  formatValue: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -21,13 +23,16 @@ const propTypes = {
   onValueCommit: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
   searchValue: PropTypes.string,
+  showSearch: PropTypes.bool,
 };
 
 const defaultProps = {
   aggregation: Immutable.Map(),
+  formatValue: undefined,
   onSearchValueCommit: () => undefined,
   onValueCommit: () => undefined,
   searchValue: undefined,
+  showSearch: true,
 };
 
 const messages = defineMessages({
@@ -35,6 +40,23 @@ const messages = defineMessages({
     id: 'filter.count',
     defaultMessage: '({count, number})',
   },
+});
+
+const getFormattedValues = memoize((aggregation, formatValue) => {
+  if (!formatValue) {
+    return undefined;
+  }
+
+  const formattedValues = {};
+
+  aggregation.get('buckets').forEach((bucket) => {
+    const value = bucket.get('key');
+    const formattedValue = formatValue(value);
+
+    formattedValues[value] = formattedValue;
+  });
+
+  return formattedValues;
 });
 
 class Filter extends Component {
@@ -65,17 +87,27 @@ class Filter extends Component {
       target: checkbox,
     } = event;
 
-    onValueCommit(history, id, checkbox.name, checkbox.checked);
+    const {
+      dataset,
+      name,
+    } = checkbox;
+
+    const { type } = dataset;
+    const value = (type === 'number') ? Number.parseInt(name, 10) : name;
+
+    onValueCommit(history, id, value, checkbox.checked);
   }
 
   renderBuckets() {
     const {
       aggregation,
+      formatValue,
       id,
       params,
       searchValue,
     } = this.props;
 
+    const formattedValues = getFormattedValues(aggregation, formatValue);
     const buckets = aggregation.get('buckets');
 
     let matchingBuckets = buckets;
@@ -84,7 +116,9 @@ class Filter extends Component {
       const needle = searchValue.toLowerCase();
 
       matchingBuckets = buckets.filter((bucket) => {
-        const haystack = bucket.get('key').toLowerCase();
+        const value = bucket.get('key');
+        const formattedValue = formattedValues ? formattedValues[value] : value;
+        const haystack = formattedValue.toLowerCase();
 
         return haystack.includes(needle);
       });
@@ -97,25 +131,28 @@ class Filter extends Component {
     }
 
     return matchingBuckets.map((bucket) => {
-      const key = bucket.get('key');
+      const value = bucket.get('key');
+      const type = typeof value;
       const count = bucket.get('doc_count');
-      const isSelected = (selectedValues.indexOf(key) >= 0);
+      const isSelected = (selectedValues.indexOf(value) >= 0);
+      const formattedValue = formattedValues ? formattedValues[value] : value;
 
       return (
-        <li key={key}>
+        <li key={value}>
           {/* The linter is not figuring out that there is an input inside this label. */}
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>
             <input
               checked={isSelected}
-              name={key}
+              data-type={type !== 'string' ? type : undefined}
+              name={value}
               type="checkbox"
               onChange={this.handleCheckboxChange}
             />
 
             <div>
               <span>
-                {key}
+                {formattedValue}
                 {' '}
                 {/* eslint-disable-next-line react/jsx-props-no-spreading */}
                 <FormattedMessage {...messages.count} values={{ count }} />
@@ -133,6 +170,7 @@ class Filter extends Component {
       id,
       messages: filterMessages,
       searchValue,
+      showSearch,
     } = this.props;
 
     const buckets = aggregation.get('buckets');
@@ -148,10 +186,15 @@ class Filter extends Component {
     return (
       <Panel id={`Filter-${id}`} title={title}>
         <div className={styles.common}>
-          <FilterSearchInput
-            value={searchValue}
-            onCommit={this.handleSearchInputCommit}
-          />
+          {
+            showSearch
+            && (
+              <FilterSearchInput
+                value={searchValue}
+                onCommit={this.handleSearchInputCommit}
+              />
+            )
+          }
           <ul>
             {this.renderBuckets(buckets)}
           </ul>

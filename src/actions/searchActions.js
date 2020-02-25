@@ -26,7 +26,7 @@ import {
   getAggs,
   getSearchResultPayload,
   getQuery,
-  getTermsAgg,
+  getFilterAgg,
 } from '../helpers/esQueryHelpers';
 
 export const openSearch = (history, params = Immutable.Map()) => {
@@ -69,7 +69,7 @@ export const search = () => (dispatch, getState) => {
       .delete(SEARCH_QUERY_ID)
       .keySeq()
       .flatMap((id) => {
-        const filterConfig = config.getFilterConfig(id);
+        const filterFieldConfig = config.getFilterFieldConfig(id);
 
         return [
           {
@@ -79,7 +79,7 @@ export const search = () => (dispatch, getState) => {
             query: getQuery(params.delete(id)),
             size: 0,
             aggs: {
-              [id]: getTermsAgg(filterConfig.field),
+              [id]: getFilterAgg(filterFieldConfig),
             },
           },
         ];

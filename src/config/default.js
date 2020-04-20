@@ -384,7 +384,7 @@ export default {
           },
         }),
         field: 'collectionobjects_common:responsibleDepartments',
-        format: listOf(filterLink({ filterValueFormat: formatDepartment })),
+        format: listOf(filterLink({ linkTextFormat: formatDepartment })),
       },
       objectProductionPerson: {
         messages: defineMessages({

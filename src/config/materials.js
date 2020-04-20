@@ -40,6 +40,7 @@ export default {
   },
 
   esIndexName: 'materials',
+  gatewayUrl: 'http://localhost:8181/materials',
   detailPath: 'material',
 
   defaultQuery: {

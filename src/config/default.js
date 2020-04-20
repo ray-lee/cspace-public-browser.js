@@ -65,7 +65,7 @@ export default {
   basename: '',
   container: '#cspace-browser',
   esIndexName: 'nuxeo',
-  gatewayUrl: 'http://localhost:8181',
+  gatewayUrl: 'http://localhost:8181/core',
   locale: 'en-US',
   detailPath: 'detail',
 

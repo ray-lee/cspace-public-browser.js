@@ -2,6 +2,7 @@ import { defineMessages } from 'react-intl';
 
 export default {
   esIndexName: 'fcart',
+  gatewayUrl: 'http://localhost:8181/fcart',
 
   detailFields: {
     fields: {

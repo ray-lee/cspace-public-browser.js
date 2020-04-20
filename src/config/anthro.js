@@ -10,6 +10,7 @@ import {
 
 export default {
   esIndexName: 'anthro',
+  gatewayUrl: 'http://localhost:8181/anthro',
 
   filters: {
     fields: {

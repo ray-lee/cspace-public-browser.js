@@ -23,17 +23,14 @@ export const findMedia = (referenceValue, institutionId) => (dispatch, getState)
   }
 
   let gatewayUrl;
-  let indexName;
 
   if (institutionId === null) {
     gatewayUrl = config.get('gatewayUrl');
-    indexName = config.get('esIndexName');
   } else {
     gatewayUrl = config.get(['institutions', institutionId, 'gatewayUrl']);
-    indexName = config.get(['institutions', institutionId, 'esIndexName']);
   }
 
-  const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
+  const url = `${gatewayUrl}/es/doc/_search`;
   const referenceField = config.get('referenceField');
 
   const query = {

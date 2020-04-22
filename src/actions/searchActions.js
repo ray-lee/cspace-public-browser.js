@@ -50,8 +50,7 @@ export const search = () => (dispatch, getState) => {
   }
 
   const gatewayUrl = config.get('gatewayUrl');
-  const indexName = config.get('esIndexName');
-  const url = `${gatewayUrl}/es/${indexName}/doc/_msearch`;
+  const url = `${gatewayUrl}/es/doc/_msearch`;
 
   const offset = getSearchNextOffset(getState()) || 0;
   const pageSize = getSearchPageSize(getState()) || 15;

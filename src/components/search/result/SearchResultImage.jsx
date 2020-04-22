@@ -80,7 +80,7 @@ export default class SearchResultImage extends Component {
   }
 
   getMediaCsid(gatewayUrl, indexName, referenceValue) {
-    const url = `${gatewayUrl}/es/${indexName}/doc/_search`;
+    const url = `${gatewayUrl}/es/doc/_search`;
     const referenceField = config.get('referenceField');
 
     const query = {

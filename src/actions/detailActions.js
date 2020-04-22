@@ -68,10 +68,9 @@ export const findInstitutionHoldings = (institutionId) => (dispatch, getState) =
 
   const {
     gatewayUrl,
-    esIndexName,
   } = institutionConfig;
 
-  const url = `${gatewayUrl}/es/${esIndexName}/doc/_search`;
+  const url = `${gatewayUrl}/es/doc/_search`;
   const query = queryBuilder(data);
 
   const payload = {
@@ -154,8 +153,7 @@ export const readDetail = () => (dispatch, getState) => {
   }
 
   const gatewayUrl = config.get('gatewayUrl');
-  const esIndexName = config.get('esIndexName');
-  const url = `${gatewayUrl}/es/${esIndexName}/doc/_msearch`;
+  const url = `${gatewayUrl}/es/doc/_msearch`;
 
   const csid = params.get('csid');
   const index = params.get('index');

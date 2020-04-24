@@ -39,8 +39,7 @@ export default {
     'institutionIndex.label': 'Samples at {title}',
   },
 
-  esIndexName: 'materials',
-  gatewayUrl: 'http://localhost:8181/materials',
+  gatewayUrl: 'http://localhost:8180/gateway/materials',
   detailPath: 'material',
 
   defaultQuery: {

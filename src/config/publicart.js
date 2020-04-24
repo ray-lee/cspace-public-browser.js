@@ -1,4 +1,3 @@
 export default {
-  esIndexName: 'publicart',
-  gatewayUrl: 'http://localhost:8181/publicart',
+  gatewayUrl: 'http://localhost:8180/gateway/publicart',
 };

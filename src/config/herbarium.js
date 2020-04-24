@@ -1,4 +1,3 @@
 export default {
-  esIndexName: 'herbarium',
-  gatewayUrl: 'http://localhost:8181/herbarium',
+  gatewayUrl: 'http://localhost:8180/gateway/herbarium',
 };

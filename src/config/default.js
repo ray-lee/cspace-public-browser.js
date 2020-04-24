@@ -64,8 +64,7 @@ const formatDepartment = (data) => {
 export default {
   basename: '',
   container: '#cspace-browser',
-  esIndexName: 'nuxeo',
-  gatewayUrl: 'http://localhost:8181/core',
+  gatewayUrl: 'http://localhost:8180/gateway/core',
   locale: 'en-US',
   detailPath: 'detail',
 

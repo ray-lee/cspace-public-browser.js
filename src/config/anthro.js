@@ -9,8 +9,7 @@ import {
 } from '../helpers/formatHelpers';
 
 export default {
-  esIndexName: 'anthro',
-  gatewayUrl: 'http://localhost:8181/anthro',
+  gatewayUrl: 'http://localhost:8180/gateway/anthro',
 
   filters: {
     fields: {

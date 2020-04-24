@@ -28,11 +28,19 @@ export default {
 
   merge: (...sources) => {
     sources.forEach((source) => {
-      const sourceConfig = (typeof source === 'string')
-        ? namedConfig[source]
-        : source;
+      const {
+        baseConfig: baseConfigName,
+      } = source;
 
-      lomerge(config, sourceConfig);
+      if (baseConfigName) {
+        const baseConfig = namedConfig[baseConfigName];
+
+        if (baseConfig) {
+          lomerge(config, baseConfig);
+        }
+      }
+
+      lomerge(config, source);
     });
   },
 

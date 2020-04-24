@@ -1,4 +1,3 @@
 export default {
-  esIndexName: 'bonsai',
-  gatewayUrl: 'http://localhost:8181/bonsai',
+  gatewayUrl: 'http://localhost:8180/gateway/bonsai',
 };

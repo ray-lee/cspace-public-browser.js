@@ -26,6 +26,9 @@ const config = lomerge({}, defaultConfig);
 export default {
   get: (path, defaultValue) => loget(config, path, defaultValue),
 
+  // eslint-disable-next-line no-console
+  log: () => console.log(config),
+
   merge: (...sources) => {
     sources.forEach((source) => {
       const {

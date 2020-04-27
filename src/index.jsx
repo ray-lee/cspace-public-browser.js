@@ -15,6 +15,7 @@ import reducer from './reducers';
 
 export default (...customConfigs) => {
   config.merge(...customConfigs);
+  config.log();
 
   const container = config.get('container');
   const mountNode = document.querySelector(container);

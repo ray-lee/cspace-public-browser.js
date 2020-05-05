@@ -23,13 +23,6 @@
   box-shadow:  0 0 8px 1px highlightColor;
 }
 
-.common > div {
-  width: 100%;
-  height: searchResultTileWidth;
-  background-color: rgb(252, 252, 252);
-  background-size: cover;
-}
-
 .common > article {
   padding: 10px;
   height: searchResultTileBodyHeight;
@@ -66,11 +59,6 @@ and (max-width: 695px) {
     width: 105px;
     margin: 4px;
   }
-
-  .common > div {
-    height: 105px;
-  }
-
   .common > article {
     height: 128px;
   }

@@ -2,10 +2,12 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { defineMessages, FormattedMessage } from 'react-intl';
 import { getItemShortID } from 'cspace-refname';
 import Immutable from 'immutable';
 import { blobUrl } from '../../../helpers/urlHelpers';
 import config from '../../../config';
+import styles from '../../../../styles/cspace/SearchResultImage.css';
 
 const propTypes = {
   gatewayUrl: PropTypes.string.isRequired,
@@ -18,6 +20,13 @@ const defaultProps = {
   holdingInstitutions: Immutable.List(),
   mediaCsid: undefined,
 };
+
+const messages = defineMessages({
+  noimage: {
+    id: 'searchResultImage.noimage',
+    defaultMessage: 'no image available',
+  },
+});
 
 export default class SearchResultImage extends Component {
   constructor(props) {
@@ -107,7 +116,7 @@ export default class SearchResultImage extends Component {
   }
 
   init(referenceValue, mediaCsid, holdingInstitutions) {
-    if (!mediaCsid) {
+    if (typeof mediaCsid === 'undefined') {
       const institutions = holdingInstitutions.filter((value) => !!value);
 
       if (institutions.size > 0) {
@@ -140,6 +149,10 @@ export default class SearchResultImage extends Component {
             });
           })
           .catch(() => {});
+      } else {
+        this.setState({
+          mediaCsid: null,
+        });
       }
     }
   }
@@ -149,6 +162,18 @@ export default class SearchResultImage extends Component {
       gatewayUrl,
       mediaCsid,
     } = this.state;
+
+    if (mediaCsid === null) {
+      return (
+        <div
+          aria-hidden
+          className={styles.noimage}
+        >
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <FormattedMessage {...messages.noimage} />
+        </div>
+      );
+    }
 
     const imageUrl = mediaCsid && blobUrl(gatewayUrl, mediaCsid, config.get('searchResultImageDerivative'));
 
@@ -161,7 +186,7 @@ export default class SearchResultImage extends Component {
     }
 
     return (
-      <div style={style} />
+      <div className={styles.common} style={style} />
     );
   }
 }

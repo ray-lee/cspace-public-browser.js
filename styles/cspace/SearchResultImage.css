@@ -1,0 +1,29 @@
+@value searchResultTileWidth from '../dimensions.css';
+@value panelBorderColor from '../colors.css';
+
+.common {
+  width: 100%;
+  height: searchResultTileWidth;
+  background-color: rgb(252, 252, 252);
+  background-size: cover;
+  box-sizing: border-box;
+}
+
+.noimage {
+  composes: common;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: panelBorderColor;
+  font-size: inherit;
+  font-weight: 600;
+  padding: 10%;
+}
+
+@media only screen
+  and (max-width: 539px) {
+  .common {
+    height: 105px;
+  }
+}

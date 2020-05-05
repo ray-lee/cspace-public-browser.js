@@ -150,7 +150,7 @@ export default class SearchResultImage extends Component {
       mediaCsid,
     } = this.state;
 
-    const imageUrl = mediaCsid && blobUrl(gatewayUrl, mediaCsid, 'OriginalJpeg');
+    const imageUrl = mediaCsid && blobUrl(gatewayUrl, mediaCsid, config.get('searchResultImageDerivative'));
 
     let style;
 

@@ -91,7 +91,7 @@ export default class ImageGallery extends Component {
 
         mediaCsids.forEach((mediaCsid) => {
           items.push({
-            original: blobUrl(gatewayUrl, mediaCsid, 'OriginalJpeg'),
+            original: blobUrl(gatewayUrl, mediaCsid, config.get('detailImageDerivative')),
             thumbnail: blobUrl(gatewayUrl, mediaCsid, 'Thumbnail'),
           });
         });

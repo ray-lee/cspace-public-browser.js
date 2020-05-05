@@ -91,6 +91,9 @@ export default {
   sortField: 'collectionspace_denorm:title',
   storageKey: 'cspace-browser',
 
+  searchResultImageDerivative: 'Small',
+  detailImageDerivative: 'Medium',
+
   filters: {
     fields: {
       objectName: {

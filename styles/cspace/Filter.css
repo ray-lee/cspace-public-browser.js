@@ -9,7 +9,7 @@
   margin: 0;
   padding: 0;
   max-height: 150px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .common li {

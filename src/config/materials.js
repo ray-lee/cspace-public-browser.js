@@ -61,6 +61,9 @@ export default {
 
   storageKey: 'mo',
 
+  searchResultImageDerivative: 'OriginalJpeg',
+  detailImageDerivative: 'OriginalJpeg',
+
   detailTitle: (data) => {
     const {
       'materials_common:materialTermGroupList': materialTermGroups,

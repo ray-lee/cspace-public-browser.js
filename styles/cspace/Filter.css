@@ -7,7 +7,7 @@
 .common > ul {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 4px 0 0 0;
   max-height: 150px;
   overflow: auto;
 }

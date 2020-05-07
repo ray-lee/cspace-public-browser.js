@@ -41,6 +41,7 @@ export default class FilterPanel extends Component {
     super();
 
     this.handleResize = this.handleResize.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
 
     this.ref = React.createRef();
 
@@ -53,6 +54,7 @@ export default class FilterPanel extends Component {
     } = this.props;
 
     window.addEventListener('resize', this.handleResize);
+    window.addEventListener('scroll', this.handleScroll);
 
     api({
       setHeight: this.setHeight.bind(this),
@@ -63,6 +65,7 @@ export default class FilterPanel extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   setHeight() {
@@ -76,6 +79,10 @@ export default class FilterPanel extends Component {
   }
 
   handleResize() {
+    this.setHeight();
+  }
+
+  handleScroll() {
     this.setHeight();
   }
 

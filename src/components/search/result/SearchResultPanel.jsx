@@ -15,6 +15,7 @@ const propTypes = {
   error: PropTypes.instanceOf(Error),
   isPending: PropTypes.bool,
   offset: PropTypes.number,
+  onHitsUpdated: PropTypes.func,
   result: PropTypes.instanceOf(Immutable.Map),
   params: PropTypes.instanceOf(Immutable.Map),
   search: PropTypes.func,
@@ -25,6 +26,7 @@ const defaultProps = {
   error: undefined,
   isPending: false,
   offset: undefined,
+  onHitsUpdated: undefined,
   params: Immutable.Map(),
   result: undefined,
   search: () => undefined,
@@ -123,6 +125,7 @@ export default class SearchResultPanel extends Component {
     const {
       isPending,
       offset,
+      onHitsUpdated,
       params,
       result,
     } = this.props;
@@ -141,6 +144,7 @@ export default class SearchResultPanel extends Component {
         <SearchResultList
           isPending={isPending}
           offset={offset}
+          onHitsUpdated={onHitsUpdated}
           params={params}
           hits={result && result.get('hits')}
         />

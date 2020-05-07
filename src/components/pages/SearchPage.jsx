@@ -47,6 +47,8 @@ class SearchPage extends Component {
   constructor() {
     super();
 
+    this.handleFilterPanelApi = this.handleFilterPanelApi.bind(this);
+    this.handleSearchResultListHitsUpdated = this.handleSearchResultListHitsUpdated.bind(this);
     this.handleToggleFilterPanelButtonClick = this.handleToggleFilterPanelButtonClick.bind(this);
   }
 
@@ -79,6 +81,10 @@ class SearchPage extends Component {
     window.document.body.classList.remove(bodyClassName(styles.common));
   }
 
+  handleFilterPanelApi(api) {
+    this.filterPanelApi = api;
+  }
+
   handleLocationChange() {
     const {
       location,
@@ -86,6 +92,12 @@ class SearchPage extends Component {
     } = this.props;
 
     onLocationChange(location);
+  }
+
+  handleSearchResultListHitsUpdated() {
+    if (this.filterPanelApi) {
+      this.filterPanelApi.setHeight();
+    }
   }
 
   handleToggleFilterPanelButtonClick() {
@@ -123,10 +135,17 @@ class SearchPage extends Component {
             onClick={this.handleToggleFilterPanelButtonClick}
           />
 
-          <FilterPanel isExpanded={isFilterPanelExpanded} />
+          <FilterPanel
+            api={this.handleFilterPanelApi}
+            isExpanded={isFilterPanelExpanded}
+          />
         </Fixed>
 
-        <SearchResultPanel params={params} />
+        <SearchResultPanel
+          params={params}
+          onHitsUpdated={this.handleSearchResultListHitsUpdated}
+        />
+
         <ScrollTopButton />
       </div>
     );

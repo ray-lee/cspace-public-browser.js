@@ -3,6 +3,7 @@
 
 .common {
   margin: 0;
+  font-size: 1rem;
 }
 
 .common > input {
@@ -11,7 +12,6 @@
   box-sizing: border-box;
   border: 1px solid inputBorderColor;
   padding: 0 88px 0 32px;
-  font-size: 1rem;
   background-image: url(../../images/search.svg);
   background-repeat: no-repeat;
   background-position: 6px center;

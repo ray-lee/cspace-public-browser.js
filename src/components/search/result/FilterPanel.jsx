@@ -10,12 +10,14 @@ import styles from '../../../../styles/cspace/FilterPanel.css';
 import cssDimensions from '../../../../styles/dimensions.css';
 
 const propTypes = {
+  api: PropTypes.func,
   isExpanded: PropTypes.bool,
   isPending: PropTypes.bool,
   result: PropTypes.instanceOf(Immutable.Map),
 };
 
 const defaultProps = {
+  api: () => undefined,
   isExpanded: false,
   isPending: false,
   result: Immutable.Map(),
@@ -46,7 +48,15 @@ export default class FilterPanel extends Component {
   }
 
   componentDidMount() {
+    const {
+      api,
+    } = this.props;
+
     window.addEventListener('resize', this.handleResize);
+
+    api({
+      setHeight: this.setHeight.bind(this),
+    });
 
     this.setHeight();
   }

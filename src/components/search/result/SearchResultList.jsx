@@ -8,16 +8,18 @@ import config from '../../../config';
 import styles from '../../../../styles/cspace/SearchResultList.css';
 
 const propTypes = {
+  hits: PropTypes.instanceOf(Immutable.List),
   isPending: PropTypes.bool,
   offset: PropTypes.number,
+  onHitsUpdated: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
-  hits: PropTypes.instanceOf(Immutable.List),
 };
 
 const defaultProps = {
-  isPending: false,
   hits: Immutable.List(),
+  isPending: false,
   offset: 0,
+  onHitsUpdated: () => undefined,
 };
 
 const messages = defineMessages({
@@ -28,6 +30,21 @@ const messages = defineMessages({
 });
 
 export default class SearchResultList extends Component {
+  componentDidUpdate(prevProps) {
+    const {
+      hits,
+      onHitsUpdated,
+    } = this.props;
+
+    const {
+      hits: prevHits,
+    } = prevProps;
+
+    if (hits !== prevHits) {
+      onHitsUpdated();
+    }
+  }
+
   renderPending() {
     const {
       isPending,

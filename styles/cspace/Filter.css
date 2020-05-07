@@ -29,6 +29,8 @@
   width: 1px;
   height: 1px;
   opacity: 0;
+  box-sizing: border-box;
+  position: absolute;
 }
 
 .common li input + div {

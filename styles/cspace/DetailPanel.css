@@ -16,6 +16,8 @@
   max-width: 840px;
   box-sizing: border-box;
   padding-bottom: 64px;
+  font-size: 1rem;
+  line-height: normal;
 }
 
 .common > header {

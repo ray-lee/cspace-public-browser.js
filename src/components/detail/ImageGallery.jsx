@@ -26,7 +26,6 @@ const getInstitutionIds = () => {
   return (institutionsConfig ? Object.keys(institutionsConfig) : []);
 };
 
-
 export default class ImageGallery extends Component {
   componentDidMount() {
     this.findMedia();

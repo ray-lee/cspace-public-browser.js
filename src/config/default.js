@@ -94,6 +94,11 @@ export default {
   searchResultImageDerivative: 'Small',
   detailImageDerivative: 'Medium',
 
+  tileTitle: {
+    field: 'collectionspace_denorm:title',
+    formatValue: displayName,
+  },
+
   filters: {
     fields: {
       objectName: {

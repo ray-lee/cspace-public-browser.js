@@ -23,6 +23,8 @@ export default function SearchResultTile(props) {
 
   const detailPath = config.get('detailPath');
   const referenceField = config.get('referenceField');
+  const tileTitleField = config.get(['tileTitle', 'field']);
+  const tileTitleFormat = config.get(['tileTitle', 'formatValue']);
 
   const doc = result.get('_source');
   const csid = doc.get('ecm:name');
@@ -30,7 +32,12 @@ export default function SearchResultTile(props) {
   const holdingInstitutions = doc.get('collectionspace_denorm:holdingInstitutions');
   const mediaCsid = doc.getIn(['collectionspace_denorm:mediaCsid', 0]);
   const referenceValue = doc.get(referenceField);
-  const title = doc.get('collectionspace_denorm:title');
+
+  let title = doc.get(tileTitleField);
+
+  if (tileTitleFormat) {
+    title = tileTitleFormat(title);
+  }
 
   return (
     <Link

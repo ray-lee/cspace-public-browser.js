@@ -33,17 +33,56 @@
 <body>
   <div id="cspace-browser"></div>
   <script>
+    // cspacePublicBrowser({
+    //   gatewayUrl: 'http://localhost:8180/gateway/core',
+    // });
+
     cspacePublicBrowser({
-      gatewayUrl: 'http://localhost:8180/gateway/core',
+      baseConfig: 'anthro',
+      gatewayUrl: 'https://cspace.ohiohistory.org/gateway/ohc',
+      filters: {
+        fields: {
+          objectName: {
+            formatValue: cspacePublicBrowser.formatters.displayName,
+          },
+          material: {
+            formatValue: cspacePublicBrowser.formatters.displayName,
+          },
+        },
+      },
+      detailSubtitle: (data) => {
+        const {
+          'collectionobjects_common:objectNameList': objectNameGroups,
+        } = data;
+
+        if (objectNameGroups && objectNameGroups.length > 0) {
+          const {
+            objectName,
+          } = objectNameGroups[0];
+
+          return cspacePublicBrowser.formatters.displayName(objectName);
+        }
+
+        return undefined;
+      },
+      detailFields: {
+        fields: {
+          material: {
+            format: cspacePublicBrowser.formatters.listOf(cspacePublicBrowser.formatters.valueAt({
+              path: 'material',
+              format: cspacePublicBrowser.formatters.filterLink({
+                linkTextFormat: cspacePublicBrowser.formatters.displayName,
+              }),
+            })),
+          },
+        },
+      },
     });
 
     // cspacePublicBrowser({
-    //   baseConfig: 'botgarden',
-    //   gatewayUrl: 'http://localhost:8180/gateway/botgarden',
-    // });
+    //   baseConfig: 'materials',
 
-    // cspacePublicBrowser('materials', {
-      // /* LOCAL */
+      /* LOCAL */
       // gatewayUrl: 'http://localhost:8180/gateway/materials',
       // institutions: {
       //   TestInstitution1558039857547: {
@@ -71,20 +110,20 @@
       // },
 
       /* PRODUCTION */
-      // gatewayUrl: 'https://cspace.materialorder.org/gateway/materials',
+      // gatewayUrl: 'https://cspace.materialorder.org/gateway/materialorder',
       // esIndexName: 'materialorder',
       // institutions: {
       //   HarvardUniversityGraduateSchoolofDesign1489090937914: {
       //     title: 'Harvard University Graduate School of Design',
-      //     gatewayUrl: 'https://cspace.gsd.harvard.edu/gateway/materials',
+      //     gatewayUrl: 'https://cspace.gsd.harvard.edu/gateway/materialorder',
       //   },
       //   RhodeIslandSchoolofDesign1518115923204: {
       //     title: 'Rhode Island School of Design',
-      //     gatewayUrl: 'https://cspace.risd.edu/gateway/materials',
+      //     gatewayUrl: 'https://cspace.risd.edu/gateway/risd',
       //   },
       //   ParsonsSchoolofDesign1552595955932: {
       //     title: 'Parsons School of Design',
-      //     gatewayUrl: 'https://parsons.lyrasistechnology.org/gateway/materials',
+      //     gatewayUrl: 'https://parsons.lyrasistechnology.org/gateway/parsons',
       //   },
       // },
     // });

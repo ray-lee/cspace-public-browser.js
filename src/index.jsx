@@ -12,8 +12,9 @@ import config from './config';
 import App from './components/App';
 import { createIntl } from './intl';
 import reducer from './reducers';
+import * as formatters from './helpers/formatHelpers';
 
-export default (...customConfigs) => {
+const cspacePublicBrowser = (...customConfigs) => {
   config.merge(...customConfigs);
 
   const container = config.get('container');
@@ -52,3 +53,7 @@ export default (...customConfigs) => {
     mountNode,
   );
 };
+
+cspacePublicBrowser.formatters = formatters;
+
+export default cspacePublicBrowser;

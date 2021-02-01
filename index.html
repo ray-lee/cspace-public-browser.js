@@ -33,51 +33,53 @@
 <body>
   <div id="cspace-browser"></div>
   <script>
-    // cspacePublicBrowser({
-    //   gatewayUrl: 'http://localhost:8180/gateway/core',
-    // });
+    // Initialize and configure the application.
 
     cspacePublicBrowser({
-      baseConfig: 'anthro',
-      gatewayUrl: 'https://cspace.ohiohistory.org/gateway/ohc',
-      filters: {
-        fields: {
-          objectName: {
-            formatValue: cspacePublicBrowser.formatters.displayName,
-          },
-          material: {
-            formatValue: cspacePublicBrowser.formatters.displayName,
-          },
-        },
-      },
-      detailSubtitle: (data) => {
-        const {
-          'collectionobjects_common:objectNameList': objectNameGroups,
-        } = data;
-
-        if (objectNameGroups && objectNameGroups.length > 0) {
-          const {
-            objectName,
-          } = objectNameGroups[0];
-
-          return cspacePublicBrowser.formatters.displayName(objectName);
-        }
-
-        return undefined;
-      },
-      detailFields: {
-        fields: {
-          material: {
-            format: cspacePublicBrowser.formatters.listOf(cspacePublicBrowser.formatters.valueAt({
-              path: 'material',
-              format: cspacePublicBrowser.formatters.filterLink({
-                linkTextFormat: cspacePublicBrowser.formatters.displayName,
-              }),
-            })),
-          },
-        },
-      },
+      gatewayUrl: 'https://core.dev.collectionspace.org/gateway/core',
     });
+
+    // cspacePublicBrowser({
+    //   baseConfig: 'anthro',
+    //   gatewayUrl: 'https://cspace.ohiohistory.org/gateway/ohc',
+    //   filters: {
+    //     fields: {
+    //       objectName: {
+    //         formatValue: cspacePublicBrowser.formatters.displayName,
+    //       },
+    //       material: {
+    //         formatValue: cspacePublicBrowser.formatters.displayName,
+    //       },
+    //     },
+    //   },
+    //   detailSubtitle: (data) => {
+    //     const {
+    //       'collectionobjects_common:objectNameList': objectNameGroups,
+    //     } = data;
+
+    //     if (objectNameGroups && objectNameGroups.length > 0) {
+    //       const {
+    //         objectName,
+    //       } = objectNameGroups[0];
+
+    //       return cspacePublicBrowser.formatters.displayName(objectName);
+    //     }
+
+    //     return undefined;
+    //   },
+    //   detailFields: {
+    //     fields: {
+    //       material: {
+    //         format: cspacePublicBrowser.formatters.listOf(cspacePublicBrowser.formatters.valueAt({
+    //           path: 'material',
+    //           format: cspacePublicBrowser.formatters.filterLink({
+    //             linkTextFormat: cspacePublicBrowser.formatters.displayName,
+    //           }),
+    //         })),
+    //       },
+    //     },
+    //   },
+    // });
 
     // cspacePublicBrowser({
     //   baseConfig: 'materials',

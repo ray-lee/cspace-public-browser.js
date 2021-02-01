@@ -3,7 +3,7 @@ services:
   - xvfb
 language: node_js
 node_js:
-  - "10"
+  - "14"
 script:
   - npm run check # && npm run test-selenium
 after_success:

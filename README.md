@@ -10,21 +10,28 @@ The CollectionSpace public browser.
 
 ### For CollectionSpace Administrators
 
-The CollectionSpace public browser is a JavaScript application that runs in a web browser. To install the application in a WordPress site, use the [wp-collectionspace](https://github.com/ray-lee/wp-collectionspace) WordPress plugin.
+The CollectionSpace public browser is a JavaScript application that runs in a web browser. To install the application in a WordPress site, use the [wp-collectionspace](https://github.com/collectionspace/wp-collectionspace) WordPress plugin.
 
 ### For CollectionSpace Developers
 
-[Node.js](https://nodejs.org/) 8 and npm 5 are required to build the application.
+[Node.js](https://nodejs.org/) 14 and npm 6 are required to build the application.
 
 To download and install the source code of the application for development:
 
 ```
-$ git clone https://github.com/collectionspace/cspace-public-browser.js.git
-$ cd cspace-public-browser.js
-$ npm install
+git clone https://github.com/collectionspace/cspace-public-browser.js.git
+cd cspace-public-browser.js
+npm install
 ```
 
-See the [developer documentation](https://github.com/collectionspace/cspace-public-browser.js/tree/master/docs/developer) for instructions on building, testing, and running the source code.
+To run the application during development:
+
+```
+cd cspace-public-browser.js
+npm run devserver
+```
+
+Then open a browser to http://localhost:8081. This runs the application using the configuration settings specified in `index.html`. The application will reload automatically as changes to source code files are saved.
 
 ## About CollectionSpace
 

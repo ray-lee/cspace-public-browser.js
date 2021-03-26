@@ -226,12 +226,12 @@ export default {
         field: 'collectionspace_denorm:exhibition.title',
         messages: defineMessages({
           label: {
-            id: 'filter.title.label',
-            defaultMessage: 'exhibitionTitle',
+            id: 'filter.exhibitionTitle.label',
+            defaultMessage: 'Exhibition title',
           },
           shortLabel: {
-            id: 'filter.title.shortLabel',
-            defaultMessage: 'exhibitionTitle',
+            id: 'filter.exhibitionTitle.shortLabel',
+            defaultMessage: 'Exhibition title',
           },
         }),
       },
@@ -288,7 +288,7 @@ export default {
         fields: [
           'responsibleDepartment',
           'objectName',
-          'exhibitionTitle'
+          'exhibitionTitle',
         ],
       },
       group_media: {

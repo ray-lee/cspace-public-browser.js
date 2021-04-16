@@ -48,10 +48,9 @@ export default class SearchResultList extends Component {
   renderPending() {
     const {
       isPending,
-      offset,
     } = this.props;
 
-    if (!isPending || offset === 0) {
+    if (!isPending) {
       return undefined;
     }
 
@@ -64,9 +63,10 @@ export default class SearchResultList extends Component {
     const {
       params,
       hits,
+      isPending,
     } = this.props;
 
-    if (hits.size === 0) {
+    if (hits.size === 0 && !isPending) {
       return (
         <p>
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}

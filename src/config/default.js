@@ -222,6 +222,19 @@ export default {
           },
         }),
       },
+      exhibitionTitle: {
+        field: 'collectionspace_denorm:exhibition.title',
+        messages: defineMessages({
+          label: {
+            id: 'filter.exhibitionTitle.label',
+            defaultMessage: 'Exhibition title',
+          },
+          shortLabel: {
+            id: 'filter.exhibitionTitle.shortLabel',
+            defaultMessage: 'Exhibition title',
+          },
+        }),
+      },
       contentConcept: {
         field: 'collectionobjects_common:contentConcepts.displayName',
         messages: defineMessages({
@@ -275,6 +288,7 @@ export default {
         fields: [
           'responsibleDepartment',
           'objectName',
+          'exhibitionTitle',
         ],
       },
       group_media: {

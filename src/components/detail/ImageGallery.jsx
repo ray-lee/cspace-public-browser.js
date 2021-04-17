@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { defineMessages, injectIntl } from 'react-intl';
 import Immutable from 'immutable';
 import Gallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -10,9 +11,11 @@ import styles from '../../../styles/cspace/ImageGallery.css';
 const propTypes = {
   findMedia: PropTypes.func,
   institutionId: PropTypes.string,
+  intl: PropTypes.shape({
+    formatMessage: PropTypes.func.isRequired,
+  }).isRequired,
   media: PropTypes.instanceOf(Immutable.Map),
   referenceValue: PropTypes.string.isRequired,
-  mediaAltText: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -21,13 +24,24 @@ const defaultProps = {
   findMedia: () => undefined,
 };
 
+const messages = defineMessages({
+  defaultAltText: {
+    id: 'imageGallery.defaultAltText',
+    defaultMessage: 'Image {num}',
+  },
+  thumbnailAltText: {
+    id: 'imageGallery.thumbnailAltText',
+    defaultMessage: 'Thumbnail: {altText}',
+  },
+});
+
 const getInstitutionIds = () => {
   const institutionsConfig = config.get('institutions');
 
   return (institutionsConfig ? Object.keys(institutionsConfig) : []);
 };
 
-export default class ImageGallery extends Component {
+class ImageGallery extends Component {
   componentDidMount() {
     this.findMedia();
   }
@@ -68,8 +82,8 @@ export default class ImageGallery extends Component {
   render() {
     const {
       institutionId,
+      intl,
       media,
-      mediaAltText,
     } = this.props;
 
     if (!media) {
@@ -83,18 +97,24 @@ export default class ImageGallery extends Component {
     const items = [];
 
     institutionIds.forEach((instId) => {
-      const mediaCsids = media.get(instId);
+      const mediaMap = media.get(instId) || Immutable.Map();
+      const mediaCsids = mediaMap.get('csids') || Immutable.List();
+      const mediaAltTexts = mediaMap.get('altTexts') || Immutable.List();
 
       if (mediaCsids && mediaCsids.size > 0) {
         const gatewayUrl = instId
           ? config.get(['institutions', instId, 'gatewayUrl'])
           : config.get('gatewayUrl');
 
-        mediaCsids.forEach((mediaCsid) => {
+        mediaCsids.forEach((mediaCsid, index) => {
+          const altText = mediaAltTexts.get(index)
+            || intl.formatMessage(messages.defaultAltText, { num: index + 1 });
+
           items.push({
             original: blobUrl(gatewayUrl, mediaCsid, config.get('detailImageDerivative')),
             thumbnail: blobUrl(gatewayUrl, mediaCsid, 'Thumbnail'),
-            originalAlt: mediaAltText,
+            originalAlt: altText,
+            thumbnailAlt: intl.formatMessage(messages.thumbnailAltText, { altText }),
           });
         });
       }
@@ -120,3 +140,5 @@ export default class ImageGallery extends Component {
 
 ImageGallery.propTypes = propTypes;
 ImageGallery.defaultProps = defaultProps;
+
+export default injectIntl(ImageGallery);

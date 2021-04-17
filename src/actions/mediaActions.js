@@ -8,9 +8,12 @@ import {
   SET_MEDIA,
 } from '../constants/actionCodes';
 
-export const setMedia = (referenceValue, institutionId, mediaCsids) => ({
+export const setMedia = (referenceValue, institutionId, mediaCsids, mediaAltTexts) => ({
   type: SET_MEDIA,
-  payload: mediaCsids,
+  payload: {
+    csids: mediaCsids,
+    altTexts: mediaAltTexts,
+  },
   meta: {
     institutionId,
     referenceValue,
@@ -34,7 +37,7 @@ export const findMedia = (referenceValue, institutionId) => (dispatch, getState)
   const referenceField = config.get('referenceField');
 
   const query = {
-    _source: 'collectionspace_denorm:mediaCsid',
+    _source: ['collectionspace_denorm:mediaCsid', 'collectionspace_denorm:mediaAltText'],
     query: {
       term: {
         [referenceField]: referenceValue,
@@ -51,8 +54,10 @@ export const findMedia = (referenceValue, institutionId) => (dispatch, getState)
   })
     .then((response) => response.json())
     .then((data) => {
-      const mediaCsids = get(data, ['hits', 'hits', 0, '_source', 'collectionspace_denorm:mediaCsid']) || [];
+      const source = get(data, ['hits', 'hits', 0, '_source']);
+      const mediaCsids = get(source, 'collectionspace_denorm:mediaCsid') || [];
+      const mediaAltTexts = get(source, 'collectionspace_denorm:mediaAltText') || [];
 
-      return dispatch(setMedia(referenceValue, institutionId, mediaCsids));
+      return dispatch(setMedia(referenceValue, institutionId, mediaCsids, mediaAltTexts));
     });
 };

@@ -5,14 +5,23 @@ import {
 } from '../constants/actionCodes';
 
 const setMedia = (state, action) => {
-  const mediaCsids = action.payload;
+  const {
+    csids,
+    altTexts,
+  } = action.payload;
 
   const {
     institutionId,
     referenceValue,
   } = action.meta;
 
-  return state.setIn([referenceValue, 'media', institutionId], Immutable.fromJS(mediaCsids));
+  return state.setIn(
+    [referenceValue, 'media', institutionId],
+    Immutable.fromJS({
+      csids,
+      altTexts,
+    }),
+  );
 };
 
 export default (state = Immutable.Map(), action) => {

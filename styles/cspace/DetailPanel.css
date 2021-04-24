@@ -18,6 +18,7 @@
   padding-bottom: 64px;
   font-size: 1rem;
   line-height: normal;
+  grid-auto-flow: row dense;
 }
 
 .common > header {
@@ -49,7 +50,13 @@
 .common button:hover {
   background-color: inherit;
 }
-
+.common .exhibitionwrapper{
+  grid-column: 1 / span 3;
+  margin-top: 30px;
+}
+.common .exhibitionwrapper > h1 , .exhibitionwrapper > h2 , .exhibitionwrapper > div{
+  margin-top: 20px;
+}
 @media only screen
 and (max-width: 719px) {
   .common {

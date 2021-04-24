@@ -7,6 +7,7 @@ import DetailNavBar from './DetailNavBar';
 import ImageGallery from './ImageGalleryContainer';
 import InstitutionIndex from './InstitutionIndexContainer';
 import InstitutionSection from './InstitutionSectionContainer';
+import ExhibitionSection from './ExhibitionSection';
 import config from '../../config';
 import styles from '../../../styles/cspace/DetailPanel.css';
 
@@ -18,6 +19,10 @@ const propTypes = {
   data: PropTypes.shape({
     'collectionspace_core:refName': PropTypes.string,
     'collectionspace_denorm:title': PropTypes.string,
+    'collectionspace_denorm:exhibition': PropTypes.array,
+    'collectionobjects_common:objectHistoryNote': PropTypes.string,
+    'collectionobjects_common:ownersContributionNote': PropTypes.string,
+    'collectionobjects_common:viewersContributionNote': PropTypes.string,
   }),
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
   readDetail: PropTypes.func,
@@ -159,6 +164,29 @@ export default class DetailPanel extends Component {
     );
   }
 
+  renderExibition() {
+    const {
+      data,
+    } = this.props;
+
+    const exhibition = data['collectionspace_denorm:exhibition'];
+    const historyNote = data['collectionobjects_common:objectHistoryNote'];
+    const ownerConrtibutionNote = data['collectionobjects_common:ownersContributionNote'];
+    const viewerContributionNote = data['collectionobjects_common:viewersContributionNote'];
+
+    if (exhibition.length > 0) {
+      return (
+        <ExhibitionSection
+          exhibition={exhibition}
+          historyNote={historyNote}
+          ownerConrtibutionNote={ownerConrtibutionNote}
+          viewerContributionNote={viewerContributionNote}
+        />
+      );
+    }
+    return null;
+  }
+
   render() {
     const {
       data,
@@ -176,6 +204,7 @@ export default class DetailPanel extends Component {
         {this.renderImageGallery()}
         {this.renderFieldList()}
         {this.renderInstitutions()}
+        {this.renderExibition()}
       </div>
     );
   }

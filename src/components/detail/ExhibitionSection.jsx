@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import styles from '../../../styles/cspace/Exhibition.css';
@@ -32,48 +32,32 @@ const messages = defineMessages({
   },
 });
 
-export default class ExhibitionSection extends Component {
-  constructor() {
-    super();
+export default function ExhibitionSection(props) {
+  const {
+    exhibition,
+    historyNote,
+    viewerContributionNote,
+    ownerConrtibutionNote,
+  } = props;
 
-    this.ref = React.createRef();
-  }
-
-  renderContent() {
-    const {
-      exhibition,
-      historyNote,
-      viewerContributionNote,
-      ownerConrtibutionNote,
-    } = this.props;
-
-    return (
-      <>
-        <hr />
-        <h1>{exhibition[0].title}</h1>
-        <div />
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <h2><FormattedMessage {...messages.objectStoryHeader} /></h2>
-        <div>{historyNote}</div>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <h2><FormattedMessage {...messages.donorStoryHeader} /></h2>
-        <div>{ownerConrtibutionNote}</div>
-        <div>{exhibition[0].generalNote}</div>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <h2><FormattedMessage {...messages.curatorialStoryHeader} /></h2>
-        <div>{viewerContributionNote}</div>
-        <div>{exhibition[0].curatorialNote}</div>
-      </>
-    );
-  }
-
-  render() {
-    return (
-      <div className={styles.exhibitionWrapper}>
-        {this.renderContent()}
-      </div>
-    );
-  }
+  return (
+    <div className={styles.exhibitionWrapper}>
+      <hr />
+      <h1>{exhibition[0].title}</h1>
+      <div />
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      <h2><FormattedMessage {...messages.objectStoryHeader} /></h2>
+      <div>{historyNote}</div>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      <h2><FormattedMessage {...messages.donorStoryHeader} /></h2>
+      <div>{ownerConrtibutionNote}</div>
+      <div>{exhibition[0].generalNote}</div>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      <h2><FormattedMessage {...messages.curatorialStoryHeader} /></h2>
+      <div>{viewerContributionNote}</div>
+      <div>{exhibition[0].curatorialNote}</div>
+    </div>
+  );
 }
 
 ExhibitionSection.propTypes = propTypes;

@@ -83,10 +83,6 @@ export default {
     'ecm:primaryType',
     'collectionspace_denorm:mediaCsid',
     'collectionspace_denorm:title',
-    'collectionspace_denorm:exhibition',
-    'collectionobjects_common:objectHistoryNote',
-    'collectionobjects_common:ownersContributionNote',
-    'collectionobjects_common:viewersContributionNote',
   ],
 
   referenceField: 'ecm:name',

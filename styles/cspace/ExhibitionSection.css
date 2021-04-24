@@ -1,9 +1,9 @@
-.exhibitionWrapper {
+.common {
   grid-column: 1 / span 3;
   margin-top: 30px;
 }
 
-.exhibitionWrapper div {
+.common div {
   margin-top: 20px;
   margin-bottom: 20px;
 }

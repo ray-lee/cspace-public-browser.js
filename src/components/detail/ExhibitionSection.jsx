@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import styles from '../../../styles/cspace/Exhibition.css';
+import styles from '../../../styles/cspace/ExhibitionSection.css';
 
 const propTypes = {
   exhibition: PropTypes.array,
@@ -41,17 +41,20 @@ export default function ExhibitionSection(props) {
   } = props;
 
   return (
-    <div className={styles.exhibitionWrapper}>
+    <div className={styles.common}>
       <hr />
       <h1>{exhibition[0].title}</h1>
       <div />
+
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <h2><FormattedMessage {...messages.objectStoryHeader} /></h2>
       <div>{historyNote}</div>
+
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <h2><FormattedMessage {...messages.donorStoryHeader} /></h2>
       <div>{ownerConrtibutionNote}</div>
       <div>{exhibition[0].generalNote}</div>
+
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <h2><FormattedMessage {...messages.curatorialStoryHeader} /></h2>
       <div>{viewerContributionNote}</div>

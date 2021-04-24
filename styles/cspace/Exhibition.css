@@ -1,8 +1,9 @@
-.exhibitionwrapper{
-    grid-column: 1 / span 3;
-    margin-top: 30px;
+.exhibitionWrapper {
+  grid-column: 1 / span 3;
+  margin-top: 30px;
 }
-.exhibitionwrapper div{
-    margin-top: 20px;
-    margin-bottom: 20px;
+
+.exhibitionWrapper div {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

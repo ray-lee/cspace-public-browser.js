@@ -50,7 +50,7 @@ export default class ExhibitionSection extends Component {
 
   render() {
     return (
-      <div className={styles.exhibitionwrapper}>
+      <div className={styles.exhibitionWrapper}>
         {this.renderContent()}
       </div>
     );

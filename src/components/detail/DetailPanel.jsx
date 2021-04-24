@@ -177,7 +177,7 @@ export default class DetailPanel extends Component {
     if (exhibition.length > 0) {
       return (
         <ExhibitionSection
-          exhibition={exhibition}
+          exhibition={exhibition[0]}
           historyNote={historyNote}
           ownerConrtibutionNote={ownerConrtibutionNote}
           viewerContributionNote={viewerContributionNote}

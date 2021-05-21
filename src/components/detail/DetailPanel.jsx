@@ -164,17 +164,18 @@ export default class DetailPanel extends Component {
     );
   }
 
-  renderExibition() {
+  renderExhibition() {
     const {
       data,
     } = this.props;
 
     const exhibition = data['collectionspace_denorm:exhibition'];
-    const historyNote = data['collectionobjects_common:objectHistoryNote'];
-    const ownerConrtibutionNote = data['collectionobjects_common:ownersContributionNote'];
-    const viewerContributionNote = data['collectionobjects_common:viewersContributionNote'];
 
-    if (exhibition.length > 0) {
+    if (exhibition && exhibition.length > 0) {
+      const historyNote = data['collectionobjects_common:objectHistoryNote'];
+      const ownerConrtibutionNote = data['collectionobjects_common:ownersContributionNote'];
+      const viewerContributionNote = data['collectionobjects_common:viewersContributionNote'];
+
       return (
         <ExhibitionSection
           exhibition={exhibition[0]}
@@ -204,7 +205,7 @@ export default class DetailPanel extends Component {
         {this.renderImageGallery()}
         {this.renderFieldList()}
         {this.renderInstitutions()}
-        {this.renderExibition()}
+        {this.renderExhibition()}
       </div>
     );
   }

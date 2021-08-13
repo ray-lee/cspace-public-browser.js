@@ -13,10 +13,12 @@ const messages = defineMessages({
 });
 
 const scrollTop = () => {
-  window.scroll({
-    left: 0,
-    top: 0,
-  });
+  if (window.scrollTo) {
+    window.scrollTo({
+      left: 0,
+      top: 0,
+    });
+  }
 };
 
 export default class ScrollTopButton extends Component {

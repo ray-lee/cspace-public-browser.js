@@ -35,10 +35,12 @@ export default class DetailPage extends Component {
   componentDidMount() {
     window.document.body.classList.add(bodyClassName(styles.common));
 
-    window.scroll({
-      left: 0,
-      top: 0,
-    });
+    if (window.scrollTo) {
+      window.scrollTo({
+        left: 0,
+        top: 0,
+      });
+    }
 
     this.handleLocationChange();
   }

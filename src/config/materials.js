@@ -562,6 +562,13 @@ export default {
 
   detailFields: {
     fields: {
+      featuredCollectionGroupList: {
+        field: 'materials_common:featuredCollectionGroupList',
+        format: listOf((valueAt({
+          path: 'featuredCollection',
+          format: displayName,
+        }))),
+      },
       materialCompositionGroupList: {
         field: 'materials_common:materialCompositionGroupList',
         format: listOf(composition),
@@ -836,6 +843,12 @@ export default {
       },
     },
     groups: {
+      group_featured_collection: {
+        label: 'Featured collection',
+        fields: [
+          'featuredCollectionGroupList',
+        ],
+      },
       group_composition: {
         label: 'Composition',
         fields: [
@@ -926,6 +939,7 @@ export default {
     },
     layout: {
       fields1: [
+        'group_featured_collection',
         'group_composition',
         'group_use',
         'group_application',
@@ -985,6 +999,11 @@ export default {
           label: 'Collection',
           field: 'collectionobjects_common:collection',
           format: displayName,
+        },
+        namedCollection: {
+          label: 'Named collection',
+          field: 'collectionobjects_common:namedCollections',
+          format: listOf(displayName),
         },
         computedCurrentLocation: {
           label: 'Current location',
@@ -1079,6 +1098,11 @@ export default {
             'collection',
           ],
         },
+        group_sample_namedCollection: {
+          fields: [
+            'namedCollection',
+          ],
+        },
         group_sample_computedCurrentLocation: {
           fields: [
             'computedCurrentLocation',
@@ -1130,6 +1154,7 @@ export default {
         fields1: [
           'group_sample_otherNumberList',
           'group_sample_collection',
+          'group_sample_namedCollection',
           'group_sample_computedCurrentLocation',
           'group_sample_materialPhysicalDescriptions',
           'group_sample_condition',

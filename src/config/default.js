@@ -247,6 +247,9 @@ export default {
             defaultMessage: 'Subject',
           },
         }),
+        order: {
+          _count: 'desc',
+        },
       },
       technique: {
         field: 'collectionobjects_common:techniqueGroupList.technique',

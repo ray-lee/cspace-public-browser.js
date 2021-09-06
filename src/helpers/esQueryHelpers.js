@@ -120,19 +120,18 @@ export const getHistogramAgg = (field, interval = 1) => ({
   },
 });
 
-export const getTermsAgg = (field) => ({
+export const getTermsAgg = (field, order = { _term: 'asc' }) => ({
   terms: {
     field,
+    order,
     size: 300,
-    order: {
-      _term: 'asc',
-    },
   },
 });
 
 export const getFilterAgg = (filterFieldConfig) => {
   const {
     field,
+    order,
     type,
   } = filterFieldConfig;
 
@@ -140,7 +139,7 @@ export const getFilterAgg = (filterFieldConfig) => {
     return getHistogramAgg(field, filterFieldConfig.interval);
   }
 
-  return getTermsAgg(field);
+  return getTermsAgg(field, order);
 };
 
 let aggs;

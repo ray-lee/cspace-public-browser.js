@@ -35,9 +35,11 @@
   <script>
     // Initialize and configure the application.
 
-    cspacePublicBrowser({
-      gatewayUrl: 'https://core.dev.collectionspace.org/gateway/core',
-    });
+    // cspacePublicBrowser({
+    //   // gatewayUrl: 'https://core.dev.collectionspace.org/gateway/core',
+    //   gatewayUrl: 'http://localhost:8180/gateway/lhmc',
+    //   baseConfig: 'lhmc',
+    // });
 
     // cspacePublicBrowser({
     //   baseConfig: 'anthro',
@@ -84,17 +86,17 @@
     //   },
     // });
 
-    // cspacePublicBrowser({
-    //   baseConfig: 'materials',
+    cspacePublicBrowser({
+      baseConfig: 'materials',
 
       /* LOCAL */
-      // gatewayUrl: 'http://localhost:8180/gateway/materials',
-      // institutions: {
-      //   TestInstitution1558039857547: {
-      //     title: 'Test Institution',
-      //     gatewayUrl: 'http://localhost:8180/gateway/materials',
-      //   },
-      // },
+      gatewayUrl: 'http://localhost:8180/gateway/materials',
+      institutions: {
+        TestInstitution1558039857547: {
+          title: 'Test Institution',
+          gatewayUrl: 'http://localhost:8180/gateway/materials',
+        },
+      },
 
       /* STAGING */
       // gatewayUrl: 'https://materialorder.lyrtech.org/gateway/materials',
@@ -115,23 +117,23 @@
       // },
 
       /* PRODUCTION */
-      // gatewayUrl: 'https://cspace.materialorder.org/gateway/materialorder',
+      // gatewayUrl: 'https://materialorder.collectionspace.org/gateway/materialorder',
       // esIndexName: 'materialorder',
       // institutions: {
       //   HarvardUniversityGraduateSchoolofDesign1489090937914: {
       //     title: 'Harvard University Graduate School of Design',
-      //     gatewayUrl: 'https://cspace.gsd.harvard.edu/gateway/materialorder',
+      //     gatewayUrl: 'https://gsd.collectionspace.org/gateway/gsd',
       //   },
       //   RhodeIslandSchoolofDesign1518115923204: {
       //     title: 'Rhode Island School of Design',
-      //     gatewayUrl: 'https://cspace.risd.edu/gateway/risd',
+      //     gatewayUrl: 'https://risd.collectionspace.org/gateway/risd',
       //   },
-      //   ParsonsSchoolofDesign1552595955932: {
-      //     title: 'Parsons School of Design',
-      //     gatewayUrl: 'https://parsons.lyrasistechnology.org/gateway/parsons',
-      //   },
+      //   // ParsonsSchoolofDesign1552595955932: {
+      //   //   title: 'Parsons School of Design',
+      //   //   gatewayUrl: 'https://parsons.lyrasistechnology.org/gateway/parsons',
+      //   // },
       // },
-    // });
+    });
 </script>
 </body>
 </html>

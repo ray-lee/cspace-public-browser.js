@@ -35,13 +35,13 @@
   <script>
     // Initialize and configure the application.
 
-    // cspacePublicBrowser({
-    //   // gatewayUrl: 'https://core.dev.collectionspace.org/gateway/core',
-    //   gatewayUrl: 'http://localhost:8180/gateway/lhmc',
-    //   baseConfig: 'lhmc',
-    // });
+    cspacePublicBrowser({
+      gatewayUrl: 'http://localhost:8180/gateway/anthro',
+      baseConfig: 'anthro',
+    });
 
     // cspacePublicBrowser({
+    //   "basename": "/collection/museum",
     //   baseConfig: 'anthro',
     //   gatewayUrl: 'https://cspace.ohiohistory.org/gateway/ohc',
     //   filters: {
@@ -54,6 +54,16 @@
     //       },
     //       material: {
     //         formatValue: cspacePublicBrowser.formatters.displayName,
+    //       },
+    //       responsibleDepartment: {
+    //         formatValue: (value) => {
+    //           if (!value) return value;
+
+    //           switch (value) {
+    //             case 'natural-history': return 'Natural History'
+    //             default: return value[0].toUpperCase() + value.slice(1);
+    //           }
+    //         },
     //       },
     //     },
     //   },
@@ -74,6 +84,16 @@
     //   },
     //   detailFields: {
     //     fields: {
+    //       responsibleDepartment: {
+    //         format: cspacePublicBrowser.formatters.listOf(cspacePublicBrowser.formatters.filterLink({ linkTextFormat: (value) => {
+    //           if (!value) return value;
+
+    //           switch (value) {
+    //             case 'natural-history': return 'Natural History'
+    //             default: return value[0].toUpperCase() + value.slice(1);
+    //           }
+    //         }})),
+    //       },
     //       material: {
     //         format: cspacePublicBrowser.formatters.listOf(cspacePublicBrowser.formatters.valueAt({
     //           path: 'material',
@@ -86,17 +106,17 @@
     //   },
     // });
 
-    cspacePublicBrowser({
-      baseConfig: 'materials',
+    // cspacePublicBrowser({
+    //   baseConfig: 'materials',
 
       /* LOCAL */
-      gatewayUrl: 'http://localhost:8180/gateway/materials',
-      institutions: {
-        TestInstitution1558039857547: {
-          title: 'Test Institution',
-          gatewayUrl: 'http://localhost:8180/gateway/materials',
-        },
-      },
+      // gatewayUrl: 'http://localhost:8180/gateway/materials',
+      // institutions: {
+      //   TestInstitution1558039857547: {
+      //     title: 'Test Institution',
+      //     gatewayUrl: 'http://localhost:8180/gateway/materials',
+      //   },
+      // },
 
       /* STAGING */
       // gatewayUrl: 'https://materialorder.lyrtech.org/gateway/materials',
@@ -117,23 +137,27 @@
       // },
 
       /* PRODUCTION */
+      // basename: '/collection/materials',
       // gatewayUrl: 'https://materialorder.collectionspace.org/gateway/materialorder',
-      // esIndexName: 'materialorder',
+      // esIndexName: 'materialorder_collectionspace',
       // institutions: {
       //   HarvardUniversityGraduateSchoolofDesign1489090937914: {
       //     title: 'Harvard University Graduate School of Design',
       //     gatewayUrl: 'https://gsd.collectionspace.org/gateway/gsd',
+      //     esIndexName: 'gsd_collectionspace',
       //   },
       //   RhodeIslandSchoolofDesign1518115923204: {
       //     title: 'Rhode Island School of Design',
       //     gatewayUrl: 'https://risd.collectionspace.org/gateway/risd',
+      //     esIndexName: 'risd_collectionspace',
       //   },
-      //   // ParsonsSchoolofDesign1552595955932: {
-      //   //   title: 'Parsons School of Design',
-      //   //   gatewayUrl: 'https://parsons.lyrasistechnology.org/gateway/parsons',
-      //   // },
+      //   ColumbiaUniversityAveryLibrary1630522448579: {
+      //     title: 'Columbia University: Avery Library',
+      //     gatewayUrl: 'https://averylibrary.collectionspace.org/gateway/averylibrary',
+      //     esIndexName: 'averylibrary_collectionspace',
+      //   },
       // },
-    });
+    // });
 </script>
 </body>
 </html>

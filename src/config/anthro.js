@@ -13,6 +13,9 @@ export default {
 
   filters: {
     fields: {
+      objectProductionPeople: {
+        field: 'collectionobjects_common:objectProductionPeopleGroupList.objectProductionPeople.displayName',
+      },
       taxon: {
         field: 'collectionobjects_naturalhistory_extension:taxonomicIdentGroupList.taxon.displayName',
         messages: defineMessages({

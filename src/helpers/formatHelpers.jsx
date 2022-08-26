@@ -352,3 +352,5 @@ export const decade = (startYear) => {
 
   return `${startYear}–${endYear}`;
 };
+
+export const html = (value) => <div dangerouslySetInnerHTML={{ __html: value }} />;

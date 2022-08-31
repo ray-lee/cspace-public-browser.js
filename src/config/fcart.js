@@ -3,6 +3,13 @@ import { defineMessages } from 'react-intl';
 export default {
   gatewayUrl: 'http://localhost:8180/gateway/fcart',
 
+  filters: {
+    fields: {
+      objectProductionPlace: {
+        field: 'collectionobjects_common:objectProductionPlaceGroupList.objectProductionPlace.displayName',
+      },
+    },
+  },
   detailFields: {
     fields: {
       materialTechniqueDescription: {

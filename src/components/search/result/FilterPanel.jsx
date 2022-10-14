@@ -68,6 +68,14 @@ export default class FilterPanel extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
+  handleResize() {
+    this.setHeight();
+  }
+
+  handleScroll() {
+    this.setHeight();
+  }
+
   setHeight() {
     const height = window.innerHeight;
     const rect = this.ref.current.getBoundingClientRect();
@@ -76,14 +84,6 @@ export default class FilterPanel extends Component {
     this.setState({
       height: maxHeight,
     });
-  }
-
-  handleResize() {
-    this.setHeight();
-  }
-
-  handleScroll() {
-    this.setHeight();
   }
 
   renderContent() {

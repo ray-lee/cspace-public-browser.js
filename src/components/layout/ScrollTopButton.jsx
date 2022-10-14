@@ -42,6 +42,10 @@ export default class ScrollTopButton extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
+  handleScroll() {
+    this.setVisibility();
+  }
+
   setVisibility() {
     const {
       visible,
@@ -54,10 +58,6 @@ export default class ScrollTopButton extends Component {
         visible: nextVisible,
       });
     }
-  }
-
-  handleScroll() {
-    this.setVisibility();
   }
 
   render() {

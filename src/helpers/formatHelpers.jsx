@@ -150,13 +150,17 @@ export const filterLink = (config) => (data, fieldName) => {
 };
 
 export const linkNote = (urlField, noteField, separator = ' - ') => (object) => {
-  const url = renderLink(object[urlField]);
-  const note = object[noteField];
+  const {
+    [noteField]: note,
+    [urlField]: url,
+  } = object;
+
+  const link = renderLink(url);
 
   return (
     <>
       {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-      {url}{url && note && separator}{note}
+      {link}{link && note && separator}{note}
     </>
   );
 };

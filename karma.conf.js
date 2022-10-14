@@ -1,6 +1,7 @@
 /* eslint no-console: "off" */
 
 const path = require('path');
+// eslint-disable-next-line import/extensions
 const sauceBrowsers = require('./sauceBrowsers.conf.js');
 
 const getTestFiles = (config) => {

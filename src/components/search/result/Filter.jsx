@@ -59,6 +59,20 @@ const getFormattedValues = memoize((aggregation, formatValue) => {
   return formattedValues;
 });
 
+const handleCheckboxFocus = (event) => {
+  const {
+    target: focusedFieldElement,
+  } = event;
+
+  const fieldIndex = focusedFieldElement.getAttribute('data-number');
+  const focusedFieldLiElement = focusedFieldElement.parentElement.parentElement;
+  const focusedFieldUlElement = focusedFieldLiElement.parentElement;
+  const newScrollPosition = focusedFieldLiElement.getBoundingClientRect().height * fieldIndex;
+
+  focusedFieldUlElement.scrollTop = newScrollPosition;
+  focusedFieldUlElement.scrollIntoView({ block: 'end', behavior: 'instant' });
+};
+
 class Filter extends Component {
   constructor() {
     super();
@@ -130,7 +144,7 @@ class Filter extends Component {
       selectedValues = Immutable.List.of(selectedValues);
     }
 
-    return matchingBuckets.map((bucket) => {
+    return matchingBuckets.map((bucket, index) => {
       const value = bucket.get('key');
       const type = typeof value;
       const count = bucket.get('doc_count');
@@ -145,9 +159,11 @@ class Filter extends Component {
             <input
               checked={isSelected}
               data-type={type !== 'string' ? type : undefined}
+              data-number={index}
               name={value}
               type="checkbox"
               onChange={this.handleCheckboxChange}
+              onFocus={handleCheckboxFocus}
             />
 
             <div>

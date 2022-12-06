@@ -19,10 +19,6 @@ const defaultProps = {
 const messages = defineMessages({
   label: {
     id: 'filterSearchInput.label',
-    defaultMessage: 'Search values',
-  },
-  placeholder: {
-    id: 'filterSearchInput.placeholder',
     defaultMessage: 'Search',
   },
 });
@@ -49,17 +45,19 @@ class FilterSearchInput extends Component {
     } = this.props;
 
     const label = intl.formatMessage(messages.label);
-    const placeholder = intl.formatMessage(messages.placeholder);
 
     return (
-      <input
-        aria-label={label}
-        className={styles.common}
-        placeholder={placeholder}
-        type="search"
-        value={value}
-        onChange={this.handleChange}
-      />
+      // eslint-disable-next-line jsx-a11y/label-has-associated-control
+      <label>
+        {label}
+
+        <input
+          className={styles.common}
+          type="search"
+          value={value}
+          onChange={this.handleChange}
+        />
+      </label>
     );
   }
 }

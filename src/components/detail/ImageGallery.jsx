@@ -29,6 +29,10 @@ const messages = defineMessages({
     id: 'imageGallery.defaultAltText',
     defaultMessage: 'Image {num}',
   },
+  titledAltText: {
+    id: 'imageGallery.titledAltText',
+    defaultMessage: '{title} Image {num}',
+  },
   thumbnailAltText: {
     id: 'imageGallery.thumbnailAltText',
     defaultMessage: 'Thumbnail: {altText}',
@@ -98,6 +102,7 @@ class ImageGallery extends Component {
 
     institutionIds.forEach((instId) => {
       const mediaMap = media.get(instId) || Immutable.Map();
+      const title = mediaMap.get('title');
       const mediaCsids = mediaMap.get('csids') || Immutable.List();
       const mediaAltTexts = mediaMap.get('altTexts') || Immutable.List();
 
@@ -107,8 +112,12 @@ class ImageGallery extends Component {
           : config.get('gatewayUrl');
 
         mediaCsids.forEach((mediaCsid, index) => {
-          const altText = mediaAltTexts.get(index)
-            || intl.formatMessage(messages.defaultAltText, { num: index + 1 });
+          let altText = mediaAltTexts.get(index);
+          if (!altText) {
+            const num = index + 1;
+            altText = title ? intl.formatMessage(messages.titledAltText, { title, num })
+              : intl.formatMessage(messages.defaultAltText, { num });
+          }
 
           items.push({
             original: blobUrl(gatewayUrl, mediaCsid, config.get('detailImageDerivative')),

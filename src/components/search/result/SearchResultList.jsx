@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import SearchError from './SearchError';
 import SearchPending from './SearchPending';
 import SearchResultTile from './SearchResultTile';
 import config from '../../../config';
 import styles from '../../../../styles/cspace/SearchResultList.css';
 
 const propTypes = {
+  error: PropTypes.instanceOf(Error),
   hits: PropTypes.instanceOf(Immutable.List),
   isPending: PropTypes.bool,
   offset: PropTypes.number,
@@ -45,6 +47,20 @@ export default class SearchResultList extends Component {
     }
   }
 
+  renderError() {
+    const {
+      error,
+    } = this.props;
+
+    if (!error) {
+      return undefined;
+    }
+
+    return (
+      <SearchError error={error} />
+    );
+  }
+
   renderPending() {
     const {
       isPending,
@@ -61,12 +77,13 @@ export default class SearchResultList extends Component {
 
   renderHits() {
     const {
+      error,
       params,
       hits,
       isPending,
     } = this.props;
 
-    if (hits.size === 0 && !isPending) {
+    if (hits.size === 0 && !isPending && !error) {
       return (
         <p>
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
@@ -93,6 +110,7 @@ export default class SearchResultList extends Component {
       <div className={styles.common} ref={this.domNode}>
         {this.renderHits()}
         {this.renderPending()}
+        {this.renderError()}
       </div>
     );
   }

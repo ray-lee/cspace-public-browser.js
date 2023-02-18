@@ -123,6 +123,7 @@ export default class SearchResultPanel extends Component {
 
   renderResult() {
     const {
+      error,
       isPending,
       offset,
       onHitsUpdated,
@@ -142,6 +143,7 @@ export default class SearchResultPanel extends Component {
         </header>
 
         <SearchResultList
+          error={error}
           isPending={isPending}
           offset={offset}
           onHitsUpdated={onHitsUpdated}
@@ -153,13 +155,9 @@ export default class SearchResultPanel extends Component {
   }
 
   render() {
-    const {
-      error,
-    } = this.props;
-
     return (
       <div className={styles.common} ref={this.ref}>
-        {error ? this.renderError() : this.renderResult()}
+        {this.renderResult()}
       </div>
     );
   }

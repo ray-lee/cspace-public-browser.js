@@ -7,6 +7,7 @@ import SearchParamList from './SearchParamList';
 import SearchResultList from './SearchResultList';
 import SearchResultStats from './SearchResultStats';
 import SortSelect from '../entry/SortSelectContainer';
+import config from '../../../config';
 import { SORT_ID } from '../../../constants/ids';
 import styles from '../../../../styles/cspace/SearchResultPanel.css';
 import cssDimensions from '../../../../styles/dimensions.css';
@@ -99,16 +100,16 @@ export default class SearchResultPanel extends Component {
     const bottomOffset = rect.bottom - window.innerHeight;
 
     if (bottomOffset <= tileHeight) {
-      search();
+      search(config.get('pageLoadDelay'));
     }
   }
 
-  search() {
+  search(fetchDelay) {
     const {
       search,
     } = this.props;
 
-    search();
+    search(fetchDelay);
   }
 
   renderError() {

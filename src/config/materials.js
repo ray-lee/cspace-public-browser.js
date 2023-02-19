@@ -41,6 +41,8 @@ export default {
 
   gatewayUrl: 'http://localhost:8180/gateway/materials',
   detailPath: 'material',
+  imageLoadDelay: 5000, // ms
+  pageLoadDelay: 2000, // ms
 
   defaultQuery: {
     term: {

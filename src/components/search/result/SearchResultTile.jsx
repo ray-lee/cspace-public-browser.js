@@ -11,6 +11,7 @@ const propTypes = {
   index: PropTypes.number.isRequired,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
   result: PropTypes.instanceOf(Immutable.Map).isRequired,
+  searchOffset: PropTypes.number.isRequired,
 };
 
 export default function SearchResultTile(props) {
@@ -19,6 +20,7 @@ export default function SearchResultTile(props) {
     index,
     params,
     result,
+    searchOffset,
   } = props;
 
   const detailPath = config.get('detailPath');
@@ -55,6 +57,7 @@ export default function SearchResultTile(props) {
         holdingInstitutions={holdingInstitutions}
         mediaCsid={mediaCsid}
         referenceValue={referenceValue}
+        searchOffset={searchOffset}
       />
 
       <article>

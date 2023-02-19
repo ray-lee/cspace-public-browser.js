@@ -18,6 +18,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  error: undefined,
   hits: Immutable.List(),
   isPending: false,
   offset: 0,
@@ -78,6 +79,7 @@ export default class SearchResultList extends Component {
   renderHits() {
     const {
       error,
+      offset,
       params,
       hits,
       isPending,
@@ -101,13 +103,14 @@ export default class SearchResultList extends Component {
         key={result.getIn(['_source', 'ecm:name'])}
         params={params}
         result={result}
+        searchOffset={offset}
       />
     ));
   }
 
   render() {
     return (
-      <div className={styles.common} ref={this.domNode}>
+      <div className={styles.common}>
         {this.renderHits()}
         {this.renderPending()}
         {this.renderError()}

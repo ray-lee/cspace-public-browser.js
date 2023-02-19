@@ -8,7 +8,7 @@ import {
 
 import {
   getSearchError,
-  getSearchNextOffset,
+  getSearchOffset,
   getSearchResult,
   isSearchPending,
 } from '../../../reducers';
@@ -16,7 +16,7 @@ import {
 const mapStateToProps = (state) => ({
   error: getSearchError(state),
   isPending: isSearchPending(state),
-  offset: getSearchNextOffset(state),
+  offset: getSearchOffset(state),
   result: getSearchResult(state),
 });
 

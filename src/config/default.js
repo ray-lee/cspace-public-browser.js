@@ -67,6 +67,8 @@ export default {
   gatewayUrl: 'http://localhost:8180/gateway/core',
   locale: 'en-US',
   detailPath: 'detail',
+  imageLoadDelay: 1000, // ms
+  pageLoadDelay: 500, // ms
 
   defaultQuery: {
     term: {

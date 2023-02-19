@@ -1,5 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from '../../../../styles/cspace/SearchStatus.css';
+
+const propTypes = {
+  error: PropTypes.instanceOf(Error),
+};
+
+const defaultProps = {
+  error: undefined,
+};
 
 export default function SearchError(props) {
   const {
@@ -16,3 +25,6 @@ export default function SearchError(props) {
     </div>
   );
 }
+
+SearchError.propTypes = propTypes;
+SearchError.defaultProps = defaultProps;

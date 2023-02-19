@@ -1,4 +1,4 @@
-/* global fetch */
+/* global fetch, window */
 
 import Immutable from 'immutable';
 import config from '../config';
@@ -42,7 +42,7 @@ export const openSearch = (history, params = Immutable.Map()) => {
   };
 };
 
-export const search = () => (dispatch, getState) => {
+export const search = (fetchDelay = 0) => (dispatch, getState) => {
   const params = getSearchParams(getState());
 
   if (!params || isSearchPending(getState()) || !searchHasMore(getState())) {
@@ -90,15 +90,22 @@ export const search = () => (dispatch, getState) => {
     type: SEARCH_STARTED,
   });
 
-  return fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-ndjson' },
-    body: [
-      JSON.stringify({ preference: 'result' }),
-      JSON.stringify(resultPayload),
-      ...filterAggPayloads.map((payload) => JSON.stringify(payload)),
-    ].join('\n'),
-  })
+  const delay = new Promise((resolve) => {
+    window.setTimeout(() => {
+      resolve();
+    }, fetchDelay);
+  });
+
+  return delay
+    .then(() => fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-ndjson' },
+      body: [
+        JSON.stringify({ preference: 'result' }),
+        JSON.stringify(resultPayload),
+        ...filterAggPayloads.map((payload) => JSON.stringify(payload)),
+      ].join('\n'),
+    }))
     .then((response) => {
       if (!response.ok) {
         const error = new Error();

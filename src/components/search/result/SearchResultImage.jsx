@@ -1,4 +1,4 @@
-/* global fetch, AbortController */
+/* global fetch, window, AbortController */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -14,6 +14,7 @@ const propTypes = {
   holdingInstitutions: PropTypes.instanceOf(Immutable.List),
   mediaCsid: PropTypes.string,
   referenceValue: PropTypes.string.isRequired,
+  searchOffset: PropTypes.number.isRequired,
 };
 
 const defaultProps = {
@@ -32,6 +33,10 @@ export default class SearchResultImage extends Component {
   constructor(props) {
     super();
 
+    this.handleScroll = this.handleScroll.bind(this);
+
+    this.ref = React.createRef();
+
     this.state = {
       gatewayUrl: props.gatewayUrl,
       mediaCsid: props.mediaCsid,
@@ -47,9 +52,16 @@ export default class SearchResultImage extends Component {
       holdingInstitutions,
       mediaCsid,
       referenceValue,
+      searchOffset,
     } = this.props;
 
-    this.init(referenceValue, mediaCsid, holdingInstitutions);
+    window.setTimeout(() => {
+      if (this.isInView()) {
+        this.init(referenceValue, mediaCsid, holdingInstitutions);
+      } else {
+        window.addEventListener('scroll', this.handleScroll);
+      }
+    }, searchOffset > 0 ? config.get('imageLoadDelay') : 0);
   }
 
   componentDidUpdate(prevProps) {
@@ -85,6 +97,26 @@ export default class SearchResultImage extends Component {
   componentWillUnmount() {
     if (this.abortController) {
       this.abortController.abort();
+    }
+
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll() {
+    if (this.isInView()) {
+      window.setTimeout(() => {
+        if (this.isInView()) {
+          const {
+            holdingInstitutions,
+            mediaCsid,
+            referenceValue,
+          } = this.props;
+
+          window.removeEventListener('scroll', this.handleScroll);
+
+          this.init(referenceValue, mediaCsid, holdingInstitutions);
+        }
+      }, config.get('imageLoadDelay'));
     }
   }
 
@@ -157,6 +189,21 @@ export default class SearchResultImage extends Component {
     }
   }
 
+  isInView() {
+    const domNode = this.ref.current;
+
+    if (domNode) {
+      const rect = domNode.getBoundingClientRect();
+
+      return (
+        rect.top >= 0
+        && rect.top < window.innerHeight
+      );
+    }
+
+    return false;
+  }
+
   render() {
     const {
       gatewayUrl,
@@ -186,7 +233,7 @@ export default class SearchResultImage extends Component {
     }
 
     return (
-      <div className={styles.common} style={style} />
+      <div className={styles.common} style={style} ref={this.ref} />
     );
   }
 }

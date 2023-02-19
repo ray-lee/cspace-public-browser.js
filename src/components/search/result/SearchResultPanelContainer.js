@@ -8,6 +8,7 @@ import {
 
 import {
   getSearchError,
+  getSearchNextOffset,
   getSearchOffset,
   getSearchResult,
   isSearchPending,
@@ -16,6 +17,7 @@ import {
 const mapStateToProps = (state) => ({
   error: getSearchError(state),
   isPending: isSearchPending(state),
+  nextOffset: getSearchNextOffset(state),
   offset: getSearchOffset(state),
   result: getSearchResult(state),
 });

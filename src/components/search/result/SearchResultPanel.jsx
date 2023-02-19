@@ -15,6 +15,7 @@ import cssDimensions from '../../../../styles/dimensions.css';
 const propTypes = {
   error: PropTypes.instanceOf(Error),
   isPending: PropTypes.bool,
+  nextOffset: PropTypes.number,
   offset: PropTypes.number,
   onHitsUpdated: PropTypes.func,
   result: PropTypes.instanceOf(Immutable.Map),
@@ -26,6 +27,7 @@ const propTypes = {
 const defaultProps = {
   error: undefined,
   isPending: false,
+  nextOffset: undefined,
   offset: undefined,
   onHitsUpdated: undefined,
   params: Immutable.Map(),
@@ -56,6 +58,7 @@ export default class SearchResultPanel extends Component {
   constructor() {
     super();
 
+    this.handleLoadMoreClick = this.handleLoadMoreClick.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
 
     this.ref = React.createRef();
@@ -91,16 +94,26 @@ export default class SearchResultPanel extends Component {
     window.removeEventListener('scroll', this.handleScroll, false);
   }
 
+  handleLoadMoreClick() {
+    this.search();
+  }
+
   handleScroll() {
     const {
-      search,
+      nextOffset,
     } = this.props;
 
-    const rect = this.ref.current.getBoundingClientRect();
-    const bottomOffset = rect.bottom - window.innerHeight;
+    if (nextOffset < config.get('pageAutoLoadLimit')) {
+      const {
+        search,
+      } = this.props;
 
-    if (bottomOffset <= tileHeight) {
-      search(config.get('pageLoadDelay'));
+      const rect = this.ref.current.getBoundingClientRect();
+      const bottomOffset = rect.bottom - window.innerHeight;
+
+      if (bottomOffset <= tileHeight) {
+        search(config.get('pageLoadDelay'));
+      }
     }
   }
 
@@ -126,11 +139,19 @@ export default class SearchResultPanel extends Component {
     const {
       error,
       isPending,
+      nextOffset,
       offset,
       onHitsUpdated,
       params,
       result,
     } = this.props;
+
+    const hitCount = result && result.get('total');
+    const hits = result && result.get('hits');
+
+    const showLoadMore = result
+      && hits.size < hitCount
+      && nextOffset >= config.get('pageAutoLoadLimit');
 
     return (
       <>
@@ -138,7 +159,7 @@ export default class SearchResultPanel extends Component {
           <SearchParamList params={params} />
 
           <div>
-            <SearchResultStats count={result && result.get('total')} />
+            <SearchResultStats count={hitCount} />
             <SortSelect value={params.get(SORT_ID)} />
           </div>
         </header>
@@ -148,8 +169,10 @@ export default class SearchResultPanel extends Component {
           isPending={isPending}
           offset={offset}
           onHitsUpdated={onHitsUpdated}
+          onLoadMoreClick={this.handleLoadMoreClick}
           params={params}
-          hits={result && result.get('hits')}
+          hits={hits}
+          showLoadMore={showLoadMore}
         />
       </>
     );

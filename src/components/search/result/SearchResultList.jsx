@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import SearchError from './SearchError';
+import SearchLoadMore from './SearchLoadMore';
 import SearchPending from './SearchPending';
 import SearchResultTile from './SearchResultTile';
 import config from '../../../config';
@@ -14,7 +15,9 @@ const propTypes = {
   isPending: PropTypes.bool,
   offset: PropTypes.number,
   onHitsUpdated: PropTypes.func,
+  onLoadMoreClick: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
+  showLoadMore: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -23,6 +26,8 @@ const defaultProps = {
   isPending: false,
   offset: 0,
   onHitsUpdated: () => undefined,
+  onLoadMoreClick: () => undefined,
+  showLoadMore: false,
 };
 
 const messages = defineMessages({
@@ -59,6 +64,22 @@ export default class SearchResultList extends Component {
 
     return (
       <SearchError error={error} />
+    );
+  }
+
+  renderLoadMore() {
+    const {
+      isPending,
+      onLoadMoreClick,
+      showLoadMore,
+    } = this.props;
+
+    if (!showLoadMore || isPending) {
+      return undefined;
+    }
+
+    return (
+      <SearchLoadMore onClick={onLoadMoreClick} />
     );
   }
 
@@ -112,6 +133,7 @@ export default class SearchResultList extends Component {
     return (
       <div className={styles.common}>
         {this.renderHits()}
+        {this.renderLoadMore()}
         {this.renderPending()}
         {this.renderError()}
       </div>

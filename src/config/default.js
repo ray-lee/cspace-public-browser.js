@@ -67,8 +67,20 @@ export default {
   gatewayUrl: 'http://localhost:8180/gateway/core',
   locale: 'en-US',
   detailPath: 'detail',
-  imageLoadDelay: 1000, // ms
-  pageLoadDelay: 500, // ms
+
+  // Time in milliseconds to wait before fetching a search result image. If the search result is
+  // scrolled offscreen before the time elapses, the image is not loaded until the result is
+  // scrolled into view again. This applies only to pages of results after the first. Images for
+  // the first page are fetched immediately.
+  imageLoadDelay: 1000,
+
+  // Time in milliseconds to wait before fetching another page of search results, when the result
+  // list is scrolled to the bottom.
+  pageLoadDelay: 500,
+
+  // The maximum number of results to automatically load while scrolling. Once this number of
+  // results has been retrieved, the user must click a button to load more results.
+  pageAutoLoadLimit: 100,
 
   defaultQuery: {
     term: {

@@ -9,18 +9,18 @@ import styles from '../../../../styles/cspace/SearchResultTile.css';
 const propTypes = {
   gatewayUrl: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  loadImageImmediately: PropTypes.bool.isRequired,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
   result: PropTypes.instanceOf(Immutable.Map).isRequired,
-  searchOffset: PropTypes.number.isRequired,
 };
 
 export default function SearchResultTile(props) {
   const {
     gatewayUrl,
+    loadImageImmediately,
     index,
     params,
     result,
-    searchOffset,
   } = props;
 
   const detailPath = config.get('detailPath');
@@ -55,9 +55,9 @@ export default function SearchResultTile(props) {
       <SearchResultImage
         gatewayUrl={gatewayUrl}
         holdingInstitutions={holdingInstitutions}
+        loadImageImmediately={loadImageImmediately}
         mediaCsid={mediaCsid}
         referenceValue={referenceValue}
-        searchOffset={searchOffset}
       />
 
       <article>

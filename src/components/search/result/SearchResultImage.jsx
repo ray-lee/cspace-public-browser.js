@@ -12,13 +12,14 @@ import styles from '../../../../styles/cspace/SearchResultImage.css';
 const propTypes = {
   gatewayUrl: PropTypes.string.isRequired,
   holdingInstitutions: PropTypes.instanceOf(Immutable.List),
+  loadImageImmediately: PropTypes.bool,
   mediaCsid: PropTypes.string,
   referenceValue: PropTypes.string.isRequired,
-  searchOffset: PropTypes.number.isRequired,
 };
 
 const defaultProps = {
   holdingInstitutions: Immutable.List(),
+  loadImageImmediately: false,
   mediaCsid: undefined,
 };
 
@@ -49,9 +50,9 @@ export default class SearchResultImage extends Component {
   componentDidMount() {
     const {
       holdingInstitutions,
+      loadImageImmediately,
       mediaCsid,
       referenceValue,
-      searchOffset,
     } = this.props;
 
     window.setTimeout(() => {
@@ -60,7 +61,7 @@ export default class SearchResultImage extends Component {
       } else {
         window.addEventListener('scroll', this.handleScroll);
       }
-    }, searchOffset > 0 ? config.get('imageLoadDelay') : 0);
+    }, loadImageImmediately ? 0 : config.get('imageLoadDelay'));
   }
 
   componentDidUpdate(prevProps) {

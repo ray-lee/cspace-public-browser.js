@@ -7,13 +7,13 @@ import SearchLoadMore from './SearchLoadMore';
 import SearchPending from './SearchPending';
 import SearchResultTile from './SearchResultTile';
 import config from '../../../config';
+import { calculateSearchPageSize } from '../../../helpers/searchDimensions';
 import styles from '../../../../styles/cspace/SearchResultList.css';
 
 const propTypes = {
   error: PropTypes.instanceOf(Error),
   hits: PropTypes.instanceOf(Immutable.List),
   isPending: PropTypes.bool,
-  offset: PropTypes.number,
   onHitsUpdated: PropTypes.func,
   onLoadMoreClick: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
@@ -24,7 +24,6 @@ const defaultProps = {
   error: undefined,
   hits: Immutable.List(),
   isPending: false,
-  offset: 0,
   onHitsUpdated: () => undefined,
   onLoadMoreClick: () => undefined,
   showLoadMore: false,
@@ -100,7 +99,6 @@ export default class SearchResultList extends Component {
   renderHits() {
     const {
       error,
-      offset,
       params,
       hits,
       isPending,
@@ -116,15 +114,16 @@ export default class SearchResultList extends Component {
     }
 
     const gatewayUrl = config.get('gatewayUrl');
+    const pageSize = calculateSearchPageSize();
 
     return hits.map((result, index) => (
       <SearchResultTile
         gatewayUrl={gatewayUrl}
+        loadImageImmediately={index < pageSize}
         index={index}
         key={result.getIn(['_source', 'ecm:name'])}
         params={params}
         result={result}
-        searchOffset={offset}
       />
     ));
   }

@@ -9,14 +9,13 @@ import SearchResultStats from './SearchResultStats';
 import SortSelect from '../entry/SortSelectContainer';
 import config from '../../../config';
 import { SORT_ID } from '../../../constants/ids';
+import { calculateSearchPageSize, tileHeight } from '../../../helpers/searchDimensions';
 import styles from '../../../../styles/cspace/SearchResultPanel.css';
-import cssDimensions from '../../../../styles/dimensions.css';
 
 const propTypes = {
   error: PropTypes.instanceOf(Error),
   isPending: PropTypes.bool,
   nextOffset: PropTypes.number,
-  offset: PropTypes.number,
   onHitsUpdated: PropTypes.func,
   result: PropTypes.instanceOf(Immutable.Map),
   params: PropTypes.instanceOf(Immutable.Map),
@@ -28,30 +27,11 @@ const defaultProps = {
   error: undefined,
   isPending: false,
   nextOffset: undefined,
-  offset: undefined,
   onHitsUpdated: undefined,
   params: Immutable.Map(),
   result: undefined,
   search: () => undefined,
   setSearchPageSize: () => undefined,
-};
-
-const {
-  searchResultTileWidth: cssTileWidth,
-  searchResultTileBodyHeight: cssTileBodyHeight,
-} = cssDimensions;
-
-const tileWidth = parseInt(cssTileWidth, 10);
-const tileBodyHeight = parseInt(cssTileBodyHeight, 10);
-const tileHeight = tileWidth + tileBodyHeight;
-
-const calculateSearchPageSize = () => {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  const ratio = window.devicePixelRatio || 1;
-  const pageSize = ((width / tileWidth) * (height / tileHeight + 2)) / ratio;
-
-  return Math.max(Math.ceil(pageSize), 12);
 };
 
 export default class SearchResultPanel extends Component {
@@ -140,7 +120,6 @@ export default class SearchResultPanel extends Component {
       error,
       isPending,
       nextOffset,
-      offset,
       onHitsUpdated,
       params,
       result,
@@ -167,7 +146,6 @@ export default class SearchResultPanel extends Component {
         <SearchResultList
           error={error}
           isPending={isPending}
-          offset={offset}
           onHitsUpdated={onHitsUpdated}
           onLoadMoreClick={this.handleLoadMoreClick}
           params={params}

@@ -39,7 +39,6 @@ export default class SearchResultImage extends Component {
 
     this.state = {
       gatewayUrl: props.gatewayUrl,
-      mediaCsid: props.mediaCsid,
     };
 
     if (AbortController) {
@@ -87,7 +86,6 @@ export default class SearchResultImage extends Component {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         gatewayUrl,
-        mediaCsid,
       });
 
       this.init(referenceValue, mediaCsid, holdingInstitutions);
@@ -148,45 +146,79 @@ export default class SearchResultImage extends Component {
   }
 
   init(referenceValue, mediaCsid, holdingInstitutions) {
-    if (typeof mediaCsid === 'undefined') {
-      const institutions = holdingInstitutions.filter((value) => !!value);
+    if (typeof mediaCsid !== 'undefined') {
+      this.setState({
+        mediaCsid,
+      });
 
-      if (institutions.size > 0) {
-        const findImage = institutions.reduce((promise, institution) => promise.catch(() => {
-          const instShortId = getItemShortID(institution);
-          const instGatewayUrl = config.get(['institutions', instShortId, 'gatewayUrl']);
-          const instIndexName = config.get(['institutions', instShortId, 'esIndexName']);
-
-          if (!instGatewayUrl) {
-            return Promise.reject();
-          }
-
-          return (
-            this.getMediaCsid(instGatewayUrl, instIndexName, referenceValue)
-              .then((instMediaCsid) => {
-                if (!instMediaCsid) {
-                  return Promise.reject();
-                }
-
-                return Promise.resolve({ instGatewayUrl, instMediaCsid });
-              })
-          );
-        }), Promise.reject());
-
-        findImage
-          .then(({ instGatewayUrl, instMediaCsid }) => {
-            this.setState({
-              gatewayUrl: instGatewayUrl,
-              mediaCsid: instMediaCsid,
-            });
-          })
-          .catch(() => {});
-      } else {
-        this.setState({
-          mediaCsid: null,
-        });
-      }
+      return;
     }
+
+    // Attempt to resove a mediaCsid from holding instutitions. This is really only used by the
+    // materials browser. In other profiles, the media csid will have been received in the search
+    // result.
+
+    const cachedGatewayMediaCsid = window.sessionStorage.getItem(`image-${referenceValue}`);
+
+    if (cachedGatewayMediaCsid) {
+      const [cachedGatewayUrl, cachedMediaCsid] = cachedGatewayMediaCsid.split(',');
+
+      this.setState({
+        gatewayUrl: cachedGatewayUrl,
+        mediaCsid: cachedMediaCsid,
+      });
+
+      return;
+    }
+
+    const institutions = holdingInstitutions.filter((value) => !!value);
+
+    if (institutions.size === 0) {
+      this.setState({
+        mediaCsid: null,
+      });
+
+      return;
+    }
+
+    const findImage = institutions.reduce((promise, institution) => promise.catch(() => {
+      const instShortId = getItemShortID(institution);
+      const instGatewayUrl = config.get(['institutions', instShortId, 'gatewayUrl']);
+      const instIndexName = config.get(['institutions', instShortId, 'esIndexName']);
+
+      if (!instGatewayUrl) {
+        return Promise.reject();
+      }
+
+      return (
+        this.getMediaCsid(instGatewayUrl, instIndexName, referenceValue)
+          .then((instMediaCsid) => {
+            if (!instMediaCsid) {
+              return Promise.reject();
+            }
+
+            return Promise.resolve({ instGatewayUrl, instMediaCsid });
+          })
+      );
+    }), Promise.reject());
+
+    findImage
+      .then(({ instGatewayUrl, instMediaCsid }) => {
+        try {
+          window.sessionStorage.setItem(
+            `image-${referenceValue}`,
+            `${instGatewayUrl},${instMediaCsid}`,
+          );
+        } catch (err) {
+          // Ignore storage error.
+        }
+
+        this.setState({
+          gatewayUrl: instGatewayUrl,
+          mediaCsid: instMediaCsid,
+        });
+      })
+      .catch(() => {});
   }
 
   isInView() {

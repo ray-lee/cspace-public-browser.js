@@ -16,7 +16,7 @@ import {
 const mapStateToProps = (state) => ({
   error: getSearchError(state),
   isPending: isSearchPending(state),
-  offset: getSearchNextOffset(state),
+  nextOffset: getSearchNextOffset(state),
   result: getSearchResult(state),
 });
 

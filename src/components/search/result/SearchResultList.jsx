@@ -2,24 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import SearchError from './SearchError';
+import SearchLoadMore from './SearchLoadMore';
 import SearchPending from './SearchPending';
 import SearchResultTile from './SearchResultTile';
 import config from '../../../config';
+import { calculateSearchPageSize } from '../../../helpers/searchDimensions';
 import styles from '../../../../styles/cspace/SearchResultList.css';
 
 const propTypes = {
+  error: PropTypes.instanceOf(Error),
   hits: PropTypes.instanceOf(Immutable.List),
   isPending: PropTypes.bool,
-  offset: PropTypes.number,
   onHitsUpdated: PropTypes.func,
+  onLoadMoreClick: PropTypes.func,
   params: PropTypes.instanceOf(Immutable.Map).isRequired,
+  showLoadMore: PropTypes.bool,
 };
 
 const defaultProps = {
+  error: undefined,
   hits: Immutable.List(),
   isPending: false,
-  offset: 0,
   onHitsUpdated: () => undefined,
+  onLoadMoreClick: () => undefined,
+  showLoadMore: false,
 };
 
 const messages = defineMessages({
@@ -45,6 +52,36 @@ export default class SearchResultList extends Component {
     }
   }
 
+  renderError() {
+    const {
+      error,
+    } = this.props;
+
+    if (!error) {
+      return undefined;
+    }
+
+    return (
+      <SearchError error={error} />
+    );
+  }
+
+  renderLoadMore() {
+    const {
+      isPending,
+      onLoadMoreClick,
+      showLoadMore,
+    } = this.props;
+
+    if (!showLoadMore || isPending) {
+      return undefined;
+    }
+
+    return (
+      <SearchLoadMore onClick={onLoadMoreClick} />
+    );
+  }
+
   renderPending() {
     const {
       isPending,
@@ -61,12 +98,13 @@ export default class SearchResultList extends Component {
 
   renderHits() {
     const {
+      error,
       params,
       hits,
       isPending,
     } = this.props;
 
-    if (hits.size === 0 && !isPending) {
+    if (hits.size === 0 && !isPending && !error) {
       return (
         <p>
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
@@ -76,10 +114,12 @@ export default class SearchResultList extends Component {
     }
 
     const gatewayUrl = config.get('gatewayUrl');
+    const pageSize = calculateSearchPageSize();
 
     return hits.map((result, index) => (
       <SearchResultTile
         gatewayUrl={gatewayUrl}
+        loadImageImmediately={index < pageSize}
         index={index}
         key={result.getIn(['_source', 'ecm:name'])}
         params={params}
@@ -90,9 +130,11 @@ export default class SearchResultList extends Component {
 
   render() {
     return (
-      <div className={styles.common} ref={this.domNode}>
+      <div className={styles.common}>
         {this.renderHits()}
+        {this.renderLoadMore()}
         {this.renderPending()}
+        {this.renderError()}
       </div>
     );
   }

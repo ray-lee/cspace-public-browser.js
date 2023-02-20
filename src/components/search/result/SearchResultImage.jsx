@@ -1,4 +1,4 @@
-/* global fetch, AbortController */
+/* global fetch, window, AbortController */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -12,12 +12,14 @@ import styles from '../../../../styles/cspace/SearchResultImage.css';
 const propTypes = {
   gatewayUrl: PropTypes.string.isRequired,
   holdingInstitutions: PropTypes.instanceOf(Immutable.List),
+  loadImageImmediately: PropTypes.bool,
   mediaCsid: PropTypes.string,
   referenceValue: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
   holdingInstitutions: Immutable.List(),
+  loadImageImmediately: false,
   mediaCsid: undefined,
 };
 
@@ -32,9 +34,12 @@ export default class SearchResultImage extends Component {
   constructor(props) {
     super();
 
+    this.handleScroll = this.handleScroll.bind(this);
+
+    this.ref = React.createRef();
+
     this.state = {
       gatewayUrl: props.gatewayUrl,
-      mediaCsid: props.mediaCsid,
     };
 
     if (AbortController) {
@@ -45,11 +50,18 @@ export default class SearchResultImage extends Component {
   componentDidMount() {
     const {
       holdingInstitutions,
+      loadImageImmediately,
       mediaCsid,
       referenceValue,
     } = this.props;
 
-    this.init(referenceValue, mediaCsid, holdingInstitutions);
+    window.setTimeout(() => {
+      if (this.isInView()) {
+        this.init(referenceValue, mediaCsid, holdingInstitutions);
+      } else {
+        window.addEventListener('scroll', this.handleScroll);
+      }
+    }, loadImageImmediately ? 0 : config.get('imageLoadDelay'));
   }
 
   componentDidUpdate(prevProps) {
@@ -75,7 +87,6 @@ export default class SearchResultImage extends Component {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         gatewayUrl,
-        mediaCsid,
       });
 
       this.init(referenceValue, mediaCsid, holdingInstitutions);
@@ -85,6 +96,26 @@ export default class SearchResultImage extends Component {
   componentWillUnmount() {
     if (this.abortController) {
       this.abortController.abort();
+    }
+
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll() {
+    if (this.isInView()) {
+      window.setTimeout(() => {
+        if (this.isInView()) {
+          const {
+            holdingInstitutions,
+            mediaCsid,
+            referenceValue,
+          } = this.props;
+
+          window.removeEventListener('scroll', this.handleScroll);
+
+          this.init(referenceValue, mediaCsid, holdingInstitutions);
+        }
+      }, config.get('imageLoadDelay'));
     }
   }
 
@@ -116,45 +147,94 @@ export default class SearchResultImage extends Component {
   }
 
   init(referenceValue, mediaCsid, holdingInstitutions) {
-    if (typeof mediaCsid === 'undefined') {
-      const institutions = holdingInstitutions.filter((value) => !!value);
+    if (typeof mediaCsid !== 'undefined') {
+      this.setState({
+        mediaCsid,
+      });
 
-      if (institutions.size > 0) {
-        const findImage = institutions.reduce((promise, institution) => promise.catch(() => {
-          const instShortId = getItemShortID(institution);
-          const instGatewayUrl = config.get(['institutions', instShortId, 'gatewayUrl']);
-          const instIndexName = config.get(['institutions', instShortId, 'esIndexName']);
-
-          if (!instGatewayUrl) {
-            return Promise.reject();
-          }
-
-          return (
-            this.getMediaCsid(instGatewayUrl, instIndexName, referenceValue)
-              .then((instMediaCsid) => {
-                if (!instMediaCsid) {
-                  return Promise.reject();
-                }
-
-                return Promise.resolve({ instGatewayUrl, instMediaCsid });
-              })
-          );
-        }), Promise.reject());
-
-        findImage
-          .then(({ instGatewayUrl, instMediaCsid }) => {
-            this.setState({
-              gatewayUrl: instGatewayUrl,
-              mediaCsid: instMediaCsid,
-            });
-          })
-          .catch(() => {});
-      } else {
-        this.setState({
-          mediaCsid: null,
-        });
-      }
+      return;
     }
+
+    // Attempt to resove a mediaCsid from holding instutitions. This is really only used by the
+    // materials browser. In other profiles, the media csid will have been received in the search
+    // result.
+
+    const cachedGatewayMediaCsid = window.sessionStorage.getItem(`image-${referenceValue}`);
+
+    if (cachedGatewayMediaCsid) {
+      const [cachedGatewayUrl, cachedMediaCsid] = cachedGatewayMediaCsid.split(',');
+
+      this.setState({
+        gatewayUrl: cachedGatewayUrl,
+        mediaCsid: cachedMediaCsid,
+      });
+
+      return;
+    }
+
+    const institutions = holdingInstitutions.filter((value) => !!value);
+
+    if (institutions.size === 0) {
+      this.setState({
+        mediaCsid: null,
+      });
+
+      return;
+    }
+
+    const findImage = institutions.reduce((promise, institution) => promise.catch(() => {
+      const instShortId = getItemShortID(institution);
+      const instGatewayUrl = config.get(['institutions', instShortId, 'gatewayUrl']);
+      const instIndexName = config.get(['institutions', instShortId, 'esIndexName']);
+
+      if (!instGatewayUrl) {
+        return Promise.reject();
+      }
+
+      return (
+        this.getMediaCsid(instGatewayUrl, instIndexName, referenceValue)
+          .then((instMediaCsid) => {
+            if (!instMediaCsid) {
+              return Promise.reject();
+            }
+
+            return Promise.resolve({ instGatewayUrl, instMediaCsid });
+          })
+      );
+    }), Promise.reject());
+
+    findImage
+      .then(({ instGatewayUrl, instMediaCsid }) => {
+        try {
+          window.sessionStorage.setItem(
+            `image-${referenceValue}`,
+            `${instGatewayUrl},${instMediaCsid}`,
+          );
+        } catch (err) {
+          // Ignore storage error.
+        }
+
+        this.setState({
+          gatewayUrl: instGatewayUrl,
+          mediaCsid: instMediaCsid,
+        });
+      })
+      .catch(() => {});
+  }
+
+  isInView() {
+    const domNode = this.ref.current;
+
+    if (domNode) {
+      const rect = domNode.getBoundingClientRect();
+
+      return (
+        rect.top >= 0
+        && rect.top < window.innerHeight
+      );
+    }
+
+    return false;
   }
 
   render() {
@@ -186,7 +266,7 @@ export default class SearchResultImage extends Component {
     }
 
     return (
-      <div className={styles.common} style={style} />
+      <div className={styles.common} style={style} ref={this.ref} />
     );
   }
 }

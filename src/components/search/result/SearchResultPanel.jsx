@@ -7,14 +7,15 @@ import SearchParamList from './SearchParamList';
 import SearchResultList from './SearchResultList';
 import SearchResultStats from './SearchResultStats';
 import SortSelect from '../entry/SortSelectContainer';
+import config from '../../../config';
 import { SORT_ID } from '../../../constants/ids';
+import { calculateSearchPageSize, tileHeight } from '../../../helpers/searchDimensions';
 import styles from '../../../../styles/cspace/SearchResultPanel.css';
-import cssDimensions from '../../../../styles/dimensions.css';
 
 const propTypes = {
   error: PropTypes.instanceOf(Error),
   isPending: PropTypes.bool,
-  offset: PropTypes.number,
+  nextOffset: PropTypes.number,
   onHitsUpdated: PropTypes.func,
   result: PropTypes.instanceOf(Immutable.Map),
   params: PropTypes.instanceOf(Immutable.Map),
@@ -25,7 +26,7 @@ const propTypes = {
 const defaultProps = {
   error: undefined,
   isPending: false,
-  offset: undefined,
+  nextOffset: undefined,
   onHitsUpdated: undefined,
   params: Immutable.Map(),
   result: undefined,
@@ -33,28 +34,11 @@ const defaultProps = {
   setSearchPageSize: () => undefined,
 };
 
-const {
-  searchResultTileWidth: cssTileWidth,
-  searchResultTileBodyHeight: cssTileBodyHeight,
-} = cssDimensions;
-
-const tileWidth = parseInt(cssTileWidth, 10);
-const tileBodyHeight = parseInt(cssTileBodyHeight, 10);
-const tileHeight = tileWidth + tileBodyHeight;
-
-const calculateSearchPageSize = () => {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  const ratio = window.devicePixelRatio || 1;
-  const pageSize = ((width / tileWidth) * (height / tileHeight + 2)) / ratio;
-
-  return Math.max(Math.ceil(pageSize), 12);
-};
-
 export default class SearchResultPanel extends Component {
   constructor() {
     super();
 
+    this.handleLoadMoreClick = this.handleLoadMoreClick.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
 
     this.ref = React.createRef();
@@ -90,25 +74,35 @@ export default class SearchResultPanel extends Component {
     window.removeEventListener('scroll', this.handleScroll, false);
   }
 
+  handleLoadMoreClick() {
+    this.search();
+  }
+
   handleScroll() {
     const {
-      search,
+      nextOffset,
     } = this.props;
 
-    const rect = this.ref.current.getBoundingClientRect();
-    const bottomOffset = rect.bottom - window.innerHeight;
+    if (nextOffset < config.get('pageAutoLoadLimit')) {
+      const {
+        search,
+      } = this.props;
 
-    if (bottomOffset <= tileHeight) {
-      search();
+      const rect = this.ref.current.getBoundingClientRect();
+      const bottomOffset = rect.bottom - window.innerHeight;
+
+      if (bottomOffset <= tileHeight) {
+        search(config.get('pageLoadDelay'));
+      }
     }
   }
 
-  search() {
+  search(fetchDelay) {
     const {
       search,
     } = this.props;
 
-    search();
+    search(fetchDelay);
   }
 
   renderError() {
@@ -123,12 +117,20 @@ export default class SearchResultPanel extends Component {
 
   renderResult() {
     const {
+      error,
       isPending,
-      offset,
+      nextOffset,
       onHitsUpdated,
       params,
       result,
     } = this.props;
+
+    const hitCount = result && result.get('total');
+    const hits = result && result.get('hits');
+
+    const showLoadMore = result
+      && hits.size < hitCount
+      && nextOffset >= config.get('pageAutoLoadLimit');
 
     return (
       <>
@@ -136,30 +138,28 @@ export default class SearchResultPanel extends Component {
           <SearchParamList params={params} />
 
           <div>
-            <SearchResultStats count={result && result.get('total')} />
+            <SearchResultStats count={hitCount} />
             <SortSelect value={params.get(SORT_ID)} />
           </div>
         </header>
 
         <SearchResultList
+          error={error}
           isPending={isPending}
-          offset={offset}
           onHitsUpdated={onHitsUpdated}
+          onLoadMoreClick={this.handleLoadMoreClick}
           params={params}
-          hits={result && result.get('hits')}
+          hits={hits}
+          showLoadMore={showLoadMore}
         />
       </>
     );
   }
 
   render() {
-    const {
-      error,
-    } = this.props;
-
     return (
       <div className={styles.common} ref={this.ref}>
-        {error ? this.renderError() : this.renderResult()}
+        {this.renderResult()}
       </div>
     );
   }

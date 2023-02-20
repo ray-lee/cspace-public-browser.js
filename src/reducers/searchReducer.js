@@ -56,6 +56,7 @@ const handleSearchFulfilled = (state, action) => {
   }
 
   return state
+    .set('offset', offset)
     .set('nextOffset', offset + pageSize)
     .delete('pending')
     .set('result', nextResult)
@@ -88,6 +89,7 @@ export default (state = Immutable.Map(), action) => {
 };
 
 export const getError = (state) => state.get('error');
+export const getOffset = (state) => state.get('offset') || 0;
 export const getNextOffset = (state) => state.get('nextOffset') || 0;
 export const getPageSize = (state) => state.get('pageSize');
 export const getParams = (state) => state.get('params');

@@ -1,6 +1,6 @@
 import React from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import styles from '../../../../styles/cspace/SearchPending.css';
+import styles from '../../../../styles/cspace/SearchStatus.css';
 
 const messages = defineMessages({
   loading: {

@@ -72,15 +72,15 @@ export default {
   // scrolled offscreen before the time elapses, the image is not loaded until the result is
   // scrolled into view again. This applies only to pages of results after the first. Images for
   // the first page are fetched immediately.
-  imageLoadDelay: 1000,
+  imageLoadDelay: 2000,
 
   // Time in milliseconds to wait before fetching another page of search results, when the result
   // list is scrolled to the bottom.
-  pageLoadDelay: 500,
+  pageLoadDelay: 1000,
 
   // The maximum number of results to automatically load while scrolling. Once this number of
   // results has been retrieved, the user must click a button to load more results.
-  pageAutoLoadLimit: 100,
+  pageAutoLoadLimit: 80,
 
   defaultQuery: {
     term: {

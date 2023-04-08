@@ -1,8 +1,8 @@
 # cspace-public-browser
 
 [![npm package](https://img.shields.io/npm/v/cspace-public-browser.svg)](https://www.npmjs.com/package/cspace-public-browser)
-[![build status](https://travis-ci.org/collectionspace/cspace-public-browser.js.svg?branch=master)](https://travis-ci.org/collectionspace/cspace-public-browser.js)
-[![coverage status](https://coveralls.io/repos/github/collectionspace/cspace-public-browser.js/badge.svg?branch=master)](https://coveralls.io/github/collectionspace/cspace-public-browser.js?branch=master)
+[![continuous integration](https://github.com/collectionspace/cspace-public-browser.js/actions/workflows/ci-js.yml/badge.svg?branch=master&event=push)](https://github.com/collectionspace/cspace-public-browser.js/actions/workflows/ci-js.yml)
+
 
 The CollectionSpace public browser.
 

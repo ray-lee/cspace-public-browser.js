@@ -123,6 +123,9 @@ export default {
 
   filters: {
     fields: {
+      material: {
+        field: 'collectionobjects_common:materialGroupList.material',
+      },
       materialTermAttributionContributingOrganization: {
         field: 'collectionspace_denorm:holdingInstitutions.displayName',
         messages: defineMessages({
@@ -565,6 +568,9 @@ export default {
 
   detailFields: {
     fields: {
+      material: {
+        field: 'collectionobjects_common:materialGroupList',
+      },
       featuredCollectionGroupList: {
         field: 'materials_common:featuredCollectionGroupList',
         format: listOf((valueAt({

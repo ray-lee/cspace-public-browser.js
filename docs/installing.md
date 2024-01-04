@@ -4,7 +4,7 @@ The CollectionSpace public browser application can be added to a web page with a
 
 ## Adding the application to a web page
 
-The public browser is a JavaScript application that can be loaded onto a web page, and configured to render into a container on the page. Typically, the page will be an HTML file named `index.html`, placed in some directory inside the server's web root.
+The public browser is a JavaScript application that can be loaded onto a web page, and configured to render into a container on the page. Typically, the page will be an HTML file named `index.html`, placed in some directory inside the server's document root.
 
 Load the application's JavaScript code by adding a `script` tag to the HTML. The JavaScript code for the application can be retrieved from a JavaScript CDN, such as [jsDelivr](https://www.jsdelivr.com/) or [UNPKG](https://www.unpkg.com/). For example, do load the JavaScript for version 1.5.1 of the public browser from jsDelivr, add the following tag to the HTML file:
 
@@ -39,12 +39,26 @@ Two configuration options are required:
 
 ## Configuring the web server
 
-The CollectionSpace public browser application runs as a "front controller". This means that if the application is added to a web page at e.g., http://mymuseum.org/cspace/collection, then any request to a subdirectory of http://mymuseum.org/cspace/collection should return the same HTML as http://mymuseum.org/cspace/collection. The web server must be configured to do this. In Apache, this can be done using the [FallbackResource](https://httpd.apache.org/docs/trunk/mod/mod_dir.html#fallbackresource) directive. For example:
+The CollectionSpace public browser application runs as a "front controller". This means that if the application is added to a web page at e.g., http://mymuseum.org/cspace/collection, then any request to a URL under http://mymuseum.org/cspace/collection should return the same HTML as http://mymuseum.org/cspace/collection. The web server must be configured to do this. In Apache, this can be done using the [FallbackResource](https://httpd.apache.org/docs/trunk/mod/mod_dir.html#fallbackresource) directive. For example:
 
 ```
 <Directory "/cspace/collection">
-    FallbackResource /index.html
+    FallbackResource /cspace/collection/index.html
 </Directory>
 ```
 
 Other web servers will vary.
+
+## Customizing styling
+
+Usually you'll need to add some CSS styling rules to make a seamless integration between your web site and the CollectionSpace browser application. The exact rules will depend on your web site's existing styling rules, and your preference for how the public browser looks. Writing these rules will require knowledge of HTML, CSS, and your web browser's developer tools.
+
+In some cases, you'll need to override styling rules from your web site, and in other cases, you'll have to override styling from the CollectionSpace browser. To help target these rules, the following classes will appear on the `body` tag of a CollectionSpace browser page:
+
+- `.collectionspace-template-default`: Indicates that this page is a CollectionSpace browser.
+
+- `.has-cspace-SearchResultPage`: Indicates that this page contains a CollectionSpace browser search result listing.
+
+- `.has-cspace-DetailPage`: Indicates that this page contains a CollectionSpace browser detail page.
+
+To determine the exact selectors necessary to override a style, use your browser's developer tools to examine the structure of the HTML page, and the CSS rules that apply to the element you're interested in styling. Then write a more specific selector, using one of the above classes, to override any existing rules.

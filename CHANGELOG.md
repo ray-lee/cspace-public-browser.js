@@ -1,3 +1,7 @@
+## v2.1.0
+
+- Filter order and size are now configurable.
+
 ## v2.0.0
 
 Version 2.0.0 requires CollectionSpace 8.0.

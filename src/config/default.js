@@ -113,6 +113,9 @@ export default {
     formatValue: displayName,
   },
 
+  filterOrder: { _term: 'asc' },
+  filterSize: 300,
+
   filters: {
     fields: {
       objectName: {

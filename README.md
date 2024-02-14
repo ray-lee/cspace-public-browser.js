@@ -8,9 +8,9 @@ The CollectionSpace public browser.
 
 ## Installation
 
-### For CollectionSpace Administrators
+### For Web Site Administrators
 
-The CollectionSpace public browser is a JavaScript application that runs in a web browser. To install the application in a WordPress site, use the [wp-collectionspace](https://github.com/collectionspace/wp-collectionspace) WordPress plugin.
+The CollectionSpace public browser is a JavaScript application that runs in a web browser. To add the application to a web site, see the [installation instructions](./docs/installing.md).
 
 ### For CollectionSpace Developers
 

@@ -31,11 +31,17 @@ The application must be initialized by adding some JavaScript code that calls an
 </script>
 ```
 
-Two configuration options are required:
+Two configuration settings are required:
 
 - `basename` - This should be set to the path to the web page containing the public browser, as seen in the URL to the page (which typically would also be the path to the index.html file, from the web root directory). For example, if the public browser is being added to a web page located at http://mymuseum.org/cspace/collection/index.html, then `basename` should be set to `/cspace/collection`.
 
 - `gatewayUrl` - This should be set to the URL of a CollectionSpace public gateway that has access to the collection data. Typically, this is something like `https://{cspace server hostname}/gateway/{tenant short name}`. This can vary depending on how the CollectionSpace back-end has been configured, so verify the gateway URL with your CollectionSpace administrator.
+
+One other setting is required if you're using a CollectionSpace community-of-practice profile:
+
+- `baseConfig` - This should be set to the name of the profile.
+
+See the [configuration reference](./configuration/README.md) for more information about these and other settings.
 
 ## Configuring the web server
 

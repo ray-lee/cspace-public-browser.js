@@ -6,11 +6,13 @@ The CollectionSpace public browser application can be added to a web page with a
 
 The public browser is a JavaScript application that can be loaded onto a web page, and configured to render into a container on the page. Typically, the page will be an HTML file named `index.html`, placed in some directory inside the server's document root.
 
-Load the application's JavaScript code by adding a `script` tag to the HTML. The JavaScript code for the application can be retrieved from a JavaScript CDN, such as [jsDelivr](https://www.jsdelivr.com/) or [UNPKG](https://www.unpkg.com/). For example, do load the JavaScript for version 1.5.1 of the public browser from jsDelivr, add the following tag to the HTML file:
+Load the application's JavaScript code by adding a `script` tag to the HTML. The JavaScript code for the application can be retrieved from a JavaScript CDN, such as [jsDelivr](https://www.jsdelivr.com/) or [UNPKG](https://www.unpkg.com/). For example, to load the JavaScript for version 2.0.0 of the public browser from jsDelivr, add the following tag to the HTML file:
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/@collectionspace/cspace-public-browser@1.5.1/dist/cspacePublicBrowser.min.js "></script>
+<script src="https://cdn.jsdelivr.net/npm/@collectionspace/cspace-public-browser@2.0.0/dist/cspacePublicBrowser.min.js"></script>
 ```
+
+Typically, you'll want to use the latest version of the public browser that is compatible with the version of CollectionSpace you're using. Version compatibility is noted in the [changelog](../CHANGELOG.md). A major release of the public brower (when the first digit in the version number changes) may indicate that a newer version of the CollectionSpace server is required. Minor releases and bugfix releases of the public browser will not change compatibility with CollectionSpace.
 
 Add a container element to the page. The public browser will be rendered into this element. Typically, the container element will be a `div` whose `id` is `cspace-browser`. For example:
 

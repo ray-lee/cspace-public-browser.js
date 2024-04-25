@@ -252,15 +252,15 @@ export default {
           },
         }),
       },
-      subject: {
-        field: 'collectionspace_denorm:contentSubjectList.subject',
+      contentConcept: {
+        field: 'collectionobjects_common:contentConcepts.displayName',
         messages: defineMessages({
           label: {
-            id: 'filter.subject.label',
+            id: 'filter.contentConcept.label',
             defaultMessage: 'Subject',
           },
           shortLabel: {
-            id: 'filter.subject.shortLabel',
+            id: 'filter.contentConcept.shortLabel',
             defaultMessage: 'Subject',
           },
         }),
@@ -331,7 +331,7 @@ export default {
         }),
         fields: [
           'material',
-          'subject',
+          'contentConcept',
           'color',
         ],
       },
@@ -528,27 +528,17 @@ export default {
           roleFieldName: 'techniqueType',
         })),
       },
-      subject: {
+      contentConcept: {
         messages: defineMessages({
           label: {
-            id: 'detailField.subject.label',
+            id: 'detailField.contentConcept.label',
             defaultMessage: 'Subject',
           },
         }),
-        field: 'collectionspace_denorm:contentSubjectList',
-        format: listOf(valueAt({
-          path: 'subject',
-          format: filterLink({}),
+        field: 'collectionobjects_common:contentConcepts',
+        format: listOf(filterLink({
+          filterValueFormat: displayName,
         })),
-      },
-      contentDescription: {
-        messages: defineMessages({
-          label: {
-            id: 'detailField.contentDescription.label',
-            defaultMessage: 'Content Description',
-          },
-        }),
-        field: 'collectionobjects_common:contentDescription',
       },
       measuredPart: {
         messages: defineMessages({
@@ -636,8 +626,7 @@ export default {
         fields: [
           'material',
           'technique',
-          'subject',
-          'contentDescription',
+          'contentConcept',
           'measuredPart',
           'creditLine',
         ],

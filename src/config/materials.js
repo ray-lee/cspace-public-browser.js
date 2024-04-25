@@ -4,7 +4,6 @@ import { getItemShortID } from 'cspace-refname';
 import {
   displayName,
   filterLink,
-  head,
   linkText,
   inlineList,
   listOf,
@@ -1071,10 +1070,9 @@ export default {
             linkValue: false,
           })),
         },
-        objectCount: {
+        numberOfObjects: {
           label: 'Holdings',
-          field: 'collectionobjects_common:objectCountGroupList',
-          format: head(valueAt({ path: 'objectCount' })),
+          field: 'collectionobjects_common:numberOfObjects',
         },
         objectStatusList: {
           label: 'Type',
@@ -1140,7 +1138,7 @@ export default {
         },
         group_sample_holdings: {
           fields: [
-            'objectCount',
+            'numberOfObjects',
             'objectStatusList',
           ],
           className: 'inline',

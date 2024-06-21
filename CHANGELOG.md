@@ -1,3 +1,7 @@
+## v3.1.0
+
+- Clicking an image on the detail page opens it in a new tab.
+
 ## v3.0.0
 
 Version 3.0.0 requires CollectionSpace 8.0.

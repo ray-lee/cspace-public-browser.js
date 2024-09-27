@@ -5,7 +5,9 @@
   width: 100%;
   height: searchResultTileWidth;
   background-color: rgb(252, 252, 252);
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   box-sizing: border-box;
 }
 

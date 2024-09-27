@@ -35,5 +35,13 @@ export default {
         ],
       },
     },
+    layout: {
+      fields1: [
+        'group_production',
+        'group_id',
+        'group_description',
+        'group_rights',
+      ],
+    },
   },
 };
